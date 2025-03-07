@@ -33,7 +33,14 @@ class BukuTamuController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'role' => 'required|in:ortu,umum',
+            'idagama' => 'required|exists:tbl_agama,idagama',
+            'idsiswa' => 'nullable|exists:tbl_siswa,idsiswa',
+            'instansi' => 'nullable|string|max:255',
             'alamat' => 'required|string',
+            'kontak' => 'required|string|max:255',
+            'id_jabatan' => 'required|exists:tbl_jabatan,id',
+            'id_pegawai' => 'required|exists:tbl_pegawai,id',
             'keperluan' => 'required|string',
         ]);
 
@@ -41,7 +48,14 @@ class BukuTamuController extends Controller
         $bukutamu->update([
             'nama' => $request->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
+            'role' => $request->role,
+            'idagama' => $request->idagama,
+            'idsiswa' => $request->idsiswa,
+            'instansi' => $request->instansi,
             'alamat' => $request->alamat,
+            'kontak' => $request->kontak,
+            'id_jabatan' => $request->id_jabatan,
+            'id_pegawai' => $request->id_pegawai,
             'keperluan' => $request->keperluan,
         ]);
 

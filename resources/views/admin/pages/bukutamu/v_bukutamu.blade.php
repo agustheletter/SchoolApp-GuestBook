@@ -10,12 +10,12 @@
 @section('konten')
 
     @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     @endif
 
     <a href="{{ route('bukutamu.input') }}" type="button" class="btn btn-primary">
@@ -37,7 +37,7 @@
                 <th><center>Bertemu Dengan</center></th>
                 <th><center>Keperluan</center></th>
                 <th><center>Tanggal Kunjungan</center></th>
-                <th><center>Aksi</center></th>
+                <th><center>Action</center></th>
             </tr>
         </thead>
         <tbody>
@@ -66,14 +66,12 @@
                     <td align="center">
                         <a href="{{ route('bukutamu.edit', $tamu->id) }}" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit"></i>
-                            Edit
                         </a>
                         <form action="{{ route('bukutamu.destroy', $tamu->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">
                                 <i class="fas fa-trash-alt"></i>
-                                Delete
                             </button>
                         </form>
                     </td>
@@ -81,4 +79,10 @@
             @endforeach
         </tbody>
     </table>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#table-bukutamu').DataTable();
+        });
+    </script>
 @endsection
