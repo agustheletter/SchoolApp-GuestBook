@@ -15,7 +15,7 @@ use App\Models\JenisBayarDetailModel;
 
 use Illuminate\Support\Facades\DB;
 
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class MutasiKelasController extends Controller
 {
@@ -26,16 +26,16 @@ class MutasiKelasController extends Controller
         // $thnajaran  = TahunAjaranModel::all();
         $thnajaranawal  = TahunAjaranModel::where('tbl_thnajaran.idthnajaran',Session::get('idthnajaran')-1)
         ->get();
-        
+
         $kelasawal      = KelasDetailModel::where('tbl_kelasdetail.idthnajaran',Session::get('idthnajaran')-1)
         ->get();
 
         // dd($kelasawal);
 
         // mengirim data siswa kelas ke view siswa kelas
-        return view('admin.pages.mutasikelas.v_mutasikelas', 
+        return view('admin.pages.mutasikelas.v_mutasikelas',
             [
-                'thnajaranawal' => $thnajaranawal, 
+                'thnajaranawal' => $thnajaranawal,
                 'kelasawal' => $kelasawal,
             ]);
     }
@@ -49,7 +49,7 @@ class MutasiKelasController extends Controller
         $idkelasdetailawal = $request->carikelas;
 
         $idthnajaran=Session::get('idthnajaran');
-    
+
         //menampilkan tahun ajaran sebelumnya
         $thnajaranawal  = TahunAjaranModel::where('tbl_thnajaran.idthnajaran',Session::get('idthnajaran')-1)
         ->get();
@@ -99,7 +99,7 @@ class MutasiKelasController extends Controller
 
             ->get();
         //AKHIR ambil data siswa dari kelas yang dipilih pada tahun ajjaran sebelumnya
-        
+
         // dd($siswakelasawal);
 
 
@@ -109,12 +109,12 @@ class MutasiKelasController extends Controller
         ->get();
 
         // dd($kelastujuan);
-        
+
         // mengirim data siswa kelas ke view siswa kelas
-        return view('admin.pages.mutasikelas.v_mutasikelascari', 
+        return view('admin.pages.mutasikelas.v_mutasikelascari',
             [
-                'siswakelasawal' => $siswakelasawal, 
-                'thnajaranawal' => $thnajaranawal, 
+                'siswakelasawal' => $siswakelasawal,
+                'thnajaranawal' => $thnajaranawal,
                 'kelasawal1' => $kelasawal1,
                 'kelasawal2' => $kelasawal2,
                 'kelastujuan' => $kelastujuan,
@@ -129,7 +129,7 @@ class MutasiKelasController extends Controller
     public function mutasikelasproses(Request $request)
     {
         // dd($request->all());
-    
+
         //ambil idkelasdetail awal pertama dari form halaman mutasi kelas cari
         $idkelasdetailawal1 = $request->carikelasawal;
         // dd($idkelasdetailawal1);
@@ -147,7 +147,7 @@ class MutasiKelasController extends Controller
         ->get();
 
         //Ambil tahun ajaran BERJALAN
-        $idthnajaran = Session::get('idthnajaran'); 
+        $idthnajaran = Session::get('idthnajaran');
 
         //ambil idkelasdetail tujuan yang terpilih sebelumnya
         $idkelasdetailtujuan    = $request->carikelastujuan;
@@ -216,7 +216,7 @@ class MutasiKelasController extends Controller
 
             ->get();
         //AKHIR ambil data siswa dari kelas yang dipilih pada tahun ajjaran sebelumnya
-    
+
 
 
 
@@ -230,18 +230,18 @@ class MutasiKelasController extends Controller
 
         // mengirim data siswa kelas ke view siswa kelas
         // dd($siswakelas);
-        return view('admin.pages.mutasikelas.v_mutasikelasproses', 
+        return view('admin.pages.mutasikelas.v_mutasikelasproses',
             [
-                'siswakelasproses' => $siswakelasproses, 
-                'siswakelasawal' => $siswakelasawal, 
-                'thnajaranawal'=>$thnajaranawal, 
+                'siswakelasproses' => $siswakelasproses,
+                'siswakelasawal' => $siswakelasawal,
+                'thnajaranawal'=>$thnajaranawal,
                 'kelasawal1' => $kelasawal1,
                 'kelasawal2' => $kelasawal2,
                 'kelastujuan1'=>$kelastujuan1,
                 'kelastujuan2'=>$kelastujuan2,
                 // 'katakunci'=>$idkelasdetailtujuan,
             ]);
-        
+
         // AKHIR KIRIM DATA UNTUK DITAMPILKAN DI VIEW MUTASI KELAS PROSES
     }
     //===================AKHIR METHODE UNTUK MUTASI SIMPA KELAS SISWA TUJUAN================

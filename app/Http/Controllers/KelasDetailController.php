@@ -9,7 +9,8 @@ use App\Models\RuanganModel;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 
-use Session;
+use Illuminate\Support\Facades\Session;
+
 
 class KelasDetailController extends Controller
 {
@@ -26,17 +27,17 @@ class KelasDetailController extends Controller
         $datakelasdetail = KelasDetailModel::where('tbl_kelasdetail.idthnajaran',$idthnajaran)
         ->get();
 
-        //ambil data kelas untuk select data 
+        //ambil data kelas untuk select data
         $datakelas=KelasModel::all();
 
-        //ambil data guru untuk select data 
+        //ambil data guru untuk select data
         $dataguru=GuruModel::all();
 
         //ambil data ruangan untuk select data
         $dataruangan=RuanganModel::all();
 
         // mengirim data guru ke view guru
-        return view('admin.pages.master.v_kelasdetail', 
+        return view('admin.pages.master.v_kelasdetail',
             [
                 'kelasdetail' => $datakelasdetail,
                 // 'thnajaran' => $datathnajaran,

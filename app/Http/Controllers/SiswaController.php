@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
-// panggil model siswa
+use App\Models\AgamaModel;
 use App\Models\SiswaModel;
 
+// panggil model siswa
+use Illuminate\Http\Request;
+
 // panggil model Agama
-use App\Models\AgamaModel;
 use App\Models\SiswaKelasModel;
-// panggil model Tahun AJarab
 use App\Models\TahunAjaranModel;
+// panggil model Tahun AJarab
+use Illuminate\Support\Facades\DB;
 
 //panggil Class File
-use File;
+use Illuminate\Support\Facades\File;
 
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class SiswaController extends Controller
 {
@@ -46,7 +46,7 @@ class SiswaController extends Controller
     public function siswatambah(Request $request)
     {
         //dd($request->all());
-        $this->validate($request, [
+        $request->validate([
             //'idsiswa' => 'required',
             'nis' => 'required',
             'nisn' => 'required',
@@ -62,13 +62,13 @@ class SiswaController extends Controller
             'idthnajaran' => 'required'
         ]);
 
-        // menyimpan data file yang diupload ke variabel $file 
-        $filephoto = $request->file('photo'); 
-        $namafile = time() . "_" . $filephoto->getClientOriginalName(); 
-        
-        // isi dengan nama folder tempat kemana file diupload 
-        $tujuanupload = 'PhotoSiswa'; 
-        $filephoto->move($tujuanupload, $namafile); 
+        // menyimpan data file yang diupload ke variabel $file
+        $filephoto = $request->file('photo');
+        $namafile = time() . "_" . $filephoto->getClientOriginalName();
+
+        // isi dengan nama folder tempat kemana file diupload
+        $tujuanupload = 'PhotoSiswa';
+        $filephoto->move($tujuanupload, $namafile);
 
         //siswaModel::create([
         SiswaModel::create([
@@ -88,7 +88,7 @@ class SiswaController extends Controller
         ]);
 
         //dd($x);
-        //kembali ke halaman awal 
+        //kembali ke halaman awal
         return redirect('/siswa');
     }
     //====================AKHIR METHODE UNTUK TAMBAH siswa=================
@@ -97,8 +97,8 @@ class SiswaController extends Controller
     //====================AWAL METHODE UNTUK HAPUS siswa=================
     public function siswahapus($idsiswa)
     {
-        $siswa = SiswaModel::find($idsiswa); 
-        File::delete('PhotoSiswa/'.$siswa->photo); 
+        $siswa = SiswaModel::find($idsiswa);
+        File::delete('PhotoSiswa/'.$siswa->photo);
         $siswa->delete();
 
         return redirect()->back();
@@ -106,11 +106,11 @@ class SiswaController extends Controller
     //====================AKHIR METHODE UNTUK HAPUS siswa=================
 
 
-    
+
     //====================AWAL METHODE UNTUK EDIT siswa=================
     public function siswaedit($idsiswa, Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             //'idsiswa' => 'required',
             'nis' => 'required',
             'nisn' => 'required',
@@ -128,13 +128,13 @@ class SiswaController extends Controller
 
         $filephoto = $request->file('photo');
         if($filephoto){
-            // menyimpan data file yang diupload ke variabel $file 
-            
-            $namafile = time() . "_" . $filephoto->getClientOriginalName(); 
-            
-            // isi dengan nama folder tempat kemana file diupload 
-            $tujuanupload = 'PhotoSiswa'; 
-            $filephoto->move($tujuanupload, $namafile); 
+            // menyimpan data file yang diupload ke variabel $file
+
+            $namafile = time() . "_" . $filephoto->getClientOriginalName();
+
+            // isi dengan nama folder tempat kemana file diupload
+            $tujuanupload = 'PhotoSiswa';
+            $filephoto->move($tujuanupload, $namafile);
         }
 
         $siswa = siswaModel::find($idsiswa);
@@ -167,11 +167,11 @@ class SiswaController extends Controller
         // ]);
 
         //HAPUS PHOTO SEBELUMNYA SEBELUM DI EDIT
-        File::delete('PhotoSiswa/'.$siswa->photo); 
+        File::delete('PhotoSiswa/'.$siswa->photo);
         $siswa->photo = $namafile;
-    
+
         $siswa->save();
-    
+
         return redirect()->back();
     }
     //====================AKHIR METHODE UNTUK EDIT siswa=================
@@ -222,10 +222,10 @@ class SiswaController extends Controller
 
 
         // mengirim data siswa kelas ke view siswa kelas
-        return view('admin.pages.siswa.v_siswadetailcari', 
+        return view('admin.pages.siswa.v_siswadetailcari',
             [
-                // 'siswakelas' => $siswakelas, 
-                'siswa' => $siswa, 
+                // 'siswakelas' => $siswakelas,
+                'siswa' => $siswa,
                 'siswakelas' => $siswakelas,
                 'katakunci'=>$katakunci,
                 'kelassiswa'=>$kelassiswa,

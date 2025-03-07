@@ -23,7 +23,7 @@ use App\Models\BulanModel;
 use App\Models\JenisBayarDetailModel;
 use App\Models\JenisBayarModel;
 
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class DspController extends Controller
 {
@@ -51,19 +51,19 @@ class DspController extends Controller
     public function dspcari(Request $request)
     {
         // SELECT *
-        // FROM tbl_bayardetail 
-        // INNER JOIN tbl_bayar ON tbl_bayar.idbayar=tbl_bayardetail.idbayar 
-        // INNER JOIN tbl_siswa ON tbl_siswa.idsiswa=tbl_bayar.idsiswa 
-        // INNER JOIN users ON users.id=tbl_bayar.iduser 
-        // INNER JOIN tbl_periode ON tbl_periode.idperiode=tbl_bayardetail.idperiode 
-        // INNER JOIN tbl_jenisbayar ON tbl_jenisbayar.idperiode=tbl_periode.idperiode 
-        // INNER JOIN tbl_jenisbayardetail ON tbl_jenisbayardetail.idjenisbayar=tbl_jenisbayar.idjenisbayar 
+        // FROM tbl_bayardetail
+        // INNER JOIN tbl_bayar ON tbl_bayar.idbayar=tbl_bayardetail.idbayar
+        // INNER JOIN tbl_siswa ON tbl_siswa.idsiswa=tbl_bayar.idsiswa
+        // INNER JOIN users ON users.id=tbl_bayar.iduser
+        // INNER JOIN tbl_periode ON tbl_periode.idperiode=tbl_bayardetail.idperiode
+        // INNER JOIN tbl_jenisbayar ON tbl_jenisbayar.idperiode=tbl_periode.idperiode
+        // INNER JOIN tbl_jenisbayardetail ON tbl_jenisbayardetail.idjenisbayar=tbl_jenisbayar.idjenisbayar
         // INNER JOIN tbl_thnajaran ON tbl_thnajaran.idthnajaran=tbl_siswa.idthnmasuk
-        // WHERE 
-        // tbl_siswa.nis='001' 
-        // AND tbl_siswa.idthnmasuk=tbl_jenisbayardetail.idthnajaran 
+        // WHERE
+        // tbl_siswa.nis='001'
+        // AND tbl_siswa.idthnmasuk=tbl_jenisbayardetail.idthnajaran
         // AND tbl_bayardetail.idperiode='2';
-        
+
 
         $katakunci = $request->dspcari;
 
@@ -74,19 +74,19 @@ class DspController extends Controller
         ->get();
 
         //Header bayar DSP
-        // SELECT 
-        // *FROM tbl_siswa 
-        // INNER JOIN tbl_siswakelas ON tbl_siswakelas.idsiswa=tbl_siswa.idsiswa 
-        // INNER JOIN tbl_kelas ON tbl_kelas.idkelas=tbl_siswakelas.idkelas 
-        // INNER JOIN tbl_tingkat ON tbl_tingkat.idtingkat=tbl_kelas.idtingkat 
-        // INNER JOIN tbl_jenisbayardetail ON tbl_jenisbayardetail.idthnajaran=tbl_siswa.idthnmasuk  
-        // INNER JOIN tbl_thnajaran ON tbl_thnajaran.idthnajaran=tbl_siswa.idthnmasuk 
+        // SELECT
+        // *FROM tbl_siswa
+        // INNER JOIN tbl_siswakelas ON tbl_siswakelas.idsiswa=tbl_siswa.idsiswa
+        // INNER JOIN tbl_kelas ON tbl_kelas.idkelas=tbl_siswakelas.idkelas
+        // INNER JOIN tbl_tingkat ON tbl_tingkat.idtingkat=tbl_kelas.idtingkat
+        // INNER JOIN tbl_jenisbayardetail ON tbl_jenisbayardetail.idthnajaran=tbl_siswa.idthnmasuk
+        // INNER JOIN tbl_thnajaran ON tbl_thnajaran.idthnajaran=tbl_siswa.idthnmasuk
         // WHERE tbl_siswa.nis='001'
         // AND tbl_jenisbayardetail.idjenisbayar='DSP'
         // AND tbl_siswakelas.idthnajaran='3';
 
         $headerbayardsp = SiswaModel::
-        
+
         join('tbl_siswakelas','tbl_siswakelas.idsiswa','=','tbl_siswa.idsiswa')
         ->join('tbl_kelas','tbl_kelas.idkelas','=','tbl_siswakelas.idkelas')
         ->join('tbl_tingkat','tbl_tingkat.idtingkat','=','tbl_kelas.idtingkat')
@@ -134,7 +134,7 @@ class DspController extends Controller
     {
         $idbayarmax = BayarModel::max('idbayar');
         $idbayarmax++;
-        
+
         // dd($idbayarmax);
         // dd($request->all());
 
@@ -144,14 +144,14 @@ class DspController extends Controller
             'idsiswa' => 'required',
             'iduser' => 'required',
             'idthnajaran' => 'required',
-            
+
             //ke tbl_bayardetail
             // 'idperiode' => 'required',
             // 'idbulan' => 'required',
             'nominalbayar' => 'required|numeric'
 
         ]);
-        
+
         //insert ke table tbl_bayar
         BayarModel::create([
             'idbayar' =>$idbayarmax,
@@ -168,7 +168,7 @@ class DspController extends Controller
             'idbulan' => 0,
             'nominalbayar' => $request->nominalbayar,
         ]);
-	
+
         return redirect()->back();
     }
     //====================AKHIR METHODE UNTUK TAMBAH Pembayaran DSP=================

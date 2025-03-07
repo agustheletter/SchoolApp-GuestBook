@@ -1,8 +1,8 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ asset('template') }}/index3.html" class="brand-link">
-        <img src="{{ asset('template') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+    <a href="{{ asset('TemplateAdminLTE') }}/index3.html" class="brand-link">
+        <img src="{{ asset('TemplateAdminLTE') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Aplikasi Keuangan</span>
     </a>
@@ -138,7 +138,7 @@
                         </li>
                         <!--Akhir Kelas Detail-->
 
-                        
+
                     </ul>
                 </li>
                 <!--Akhir MASTER DATA-->
@@ -278,20 +278,51 @@
                             </a>
                         </li>
 
-                        
+
                     </ul>
                 </li>
                 <!--Akhir Pembayaran-->
 
+                <!--Awal Buku Tamu-->
+                {{-- <li class="nav-item">
+                    <a href="{{url('/bukutamu')}}" class="nav-link">
+                        <i class="nav-icon fas fa-book-open"></i>
+                        <p>
+                            Buku Tamu
+                        </p>
+                    </a>
+                </li> --}}
 
-                
-                
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-book-open"></i>
+                        <p>
+                            Buku Tamu
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">2</span>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="{{ route('bukutamu') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Buku Tamu</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('bukutamu.input') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Input Buku Tamu</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <!--Akhir Buku Tamu-->
 
 
-                
-
-
-                
 
 
 
@@ -304,7 +335,8 @@
 
 
 
-{{-- 
+
+{{--
                 <li class="nav-item">
                     <a href="../gallery.html" class="nav-link">
                         <i class="nav-icon far fa-image"></i>

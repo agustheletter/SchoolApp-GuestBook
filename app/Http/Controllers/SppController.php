@@ -19,11 +19,12 @@ use App\Models\SiswaKelasModel;
 // panggil model Siswa
 use App\Models\BayarDetailModel;
 use App\Models\BulanModel;
-
-use Session;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Session;
 
 class SppController extends Controller
 {
+    use ValidatesRequests;
     //====================AWAL METHODE UNTUK TAMPIL PEMBAYARAN SPP=================
     //tampil dengan eloquent
     public function spp()
@@ -56,14 +57,14 @@ class SppController extends Controller
         ->where('tbl_siswakelas.idthnajaran',Session::get('idthnajaran'))
         ->get();
 
-        // SELECT 
-        // *FROM tbl_siswa 
-        // INNER JOIN tbl_siswakelas ON tbl_siswakelas.idsiswa=tbl_siswa.idsiswa 
-        // INNER JOIN tbl_kelas ON tbl_kelas.idkelas=tbl_siswakelas.idkelas 
+        // SELECT
+        // *FROM tbl_siswa
+        // INNER JOIN tbl_siswakelas ON tbl_siswakelas.idsiswa=tbl_siswa.idsiswa
+        // INNER JOIN tbl_kelas ON tbl_kelas.idkelas=tbl_siswakelas.idkelas
         // INNER JOIN tbl_tingkat ON tbl_tingkat.idtingkat=tbl_kelas.idtingkat
-        // INNER JOIN tbl_thnajaran ON tbl_thnajaran.idthnajaran=tbl_siswakelas.idthnajaran 
+        // INNER JOIN tbl_thnajaran ON tbl_thnajaran.idthnajaran=tbl_siswakelas.idthnajaran
         // INNER JOIN tbl_jenisbayardetail ON tbl_jenisbayardetail.idtingkat=tbl_tingkat.idtingkat
-        
+
         // WHERE tbl_siswa.nis='001'
         // AND tbl_jenisbayardetail.idjenisbayar='SPP'
         // AND tbl_siswakelas.idthnajaran='3';
@@ -75,7 +76,7 @@ class SppController extends Controller
         ->join('tbl_tingkat','tbl_tingkat.idtingkat','=','tbl_kelas.idtingkat')
         ->join('tbl_thnajaran','tbl_thnajaran.idthnajaran','=','tbl_siswakelas.idthnajaran')
         ->join('tbl_jenisbayardetail','tbl_jenisbayardetail.idtingkat','=','tbl_tingkat.idtingkat')
-        
+
 
         ->where('tbl_siswa.nis', $katakunci)
         ->where('tbl_jenisbayardetail.idjenisbayar','SPP')
@@ -87,7 +88,7 @@ class SppController extends Controller
 
 
         //Bayar SPP Detail
-        
+
         // SELECT
         // *FROM tbl_bayardetail
         // INNER JOIN tbl_bayar ON tbl_bayar.idbayar=tbl_bayardetail.idbayar
@@ -139,12 +140,12 @@ class SppController extends Controller
             'idsiswa' => 'required',
             'iduser' => 'required',
             'idthnajaran' => 'required',
-            
+
             //ke tbl_bayardetail
             'nominalbayar' => 'required|numeric'
         ]);
 
-        
+
         //insert ke table tbl_bayar
         BayarModel::create([
             'idbayar' =>$idbayarmax,
@@ -153,7 +154,7 @@ class SppController extends Controller
             'idthnajaran' => $request->idthnajaran
         ]);
 
-    
+
         //insert ke table tbl_bayardetail
         for ($i=0; $i<$jmlbulan; $i++)
         {
@@ -166,10 +167,10 @@ class SppController extends Controller
 
                 //nominalbayar ambil dari nominaljenisbayar per tahunajaran & tingkat
                 //diambil dari input hidden
-                'nominalbayar' => $request->nominaljenisbayar 
+                'nominalbayar' => $request->nominaljenisbayar
             ]);
         }
-	
+
         return redirect()->back();
     }
     //====================AKHIR METHODE UNTUK TAMBAH Pembayaran DSP=================

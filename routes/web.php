@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\DspController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JenisBayarDetailController;
@@ -122,11 +123,11 @@ Route::post('/siswakelas/tambah',[SiswaKelasController::class,'siswakelastambah'
 Route::get('/siswakelas/hapus/{idsiswakelas}',[SiswaKelasController::class,'siswakelashapus'])->middleware('auth');
 Route::put('/siswakelas/edit/{idsiswakelas}', [SiswaKelasController::class,'siswakelasedit'])->middleware('auth');
 
-// Route::get('/siswakelas', function () 
+// Route::get('/siswakelas', function ()
 // {
 //         $kelas = Carbon::parse(request()->kelas);
 //         $data = App\Models\KelasModel::where('kelas',[$kelas])->get();
-    
+
 //     return view('siswakelas', compact('data'))
 // })->middleware('auth');
 
@@ -161,4 +162,18 @@ Route::get('/jenisbayardetail/hapus/{idjenisbayardetail}',[JenisBayarDetailContr
 Route::put('/jenisbayardetail/edit/{idjenisbayardetail}',[JenisBayarDetailController::class,'edit'])->middleware('auth');
 //========================AKHIR ROUTE JENIS BAYAR DETAIL========================
 
+//=========================AWAL ROUTE JENIS BUKU TAMU =========================
+Route::get('/bukutamu',[BukuTamuController::class,'index'])->middleware('auth')->name('bukutamu');
+Route::get('/bukutamu/{id}/edit', [BukuTamuController::class, 'edit'])->middleware('auth')->name('bukutamu.edit');
+Route::put('/bukutamu/{id}', [BukuTamuController::class, 'update'])->middleware('auth')->name('bukutamu.update');
+Route::delete('/bukutamu/{id}', [BukuTamuController::class, 'destroy'])->middleware('auth')->name('bukutamu.destroy');
 
+Route::get('/bukutamu/input',[BukuTamuController::class,'input'])->middleware('auth')->name('bukutamu.input');
+Route::get('/bukutamu/input/orangtua',[BukuTamuController::class,'input_orangtua'])->middleware('auth')->name('bukutamu.orangtua');
+Route::get('/bukutamu/input/umum',[BukuTamuController::class,'input_umum'])->middleware('auth')->name('bukutamu.umum');
+
+Route::post('/bukutamu/store',[BukuTamuController::class,'store'])->middleware('auth')->name('bukutamu.store');
+Route::delete('/bukutamu/{id}',[BukuTamuController::class,'destroy'])->middleware('auth')->name('bukutamu.destroy');
+
+Route::get('/getPegawai/{id}', [BukuTamuController::class, 'getPegawai']);
+//========================AKHIR ROUTE JENIS BUKU TAMU ========================

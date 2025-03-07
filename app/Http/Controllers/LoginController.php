@@ -12,14 +12,14 @@ use App\Models\TahunAjaranModel;
 //panggil model Login
 use App\Models\LoginModel;
 
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     //Fungsi menampilkan halaman Login
     public function login()
     {
-        if (Auth::check()) 
+        if (Auth::check())
         {
             return redirect('home');
         }
@@ -41,7 +41,7 @@ class LoginController extends Controller
         ];
 
 
-        if (Auth::Attempt($data)) 
+        if (Auth::Attempt($data))
         {
             // menangkap data ID tahun ajaran
             $katakunci = $request->thnajaran;
@@ -71,7 +71,7 @@ class LoginController extends Controller
             return redirect('/');
         }
     }
-    
+
 
     //Fungsi untuk LOGOUT
     public function logoutaksi()

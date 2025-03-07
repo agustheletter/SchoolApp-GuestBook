@@ -8,10 +8,12 @@ use App\Models\JenisBayarDetailModel;
 use App\Models\JenisBayarModel;
 use App\Models\TahunAjaranModel;
 use App\Models\TingkatModel;
-use Session;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Session;
 
 class JenisBayarDetailController extends Controller
 {
+    use ValidatesRequests;
     //====================AWAL METHODE UNTUK TAMPIL DetailJenisBayar=================
     public function tampil()
     {
@@ -33,7 +35,7 @@ class JenisBayarDetailController extends Controller
 
         // mengirim data guru ke view guru v_detailjenisbayar
         return view('admin.pages.master.v_jenisbayardetail', ['detailjenisbayar' => $DetailJenisBayar, 'jenisbayar' => $datajenisbayar, 'tingkat' => $datatingkat, 'thnajaran' => $datathnajaran]);
-    
+
     }
     //===================AKHIR METHODE UNTUK TAMPIL DetailJenisBayar================
 

@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 // panggil model SPP
 use App\Models\SppModel;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class BayarController extends Controller
 {
+    use ValidatesRequests;
     //====================AWAL METHODE UNTUK TAMPIL spp=================
     //tampil dengan eloquent
     public function spp()
@@ -16,7 +18,7 @@ class BayarController extends Controller
         // mengambil data spp
         $spp = SppModel::orderby('idbayar', 'DESC')
         ->paginate(10);
-        
+
         // mengirim data guru ke view guru
         return view('admin.pages.v_spp',['spp' => $spp]);
     }
@@ -31,13 +33,13 @@ class BayarController extends Controller
             'idspp' => 'required',
             'spp' => 'required'
         ]);
-        
+
         //sppModel::create([
         sppModel::create([
             'idspp' => $request->idspp,
             'spp' => $request->spp
         ]);
-        
+
         return redirect('/spp');
     }
     //====================AKHIR METHODE UNTUK TAMBAH spp=================
@@ -49,7 +51,7 @@ class BayarController extends Controller
     {
         $spp = sppModel::find($idspp);
         $spp->delete();
-        
+
         return redirect()->back();
     }
     //====================AKHIR METHODE UNTUK HAPUS spp=================
@@ -61,7 +63,7 @@ class BayarController extends Controller
     {
         // menangkap data pencarian
         $sppcari = $request->sppcari;
-        
+
         // mengambil data dari table spp sesuai pencarian data
         $spp = DB::table('tbl_spp')
         ->where('spp','like',"%".$sppcari."%")
@@ -72,7 +74,7 @@ class BayarController extends Controller
     }
 
 
-    
+
     public function sppcari(Request $request)
     {
         $katakunci = $request->sppcari;
@@ -97,12 +99,12 @@ class BayarController extends Controller
             'idspp' => 'required',
             'spp' => 'required'
         ]);
-        
+
         $spp = sppModel::find($idspp);
         $spp->idspp = $request->idspp;
         $spp->spp = $request->spp;
         $spp->save();
-        
+
         //return redirect('/jurursan');
         return redirect()->back();
     }

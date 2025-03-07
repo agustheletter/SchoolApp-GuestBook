@@ -17,7 +17,7 @@ class LoginModel extends Model
     //relasi ke table user
     public function user()
     {
-        return $this->belongsTo('App\Models\User','email');
+        return $this->belongsTo(User::class,'email', 'email');
     }
 
     //relasi ke table thnajaran
