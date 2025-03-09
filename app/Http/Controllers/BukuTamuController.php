@@ -69,9 +69,7 @@ class BukuTamuController extends Controller
 
     public function input()
     {
-        $bukutamu = BukuTamu::all();
-        return view('admin.pages.bukutamu.v_bukutamu_input', ['datajurusan' => $bukutamu]);
-
+        return view('admin.pages.bukutamu.v_bukutamu_input');
     }
 
     public function input_orangtua()
@@ -127,7 +125,7 @@ class BukuTamuController extends Controller
             'keperluan' => $request->keperluan,
         ]);
 
-        return redirect()->route('bukutamu.input')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('bukutamu.input')->with('success', 'Data Buku Tamu berhasil ditambahkan');
     }
 
     public function destroy($id)
@@ -135,6 +133,6 @@ class BukuTamuController extends Controller
         $bukutamu = BukuTamu::findOrFail($id);
         $bukutamu->delete();
 
-        return redirect()->route('bukutamu')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('bukutamu')->with('success', 'Data Buku Tamu berhasil dihapus');
     }
 }

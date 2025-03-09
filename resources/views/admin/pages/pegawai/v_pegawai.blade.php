@@ -4,8 +4,8 @@
 @endphp
 
 @extends('admin/v_admin')
-@section('judulhalaman', 'Daftar Buku Tamu')
-@section('title', 'Daftar Buku Tamu')
+@section('judulhalaman', 'Daftar Pegawai')
+@section('title', 'Daftar Pegawai')
 
 @section('konten')
 <div class="">
@@ -18,8 +18,8 @@
         </div>
     @endif
 
-    <a href="{{ route('bukutamu.input') }}" type="button" class="btn btn-primary">
-        Tambah Data Buku Tamu
+    <a href="{{ route('pegawai.input') }}" type="button" class="btn btn-primary">
+        Tambah Data Pegawai
     </a>
 
     <p>
@@ -27,22 +27,38 @@
         <thead class="thead-dark">
             <tr>
                 <th><center>No</center></th>
-                <th><center>Nama</center></th>
-                <th><center>Role</center></th>
-                <th><center>Gender</center></th>
+                <th><center>Nama Pegawai</center></th>
+                <th><center>Jenis Kelamin</center></th>
+                <th><center>Jabatan</center></th>
                 <th><center>Agama</center></th>
-                <th><center>Orang Tua Siswa</center></th>
-                <th><center>Instansi</center></th>
-                <th><center>Alamat</center></th>
                 <th><center>Kontak</center></th>
-                <th><center>Bertemu Dengan</center></th>
-                <th><center>Keperluan</center></th>
-                <th><center>Tanggal Kunjungan</center></th>
                 <th><center>Action</center></th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($bukutamu as $index => $tamu)
+            @foreach ($datapegawai as $index => $pegawai)
+                <tr>
+                    <td align="center" scope="row">{{ $index + 1 }}</td>
+                    <td>{{ $pegawai->nama_pegawai }}</td>
+                    <td>{{ $pegawai->jenis_kelamin }}</td>
+                    <td>{{ $pegawai->jabatan->nama_jabatan }}</td>
+                    <td>{{ $pegawai->agama->agama ?? '-' }}</td>
+                    <td>{{ $pegawai->kontak }}</td>
+                    <td align="center">
+                        <a href="{{ route('pegawai.edit', $pegawai->id) }}" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus pegawai?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            {{-- @foreach ($bukutamu as $index => $tamu)
                 <tr>
                     <td align="center" scope="row">{{ $index + 1 }}</td>
                     <td>{{ $tamu->nama }}</td>
@@ -55,7 +71,6 @@
                     </td>
                     <td>{{ $tamu->jenis_kelamin }}</td>
                     <td>{{ optional($tamu->agama)->agama ?? '-' }}</td>
-                    <td>{{ $tamu->siswa->namasiswa ?? '-' }}</td>
                     <td>{{ $tamu->instansi ?? '-' }}</td>
                     <td>{{ $tamu->alamat }}</td>
                     <td>{{ $tamu->kontak }}</td>
@@ -78,7 +93,7 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @endforeach --}}
         </tbody>
     </table>
 </div>

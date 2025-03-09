@@ -3,7 +3,7 @@
 @section('title', 'Edit Buku Tamu')
 
 @section('konten')
-<div class="my-4">
+<div class="my-4 poppins">
     <p>
     <form action="{{ route('bukutamu.update', $bukutamu->id) }}" method="POST">
         @csrf

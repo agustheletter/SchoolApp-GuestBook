@@ -10,6 +10,7 @@ use App\Http\Controllers\KelasDetailController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MutasiKelasController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProgramKeahlianController;
 use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\SiswaController;
@@ -162,7 +163,23 @@ Route::get('/jenisbayardetail/hapus/{idjenisbayardetail}',[JenisBayarDetailContr
 Route::put('/jenisbayardetail/edit/{idjenisbayardetail}',[JenisBayarDetailController::class,'edit'])->middleware('auth');
 //========================AKHIR ROUTE JENIS BAYAR DETAIL========================
 
-//=========================AWAL ROUTE JENIS BUKU TAMU =========================
+
+
+//=========================AWAL ROUTE PEGAWAI =========================
+Route::get('/pegawai',[PegawaiController::class,'index'])->middleware('auth')->name('pegawai');
+Route::get('/pegawai/{id}/edit', [PegawaiController::class, 'edit'])->middleware('auth')->name('pegawai.edit');
+Route::put('/pegawai/{id}', [PegawaiController::class, 'update'])->middleware('auth')->name('pegawai.update');
+Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->middleware('auth')->name('pegawai.destroy');
+
+Route::get('/pegawai/input',[PegawaiController::class,'input'])->middleware('auth')->name('pegawai.input');
+
+Route::post('/pegawai/store',[PegawaiController::class,'store'])->middleware('auth')->name('pegawai.store');
+Route::delete('/pegawai/{id}',[PegawaiController::class,'destroy'])->middleware('auth')->name('pegawai.destroy');
+//========================AKHIR ROUTE PEGAWAI ========================
+
+
+
+//=========================AWAL ROUTE BUKU TAMU =========================
 Route::get('/bukutamu',[BukuTamuController::class,'index'])->middleware('auth')->name('bukutamu');
 Route::get('/bukutamu/{id}/edit', [BukuTamuController::class, 'edit'])->middleware('auth')->name('bukutamu.edit');
 Route::put('/bukutamu/{id}', [BukuTamuController::class, 'update'])->middleware('auth')->name('bukutamu.update');
@@ -175,5 +192,5 @@ Route::get('/bukutamu/input/umum',[BukuTamuController::class,'input_umum'])->mid
 Route::post('/bukutamu/store',[BukuTamuController::class,'store'])->middleware('auth')->name('bukutamu.store');
 Route::delete('/bukutamu/{id}',[BukuTamuController::class,'destroy'])->middleware('auth')->name('bukutamu.destroy');
 
-Route::get('/getPegawai/{id}', [BukuTamuController::class, 'getPegawai']);
-//========================AKHIR ROUTE JENIS BUKU TAMU ========================
+Route::get('/getPegawai/{id}', [BukuTamuController::class, 'getPegawai'])->middleware('auth');
+//========================AKHIR ROUTE BUKU TAMU ========================

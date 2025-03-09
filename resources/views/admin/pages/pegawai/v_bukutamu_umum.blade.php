@@ -3,23 +3,23 @@
 @section('judulhalaman')
 <div class="">
     <span class="mr-3">Input Buku Tamu</span>
-    <a href="{{ route('bukutamu.orangtua') }}" type="button" class="btn btn-success">Orang Tua</a>
-    <a href="{{ route('bukutamu.umum') }}" type="button" class="btn btn-outline-primary">Tamu Umum</a>
+    <a href="{{ route('bukutamu.orangtua') }}" type="button" class="btn btn-outline-success">Orang Tua</a>
+    <a href="{{ route('bukutamu.umum') }}" type="button" class="btn btn-primary">Tamu Umum</a>
 </div>
 @endsection
 
 @section('title', 'Buku Tamu')
 
 @section('konten')
-<div class="modal-body poppins">
+<div class="modal-body">
     <form action="{{ route('bukutamu.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="role" value="{{ $role }}"> <!-- Role dikirim otomatis -->
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Nama Orang Tua</label>
+            <label class="col-sm-3 col-form-label">Nama</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" name="nama" placeholder="Masukan Nama Anda" required>
+                <input type="text" class="form-control" name="nama" placeholder="Masukan Nama" required>
             </div>
         </div>
 

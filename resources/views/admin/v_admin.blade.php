@@ -13,11 +13,12 @@
         <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/dist/css/adminlte.min.css">
+        <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
-        
+
 
         <!--DATA TABLE MENGGUNKAN CDN-->
-        {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"> 
+        {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"> --}}
 
 
@@ -60,7 +61,7 @@
         <!-- Bootstrap 4 -->
         <script src="{{ asset('TemplateAdminLTE') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!--<script src="{{ asset('TemplateAdminLTE') }}/dist/select2/js/select2.full.min.js"></script>-->
-        
+
         <!-- AdminLTE App -->
         <script src="{{ asset('TemplateAdminLTE') }}/dist/js/adminlte.min.js"></script>
         <!-- AdminLTE for demo purposes -->
@@ -68,6 +69,6 @@
         @stack('script')
     </body>
 
-    
+
 
 </html>

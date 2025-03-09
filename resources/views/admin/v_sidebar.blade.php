@@ -283,16 +283,37 @@
                 </li>
                 <!--Akhir Pembayaran-->
 
-                <!--Awal Buku Tamu-->
-                {{-- <li class="nav-item">
-                    <a href="{{url('/bukutamu')}}" class="nav-link">
-                        <i class="nav-icon fas fa-book-open"></i>
+                <!--Awal Pegawai-->
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
                         <p>
-                            Buku Tamu
+                            Pegawai
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">2</span>
                         </p>
                     </a>
-                </li> --}}
+                    <ul class="nav nav-treeview">
 
+                        <li class="nav-item">
+                            <a href="{{ route('pegawai') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Pegawai</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('pegawai.input') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Input Pegawai</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <!--Akhir Pegawai-->
+
+                <!--Awal Buku Tamu-->
                 <li class="nav-item">
                     <a href="" class="nav-link">
                         <i class="fas fa-book-open"></i>
