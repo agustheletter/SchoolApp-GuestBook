@@ -80,7 +80,7 @@
         <!-- Awal menampilkan data dalam table-->
         <tbody>
             @foreach ($siswa as $index=> $s)
-                <tr> 
+                <tr>
                     <td align="center" scope="row">{{ $index + 1 }}</td>
                     <td align="center">{{ $s->nis }}</td>
                     <td align="center">{{ $s->nisn }}</td>
@@ -92,7 +92,7 @@
                     <td>{{ optional($s->agama)->agama }}</td>
                     <td>{{ $s->tlprumah }}</td>
                     <td>{{ $s->hpsiswa }}</td>
-                    <td><img width="60px" src="{{ url('/PhotoSiswa/' . $s->photo) }}"></td>
+                    <td><img width="60px" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}"></td>
                     <td align="center">{{ $s->thnajaran->thnajaran }}</td>
 
                     <td align="center">
@@ -117,7 +117,7 @@
                                             <!--z@csrf-->
                                             {{ csrf_field() }}
                                             {{ method_field('PUT') }}
-                                                                    
+
                                             <div class="form-group row">
                                                 <label for="nis" class="col-sm-3 col-form-label text-left">NIS</label>
                                                 <div class="col-sm-9">
@@ -159,7 +159,7 @@
                                                     @if ($s->jk == "Laki-laki")
                                                         <div class="input-group-text">
                                                             <input type="radio" id="jk" name="jk" value="Laki-laki" checked>
-                                            
+
                                                         </div>
                                                         Laki-laki
 
@@ -170,7 +170,7 @@
                                                     @else
                                                         <div class="input-group-text">
                                                             <input type="radio" id="jk" name="jk" value="Laki-laki" >
-                                            
+
                                                         </div>
                                                         Laki-laki
 
@@ -178,7 +178,7 @@
                                                             <input type="radio" id="jk" name="jk" value="Perempuan" checked>
                                                         </div>
                                                         Perempuan
-                                                    @endif      
+                                                    @endif
                                                 </div>
                                             </div>
 
@@ -239,8 +239,8 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            
-                                            
+
+
                                             <div class="modal-footer">
                                                 <button type="button" name="tutup" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                                 <button type="submit" name="siswaedit" class="btn btn-success">Edit</button>
@@ -315,7 +315,7 @@
     <!-- Akhir membuat table-->
 
 
-    
+
     {{-- <!--awal pagination-->
     Halaman : {{ $siswa->currentPage() }} <br />
     Jumlah Data : {{ $siswa->total() }} <br />
@@ -325,7 +325,7 @@
     <!--akhir pagination--> --}}
 
 
-    
+
 
     <!-- Awal Modal tambah data siswa -->
     <div class="modal fade" id="modalTambahSiswa" tabindex="-1" role="dialog" aria-labelledby="modalTambahSiswaLabel"
@@ -380,18 +380,18 @@
                         </div>
 
                         <div class="form-group row">
-                            
+
                             <label for="jk" class="col-sm-3 col-form-label">Jenis Kelamin</label>
                             <div class="col-sm-9 input-group">
                                 <div class="input-group-text">
-                                    <input type="radio" name="jk" value="Laki-laki">
+                                    <input type="radio" name="jk" value="L">
                                 </div>
-                                Laki-laki 
+                                Laki-laki
 
                                 <div class="input-group-text">
-                                    <input type="radio" name="jk" value="Perempuan">
+                                    <input type="radio" name="jk" value="P">
                                 </div>
-                                Perempuan 
+                                Perempuan
                             </div>
                         </div>
 

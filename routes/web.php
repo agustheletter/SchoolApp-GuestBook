@@ -3,6 +3,7 @@
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\DspController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\JenisBayarDetailController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
@@ -168,13 +169,22 @@ Route::put('/jenisbayardetail/edit/{idjenisbayardetail}',[JenisBayarDetailContro
 //=========================AWAL ROUTE PEGAWAI =========================
 Route::get('/pegawai',[PegawaiController::class,'index'])->middleware('auth')->name('pegawai');
 Route::get('/pegawai/{id}/edit', [PegawaiController::class, 'edit'])->middleware('auth')->name('pegawai.edit');
-Route::put('/pegawai/{id}', [PegawaiController::class, 'update'])->middleware('auth')->name('pegawai.update');
-Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->middleware('auth')->name('pegawai.destroy');
-
 Route::get('/pegawai/input',[PegawaiController::class,'input'])->middleware('auth')->name('pegawai.input');
 
 Route::post('/pegawai/store',[PegawaiController::class,'store'])->middleware('auth')->name('pegawai.store');
-Route::delete('/pegawai/{id}',[PegawaiController::class,'destroy'])->middleware('auth')->name('pegawai.destroy');
+Route::put('/pegawai/{id}', [PegawaiController::class, 'update'])->middleware('auth')->name('pegawai.update');
+Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->middleware('auth')->name('pegawai.destroy');
+//========================AKHIR ROUTE PEGAWAI ========================
+
+
+
+//=========================AWAL ROUTE PEGAWAI =========================
+Route::get('/jabatan',[JabatanController::class,'index'])->middleware('auth')->name('jabatan');
+
+Route::post('/jabatan/store',[JabatanController::class,'store'])->middleware('auth')->name('jabatan.store');
+Route::put('/jabatan/{id}',[JabatanController::class,'update'])->middleware('auth')->name('jabatan.update');
+Route::delete('/jabatan/{id}',[JabatanController::class,'destroy'])->middleware('auth')->name('jabatan.destroy');
+
 //========================AKHIR ROUTE PEGAWAI ========================
 
 

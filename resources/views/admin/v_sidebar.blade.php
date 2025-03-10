@@ -290,7 +290,7 @@
                         <p>
                             Pegawai
                             <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">2</span>
+                            <span class="badge badge-info right">3</span>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -306,6 +306,13 @@
                             <a href="{{ route('pegawai.input') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Input Pegawai</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('jabatan') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Master Jabatan</p>
                             </a>
                         </li>
 

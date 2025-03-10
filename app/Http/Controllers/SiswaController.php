@@ -45,30 +45,33 @@ class SiswaController extends Controller
     //method tambah data siswa dengan eloquent
     public function siswatambah(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
+        
         $request->validate([
             //'idsiswa' => 'required',
             'nis' => 'required',
             'nisn' => 'required',
             'namasiswa' => 'required',
-            'tmplahir' => 'required',
+            'tempatlahir' => 'required',
             'tgllahir' => 'required',
             'jk' => 'required',
             'alamat' => 'required',
             'idagama' => 'required',
             'tlprumah' => 'required',
             'hpsiswa' => 'required',
-            //'photo' => 'required',
+            //'photosiswa' => 'required',
             'idthnajaran' => 'required'
         ]);
 
         // menyimpan data file yang diupload ke variabel $file
         $filephoto = $request->file('photo');
-        $namafile = time() . "_" . $filephoto->getClientOriginalName();
+        $namafile = null; // Set default null kalau tidak ada file
 
-        // isi dengan nama folder tempat kemana file diupload
-        $tujuanupload = 'PhotoSiswa';
-        $filephoto->move($tujuanupload, $namafile);
+        if ($filephoto) {
+            $namafile = time() . "_" . $filephoto->getClientOriginalName();
+            $tujuanupload = 'PhotoSiswa';
+            $filephoto->move($tujuanupload, $namafile);
+        }
 
         //siswaModel::create([
         SiswaModel::create([
@@ -76,21 +79,21 @@ class SiswaController extends Controller
             'nis' => $request->nis,
             'nisn' => $request->nisn,
             'namasiswa' => $request->namasiswa,
-            'tmplahir' => $request->tmplahir,
+            'tempatlahir' => $request->tempatlahir,
             'tgllahir' => $request->tgllahir,
             'jk' => $request->jk,
             'alamat' => $request->alamat,
             'idagama' => $request->idagama,
             'tlprumah' => $request->tlprumah,
             'hpsiswa' => $request->hpsiswa,
-            'photo' => $namafile,
-            'idthnajaran' => $request->idthnajaran
+            'photosiswa' => $namafile,
+            'idthnmasuk' => $request->idthnajaran
         ]);
 
-        //dd($x);
         //kembali ke halaman awal
         return redirect('/siswa');
     }
+
     //====================AKHIR METHODE UNTUK TAMBAH siswa=================
 
 

@@ -12,7 +12,7 @@ class SiswaModel extends Model
     protected $primaryKey   = 'idsiswa';
     protected $keyType      = 'string';
     public $incrementing    = false;
-    protected $fillable     = ['idsiswa','nis', 'nisn','namasiswa','tmplahir','tgllahir','jk','alamat','idagama','tlprumah','hpsiswa','photosiswa','idthnajaran'];
+    protected $fillable     = ['idsiswa','nis', 'nisn','namasiswa','tempatlahir','tgllahir','jk','alamat','idagama','tlprumah','hpsiswa','photosiswa','idthnmasuk'];
 
     public function agama()
     {
