@@ -1,4 +1,4 @@
-<?php
+</?php
 
 namespace App\Http\Controllers;
 
@@ -19,7 +19,7 @@ class LoginController extends Controller
     //Fungsi menampilkan halaman Login
     public function login()
     {
-        if (Auth::check()) 
+        if (Auth::check())
         {
             return redirect('home');
         }
@@ -40,22 +40,22 @@ class LoginController extends Controller
             // 'thnajaran' => $request->input('text')
         ];
 
-        
+
         //validasi untuk select tahun ajaran harus terisi
         // $this->validate($request, [
         //     'thnajaran' => 'required'
         // ]);
 
 
-    
-        
+
+
         // dd($datathnajaran);
 
-        if (Auth::Attempt($data)) 
+        if (Auth::Attempt($data))
         {
              // menangkap data tahun ajaran
             $katakunci = $request->thnajaran;
-            
+
             // $datathnajaran = TahunAjaranModel::where('idthnajaran', $katakunci)
             //     ->get();
 
@@ -81,7 +81,7 @@ class LoginController extends Controller
             return redirect('/');
         }
     }
-    
+
 
     //Fungsi untuk LOGOUT
     public function logoutaksi()
