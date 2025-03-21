@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SemesterSeeder::class);
         $this->call(JabatanSeeder::class);
         $this->call(PegawaiSeeder::class);
-        $this->call(BukuTamuSeeder::class);
         $this->call(SiswaSeeder::class);
+        $this->call(BukuTamuSeeder::class);
     }
 }

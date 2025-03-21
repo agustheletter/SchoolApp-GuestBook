@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->enum('role', ['ortu', 'umum']);
 
             $table->unsignedBigInteger('idagama');
-            $table->foreign('idagama')->references('id')->on('tbl_agama')->onDelete('cascade');
+            $table->foreign('idagama')->references('idagama')->on('tbl_agama')->onDelete('cascade');
 
             $table->unsignedBigInteger('idsiswa')->nullable();
             $table->foreign('idsiswa')->references('idsiswa')->on('tbl_siswa')->onDelete('cascade');
