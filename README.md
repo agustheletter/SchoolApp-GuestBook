@@ -170,8 +170,8 @@ Proyek ini menggunakan lisensi **MIT**. Lihat `LICENSE.txt` untuk detail lebih l
 <!-- CONTACT -->
 ## 💻 Contact
 
-- Adrenalin - [@akuadre](https://github.com/akuadre) - dreenation21@gmail.com
-- Evliya - [@evliyasatari](https://github.com/evliyasatari) - email@example.com
+- Adrenalin - [@akuadre](https://github.com/akuadre)
+- Evliya - [@evliyasatari](https://github.com/evliyasatari)
 
 Project Link: [https://github.com/agustheletter/SchoolApp-GuestBook](https://github.com/agustheletter/SchoolApp-GuestBook)
 
