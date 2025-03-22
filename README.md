@@ -155,7 +155,7 @@ Cara instalasi aplikasi **Buku Tamu Sekolah** ini di lokal:
 ### Top contributors:
 
 <a href="https://github.com/agustheletter/SchoolApp-GuestBook/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=agustheletter/SchoolApp-GuestBook" alt="contrib.rocks image" />
+  <img src="https://contrib.rocks/image?repo=agustheletter/schoolapp-guestbook" alt="contrib.rocks image" />
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
