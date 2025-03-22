@@ -197,8 +197,8 @@ Project Link: [https://github.com/agustheletter/SchoolApp-GuestBook](https://git
 [issues-url]: https://github.com/agustheletter/SchoolApp-GuestBook/issues
 [license-shield]: https://img.shields.io/github/license/agustheletter/SchoolApp-GuestBook.svg?style=for-the-badge
 [license-url]: https://github.com/agustheletter/SchoolApp-GuestBook/blob/master/LICENSE.txt
-[product-screenshot]: guestbook-user.png
-[admin-screenshot]: icon.png
+[product-screenshot]: git-src/guestbook-user.png
+[admin-screenshot]: git-src/icon.png
 [Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
 [Laravel-url]: https://laravel.com
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
