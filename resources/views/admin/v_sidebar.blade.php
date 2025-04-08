@@ -1,10 +1,10 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ asset('TemplateAdminLTE') }}/index3.html" class="brand-link">
+    <a href="" class="brand-link">
         <img src="{{ asset('TemplateAdminLTE') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Aplikasi Keuangan</span>
+        <span class="brand-text font-weight-light">School Guestbookz</span>
     </a>
 
     <!-- Sidebar -->
@@ -50,8 +50,7 @@
                 </li>
                 <!--Akhir Dashboard-->
 
-
-                <!--Awal MASTER DATA-->
+               {{-- <!--Awal MASTER DATA-->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
@@ -66,7 +65,6 @@
                         <!--Awal Tahun AJaran-->
                         <li class="nav-item">
                             <a href="/thnajaran" class="nav-link">
-                                {{-- <i class="nav-icon far fa-calendar-alt"></i> --}}
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Tahun Ajaran
@@ -78,7 +76,6 @@
                         <!--Awal Ruangan-->
                         <li class="nav-item">
                             <a href="/ruangan" class="nav-link">
-                                {{-- <i class="nav-icon far fa-calendar-alt"></i> --}}
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Ruangan
@@ -91,7 +88,6 @@
                         <!--Awal Program Keahlian-->
                         <li class="nav-item">
                             <a href="/programkeahlian" class="nav-link">
-                                {{-- <i class="nav-icon fas fa-table"></i> --}}
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Program Keahlian
@@ -104,7 +100,6 @@
                         <!--Awal Jurusan-->
                         <li class="nav-item">
                             <a href="/jurusan" class="nav-link">
-                                {{-- <i class="nav-icon fas fa-table"></i> --}}
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Jurusan
@@ -117,7 +112,6 @@
                         <!--Awal Kelas-->
                         <li class="nav-item">
                             <a href="/kelas" class="nav-link">
-                                {{-- <i class="fas fa-restroom"></i> --}}
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Kelas
@@ -129,7 +123,6 @@
                         <!--Awal Kelas Detail-->
                         <li class="nav-item">
                             <a href="/kelasdetail" class="nav-link">
-                                {{-- <i class="fas fa-restroom"></i> --}}
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
                                     Kelas Detail
@@ -141,10 +134,10 @@
 
                     </ul>
                 </li>
-                <!--Akhir MASTER DATA-->
+                <!--Akhir MASTER DATA--> --}}
 
 
-                <!--Awal Siswa-->
+                {{-- <!--Awal Siswa-->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fa fa-graduation-cap" aria-hidden="true"></i>
@@ -155,6 +148,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+
                         <!--Awal Master Siswa-->
                         <li class="nav-item">
                             <a href="{{url('siswa')}}" class="nav-link">
@@ -192,14 +186,13 @@
                         <!--Akhir Kelas Siswa-->
                     </ul>
                 </li>
-                <!--Akhir Siswa-->
+                <!--Akhir Siswa--> --}}
 
 
 
-                <!--Awal Guru-->
+                {{-- <!--Awal Guru-->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        {{-- <i class="fa fa-graduation-cap" aria-hidden="true"></i> --}}
                         <i class="fa fa-users" aria-hidden="true"></i>
                         <p>
                             Guru
@@ -207,7 +200,9 @@
                             <span class="badge badge-info right">2</span>
                         </p>
                     </a>
+
                     <ul class="nav nav-treeview">
+
                         <!--Awal Master Guru-->
                         <li class="nav-item">
                             <a href="{{url('guru')}}" class="nav-link">
@@ -227,11 +222,11 @@
                         <!--Akhir Mengajar Guru-->
                     </ul>
                 </li>
-                <!--Akhir Guru-->
+                <!--Akhir Guru--> --}}
 
 
 
-                <!--Awal Pembayaran-->
+                {{-- <!--Awal Pembayaran-->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-dollar-sign"></i>
@@ -265,7 +260,6 @@
 
                         <li class="nav-item">
                             <a href="/laporan" class="nav-link">
-                                {{-- <i class="nav-icon fas fa-chart-pie"></i> --}}
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Laporan Pembayaran</p>
                             </a>
@@ -281,7 +275,8 @@
 
                     </ul>
                 </li>
-                <!--Akhir Pembayaran-->
+                <!--Akhir Pembayaran--> --}}
+
 
                 <!--Awal Pegawai-->
                 <li class="nav-item">
@@ -299,6 +294,7 @@
                             <a href="{{ route('pegawai') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Pegawai</p>
+                                <span class="badge badge-success right">{{ $totalPegawai ?? 0 }}</span>
                             </a>
                         </li>
 
@@ -336,6 +332,7 @@
                             <a href="{{ route('bukutamu') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Buku Tamu</p>
+                                <span class="badge badge-success right">{{ $totalBukuTamu ?? 0 }}</span>
                             </a>
                         </li>
 
