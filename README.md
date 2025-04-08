@@ -1,66 +1,207 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+<a id="readme-top"></a>
+# Guestbook School App (Website)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<!-- PROJECT LOGO -->
+[![Product Name Screen Shot][admin-screenshot]](https://github.com/agustheletter/SchoolApp-GuestBook)
 
-## About Laravel
+<!-- PROJECT TITLE -->
+<br />
+<div align="center">    
+<h3 align="center">Website Buku Tamu Sekolah (Guestbook)</h3>
+  <p align="center">
+    Website Buku Tamu Sekolah adalah aplikasi Laravel dengan Admin LTE untuk mencatat dan mengelola kunjungan tamu secara digital, memungkinkan pendaftaran tamu serta pemilihan pegawai atau guru yang ingin ditemui.
+    <br />
+    <a href="https://github.com/agustheletter/SchoolApp-GuestBook"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/agustheletter/SchoolApp-GuestBook">View Demo</a>
+    ·
+    <a href="https://github.com/agustheletter/SchoolApp-GuestBook/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/agustheletter/SchoolApp-GuestBook/issues">Request Feature</a>
+  </p>
+</div>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<!-- PROJECT SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![License][license-shield]][license-url]
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<!-- TABLE OF CONTENTS -->
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<!-- 
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#built-with">Built With</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details> 
 
-## Learning Laravel
+-->
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<!-- ABOUT THE PROJECT -->
+## 🗒️ About The Project
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+[![Product Name Screen Shot][product-screenshot]](https://github.com/agustheletter/SchoolApp-GuestBook)
 
-## Laravel Sponsors
+Aplikasi **Website Buku Tamu Sekolah** berbasis Laravel dan template Admin LTE ini dirancang untuk mempermudah pencatatan serta pengelolaan data kunjungan tamu secara digital di lingkungan sekolah. Sistem ini mencatat data tamu, baik orang tua siswa maupun tamu umum, serta menghubungkan mereka dengan pegawai atau guru yang akan ditemui. Selain itu, aplikasi ini menyediakan laporan dan statistik kunjungan untuk kebutuhan administrasi serta meningkatkan keamanan dengan validasi data tamu, memastikan proses kunjungan lebih terstruktur dan efisien.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Fitur Utama:
+1. **Manajemen Pengguna**
+   - Autentikasi dan otorisasi pengguna berdasarkan peran.
+  
+2. **Manajemen Data Kunjungan**
+   - Mencatat kunjungan tamu ke sekolah, baik orang tua siswa maupun tamu umum.
+   - Menghubungkan kunjungan dengan pegawai/guru yang akan ditemui.
+   - Menyediakan formulir digital untuk pencatatan buku tamu.
 
-### Premium Partners
+3. **Laporan & Statistik**
+   - Menyediakan laporan jumlah dan jenis kunjungan dalam periode tertentu.
+   - Analisis data kunjungan untuk keperluan administrasi sekolah.  
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Contributing
+## 🚀 Built With
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### ⌨️ Teknologi yang digunakan
+* [![Laravel][Laravel.com]][Laravel-url]
+* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![MySQL][MySQL.com]][MySQL-url]
 
-## Code of Conduct
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<!-- GETTING STARTED -->
+## 🔝 Getting Started
 
-## Security Vulnerabilities
+Cara instalasi aplikasi **Buku Tamu Sekolah** ini di lokal:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### ⚙️ Prerequisites
+- PHP 8.0+
+- Composer
+- MySQL
 
-## License
+### Installation
+1. Clone repositori
+   ```sh
+   git clone https://github.com/agustheletter/SchoolApp-GuestBook.git
+   cd SchoolApp-GuestBook
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+2. Install dependencies
+   ```sh
+   composer install
+   ```
+
+3. Buat file `.env` dan konfigurasi database
+   ```sh
+   cp .env.example .env
+   ```
+   Edit file `.env` dan sesuaikan dengan konfigurasi database MySQL Anda:
+   ```env
+   DB_DATABASE=nama_database
+   DB_USERNAME=username_database
+   DB_PASSWORD=password_database
+   ```
+
+4. Generate application key
+   ```sh
+   php artisan key:generate
+   ```
+
+5. Migrate database
+   ```sh
+   php artisan migrate --seed
+   ```
+
+6. Jalankan server lokal
+   ```sh
+   php artisan serve
+   ```
+   Akses aplikasi di `http://127.0.0.1:8000`
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ROADMAP -->
+## 🗺️ Roadmap
+
+- [x] Structure Website [@akuadre](https://github.com/akuadre) 👨🏻‍💻
+- [x] Backend Development [@akuadre](https://github.com/akuadre) 🧑🏻‍💻
+- [x] Desain Website [@evliyasatari](https://github.com/evliyasatari) 🧑🏻‍🎨
+- [ ] Frontend Development [@evliyasatari](https://github.com/evliyasatari) 👩🏻‍💻
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+## 🧑🏻‍🚀 Contributing
+
+1. Fork repository ini.
+2. Buat branch baru: `git checkout -b fitur-baru`
+3. Commit perubahan: `git commit -m "Menambahkan fitur baru"`
+4. Push ke branch: `git push origin fitur-baru`
+5. Buat Pull Request.
+
+### Top contributors:
+
+<a href="https://github.com/agustheletter/SchoolApp-GuestBook/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=agustheletter/schoolapp-guestbook" alt="contrib.rocks image" />
+</a>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+## 📒 License
+
+Proyek ini menggunakan lisensi **MIT**. Lihat `LICENSE.txt` untuk detail lebih lanjut.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTACT -->
+## 💻 Contact
+
+- Adrenalin - [@akuadre](https://github.com/akuadre) - dreenation21@gmail.com
+- Evliya - [@evliyasatari](https://github.com/evliyasatari) - evliyasatarii@gmail.com
+
+Project Link: [https://github.com/agustheletter/SchoolApp-GuestBook](https://github.com/agustheletter/SchoolApp-GuestBook)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ACKNOWLEDGMENTS -->
+## 🎖️ Acknowledgments
+
+- [Laravel](https://laravel.com)
+- [Admin LTE](https://adminlte.io)
+- [Choose an Open Source License](https://choosealicense.com)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[contributors-shield]: https://img.shields.io/github/contributors/agustheletter/SchoolApp-GuestBook.svg?style=for-the-badge
+[contributors-url]: https://github.com/agustheletter/SchoolApp-GuestBook/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/agustheletter/SchoolApp-GuestBook.svg?style=for-the-badge
+[forks-url]: https://github.com/agustheletter/SchoolApp-GuestBook/network/members
+[stars-shield]: https://img.shields.io/github/stars/agustheletter/SchoolApp-GuestBook.svg?style=for-the-badge
+[stars-url]: https://github.com/agustheletter/SchoolApp-GuestBook/stargazers
+[issues-shield]: https://img.shields.io/github/issues/agustheletter/SchoolApp-GuestBook.svg?style=for-the-badge
+[issues-url]: https://github.com/agustheletter/SchoolApp-GuestBook/issues
+[license-shield]: https://img.shields.io/github/license/agustheletter/SchoolApp-GuestBook.svg?style=for-the-badge
+[license-url]: https://github.com/agustheletter/SchoolApp-GuestBook/blob/master/LICENSE.txt
+[product-screenshot]: git-src/guestbook-user.png
+[admin-screenshot]: git-src/icon.png
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
+[MySQL.com]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white
+[MySQL-url]: https://www.mysql.com
