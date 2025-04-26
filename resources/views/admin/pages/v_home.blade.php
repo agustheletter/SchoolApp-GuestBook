@@ -16,9 +16,9 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{$bayar}}</h3>
+                        <h3>{{ $totalPegawai ?? 0 }}</h3>
 
-                        <p>Jumlah Transaksi</p>
+                        <p>Total Pegawai</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -94,7 +94,7 @@
                     <a href="/siswakelas" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-        
+
         </div>
 
     </div><!-- /.container-fluid -->
