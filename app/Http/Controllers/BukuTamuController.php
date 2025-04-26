@@ -6,6 +6,7 @@ use App\Models\BukuTamu;
 use App\Models\AgamaModel;
 use App\Models\SiswaModel;
 use App\Models\JabatanModel;
+use App\Models\Orangtua;
 use App\Models\PegawaiModel;
 use Illuminate\Http\Request;
 
@@ -60,11 +61,6 @@ class BukuTamuController extends Controller
         ]);
 
         return redirect()->route('bukutamu')->with('success', 'Data buku tamu berhasil diperbarui.');
-    }
-
-    public function getPegawai($id) {
-        $pegawai = PegawaiModel::where('id_jabatan', $id)->get();
-        return response()->json($pegawai);
     }
 
     public function input()
@@ -134,5 +130,16 @@ class BukuTamuController extends Controller
         $bukutamu->delete();
 
         return redirect()->route('bukutamu')->with('success', 'Data Buku Tamu berhasil dihapus');
+    }
+
+    public function getPegawai($id) {
+        $pegawai = PegawaiModel::where('id_jabatan', $id)->get();
+        return response()->json($pegawai);
+    }
+
+    public function getOrangtua($idsiswa)
+    {
+        $orangtua = Orangtua::where('idsiswa', $idsiswa)->first();
+        return response()->json($orangtua);
     }
 }

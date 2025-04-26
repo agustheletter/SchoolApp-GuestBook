@@ -203,4 +203,6 @@ Route::post('/bukutamu/store',[BukuTamuController::class,'store'])->middleware('
 Route::delete('/bukutamu/{id}',[BukuTamuController::class,'destroy'])->middleware('auth')->name('bukutamu.destroy');
 
 Route::get('/getPegawai/{id}', [BukuTamuController::class, 'getPegawai'])->middleware('auth');
+Route::get('/getOrangtua/{idsiswa}', [BukuTamuController::class, 'getOrangtua'])->middleware('auth');
+
 //========================AKHIR ROUTE BUKU TAMU ========================

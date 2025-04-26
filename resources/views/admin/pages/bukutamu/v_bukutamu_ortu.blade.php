@@ -16,10 +16,24 @@
         @csrf
         <input type="hidden" name="role" value="{{ $role }}"> <!-- Role dikirim otomatis -->
 
+        @if ($role == 'ortu')
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Orang Tua Dari Siswa</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="idsiswa" id="idsiswa" required>
+                    <option>Pilih Nama Siswa</option>
+                    @foreach ($siswa as $s)
+                        <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        @endif
+
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Nama Orang Tua</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" name="nama" placeholder="Masukan Nama Anda" required>
+                <input type="text" class="form-control" name="nama" id="namaOrtu" placeholder="Masukan Nama Anda" required>
             </div>
         </div>
 
@@ -46,19 +60,7 @@
             </div>
         </div>
 
-        @if ($role == 'ortu')
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Orang Tua Dari Siswa</label>
-            <div class="col-sm-9">
-                <select class="form-control" name="idsiswa" required>
-                    <option>Pilih Nama Siswa</option>
-                    @foreach ($siswa as $s)
-                        <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        @else
+        @if ($role == 'umum')
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Asal Instansi</label>
             <div class="col-sm-9">
@@ -131,6 +133,27 @@
                 }
             });
         });
+    });
+
+    document.getElementById('idsiswa').addEventListener('change', function() {
+        var idsiswa = this.value;
+        if (idsiswa) {
+            fetch('/getOrangtua/' + idsiswa)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.nama_ortu) {
+                        document.getElementById('namaOrtu').value = data.nama_ortu;
+                    } else {
+                        document.getElementById('namaOrtu').value = '';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('namaOrtu').value = '';
+                });
+        } else {
+            document.getElementById('namaOrtu').value = '';
+        }
     });
 </script>
 @endsection

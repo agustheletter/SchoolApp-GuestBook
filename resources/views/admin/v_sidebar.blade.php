@@ -137,7 +137,7 @@
                 <!--Akhir MASTER DATA--> --}}
 
 
-                {{-- <!--Awal Siswa-->
+                <!--Awal Siswa-->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fa fa-graduation-cap" aria-hidden="true"></i>
@@ -158,7 +158,16 @@
                         </li>
                         <!--Akhir Master Siswa-->
 
-                        <!--Awal Cari Siswa-->
+                        <!--Awal Master Orang Tua-->
+                        <li class="nav-item">
+                            <a href="{{url('siswa')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Master Orang Tua</p>
+                            </a>
+                        </li>
+                        <!--Akhir Master Orang Tua-->
+
+                        {{-- <!--Awal Cari Siswa-->
                         <li class="nav-item">
                             <a href="/siswadetail" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -183,10 +192,10 @@
                                 <p>Mutasi/Naik/Pindah Kelas</p>
                             </a>
                         </li>
-                        <!--Akhir Kelas Siswa-->
+                        <!--Akhir Kelas Siswa--> --}}
                     </ul>
                 </li>
-                <!--Akhir Siswa--> --}}
+                <!--Akhir Siswa-->
 
 
 
