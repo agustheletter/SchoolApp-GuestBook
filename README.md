@@ -2,11 +2,11 @@
 <a id="readme-top"></a>
 # Guestbook School App (Website)
 
-<div class="flex justify-center items-center">
+<p align="center">
     <a href="https://github.com/agustheletter/SchoolApp-GuestBook">
         <img src="git-src/icon.png" alt="Product Logo" width="200">
     </a>
-</div>
+</p>
 
 <!-- PROJECT TITLE -->
 <br />
