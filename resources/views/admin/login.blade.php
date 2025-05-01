@@ -1,68 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | Guestbook</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
-
-    <link rel="icon" href="{{ asset('gambar/icon.png') }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Guestbook</title>
+  <link rel="icon" href="{{ asset('gambar/icon.png') }}">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
-<body class="min-h-screen flex items-center justify-center poppins">
+<body class="bg-gray-50 text-gray-800 poppins">
 
-    <!-- Background Layer -->
-    <div class="absolute inset-0 bg-no-repeat bg-cover bg-center grayscale" style="background-image: url('{{ asset('gambar/stmnpbdg.jpeg') }}');">
-        <!-- Overlay hitam + inner shadow -->
-        <div class="w-full h-full bg-black/60 shadow-inner shadow-black/80"></div>
+  <!-- Navbar -->
+  <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[#f0c256] shadow-md text-slate-900 p-5">
+    <div class="mx-12 flex justify-between items-center">
+      <div class="flex items-center justify-center gap-2">
+        <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
+        <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl">GuestBook</h1>
+      </div>
+      <nav class="flex items-center justify-center gap-5">
+        <a href="{{ route('landing') }}" class="hover:underline">Beranda</a>
+        <a href="#fitur" class="hover:underline">Fitur</a>
+        <a href="#tentang" class="hover:underline">Tentang</a>
+        <a href="#kontak" class="hover:underline">Kontak</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg relative z-10">
-        <a href="/" class="inline-flex items-center text-blue-600 hover:underline mb-4">
-            <i class="fas fa-arrow-left mr-2"></i> Kembali ke Beranda
-        </a>
+  <!-- Login Form -->
+  <section class="min-h-screen pt-[120px] flex items-center justify-center bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('gambar/smkn1cimahi.jpg') }}');">
+    <div class="bg-gray-800/75 shadow-lg rounded-xl p-8 w-full max-w-2xl">
+        <h2 class="text-white text-3xl font-bold mb-2">Selamat Datang!</h2>
+        <h2 class="text-white text-lg mb-6">Login sebagai admin</h2>
 
-        @if (session('error'))
-            <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">
-                <b>Opps!</b> {{ session('error') }}
-            </div>
+        @if(session('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <strong>Oops!</strong> {{ session('error') }}
+        </div>
         @endif
 
-        <h2 class="text-2xl font-bold text-center mb-6">Login admin Guestbook</h2>
-
-        <form action="{{ route('loginaksi') }}" method="post" class="space-y-4">
-            @csrf
-            <div>
-                <label for="email" class="block text-sm font-medium">Email</label>
-                <input type="email" name="email" placeholder="Email" required
-                    class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-blue-500 focus:border-blue-500" />
-            </div>
-
-            <div>
-                <label for="password" class="block text-sm font-medium">Password</label>
-                <input type="password" name="password" placeholder="Password" required
-                    class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-blue-500 focus:border-blue-500" />
-            </div>
-
-            <div>
-                <label for="thnajaran" class="block text-sm font-medium">Tahun Ajaran</label>
-                <select name="thnajaran" id="thnajaran" required
-                    class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option disabled selected>Pilih Tahun Ajaran</option>
-                    @foreach ($thnajaran as $t)
-                        <option value="{{ $t->idthnajaran }}">{{ $t->thnajaran }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <button type="submit"
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition duration-200">
-                Log In
-            </button>
+        <form method="POST" action="{{ route('loginaksi') }}">
+        @csrf
+        <div class="mb-4">
+            <label for="email" class="block text-white font-semibold mb-1">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" required autofocus>
+        </div>
+        <div class="mb-4">
+            <label for="password" class="block text-white font-semibold mb-1">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+        </div>
+        <div class="mb-6">
+            <label for="thnajaran" class="block text-sm text-white font-medium">Tahun Ajaran</label>
+            <select name="thnajaran" id="thnajaran" required class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:ring focus:ring-blue-300 focus:outline-none">
+                <option value="" disabled selected>Pilih Tahun Ajaran</option>
+                @foreach ($thnajaran as $t)
+                    <option value="{{ $t->idthnajaran }}">{{ $t->thnajaran }}</option>
+                @endforeach
+            </select>
+        </div>
+        <button type="submit" class="w-full bg-yellow-500 hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300">Masuk</button>
         </form>
     </div>
+  </section>
 
+  <!-- Footer -->
+  <footer class="bg-slate-500 text-white text-center py-6">
+    <p>&copy; 2025 Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
+  </footer>
+
+  <!-- Script sama seperti landing page -->
+  <script>
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    window.onscroll = function () {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+        scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+      } else {
+        scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+        scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+      }
+    };
+    scrollToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>

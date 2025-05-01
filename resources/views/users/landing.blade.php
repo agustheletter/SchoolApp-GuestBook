@@ -22,7 +22,7 @@
     <div class="mx-12 flex justify-between items-center">
       <div class="flex items-center justify-center gap-2">
         <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
-        <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl">Guestbook</h1>
+        <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl">GuestBook</h1>
       </div>
       <nav class="flex items-center justify-center gap-5">
         <a href="#fitur" class="hover:underline">Fitur</a>
