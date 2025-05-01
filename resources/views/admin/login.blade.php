@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
 
     <link rel="icon" href="{{ asset('gambar/icon.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
 </head>
-<body class="min-h-screen flex items-center justify-center">
+<body class="min-h-screen flex items-center justify-center poppins">
 
     <!-- Background Layer -->
     <div class="absolute inset-0 bg-no-repeat bg-cover bg-center grayscale" style="background-image: url('{{ asset('gambar/stmnpbdg.jpeg') }}');">
