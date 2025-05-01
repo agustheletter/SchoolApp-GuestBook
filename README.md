@@ -81,6 +81,7 @@ Aplikasi **Website Buku Tamu Sekolah** berbasis Laravel dan template Admin LTE i
 ### ⌨️ Teknologi yang digunakan
 * [![Laravel][Laravel.com]][Laravel-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![Tailwind][Tailwindcss.com]][Tailwindcss-url]
 * [![MySQL][MySQL.com]][MySQL-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -207,5 +208,7 @@ Project Link: [https://github.com/agustheletter/SchoolApp-GuestBook](https://git
 [Laravel-url]: https://laravel.com
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
+[Tailwindcss.com]: https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwindcss-url]: https://tailwindcss.com
 [MySQL.com]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white
 [MySQL-url]: https://www.mysql.com
