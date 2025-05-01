@@ -1,82 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Aplikasi SPP | SMK Negeri 1 Cimahi</title>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Guestbook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
 
-        <!-- Google Font: Source Sans Pro -->
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/dist/css/adminlte.min.css">
+    <link rel="icon" href="{{ asset('gambar/icon.png') }}">
+</head>
+<body class="min-h-screen flex items-center justify-center">
 
-        <link href="{{ asset('TemplateAdminLTE') }}/dist/select2/css/select2.min.css" rel="stylesheet" />
-        <script src="{{ asset('TemplateAdminLTE') }}/plugins/jquery/jquery.min.js"></script>
-        <script src="{{ asset('TemplateAdminLTE') }}/dist/select2/js/select2.full.min.js"></script>
-    </head>
+    <!-- Background Layer -->
+    <div class="absolute inset-0 bg-no-repeat bg-cover bg-center grayscale" style="background-image: url('{{ asset('gambar/stmnpbdg.jpeg') }}');">
+        <!-- Overlay hitam + inner shadow -->
+        <div class="w-full h-full bg-black/60 shadow-inner shadow-black/80"></div>
+    </div>
 
-    <body>
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg relative z-10">
+        <a href="/" class="inline-flex items-center text-blue-600 hover:underline mb-4">
+            <i class="fas fa-arrow-left mr-2"></i> Kembali ke Beranda
+        </a>
 
-        <div class="container">
-            <br>
-            {{-- <center>
-                <img src="{{ asset('gambar/logo.png') }}" width="150px" height="150px" class="text-center">
-            </center> --}}
-
-            <div  class="col-lg-6 offset-lg-3">
-                {{-- <h2 class="text-center">
-                    Aplikasi Keuangan
-                    <p>SMK TI Pembangunan
-                </h2> --}}
-                <hr>
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        <b>Opps!</b>
-                        {{ session('error') }}
-                    </div>
-                @endif
-
-                <form action="{{ route('loginaksi') }}" method="post">
-                    @csrf
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Email" required="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password" required="">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tahun Ajaran</label>
-                        <select type="text" class="form-control" id="thnajaran" name="thnajaran" required="">
-                            <option></option>
-                            @foreach ($thnajaran as $t)
-                                <option value="{{ $t->idthnajaran }}">{{ $t->thnajaran }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-
-                    <button type="submit" class="btn btn-primary btn-block">
-                        Log In
-                    </button>
-
-                    <hr>
-                    {{-- <p class="text-center">
-                        Belum punya akun?
-                        <a href="#">
-                            Register
-                        </a>
-                        sekarang!
-                    </p> --}}
-                </form>
+        @if (session('error'))
+            <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">
+                <b>Opps!</b> {{ session('error') }}
             </div>
-        </div>
-    </body>
+        @endif
+
+        <h2 class="text-2xl font-bold text-center mb-6">Login admin Guestbook</h2>
+
+        <form action="{{ route('loginaksi') }}" method="post" class="space-y-4">
+            @csrf
+            <div>
+                <label for="email" class="block text-sm font-medium">Email</label>
+                <input type="email" name="email" placeholder="Email" required
+                    class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium">Password</label>
+                <input type="password" name="password" placeholder="Password" required
+                    class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <div>
+                <label for="thnajaran" class="block text-sm font-medium">Tahun Ajaran</label>
+                <select name="thnajaran" id="thnajaran" required
+                    class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option disabled selected>Pilih Tahun Ajaran</option>
+                    @foreach ($thnajaran as $t)
+                        <option value="{{ $t->idthnajaran }}">{{ $t->thnajaran }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition duration-200">
+                Log In
+            </button>
+        </form>
+    </div>
+
+</body>
 </html>

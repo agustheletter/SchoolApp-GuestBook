@@ -1,7 +1,7 @@
 <!--awal konten dinamis-->
 @extends('admin.v_admin')
 @section('judulhalaman', 'Home')
-@section('title', 'Home')
+@section('title', 'Admin')
 
 <!--awal isi konten dinamis-->
 @section('konten')

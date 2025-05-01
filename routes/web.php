@@ -20,13 +20,13 @@ use App\Http\Controllers\SppController;
 use App\Http\Controllers\TahunAjaranController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('users.landing');
+});
 
 
 //=========================AWAL ROUTE LOGIN=========================
-Route::get('/', [LoginController::class,'login'])->name('login');
+Route::get('/login', [LoginController::class,'login'])->name('login');
 Route::post('loginaksi', [LoginController::class,'loginaksi'])->name('loginaksi');
 Route::get('logoutaksi', [LoginController::class,'logoutaksi'])->name('logoutaksi')->middleware('auth');
 //=========================AWAL ROUTE LOGIN=========================
