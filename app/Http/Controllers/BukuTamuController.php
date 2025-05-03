@@ -140,6 +140,28 @@ class BukuTamuController extends Controller
     public function getOrangtua($idsiswa)
     {
         $orangtua = Orangtua::where('idsiswa', $idsiswa)->first();
-        return response()->json($orangtua);
+        // return response()->json($orangtua);
+
+        if ($orangtua) {
+            return response()->json([
+                'nama_ortu' => $orangtua->nama_ortu
+            ]);
+        } else {
+            return response()->json([
+                'nama_ortu' => null
+            ]);
+        }
+    }
+
+    // Buku Tamu User controller
+    public function inputUser() {
+        $agama = AgamaModel::all();
+        $siswa = SiswaModel::all();
+        $jabatan = JabatanModel::all();
+        $pegawai = PegawaiModel::all();
+        $role = 'ortu';
+
+        // return view('users.bukutamu.input');
+        return view('users.bukutamu.input', compact('agama', 'siswa', 'jabatan', 'pegawai', 'role'));
     }
 }

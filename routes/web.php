@@ -202,7 +202,15 @@ Route::get('/bukutamu/input/umum',[BukuTamuController::class,'input_umum'])->mid
 Route::post('/bukutamu/store',[BukuTamuController::class,'store'])->middleware('auth')->name('bukutamu.store');
 Route::delete('/bukutamu/{id}',[BukuTamuController::class,'destroy'])->middleware('auth')->name('bukutamu.destroy');
 
-Route::get('/getPegawai/{id}', [BukuTamuController::class, 'getPegawai'])->middleware('auth');
-Route::get('/getOrangtua/{idsiswa}', [BukuTamuController::class, 'getOrangtua'])->middleware('auth');
+Route::get('/getPegawai/{id}', [BukuTamuController::class, 'getPegawai']);
+Route::get('/getOrangtua/{idsiswa}', [BukuTamuController::class, 'getOrangtua']);
 
 //========================AKHIR ROUTE BUKU TAMU ========================
+
+
+
+//=========================AWAL ROUTE BUKU TAMU =========================
+Route::get('/guestbook',[BukuTamuController::class,'inputUser'])->name('bukutamu.user');
+
+//========================AKHIR ROUTE BUKU TAMU ========================
+

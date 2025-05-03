@@ -25,19 +25,20 @@
         <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl">GuestBook</h1>
       </div>
       <nav class="flex items-center justify-center gap-5">
+        <a href="#beranda" class="hover:underline">Beranda</a>
         <a href="#fitur" class="hover:underline">Fitur</a>
         <a href="#tentang" class="hover:underline">Tentang</a>
         <a href="#kontak" class="hover:underline">Kontak</a>
         @if(Auth::check())
         <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
         @else
-        <a href="{{ route('login') }}" class="ml-1 bg-white hover:bg-gray-200 text-black px-6 py-[6px] rounded-md transition duration-200 shadow-xl">Login</a>
+        <a href="{{ route('login') }}" class="ml-1 bg-black text-white px-6 py-[6px] rounded-md transition duration-200 shadow-xl hover:bg-white hover:text-black">Login</a>
         @endif
       </nav>
     </div>
   </header>
 
-  <section class="relative min-h-screen pt-[88px] flex items-center justify-center text-center overflow-hidden bg-gray-200">
+  <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center text-center overflow-hidden bg-gray-200">
     <!-- Lingkaran Kuning Hanya di Atas -->
     <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] bg-[#ffd369] rounded-full z-0"></div>
 
@@ -47,8 +48,8 @@
         <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4">Selamat Datang di Buku Tamu Digital</h2>
         <p class="text-xl text-gray-700 drop-shadow-md mb-28">Catat kehadiran tamu secara efisien dan terorganisir</p>
         <div class="w-fit mx-auto flex items-center justify-center bg-white gap-3 p-2 rounded-full">
-            <a href="#progress" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white transition">Tamu Orang Tua</a>
-            <a href="#progress" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white transition">Tamu Umum</a>
+            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white transition">Tamu Orang Tua</a>
+            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white transition">Tamu Umum</a>
         </div>
     </div>
   </section>
