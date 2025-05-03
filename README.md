@@ -212,3 +212,4 @@ Project Link: [https://github.com/agustheletter/SchoolApp-GuestBook](https://git
 [Tailwindcss-url]: https://tailwindcss.com
 [MySQL.com]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white
 [MySQL-url]: https://www.mysql.com
+
