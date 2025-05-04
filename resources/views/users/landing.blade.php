@@ -53,8 +53,8 @@
         <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4">Selamat Datang di Buku Tamu Digital</h2>
         <p class="text-xl text-gray-700 drop-shadow-md mb-28">Catat kehadiran tamu secara efisien dan terorganisir</p>
         <div class="w-fit mx-auto flex items-center justify-center bg-white gap-3 p-2 rounded-full">
-            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white hover:scale-105 transition duration-300">Orang Tua</a>
-            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white hover:scale-105 transition duration-300">Tamu Umum</a>
+            <a href="{{ route('bukutamu.user') }}?tab=umum" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white hover:scale-105 transition duration-300">Orang Tua</a>
+            <a href="{{ route('bukutamu.user') }}?tab=ortu" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white hover:scale-105 transition duration-300">Tamu Umum</a>
         </div>
     </div>
   </section>
@@ -120,19 +120,22 @@
   <section id="kontak" class="py-24 px-4 min-h-screen relative">
 
     {{-- biru --}}
-    <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#3b82f6_100%)]"></div>
+    {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#3b82f6_100%)]"></div> --}}
 
     {{-- hitam --}}
     {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#000_100%)]"></div> --}}
 
     {{-- ungu --}}
-    {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"></div> --}}
+    <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"></div>
 
     {{-- kuning --}}
     {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#facc15_100%)]"></div> --}}
 
     {{-- abu --}}
     {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#1e293b_100%)]"></div> --}}
+
+    {{-- hijau --}}
+    {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#22c55e_100%)]"></div> --}}
 
     <!-- Header -->
     <div class="text-center mb-16 mt-10">
@@ -235,6 +238,8 @@
     function updateActiveNav() {
         let current = "";
 
+        const scrollY = window.pageYOffset;
+
         sections.forEach(section => {
         const sectionTop = section.offsetTop - 100;
         const sectionHeight = section.offsetHeight;
@@ -245,14 +250,35 @@
 
         navLinks.forEach(link => {
         link.classList.remove("active");
-        if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
+        const href = link.getAttribute("href");
+        if (href === `#${current}`) {
+          link.classList.add("active");
         }
         });
     }
 
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function scrollToTabFromURL() {
+        const tab = getQueryParam('tab');
+        let targetSection = null;
+
+        if (tab === 'ortu') {
+            targetSection = document.getElementById('orang-tua');
+        } else if (tab === 'umum') {
+            targetSection = document.getElementById('tamu-umum');
+        }
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     window.addEventListener("scroll", updateActiveNav);
-    updateActiveNav(); // Jalankan sekali saat halaman dimuat
+    updateActiveNav(); // Jalankan saat halaman dimuat
+    scrollToTabFromURL(); // Scroll ke tab sesuai URL
     });
 
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');

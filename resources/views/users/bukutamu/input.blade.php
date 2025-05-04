@@ -137,10 +137,17 @@
                         <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
                     </div>
 
-                    <button type="submit"
-                            class="w-full bg-yellow-500 hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300">
-                        Masuk
+                    <div class="flex gap-3 justify-end"> 
+                        <a href="{{ route('landing') }}"
+                            class="w-52 bg-[#ffd369] hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300 text-center">
+                            Kembali 
+                        </a>
+
+                        <button type="submit"
+                        class="w-52 bg-[#8fd14f] hover:bg-gray-800 hover:text-[#8fd14f] text-gray-800 font-semibold py-2 rounded-md transition duration-300">
+                        Simpan
                     </button>
+                    </div> 
                 </form>
             </div>
 
@@ -148,19 +155,8 @@
                 <form method="POST" action="">
                     @csrf
                     <div class="mb-4 flex items-center gap-4">
-                        <label for="idsiswa" class="w-52 text-left font-semibold">Orang Tua dari Siswa</label>
-                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            name="idsiswa" id="idsiswa" required>
-                            <option value="" selected disabled>Pilih Nama Siswa</option>
-                            @foreach ($siswa as $s)
-                                <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-4 flex items-center gap-4">
-                        <label for="namaOrtu" class="w-52 text-left font-semibold">Nama Orang Tua</label>
-                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="nama" id="namaOrtu" placeholder="Masukan Nama Anda" required>
+                        <label for="namaTamu" class="w-52 text-left font-semibold">Nama</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="nama" id="namaTamu" placeholder="Masukan Nama Anda" required>
                     </div>
 
                     <div class="mb-4 flex items-center gap-4">
@@ -172,13 +168,11 @@
                             @endforeach
                         </select>
                     </div>
-
-                    @if ($role == 'umum')
+                    
                     <div class="mb-4 flex items-center gap-4">
                         <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
                         <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
-                    </div>
-                    @endif
+                    </div> 
 
                     <div class="mb-4 flex items-center gap-4">
                         <label for="alamat" class="w-52 text-left font-semibold">Alamat</label>
@@ -212,10 +206,17 @@
                         <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
                     </div>
 
-                    <button type="submit"
-                            class="w-full bg-yellow-500 hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300">
-                        Masuk
+                    <div class="flex gap-3 justify-end"> 
+                        <a href="{{ route('landing') }}"
+                            class="w-52 bg-[#ffd369] hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300 text-center">
+                            Kembali 
+                        </a>
+
+                        <button type="submit"
+                        class="w-52 bg-[#8fd14f] hover:bg-gray-800 hover:text-[#8fd14f] text-gray-800 font-semibold py-2 rounded-md transition duration-300">
+                        Simpan
                     </button>
+                    </div>
                 </form>
             </div>
 
