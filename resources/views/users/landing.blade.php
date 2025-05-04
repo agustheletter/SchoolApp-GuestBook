@@ -9,6 +9,10 @@
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Font Awesome untuk ikon -->
+  {{-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> --}}
+
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
 
@@ -45,56 +49,157 @@
 
     <!-- Konten -->
     <div class="relative z-10 w-full h-[440px] container mx-auto px-6 pb-12">
-        <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-36 h-36 mx-auto mb-4">
+        <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-36 h-36 mx-auto mb-4 transition duration-300 hover:scale-110">
         <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4">Selamat Datang di Buku Tamu Digital</h2>
         <p class="text-xl text-gray-700 drop-shadow-md mb-28">Catat kehadiran tamu secara efisien dan terorganisir</p>
         <div class="w-fit mx-auto flex items-center justify-center bg-white gap-3 p-2 rounded-full">
-            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white transition duration-300">Orang Tua</a>
-            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white transition duration-300">Tamu Umum</a>
+            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white hover:scale-105 transition duration-300">Orang Tua</a>
+            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white hover:scale-105 transition duration-300">Tamu Umum</a>
         </div>
     </div>
   </section>
 
 
   {{-- Fitur --}}
-  <section id="fitur" class="bg-gray-100 py-36 flex items-center justify-center min-h-screen">
+  <section id="fitur" class="bg-gradient-to-br from-gray-300 via-white to-gray-500 py-36 flex items-center justify-center min-h-screen">
+
     <div class="container mx-auto px-6 text-center">
-      <h3 class="text-2xl font-semibold mb-10">Fitur Unggulan</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="px-8 py-20 bg-white rounded shadow">
-          <i class="fas fa-keyboard text-6xl mb-4"></i>
-          <h4 class="text-xl font-bold mb-3">Input Otomatis</h4>
-          <p class="text-gray-600">Nama orang tua siswa akan terisi secara otomatis setelah memilih nama siswa dari daftar, sehingga mempercepat dan memudahkan proses pengisian data tamu.</p>
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900">Features</h2>
+            <p class="text-lg text-gray-600 mt-2">Smart solutions, simple experience 🛠️</p>
         </div>
-        <div class="px-8 py-20 bg-white rounded shadow">
-          <i class="fas fa-signal text-6xl mb-4"></i>
-          <h4 class="text-xl font-bold mb-3">Rekap Kunjungan</h4>
-          <p class="text-gray-600">Setiap data tamu yang tercatat akan tersimpan secara rapi dalam sistem, sehingga memudahkan sekolah dalam melihat riwayat kunjungan kapan saja.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2">
+                <i class="fas fa-keyboard text-6xl mb-4"></i>
+                <h4 class="text-xl font-bold mb-3">Input Otomatis</h4>
+                <p class="text-gray-600">Nama orang tua siswa akan terisi secara otomatis setelah memilih nama siswa dari daftar, sehingga mempercepat dan memudahkan proses pengisian data tamu.</p>
+            </div>
+            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2">
+                <i class="fas fa-signal text-6xl mb-4"></i>
+                <h4 class="text-xl font-bold mb-3">Rekap Kunjungan</h4>
+                <p class="text-gray-600">Setiap data tamu yang tercatat akan tersimpan secara rapi dalam sistem, sehingga memudahkan sekolah dalam melihat riwayat kunjungan kapan saja.</p>
+            </div>
+            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2">
+                <i class="fas fa-database text-6xl mb-4"></i>
+                <h4 class="text-xl font-bold mb-3">Pengelolaan Data</h4>
+                <p class="text-gray-600">Aplikasi ini menyediakan fitur pengelolaan data penting seperti pegawai, jabatan, siswa, dan agama, agar sistem tetap terorganisir dan mudah diperbarui.</p>
+            </div>
         </div>
-        <div class="px-8 py-20 bg-white rounded shadow">
-          <i class="fas fa-database text-6xl mb-4"></i>
-          <h4 class="text-xl font-bold mb-3">Pengelolaan Data</h4>
-          <p class="text-gray-600">Aplikasi ini menyediakan fitur pengelolaan data penting seperti pegawai, jabatan, siswa, dan agama, agar sistem tetap terorganisir dan mudah diperbarui.</p>
+    </div>
+  </section>
+
+  <section id="tentang" class="bg-white py-24 flex items-center justify-center min-h-screen relative">
+    <div class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]">
+    </div>
+
+    <div class="container mx-auto px-6 text-center">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900">About</h2>
+            <p class="text-lg text-gray-600 mt-2">Discover the story behind our code 📖</p>
+        </div>
+
+        <!-- Icon -->
+        <div class="flex justify-center mb-8">
+            <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-48 h-w-48 mx-auto drop-shadow-xl transition duration-300 hover:scale-110">
+        </div>
+
+        <p class="text-gray-600 max-w-5xl mx-auto">Aplikasi Buku Tamu Digital ini adalah proyek tugas akhir kami untuk mata pelajaran pengembangan website, dibangun menggunakan Laravel dan MySQL. Aplikasi ini dirancang untuk membantu sekolah dalam mencatat dan mengelola kunjungan tamu—baik orang tua siswa maupun tamu umum—secara efisien dan terstruktur. Fitur-fitur utamanya meliputi input data tamu secara langsung, pemisahan kategori tamu, pencatatan tujuan kunjungan, serta pengelolaan data pegawai, siswa, jabatan, dan agama. Seluruh data tersimpan secara digital sehingga memudahkan pencarian, rekap, dan pelaporan kunjungan.</p>
+    </div>
+  </section>
+
+  <section id="kontak" class="bg-gradient-to-br from-white via-yellow-100 to-gray-900 py-24 px-4 min-h-screen">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900">Contact Us</h2>
+      <p class="text-lg text-gray-600 mt-2">Let’s get in touch with the developers 🧑🏻‍💻</p>
+    </div>
+
+    <!-- Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+      <!-- Card -->
+      <div class="group bg-white hover:bg-slate-800 rounded-2xl shadow-xl p-8 border-4 border-slate-800 hover:border-white relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-100 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
+        <div class="relative z-10 text-center">
+          <img src="{{ asset('gambar/people/adre.png') }}" alt="Adrenalin" class="w-24 h-24 mx-auto rounded-full object-cover mb-4 shadow-2xl border-4 border-transparent transform hover:scale-110 hover:border-4 hover:border-white transition duration-300">
+
+          <h3 class="text-xl font-semibold relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-600 to-white animate-shine group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-white group-hover:to-white group-hover:text-white transition duration-300 hover:scale-110">
+            Adrenalin Muhammad Dewangga
+          </h3>
+
+          <p class="text-sm text-gray-600 group-hover:text-gray-100 transition duration-300 hover:scale-110">Fullstack Web Developer</p>
+          <p class="text-sm text-gray-500 mt-1 group-hover:text-gray-200 transition duration-300 hover:scale-110">
+            🌐 <a href="https://adre.my.id" class="text-blue-600 group-hover:text-blue-300 hover:underline">adre.my.id</a>
+          </p>
+          <p class="italic text-sm mt-4 text-gray-700 group-hover:text-gray-200 transition duration-300 hover:scale-110">
+            "Engineer by logic, artist by code."
+          </p>
+
+          <div class="flex justify-center space-x-5 mt-6 text-gray-700 group-hover:text-gray-200 transition duration-300">
+            <a href="https://instagram.com/akuadre" target="_blank" class="hover:text-pink-400 transition duration-300 hover:scale-125">
+              <i class="fab fa-instagram text-xl"></i>
+            </a>
+            <a href="mailto:dreenation21@gmail.com" class="hover:text-blue-400 transition duration-300 hover:scale-125">
+              <i class="fas fa-envelope text-xl"></i>
+            </a>
+            <a href="https://wa.me/628xxxxxxx" target="_blank" class="hover:text-green-400 transition duration-300 hover:scale-125">
+              <i class="fab fa-whatsapp text-xl"></i>
+            </a>
+            <a href="https://github.com/akuadre" target="_blank" class="hover:text-white transition duration-300 hover:scale-125">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="group bg-white hover:bg-slate-800 rounded-2xl shadow-xl p-8 border-4 border-slate-800 hover:border-white relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500">
+        <div class="absolute inset-0 bg-gradient-to-br from-yellow-100 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
+        <div class="relative z-10 text-center">
+          <img src="{{ asset('gambar/smkn1cimahi.jpg') }}" alt="Evliya" class="w-24 h-24 mx-auto rounded-full object-cover mb-4 shadow-2xl border-4 border-transparent transform hover:scale-110 hover:border-4 hover:border-white transition duration-300">
+
+          <h3 class="text-xl font-semibold relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-600 to-white animate-shine group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-white group-hover:to-white group-hover:text-white transition duration-300 hover:scale-110">
+            Evliya Satari Nurarifah
+          </h3>
+
+          <p class="text-sm text-gray-600 group-hover:text-gray-100 transition duration-300 hover:scale-110">Frontend & UI/UX Designer</p>
+          <p class="text-sm text-gray-500 mt-1 group-hover:text-gray-200 transition duration-300 hover:scale-110">
+            🌐 <a href="https://evliya.my.id" class="text-blue-600 group-hover:text-blue-300 hover:underline">evliya.my.id</a>
+          </p>
+          <p class="italic text-sm mt-4 text-gray-700 group-hover:text-gray-200 transition duration-300 hover:scale-110">
+            "Design is not just how it looks, but how it feels."
+          </p>
+
+          <div class="flex justify-center space-x-5 mt-6 text-gray-700 group-hover:text-gray-200 transition duration-300">
+            <a href="https://instagram.com/akuadre" target="_blank" class="hover:text-pink-400 transition duration-300 hover:scale-125">
+              <i class="fab fa-instagram text-xl"></i>
+            </a>
+            <a href="mailto:dreenation21@gmail.com" class="hover:text-blue-400 transition duration-300 hover:scale-125">
+              <i class="fas fa-envelope text-xl"></i>
+            </a>
+            <a href="https://wa.me/628xxxxxxx" target="_blank" class="hover:text-green-400 transition duration-300 hover:scale-125">
+              <i class="fab fa-whatsapp text-xl"></i>
+            </a>
+            <a href="https://github.com/akuadre" target="_blank" class="hover:text-white transition duration-300 hover:scale-125">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <section id="tentang" class="bg-white py-24 flex items-center justify-center min-h-screen">
-    <div class="container mx-auto px-6 text-center">
-      <h3 class="text-2xl font-semibold mb-4">Tentang Aplikasi</h3>
-      <p class="text-gray-600 max-w-5xl mx-auto">Aplikasi Buku Tamu Digital ini adalah proyek tugas akhir kami untuk mata pelajaran pengembangan website, dibangun menggunakan Laravel dan MySQL. Aplikasi ini dirancang untuk membantu sekolah dalam mencatat dan mengelola kunjungan tamu—baik orang tua siswa maupun tamu umum—secara efisien dan terstruktur. Fitur-fitur utamanya meliputi input data tamu secara langsung, pemisahan kategori tamu, pencatatan tujuan kunjungan, serta pengelolaan data pegawai, siswa, jabatan, dan agama. Seluruh data tersimpan secara digital sehingga memudahkan pencarian, rekap, dan pelaporan kunjungan.</p>
+    <!-- Paragraf Bawah -->
+    <div class="mt-16 text-center max-w-3xl mx-auto">
+      <p class="text-base font-medium text-gray-900">
+        We are students of Software Engineering (Rekayasa Perangkat Lunak) at SMK Negeri 1 Cimahi, currently in the 11th grade. This project is developed as part of our academic journey to enhance real-world web development skills.
+      </p>
     </div>
+
   </section>
 
-  <section id="kontak" class="bg-gray-100 py-48 flex items-center justify-center min-h-screen">
-    <div class="container mx-auto px-6 text-center">
-      <h3 class="text-2xl font-semibold mb-4">Kontak</h3>
-      <p class="text-gray-600">Hubungi pengembang melalui email: <a href="mailto:admin@sekolah.id" class="text-blue-600 hover:underline">admin@sekolah.id</a></p>
-    </div>
-  </section>
-
-  <footer class="bg-slate-500 text-white text-center py-6">
+  <footer class="bg-slate-700 text-white text-center py-6">
     <p>&copy; 2025 Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
   </footer>
 

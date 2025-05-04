@@ -223,7 +223,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-500 text-white text-center py-6">
+    <footer class="bg-slate-700 text-white text-center py-6">
         <p>&copy; 2025 Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
     </footer>
 
