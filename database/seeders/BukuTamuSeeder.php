@@ -16,8 +16,7 @@ class BukuTamuSeeder extends Seeder
         DB::table('tbl_bukutamu')->insert([
             [
                 'id' => 1,
-                'nama' => 'Andriana Forever Young',
-                'jenis_kelamin' => 'Perempuan',
+                'nama' => 'Andriana',
                 'role' => 'umum',
                 'idagama' => 1,
                 'idsiswa' => null,
@@ -34,7 +33,6 @@ class BukuTamuSeeder extends Seeder
             [
                 'id' => 2,
                 'nama' => 'Tamu 1',
-                'jenis_kelamin' => 'Laki-laki',
                 'role' => 'umum',
                 'idagama' => 1,
                 'idsiswa' => null,
@@ -51,7 +49,6 @@ class BukuTamuSeeder extends Seeder
             [
                 'id' => 3,
                 'nama' => 'Orang Tua 1',
-                'jenis_kelamin' => 'Perempuan',
                 'role' => 'ortu',
                 'idagama' => 1,
                 'idsiswa' => 1,

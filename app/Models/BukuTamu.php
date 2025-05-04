@@ -14,7 +14,7 @@ class BukuTamu extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'nama', 'role', 'jenis_kelamin', 'idagama', 'idsiswa', 'instansi',
+        'nama', 'role', 'idagama', 'idsiswa', 'instansi',
         'alamat', 'kontak', 'id_jabatan', 'id_pegawai', 'keperluan'
     ];
 

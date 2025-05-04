@@ -29,7 +29,6 @@
                 <th><center>No</center></th>
                 <th><center>Nama</center></th>
                 <th><center>Role</center></th>
-                <th><center>Gender</center></th>
                 <th><center>Agama</center></th>
                 <th><center>Orang Tua Siswa</center></th>
                 <th><center>Instansi</center></th>
@@ -53,7 +52,6 @@
                             Tamu Umum
                         @endif
                     </td>
-                    <td>{{ $tamu->jenis_kelamin }}</td>
                     <td>{{ optional($tamu->agama)->agama ?? '-' }}</td>
                     <td>{{ $tamu->siswa->namasiswa ?? '-' }}</td>
                     <td>{{ $tamu->instansi ?? '-' }}</td>

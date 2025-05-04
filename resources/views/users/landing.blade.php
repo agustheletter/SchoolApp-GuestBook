@@ -6,6 +6,7 @@
   <title>Home | Guestbook</title>
   <link rel="icon" href="{{ asset('gambar/icon.png') }}">
   <script src="https://cdn.tailwindcss.com"></script>
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
@@ -13,26 +14,26 @@
 
 <body class="bg-gray-50 text-gray-800 poppins">
   <!-- Tombol Scroll ke Atas -->
-  <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition opacity-0 pointer-events-none flex flex-col items-center justify-center">
+  <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-yellow-500 text-white p-4 rounded-full shadow-lg hover:bg-yellow-600 transition opacity-0 pointer-events-none flex flex-col items-center justify-center">
     <span class="text-2xl font-bold">↑</span>
     <span class="text-xs mt-1">Top</span>
   </button>
 
   <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-900 p-5">
     <div class="mx-12 flex justify-between items-center">
-      <div class="flex items-center justify-center gap-2">
-        <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
-        <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl">GuestBook</h1>
-      </div>
+        <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
+            <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
+            <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl group-hover:text-slate-100 transition duration-300">GuestBook</h1>
+        </a>
       <nav class="flex items-center justify-center gap-5">
-        <a href="#beranda" class="hover:underline">Beranda</a>
-        <a href="#fitur" class="hover:underline">Fitur</a>
-        <a href="#tentang" class="hover:underline">Tentang</a>
-        <a href="#kontak" class="hover:underline">Kontak</a>
+        <a href="#beranda" class="hover:text-slate-100 transition duration-300">Beranda</a>
+        <a href="#fitur" class="hover:text-slate-100 transition duration-300">Fitur</a>
+        <a href="#tentang" class="hover:text-slate-100 transition duration-300">Tentang</a>
+        <a href="#kontak" class="hover:text-slate-100 transition duration-300">Kontak</a>
         @if(Auth::check())
         <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
         @else
-        <a href="{{ route('login') }}" class="ml-1 bg-black text-white px-6 py-[6px] rounded-md transition duration-200 shadow-xl hover:bg-white hover:text-black">Login</a>
+        <a href="{{ route('login') }}" class="ml-1 bg-black text-white px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-white hover:text-black">Login</a>
         @endif
       </nav>
     </div>
@@ -48,14 +49,15 @@
         <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4">Selamat Datang di Buku Tamu Digital</h2>
         <p class="text-xl text-gray-700 drop-shadow-md mb-28">Catat kehadiran tamu secara efisien dan terorganisir</p>
         <div class="w-fit mx-auto flex items-center justify-center bg-white gap-3 p-2 rounded-full">
-            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white transition">Tamu Orang Tua</a>
-            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white transition">Tamu Umum</a>
+            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white transition duration-300">Orang Tua</a>
+            <a href="{{ route('bukutamu.user') }}" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white transition duration-300">Tamu Umum</a>
         </div>
     </div>
   </section>
 
 
-  <section id="fitur" class="bg-gray-100 py-36 flex items-center justify-center">
+  {{-- Fitur --}}
+  <section id="fitur" class="bg-gray-100 py-36 flex items-center justify-center min-h-screen">
     <div class="container mx-auto px-6 text-center">
       <h3 class="text-2xl font-semibold mb-10">Fitur Unggulan</h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -78,14 +80,14 @@
     </div>
   </section>
 
-  <section id="tentang" class="bg-white py-24 flex items-center justify-center">
+  <section id="tentang" class="bg-white py-24 flex items-center justify-center min-h-screen">
     <div class="container mx-auto px-6 text-center">
       <h3 class="text-2xl font-semibold mb-4">Tentang Aplikasi</h3>
       <p class="text-gray-600 max-w-5xl mx-auto">Aplikasi Buku Tamu Digital ini adalah proyek tugas akhir kami untuk mata pelajaran pengembangan website, dibangun menggunakan Laravel dan MySQL. Aplikasi ini dirancang untuk membantu sekolah dalam mencatat dan mengelola kunjungan tamu—baik orang tua siswa maupun tamu umum—secara efisien dan terstruktur. Fitur-fitur utamanya meliputi input data tamu secara langsung, pemisahan kategori tamu, pencatatan tujuan kunjungan, serta pengelolaan data pegawai, siswa, jabatan, dan agama. Seluruh data tersimpan secara digital sehingga memudahkan pencarian, rekap, dan pelaporan kunjungan.</p>
     </div>
   </section>
 
-  <section id="kontak" class="bg-gray-100 py-48 flex items-center justify-center">
+  <section id="kontak" class="bg-gray-100 py-48 flex items-center justify-center min-h-screen">
     <div class="container mx-auto px-6 text-center">
       <h3 class="text-2xl font-semibold mb-4">Kontak</h3>
       <p class="text-gray-600">Hubungi pengembang melalui email: <a href="mailto:admin@sekolah.id" class="text-blue-600 hover:underline">admin@sekolah.id</a></p>
@@ -97,6 +99,34 @@
   </footer>
 
   <script>
+    // navbar aktif
+    document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll("nav a[href^='#']");
+
+    function updateActiveNav() {
+        let current = "";
+
+        sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.offsetHeight;
+        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+            current = section.getAttribute("id");
+        }
+        });
+
+        navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+        }
+        });
+    }
+
+    window.addEventListener("scroll", updateActiveNav);
+    updateActiveNav(); // Jalankan sekali saat halaman dimuat
+    });
+
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     window.onscroll = function () {
       if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {

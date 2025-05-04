@@ -19,46 +19,49 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 poppins">
+<body class="bg-gray-50 text-gray-800 poppins flex flex-col min-h-screen">
 
     <!-- Navbar -->
-    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-white p-5">
+    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[#f0c256] text-slate-900 p-5 shadow-2xl">
         <div class="mx-12 flex justify-between items-center">
-            <div class="flex items-center justify-center gap-2">
+            <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
                 <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
-                <h1 class="text-2xl font-semibold text-white drop-shadow-xl transition duration-300">GuestBook</h1>
-            </div>
+                <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl group-hover:text-slate-100 transition duration-300">GuestBook</h1>
+            </a>
             <nav class="flex items-center justify-center gap-5">
-                <a href="{{ route('landing') }}" class="transition duration-300 drop-shadow-xl hover:underline">Beranda</a>
-                <a href="{{ route('landing') }}" class="transition duration-300 drop-shadow-xl hover:underline">Fitur</a>
-                <a href="{{ route('landing') }}" class="transition duration-300 drop-shadow-xl hover:underline">Tentang</a>
-                <a href="{{ route('landing') }}" class="transition duration-300 drop-shadow-xl hover:underline">Kontak</a>
+                <a href="{{ route('landing') }}" class="hover:text-slate-100 transition duration-300">Beranda</a>
+                <a href="{{ route('landing') }}" class="hover:text-slate-100 transition duration-300">Fitur</a>
+                <a href="{{ route('landing') }}" class="hover:text-slate-100 transition duration-300">Tentang</a>
+                <a href="{{ route('landing') }}" class="hover:text-slate-100 transition duration-300">Kontak</a>
                 @if(Auth::check())
                 <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-300">Admin</a>
                 @else
-                <a href="{{ route('login') }}" class="ml-1 bg-black hover:bg-gray-200 text-white px-6 py-[6px] rounded-md transition duration-300 shadow-xl" id="btnLogin">Login</a>
+                <a href="{{ route('login') }}" class="ml-1 bg-black text-white px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-white hover:text-black">Login</a>
                 @endif
             </nav>
         </div>
     </header>
 
     <!-- Login Form -->
-    <section class="pt-[120px] flex items-center justify-center mb-16">
+    <section class="pt-[120px] flex items-center justify-center mb-16 flex-grow"">
         <div class="bg-[#eee] shadow-lg rounded-xl px-8 py-6 w-full max-w-7xl mx-6 text-slate-800">
             <h2 class="text-center text-2xl font-bold mb-4">Buku Tamu Digital SMK Negeri 1 Cimahi</h2>
             <div class="w-fit mb-4 flex flex-row-reverse text-sm items-center bg-gray-300 gap-2 px-2 py-1 rounded-full group">
-                <a href="{{ route('bukutamu.user') }}"
-                class="peer/tamu bg-gray-300 text-gray-500 font-medium px-6 py-2 rounded-full transition
-                hover:bg-white hover:text-slate-800">
-                Tamu Umum
+                <a href="#"
+                   id="tamu-umum"
+                   onclick="setActiveTab('tamu-umum')"
+                   class="tab-btn bg-gray-300 text-gray-500 font-medium px-6 py-2 rounded-full transition">
+                    Tamu Umum
                 </a>
 
-                <a href="{{ route('bukutamu.user') }}"
-                class="bg-white text-slate-800 font-medium px-6 py-2 rounded-full transition
-                        peer-hover/tamu:bg-gray-300 peer-hover/tamu:text-gray-500">
-                Orang Tua
+                <a href="#"
+                   id="orang-tua"
+                   onclick="setActiveTab('orang-tua')"
+                   class="tab-btn bg-white text-slate-800 font-medium px-6 py-2 rounded-full transition">
+                    Orang Tua
                 </a>
             </div>
+
 
             @if(session('error'))
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -66,78 +69,155 @@
             </div>
             @endif
 
-            <form method="POST" action="">
-                @csrf
-                <div class="mb-4 flex items-center gap-4">
-                    <label for="idsiswa" class="w-52 text-left font-semibold">Orang Tua dari Siswa</label>
-                    <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        name="idsiswa" id="idsiswa" required>
-                        <option value="" selected disabled>Pilih Nama Siswa</option>
-                        @foreach ($siswa as $s)
-                            <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
-                        @endforeach
-                    </select>
-                </div>
+            <div id="form-orang-tua" class="">
+                <form method="POST" action="">
+                    @csrf
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="idsiswa" class="w-52 text-left font-semibold">Orang Tua dari Siswa</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            name="idsiswa" id="idsiswa" required>
+                            <option value="" selected disabled>Pilih Nama Siswa</option>
+                            @foreach ($siswa as $s)
+                                <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                <div class="mb-4 flex items-center gap-4">
-                    <label for="namaOrtu" class="w-52 text-left font-semibold">Nama Orang Tua</label>
-                    <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="nama" id="namaOrtu" placeholder="Masukan Nama Anda" required>
-                </div>
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="namaOrtu" class="w-52 text-left font-semibold">Nama Orang Tua</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="nama" id="namaOrtu" placeholder="Masukan Nama Anda" required>
+                    </div>
 
-                <div class="mb-4 flex items-center gap-4">
-                    <label for="agama" class="w-52 text-left font-semibold">Agama</label>
-                    <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="idagama" id="agama" required>
-                        <option value="" disabled selected>Pilih Agama</option>
-                        @foreach ($agama as $a)
-                            <option value="{{ $a->idagama }}">{{ $a->agama }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="agama" class="w-52 text-left font-semibold">Agama</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="idagama" id="agama" required>
+                            <option value="" disabled selected>Pilih Agama</option>
+                            @foreach ($agama as $a)
+                                <option value="{{ $a->idagama }}">{{ $a->agama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                @if ($role == 'umum')
-                <div class="mb-4 flex items-center gap-4">
-                    <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
-                    <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
-                </div>
-                @endif
+                    @if ($role == 'umum')
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
+                    </div>
+                    @endif
 
-                <div class="mb-4 flex items-center gap-4">
-                    <label for="alamat" class="w-52 text-left font-semibold">Alamat</label>
-                    <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="alamat" id="alamat" placeholder="Masukan Alamat" required></textarea>
-                </div>
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="alamat" class="w-52 text-left font-semibold">Alamat</label>
+                        <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="alamat" id="alamat" placeholder="Masukan Alamat" required></textarea>
+                    </div>
 
-                <div class="mb-4 flex items-center gap-4">
-                    <label for="kontak" class="w-52 text-left font-semibold">Kontak</label>
-                    <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="kontak" id="kontak" placeholder="Masukan Nomor Handphone / Email" required>
-                </div>
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="kontak" class="w-52 text-left font-semibold">Kontak</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="kontak" id="kontak" placeholder="Masukan Nomor Handphone / Email" required>
+                    </div>
 
-                <div class="mb-4 flex items-center gap-4">
-                    <label for="jabatan" class="w-52 text-left font-semibold">Bertemu Dengan (Jabatan)</label>
-                    <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_jabatan" id="jabatan" required>
-                        <option value="" disabled selected>Pilih Jabatan</option>
-                        @foreach ($jabatan as $j)
-                            <option value="{{ $j->id }}">{{ $j->nama_jabatan }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="jabatan" class="w-52 text-left font-semibold">Bertemu Dengan (Jabatan)</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_jabatan" id="jabatan" required>
+                            <option value="" disabled selected>Pilih Jabatan</option>
+                            @foreach ($jabatan as $j)
+                                <option value="{{ $j->id }}">{{ $j->nama_jabatan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                <div class="mb-4 flex items-center gap-4">
-                    <label for="pegawai" class="w-52 text-left font-semibold">Nama Pegawai</label>
-                    <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_pegawai" id="pegawai" required>
-                        <option value="">Pilih Nama Pegawai</option>
-                    </select>
-                </div>
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="pegawai" class="w-52 text-left font-semibold">Nama Pegawai</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_pegawai" id="pegawai" required>
+                            <option value="">Pilih Nama Pegawai</option>
+                        </select>
+                    </div>
 
-                <div class="mb-6 flex items-center gap-4">
-                    <label for="keperluan" class="w-52 text-left font-semibold">Keperluan</label>
-                    <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
-                </div>
+                    <div class="mb-6 flex items-center gap-4">
+                        <label for="keperluan" class="w-52 text-left font-semibold">Keperluan</label>
+                        <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
+                    </div>
 
-                <button type="submit"
-                        class="w-full bg-yellow-500 hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300">
-                    Masuk
-                </button>
-            </form>
+                    <button type="submit"
+                            class="w-full bg-yellow-500 hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300">
+                        Masuk
+                    </button>
+                </form>
+            </div>
+
+            <div id="form-tamu-umum" class="hidden">
+                <form method="POST" action="">
+                    @csrf
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="idsiswa" class="w-52 text-left font-semibold">Orang Tua dari Siswa</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            name="idsiswa" id="idsiswa" required>
+                            <option value="" selected disabled>Pilih Nama Siswa</option>
+                            @foreach ($siswa as $s)
+                                <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="namaOrtu" class="w-52 text-left font-semibold">Nama Orang Tua</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="nama" id="namaOrtu" placeholder="Masukan Nama Anda" required>
+                    </div>
+
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="agama" class="w-52 text-left font-semibold">Agama</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="idagama" id="agama" required>
+                            <option value="" disabled selected>Pilih Agama</option>
+                            @foreach ($agama as $a)
+                                <option value="{{ $a->idagama }}">{{ $a->agama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    @if ($role == 'umum')
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
+                    </div>
+                    @endif
+
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="alamat" class="w-52 text-left font-semibold">Alamat</label>
+                        <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="alamat" id="alamat" placeholder="Masukan Alamat" required></textarea>
+                    </div>
+
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="kontak" class="w-52 text-left font-semibold">Kontak</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="kontak" id="kontak" placeholder="Masukan Nomor Handphone / Email" required>
+                    </div>
+
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="jabatan" class="w-52 text-left font-semibold">Bertemu Dengan (Jabatan)</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_jabatan" id="jabatan" required>
+                            <option value="" disabled selected>Pilih Jabatan</option>
+                            @foreach ($jabatan as $j)
+                                <option value="{{ $j->id }}">{{ $j->nama_jabatan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="pegawai" class="w-52 text-left font-semibold">Nama Pegawai</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_pegawai" id="pegawai" required>
+                            <option value="">Pilih Nama Pegawai</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6 flex items-center gap-4">
+                        <label for="keperluan" class="w-52 text-left font-semibold">Keperluan</label>
+                        <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full bg-yellow-500 hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300">
+                        Masuk
+                    </button>
+                </form>
+            </div>
 
         </div>
     </section>
@@ -148,43 +228,76 @@
     </footer>
 
     <script>
-        // navbar scrolling
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-            navbar.classList.add('bg-[#f0c256]', 'shadow-xl');
-            navbar.classList.remove('bg-transparent');
+        // Fungsi untuk mengatur tab aktif: 'tamu-umum' atau 'orang-tua' dan menampilkan/menghilangkan form terkait
+        function setActiveTab(tabId) {
+            const tabIds = ['tamu-umum', 'orang-tua'];
 
-            navbar.querySelector('h1').classList.add('text-gray-800');
-            navbar.querySelector('h1').classList.remove('text-white', 'drop-shadow-xl');
+            // Menyembunyikan form berdasarkan tab yang dipilih
+            const forms = {
+                'tamu-umum': document.getElementById('form-tamu-umum'),
+                'orang-tua': document.getElementById('form-orang-tua')
+            };
 
-            navbar.querySelectorAll('a').forEach(link => {
-                link.classList.add('text-gray-800');
-                link.classList.remove('text-white', 'drop-shadow-xl');
+            tabIds.forEach(id => {
+                const tab = document.getElementById(id);
+                if (tab) {
+                    tab.classList.remove('bg-white', 'text-slate-800', 'inactive');
+                    tab.classList.add('bg-gray-300', 'text-gray-500', 'inactive');
+                }
+
+                // Menyembunyikan form yang tidak aktif
+                const form = forms[id];
+                if (form) {
+                    form.classList.remove('fade-in', 'visible');
+                    form.classList.add('fade-out', 'hidden');
+                }
             });
 
-            navbar.querySelector('#btnLogin').classList.add('bg-white');
-            navbar.querySelector('#btnLogin').classList.remove('bg-black');
-
+            const activeTab = document.getElementById(tabId);
+            if (activeTab) {
+                activeTab.classList.remove('bg-gray-300', 'text-gray-500', 'inactive');
+                activeTab.classList.add('bg-white', 'text-slate-800');
             }
 
-            else {
-            navbar.classList.remove('bg-[#f0c256]', 'shadow-xl');
-            navbar.classList.add('bg-transparent');
+            // Menampilkan form yang sesuai dengan tab aktif
+            const activeForm = forms[tabId];
+            if (activeForm) {
+                activeForm.classList.remove('fade-out', 'hidden');
+                activeForm.classList.add('fade-in', 'visible');
+            }
+        }
 
-            navbar.querySelector('h1').classList.remove('text-gray-800');
-            navbar.querySelector('h1').classList.add('text-white', 'drop-shadow-xl');
+        // Fungsi untuk menyiapkan efek hover pada tab
+        function setupHoverEffects() {
+            const tabs = {
+                'tamu-umum': document.getElementById('tamu-umum'),
+                'orang-tua': document.getElementById('orang-tua')
+            };
 
-            navbar.querySelectorAll('a').forEach(link => {
-                link.classList.remove('text-gray-800');
-                link.classList.add('text-white', 'drop-shadow-xl');
+            Object.entries(tabs).forEach(([id, element]) => {
+                const otherId = id === 'tamu-umum' ? 'orang-tua' : 'tamu-umum';
+                const otherElement = tabs[otherId];
+
+                if (element && otherElement) {
+                    element.addEventListener('mouseenter', () => {
+                        if (!element.classList.contains('bg-white')) {
+                            otherElement.classList.add('hover-fade');
+                        }
+                    });
+
+                    element.addEventListener('mouseleave', () => {
+                        otherElement.classList.remove('hover-fade');
+                    });
+                }
             });
+        }
 
-            navbar.querySelector('#btnLogin').classList.remove('bg-white');
-            navbar.querySelector('#btnLogin').classList.add('bg-black');
-
-            }
+        // Inisialisasi efek hover dan tab aktif
+        document.addEventListener('DOMContentLoaded', () => {
+            setupHoverEffects();
+            setActiveTab('orang-tua'); // Bisa diganti jadi 'tamu-umum' kalau perlu
         });
+
 
         // fungsi otomatis
         $(document).ready(function() {

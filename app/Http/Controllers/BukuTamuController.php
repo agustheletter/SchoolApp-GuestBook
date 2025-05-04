@@ -33,7 +33,6 @@ class BukuTamuController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'role' => 'required|in:ortu,umum',
             'idagama' => 'required|exists:tbl_agama,idagama',
             'idsiswa' => 'nullable|exists:tbl_siswa,idsiswa',
@@ -48,7 +47,6 @@ class BukuTamuController extends Controller
         $bukutamu = BukuTamu::findOrFail($id);
         $bukutamu->update([
             'nama' => $request->nama,
-            'jenis_kelamin' => $request->jenis_kelamin,
             'role' => $request->role,
             'idagama' => $request->idagama,
             'idsiswa' => $request->idsiswa,
@@ -94,7 +92,6 @@ class BukuTamuController extends Controller
         // Validasi data
         $request->validate([
             'nama' => 'required|string|max:255',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'role' => 'required|in:ortu,umum',
             'idagama' => 'required|exists:tbl_agama,idagama',
             'idsiswa' => 'nullable|exists:tbl_siswa,idsiswa',
@@ -109,7 +106,6 @@ class BukuTamuController extends Controller
         // Simpan data ke database
         BukuTamu::create([
             'nama' => $request->nama,
-            'jenis_kelamin' => $request->jenis_kelamin,
             'role' => $request->role,
             'idagama' => $request->idagama,
             'idsiswa' => $request->idsiswa,

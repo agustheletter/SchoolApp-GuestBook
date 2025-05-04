@@ -28,16 +28,6 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="jenis_kelamin">Jenis Kelamin</label>
-            <div class="col-sm-9">
-                <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
-                    <option value="Laki-laki" {{ $bukutamu->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                    <option value="Perempuan" {{ $bukutamu->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="idagama">Agama</label>
             <div class="col-sm-9">
                 <select class="form-control" id="idagama" name="idagama" required>

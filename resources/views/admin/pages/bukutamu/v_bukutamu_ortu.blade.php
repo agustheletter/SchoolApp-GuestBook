@@ -38,17 +38,6 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
-            <div class="col-sm-9">
-                <select class="form-control" name="jenis_kelamin" required>
-                    <option value="">Pilih Jenis Kelamin</option>
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group row">
             <label class="col-sm-3 col-form-label">Agama</label>
             <div class="col-sm-9">
                 <select class="form-control" name="idagama" required>

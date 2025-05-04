@@ -1,9 +1,65 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+textarea {
+    resize: none !important;
+}
 
 .poppins {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .bg-fixed {
     background-attachment: fixed;
+}
+
+nav a.active {
+    color: white;
+}
+
+.tab-btn {
+    transition: all 0.3s ease;
+}
+
+.tab-btn.inactive:hover {
+    background-color: white;
+    color: #1e293b; /* slate-800 */
+}
+
+.hover-fade {
+    background-color: #d1d5db !important; /* Tailwind's bg-gray-300 */
+    color: #6b7280 !important; /* Tailwind's text-gray-500 */
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease-in-out;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }

@@ -11,22 +11,22 @@
 </head>
 <body class="bg-gray-50 text-gray-800 poppins">
 
-  <!-- Navbar -->
-    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-900 p-5">
+    <!-- Navbar -->
+    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[#f0c256] text-slate-900 p-5 shadow-2xl">
         <div class="mx-12 flex justify-between items-center">
-            <div class="flex items-center justify-center gap-2">
+            <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
                 <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
-                <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl">GuestBook</h1>
-            </div>
+                <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl group-hover:text-slate-100 transition duration-300">GuestBook</h1>
+            </a>
             <nav class="flex items-center justify-center gap-5">
-                <a href="{{ route('landing') }}" class="hover:underline">Beranda</a>
-                <a href="{{ route('landing') }}" class="hover:underline">Fitur</a>
-                <a href="{{ route('landing') }}" class="hover:underline">Tentang</a>
-                <a href="{{ route('landing') }}" class="hover:underline">Kontak</a>
+                <a href="{{ route('landing') }}" class="hover:text-slate-100 transition duration-300">Beranda</a>
+                <a href="{{ route('landing') }}" class="hover:text-slate-100 transition duration-300">Fitur</a>
+                <a href="{{ route('landing') }}" class="hover:text-slate-100 transition duration-300">Tentang</a>
+                <a href="{{ route('landing') }}" class="hover:text-slate-100 transition duration-300">Kontak</a>
                 @if(Auth::check())
-                <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
+                <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-300">Admin</a>
                 @else
-                <a href="{{ route('login') }}" class="ml-1 bg-white hover:bg-gray-200 text-black px-6 py-[6px] rounded-md transition duration-200 shadow-xl">Login</a>
+                <a href="{{ route('login') }}" class="ml-1 bg-black text-white px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-white hover:text-black">Login</a>
                 @endif
             </nav>
         </div>
