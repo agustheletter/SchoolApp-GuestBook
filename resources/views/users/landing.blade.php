@@ -18,7 +18,7 @@
 
 <body class="bg-gray-50 text-gray-800 poppins">
   <!-- Tombol Scroll ke Atas -->
-  <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-yellow-500 text-white p-4 rounded-full shadow-lg hover:bg-yellow-600 transition opacity-0 pointer-events-none flex flex-col items-center justify-center">
+  <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-yellow-500 text-white p-4 rounded-full shadow-lg hover:bg-yellow-600 transition opacity-0 pointer-events-none flex flex-col items-center justify-center z-[9999]">
     <span class="text-2xl font-bold">↑</span>
     <span class="text-xs mt-1">Top</span>
   </button>
@@ -43,7 +43,7 @@
     </div>
   </header>
 
-  <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center text-center overflow-hidden bg-gray-200">
+  <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center text-center overflow-hidden bg-white">
     <!-- Lingkaran Kuning Hanya di Atas -->
     <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] bg-[#ffd369] rounded-full z-0"></div>
 
@@ -61,7 +61,11 @@
 
 
   {{-- Fitur --}}
-  <section id="fitur" class="bg-gradient-to-br from-gray-300 via-white to-gray-500 py-36 flex items-center justify-center min-h-screen">
+  <section id="fitur" class="py-36 flex items-center justify-center min-h-screen relative">
+
+    {{-- <div class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div> --}}
+    <div class="absolute bottom-0 left-0 right-0 top-0 pointer-events-none bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+
 
     <div class="container mx-auto px-6 text-center">
         <!-- Header -->
@@ -84,15 +88,18 @@
             <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2">
                 <i class="fas fa-database text-6xl mb-4"></i>
                 <h4 class="text-xl font-bold mb-3">Pengelolaan Data</h4>
-                <p class="text-gray-600">Aplikasi ini menyediakan fitur pengelolaan data penting seperti pegawai, jabatan, siswa, dan agama, agar sistem tetap terorganisir dan mudah diperbarui.</p>
+                <p class="text-gray-600 text-base">Aplikasi ini menyediakan fitur pengelolaan data penting seperti pegawai, jabatan, siswa, dan agama, agar sistem tetap terorganisir dan mudah diperbarui.</p>
             </div>
         </div>
     </div>
   </section>
 
-  <section id="tentang" class="bg-white py-24 flex items-center justify-center min-h-screen relative">
-    <div class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]">
-    </div>
+  <section id="tentang" class="py-24 flex items-center justify-center min-h-screen relative">
+
+    <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
+        <div class="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#facc1580,transparent)]"></div>
+      </div>
+
 
     <div class="container mx-auto px-6 text-center">
         <!-- Header -->
@@ -110,9 +117,25 @@
     </div>
   </section>
 
-  <section id="kontak" class="bg-gradient-to-br from-white via-yellow-100 to-gray-900 py-24 px-4 min-h-screen">
+  <section id="kontak" class="py-24 px-4 min-h-screen relative">
+
+    {{-- biru --}}
+    <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#3b82f6_100%)]"></div>
+
+    {{-- hitam --}}
+    {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#000_100%)]"></div> --}}
+
+    {{-- ungu --}}
+    {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"></div> --}}
+
+    {{-- kuning --}}
+    {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#facc15_100%)]"></div> --}}
+
+    {{-- abu --}}
+    {{-- <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#1e293b_100%)]"></div> --}}
+
     <!-- Header -->
-    <div class="text-center mb-16">
+    <div class="text-center mb-16 mt-10">
       <h2 class="text-4xl font-bold text-gray-900">Contact Us</h2>
       <p class="text-lg text-gray-600 mt-2">Let’s get in touch with the developers 🧑🏻‍💻</p>
     </div>
@@ -121,7 +144,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
       <!-- Card -->
       <div class="group bg-white hover:bg-slate-800 rounded-2xl shadow-xl p-8 border-4 border-slate-800 hover:border-white relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500">
-        <div class="absolute inset-0 bg-gradient-to-br from-yellow-100 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-300 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
         <div class="relative z-10 text-center">
           <img src="{{ asset('gambar/people/adre.png') }}" alt="Adrenalin" class="w-24 h-24 mx-auto rounded-full object-cover mb-4 shadow-2xl border-4 border-transparent transform hover:scale-110 hover:border-4 hover:border-white transition duration-300">
 
@@ -131,7 +154,7 @@
 
           <p class="text-sm text-gray-600 group-hover:text-gray-100 transition duration-300 hover:scale-110">Fullstack Web Developer</p>
           <p class="text-sm text-gray-500 mt-1 group-hover:text-gray-200 transition duration-300 hover:scale-110">
-            🌐 <a href="https://adre.my.id" class="text-blue-600 group-hover:text-blue-300 hover:underline">adre.my.id</a>
+            🌐 <a href="https://adre.my.id" target="_blank" class="text-blue-600 group-hover:text-blue-300 hover:underline">adre.my.id</a>
           </p>
           <p class="italic text-sm mt-4 text-gray-700 group-hover:text-gray-200 transition duration-300 hover:scale-110">
             "Engineer by logic, artist by code."
@@ -156,7 +179,7 @@
 
       <!-- Card 2 -->
       <div class="group bg-white hover:bg-slate-800 rounded-2xl shadow-xl p-8 border-4 border-slate-800 hover:border-white relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500">
-        <div class="absolute inset-0 bg-gradient-to-br from-yellow-100 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-pink-300 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
         <div class="relative z-10 text-center">
           <img src="{{ asset('gambar/smkn1cimahi.jpg') }}" alt="Evliya" class="w-24 h-24 mx-auto rounded-full object-cover mb-4 shadow-2xl border-4 border-transparent transform hover:scale-110 hover:border-4 hover:border-white transition duration-300">
 
@@ -166,7 +189,7 @@
 
           <p class="text-sm text-gray-600 group-hover:text-gray-100 transition duration-300 hover:scale-110">Frontend & UI/UX Designer</p>
           <p class="text-sm text-gray-500 mt-1 group-hover:text-gray-200 transition duration-300 hover:scale-110">
-            🌐 <a href="https://evliya.my.id" class="text-blue-600 group-hover:text-blue-300 hover:underline">evliya.my.id</a>
+            🌐 <a href="https://evliya.my.id" target="_blank" class="text-blue-600 group-hover:text-blue-300 hover:underline">evliya.my.id</a>
           </p>
           <p class="italic text-sm mt-4 text-gray-700 group-hover:text-gray-200 transition duration-300 hover:scale-110">
             "Design is not just how it looks, but how it feels."
