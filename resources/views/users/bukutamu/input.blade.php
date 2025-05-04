@@ -98,13 +98,6 @@
                         </select>
                     </div>
 
-                    @if ($role == 'umum')
-                    <div class="mb-4 flex items-center gap-4">
-                        <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
-                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
-                    </div>
-                    @endif
-
                     <div class="mb-4 flex items-center gap-4">
                         <label for="alamat" class="w-52 text-left font-semibold">Alamat</label>
                         <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="alamat" id="alamat" placeholder="Masukan Alamat" required></textarea>
@@ -155,6 +148,11 @@
                 <form method="POST" action="">
                     @csrf
                     <div class="mb-4 flex items-center gap-4">
+                        <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
+                    </div>
+
+                    <div class="mb-4 flex items-center gap-4">
                         <label for="namaTamu" class="w-52 text-left font-semibold">Nama</label>
                         <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="nama" id="namaTamu" placeholder="Masukan Nama Anda" required>
                     </div>
@@ -167,11 +165,6 @@
                                 <option value="{{ $a->idagama }}">{{ $a->agama }}</option>
                             @endforeach
                         </select>
-                    </div>
-
-                    <div class="mb-4 flex items-center gap-4">
-                        <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
-                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
                     </div>
 
                     <div class="mb-4 flex items-center gap-4">

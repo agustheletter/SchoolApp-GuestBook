@@ -43,9 +43,10 @@
     </div>
   </header>
 
-  <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center text-center overflow-hidden bg-white">
+  <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center text-center overflow-hidden">
     <!-- Lingkaran Kuning Hanya di Atas -->
     <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] bg-[#ffd369] rounded-full z-0"></div>
+    <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
     <!-- Konten -->
     <div class="relative z-10 w-full h-[440px] container mx-auto px-6 pb-12">
@@ -113,7 +114,7 @@
             <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-48 h-w-48 mx-auto drop-shadow-xl transition duration-300 hover:scale-110">
         </div>
 
-        <p class="text-gray-600 max-w-5xl mx-auto">Aplikasi Buku Tamu Digital ini adalah proyek tugas akhir kami untuk mata pelajaran pengembangan website, dibangun menggunakan Laravel dan MySQL. Aplikasi ini dirancang untuk membantu sekolah dalam mencatat dan mengelola kunjungan tamu—baik orang tua siswa maupun tamu umum—secara efisien dan terstruktur. Fitur-fitur utamanya meliputi input data tamu secara langsung, pemisahan kategori tamu, pencatatan tujuan kunjungan, serta pengelolaan data pegawai, siswa, jabatan, dan agama. Seluruh data tersimpan secara digital sehingga memudahkan pencarian, rekap, dan pelaporan kunjungan.</p>
+        <p class="text-lg text-gray-600 max-w-5xl mx-auto">Aplikasi Buku Tamu Digital ini adalah proyek tugas akhir kami untuk mata pelajaran pengembangan website, dibangun menggunakan Laravel dan MySQL. Aplikasi ini dirancang untuk membantu sekolah dalam mencatat dan mengelola kunjungan tamu—baik orang tua siswa maupun tamu umum—secara efisien dan terstruktur. Fitur-fitur utamanya meliputi input data tamu secara langsung, pemisahan kategori tamu, pencatatan tujuan kunjungan, serta pengelolaan data pegawai, siswa, jabatan, dan agama. Seluruh data tersimpan secara digital sehingga memudahkan pencarian, rekap, dan pelaporan kunjungan.</p>
     </div>
   </section>
 
@@ -217,9 +218,9 @@
     </div>
 
     <!-- Paragraf Bawah -->
-    <div class="mt-16 text-center max-w-3xl mx-auto">
-      <p class="text-base font-medium text-gray-900">
-        We are students of Software Engineering (Rekayasa Perangkat Lunak) at SMK Negeri 1 Cimahi, currently in the 11th grade. This project is developed as part of our academic journey to enhance real-world web development skills.
+    <div class="mt-16 text-center max-w-4xl mx-auto">
+      <p class="text-lg font-medium text-gray-900">
+        We are students of Software Engineering (Rekayasa Perangkat Lunak) at SMKN 1 Cimahi, currently in the 11th grade. This project is developed as part of our academic journey to enhance real-world web development skills.
       </p>
     </div>
 
