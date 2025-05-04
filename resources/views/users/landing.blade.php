@@ -229,7 +229,36 @@
     <p>&copy; 2025 Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
   </footer>
 
+
+
   <script>
+    // navbar aktif
+    document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll("nav a[href^='#']");
+
+    function updateActiveNav() {
+        let current = "";
+
+        sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.offsetHeight;
+        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+            current = section.getAttribute("id");
+        }
+        });
+
+        navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+        }
+        });
+    }
+
+    window.addEventListener("scroll", updateActiveNav);
+    updateActiveNav(); // Jalankan sekali saat halaman dimuat
+    });
 
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     window.onscroll = function () {
