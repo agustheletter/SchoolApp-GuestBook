@@ -143,7 +143,7 @@ Cara instalasi aplikasi **Buku Tamu Sekolah** ini di lokal:
 - [x] Structure Website [@akuadre](https://github.com/akuadre) 👨🏻‍💻
 - [x] Backend Development [@akuadre](https://github.com/akuadre) 🧑🏻‍💻
 - [x] Desain Website [@evliyasatari](https://github.com/evliyasatari) 🧑🏻‍🎨
-- [ ] Frontend Development [@evliyasatari](https://github.com/evliyasatari) 👩🏻‍💻
+- [x] Frontend Development [@evliyasatari](https://github.com/evliyasatari) 👩🏻‍💻
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
