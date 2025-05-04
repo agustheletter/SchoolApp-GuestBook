@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Guestbook</title>
+    <title>Input | Guestbook</title>
     <link rel="icon" href="{{ asset('gambar/icon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -47,14 +47,14 @@
         <div class="bg-[#eee] shadow-lg rounded-xl px-8 py-6 w-full max-w-7xl mx-6 text-slate-800">
             <h2 class="text-center text-2xl font-bold mb-4">Buku Tamu Digital SMK Negeri 1 Cimahi</h2>
             <div class="w-fit mb-4 flex flex-row-reverse text-sm items-center bg-gray-300 gap-2 px-2 py-1 rounded-full group">
-                <a href="#"
+                <a href="#umum"
                    id="tamu-umum"
                    onclick="setActiveTab('tamu-umum')"
                    class="tab-btn bg-gray-300 text-gray-500 font-medium px-6 py-2 rounded-full transition">
                     Tamu Umum
                 </a>
 
-                <a href="#"
+                <a href="#ortu"
                    id="orang-tua"
                    onclick="setActiveTab('orang-tua')"
                    class="tab-btn bg-white text-slate-800 font-medium px-6 py-2 rounded-full transition">
@@ -62,15 +62,24 @@
                 </a>
             </div>
 
-
             @if(session('error'))
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                 <strong>Oops!</strong> {{ session('error') }}
             </div>
             @endif
 
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <strong class="font-bold">Sukses! </strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3 text-green-700" onclick="this.parentElement.remove()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
             <div id="form-orang-tua" class="">
-                <form method="POST" action="">
+                <form method="POST" action="{{ route('guestbook.store') }}">
                     @csrf
                     <div class="mb-4 flex items-center gap-4">
                         <label for="idsiswa" class="w-52 text-left font-semibold">Orang Tua dari Siswa</label>
@@ -145,7 +154,7 @@
             </div>
 
             <div id="form-tamu-umum" class="hidden">
-                <form method="POST" action="">
+                <form method="POST" action="{{ route('guestbook.store') }}">
                     @csrf
                     <div class="mb-4 flex items-center gap-4">
                         <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
@@ -286,17 +295,16 @@
             });
         }
 
-        // Fungsi untuk mengambil query string ?tab=
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
+        /// Fungsi untuk mengambil hash fragment (contoh: #ortu)
+        function getHashParam() {
+            return window.location.hash.replace('#', '');
         }
 
         // Inisialisasi saat DOM siap
         document.addEventListener('DOMContentLoaded', () => {
             setupHoverEffects();
 
-            const tabParam = getQueryParam('tab');
+            const tabParam = getHashParam();
             if (tabParam === 'ortu') {
                 setActiveTab('orang-tua');
             } else if (tabParam === 'umum') {

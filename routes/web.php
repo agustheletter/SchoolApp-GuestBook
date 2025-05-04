@@ -24,12 +24,18 @@ Route::get('/', function () {
     return view('users.landing');
 })->name('landing');
 
+//=========================AWAL ROUTE BUKU TAMU USER =========================
+Route::get('/guestbook',[BukuTamuController::class,'inputUser'])->name('bukutamu.user');
+
+Route::post('/guestbook/store',[BukuTamuController::class,'store'])->name('guestbook.store');
+//========================AKHIR ROUTE BUKU TAMU USER ========================
+
 
 //=========================AWAL ROUTE LOGIN=========================
 Route::get('/login', [LoginController::class,'login'])->name('login');
 Route::post('loginaksi', [LoginController::class,'loginaksi'])->name('loginaksi');
 Route::get('logoutaksi', [LoginController::class,'logoutaksi'])->name('logoutaksi')->middleware('auth');
-//=========================AWAL ROUTE LOGIN=========================
+//=========================AKHIR ROUTE LOGIN=========================
 
 
 //=========================AWAL ROUTE HOME=========================
@@ -206,11 +212,3 @@ Route::get('/getPegawai/{id}', [BukuTamuController::class, 'getPegawai']);
 Route::get('/getOrangtua/{idsiswa}', [BukuTamuController::class, 'getOrangtua']);
 
 //========================AKHIR ROUTE BUKU TAMU ========================
-
-
-
-//=========================AWAL ROUTE BUKU TAMU =========================
-Route::get('/guestbook',[BukuTamuController::class,'inputUser'])->name('bukutamu.user');
-
-//========================AKHIR ROUTE BUKU TAMU ========================
-
