@@ -24,7 +24,7 @@
         <!-- Awal membuat table-->
     <table class="table table-bordered table-striped table-hover" id="table-jabatan">
         <!-- Awal header table-->
-        <thead>
+        <thead class="bg-warning">
             <tr>
                 <th>
                     <center>No</center>

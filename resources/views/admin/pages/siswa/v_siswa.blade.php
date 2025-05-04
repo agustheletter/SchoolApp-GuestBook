@@ -15,22 +15,12 @@
         <!-- Awal membuat table-->
     <table class="table table-bordered table-striped table-hover" id="table-siswa">
         <!-- Awal header table-->
-        <thead>
+        <thead class="bg-success">
             <tr>
-                <th>
-                    <center>No</center>
-                </th>
-
-                <th>
-                    <center>NIS</center>
-                </th>
-
-                <th>
-                    <center>NISN</center>
-                </th>
-
-                <th>
-                    <center>Nama Siswa</center>
+                <th><center>No</center></th>
+                <th><center>NIS</center></th>
+                <th><center>NISN</center></th>
+                <th>  <center>Nama Siswa</center>
                 </th>
 
                 <th>

@@ -24,7 +24,7 @@
 
     <p>
     <table class="table table-bordered table-striped table-hover" id="table-bukutamu">
-        <thead class="thead-dark">
+        <thead class="bg-info">
             <tr>
                 <th><center>No</center></th>
                 <th><center>Nama Pegawai</center></th>
