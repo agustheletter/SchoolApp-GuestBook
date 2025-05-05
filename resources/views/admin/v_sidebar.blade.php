@@ -160,7 +160,7 @@
 
                         <!--Awal Master Orang Tua-->
                         <li class="nav-item">
-                            <a href="{{url('siswa')}}" class="nav-link">
+                            <a href="{{ route('orangtua') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Master Orang Tua</p>
                             </a>

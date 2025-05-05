@@ -11,13 +11,13 @@ class OrangtuaController extends Controller
     public function index()
     {
         $orangtua = Orangtua::with('siswa')->get();
-        return view('admin.orangtua.index', compact('orangtua'));
+        return view('admin.pages.orangtua.index', compact('orangtua'));
     }
 
     public function create()
     {
         $siswa = SiswaModel::all();
-        return view('admin.orangtua.create', compact('siswa'));
+        return view('admin.pages.orangtua.create', compact('siswa'));
     }
 
     public function store(Request $request)
@@ -25,39 +25,55 @@ class OrangtuaController extends Controller
         $request->validate([
             'nama_ortu' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'idsiswa' => 'required|exists:siswa,idsiswa',
+            'idsiswa' => 'required|exists:tbl_siswa,idsiswa',
             'kontak' => 'nullable|string|max:20',
         ]);
 
-        Orangtua::create($request->all());
+        Orangtua::create(
+            // $request->all()
+            [
+            'nama_ortu' => $request->nama_ortu,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'idsiswa' => $request->idsiswa,
+            'kontak' => $request->kontak,
+            ]
+        );
 
-        return redirect()->route('orangtua.index')->with('success', 'Data Orang Tua berhasil ditambahkan.');
+        return redirect()->route('orangtua')->with('success', 'Data Orang Tua berhasil ditambahkan.');
     }
 
-    public function edit(Orangtua $orangtua)
+    public function edit($id)
     {
+        $orangtua = Orangtua::findOrFail($id);
         $siswa = SiswaModel::all();
-        return view('admin.orangtua.edit', compact('orangtua', 'siswa'));
+        return view('admin.pages.orangtua.edit', compact('orangtua', 'siswa'));
     }
 
-    public function update(Request $request, Orangtua $orangtua)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nama_ortu' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'idsiswa' => 'required|exists:siswa,idsiswa',
-            'kontak' => 'nullable|string|max:20',
+            'idsiswa' => 'required|exists:tbl_siswa,idsiswa',
+            'kontak' => 'nullable|string',
         ]);
 
-        $orangtua->update($request->all());
+        $orangtua = Orangtua::findOrFail($id);
+        $orangtua->update([
+            'nama_ortu' => $request->nama_ortu,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'idsiswa' => $request->idsiswa,
+            'kontak' => $request->kontak,
+        ]);
 
-        return redirect()->route('orangtua.index')->with('success', 'Data Orang Tua berhasil diupdate.');
+        return redirect()->route('orangtua')->with('success', 'Data Orang Tua berhasil diupdate.');
     }
 
-    public function destroy(Orangtua $orangtua)
+    public function destroy($id)
     {
+        $orangtua = Orangtua::findOrFail($id);
         $orangtua->delete();
 
-        return redirect()->route('orangtua.index')->with('success', 'Data Orang Tua berhasil dihapus.');
+        return redirect()->route('orangtua')->with('success', 'Data Orang Tua berhasil dihapus.');
     }
 }

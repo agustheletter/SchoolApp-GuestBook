@@ -11,6 +11,7 @@ use App\Http\Controllers\KelasDetailController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MutasiKelasController;
+use App\Http\Controllers\OrangtuaController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProgramKeahlianController;
 use App\Http\Controllers\RuanganController;
@@ -206,9 +207,21 @@ Route::get('/bukutamu/input/orangtua',[BukuTamuController::class,'input_orangtua
 Route::get('/bukutamu/input/umum',[BukuTamuController::class,'input_umum'])->middleware('auth')->name('bukutamu.umum');
 
 Route::post('/bukutamu/store',[BukuTamuController::class,'store'])->middleware('auth')->name('bukutamu.store');
-Route::delete('/bukutamu/{id}',[BukuTamuController::class,'destroy'])->middleware('auth')->name('bukutamu.destroy');
 
 Route::get('/getPegawai/{id}', [BukuTamuController::class, 'getPegawai']);
 Route::get('/getOrangtua/{idsiswa}', [BukuTamuController::class, 'getOrangtua']);
 
 //========================AKHIR ROUTE BUKU TAMU ========================
+
+
+
+//=========================AWAL ROUTE ORANG TUA =========================
+Route::get('/orangtua',[OrangtuaController::class,'index'])->middleware('auth')->name('orangtua');
+Route::get('/orangtua/{id}/edit', [OrangtuaController::class, 'edit'])->middleware('auth')->name('orangtua.edit');
+Route::put('/orangtua/{id}', [OrangtuaController::class, 'update'])->middleware('auth')->name('orangtua.update');
+Route::delete('/orangtua/{id}', [OrangtuaController::class, 'destroy'])->middleware('auth')->name('orangtua.destroy');
+
+Route::get('/orangtua/input',[OrangtuaController::class,'create'])->middleware('auth')->name('orangtua.input');
+Route::post('/orangtua/store',[OrangtuaController::class,'store'])->middleware('auth')->name('orangtua.store');
+
+//========================AKHIR ROUTE ORANG TUA ========================
