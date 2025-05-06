@@ -28,7 +28,7 @@ Route::get('/', function () {
 //=========================AWAL ROUTE BUKU TAMU USER =========================
 Route::get('/guestbook',[BukuTamuController::class,'inputUser'])->name('bukutamu.user');
 
-Route::post('/guestbook/store',[BukuTamuController::class,'store'])->name('guestbook.store');
+Route::post('/guestbook/store',[BukuTamuController::class,'storeUser'])->name('guestbook.store');
 //========================AKHIR ROUTE BUKU TAMU USER ========================
 
 

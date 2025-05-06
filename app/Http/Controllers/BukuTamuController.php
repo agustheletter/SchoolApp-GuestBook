@@ -191,6 +191,9 @@ class BukuTamuController extends Controller
             'keperluan' => $request->keperluan,
         ]);
 
-        return redirect()->route('users.bukutamu.input')->with('success', 'Data Buku Tamu berhasil ditambahkan');
+        // pemilihan role
+        $role = $request->role;
+        // return redirect()->route('bukutamu.user')->with('success', 'Data Buku Tamu berhasil ditambahkan');
+        return redirect()->to(route('bukutamu.user') . '#' . $role)->with('success', 'Data Buku Tamu berhasil ditambahkan');
     }
 }

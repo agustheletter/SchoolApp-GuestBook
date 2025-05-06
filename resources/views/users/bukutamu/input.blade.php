@@ -81,6 +81,8 @@
             <div id="form-orang-tua" class="">
                 <form method="POST" action="{{ route('guestbook.store') }}">
                     @csrf
+                    <input type="hidden" name="role" value="ortu">
+
                     <div class="mb-4 flex items-center gap-4">
                         <label for="idsiswa" class="w-52 text-left font-semibold">Orang Tua dari Siswa</label>
                         <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -156,6 +158,8 @@
             <div id="form-tamu-umum" class="hidden">
                 <form method="POST" action="{{ route('guestbook.store') }}">
                     @csrf
+                    <input type="hidden" name="role" value="umum">
+
                     <div class="mb-4 flex items-center gap-4">
                         <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
                         <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
@@ -187,8 +191,8 @@
                     </div>
 
                     <div class="mb-4 flex items-center gap-4">
-                        <label for="jabatan" class="w-52 text-left font-semibold">Bertemu Dengan (Jabatan)</label>
-                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_jabatan" id="jabatan" required>
+                        <label for="jabatan2" class="w-52 text-left font-semibold">Bertemu Dengan (Jabatan)</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_jabatan" id="jabatan2" required>
                             <option value="" disabled selected>Pilih Jabatan</option>
                             @foreach ($jabatan as $j)
                                 <option value="{{ $j->id }}">{{ $j->nama_jabatan }}</option>
@@ -197,8 +201,8 @@
                     </div>
 
                     <div class="mb-4 flex items-center gap-4">
-                        <label for="pegawai" class="w-52 text-left font-semibold">Nama Pegawai</label>
-                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_pegawai" id="pegawai" required>
+                        <label for="pegawai2" class="w-52 text-left font-semibold">Nama Pegawai</label>
+                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_pegawai" id="pegawai2" required>
                             <option value="">Pilih Nama Pegawai</option>
                         </select>
                     </div>
@@ -353,6 +357,23 @@
             } else {
                 document.getElementById('namaOrtu').value = '';
             }
+        });
+
+        // fungsi kolom otomatis 2
+        $(document).ready(function() {
+            $('#jabatan2').change(function() {
+                var jabatan_id = $(this).val();
+                $.ajax({
+                    url: '/getPegawai/' + jabatan_id,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#pegawai2').empty().append('<option>Pilih Nama Pegawai</option>');
+                        $.each(data, function(key, value) {
+                            $('#pegawai2').append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
+                        });
+                    }
+                });
+            });
         });
 
     </script>
