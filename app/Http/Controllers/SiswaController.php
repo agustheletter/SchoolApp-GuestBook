@@ -46,7 +46,7 @@ class SiswaController extends Controller
     public function siswatambah(Request $request)
     {
         // dd($request->all());
-        
+
         $request->validate([
             //'idsiswa' => 'required',
             'nis' => 'required',
@@ -111,25 +111,26 @@ class SiswaController extends Controller
 
 
     //====================AWAL METHODE UNTUK EDIT siswa=================
-    public function siswaedit($idsiswa, Request $request)
+    public function siswaedit(Request $request, $idsiswa)
     {
         $request->validate([
             //'idsiswa' => 'required',
             'nis' => 'required',
             'nisn' => 'required',
             'namasiswa' => 'required',
-            'tmplahir' => 'required',
+            'tempatlahir' => 'required',
             'tgllahir' => 'required',
             'jk' => 'required',
             'alamat' => 'required',
             'idagama' => 'required',
             'tlprumah' => 'required',
             'hpsiswa' => 'required',
-            'photo' => 'required',
-            'idthnajaran' => 'required'
+            'photosiswa' => 'required',
+            'idthnmasuk' => 'required'
         ]);
 
-        $filephoto = $request->file('photo');
+
+        $filephoto = $request->file('photosiswa');
         if($filephoto){
             // menyimpan data file yang diupload ke variabel $file
 
@@ -140,40 +141,28 @@ class SiswaController extends Controller
             $filephoto->move($tujuanupload, $namafile);
         }
 
-        $siswa = siswaModel::find($idsiswa);
-        //dd($siswa);
-        //$siswa->idsiswa = $request->idsiswa;
-        $siswa->nis = $request->nis;
-        $siswa->nisn = $request->nisn;
-        $siswa->namasiswa = $request->namasiswa;
-        $siswa->tmplahir = $request->tmplahir;
-        $siswa->tgllahir = $request->tgllahir;
-        $siswa->jk = $request->jk;
-        $siswa->alamat = $request->alamat;
-        $siswa->idagama = $request->idagama;
-        $siswa->tlprumah = $request->tlprumah;
-        $siswa->hpsiswa = $request->hpsiswa;
-        $siswa->idthnajaran = $request->idthnajaran;
+        $siswa = siswaModel::findOrFail($idsiswa);
+        
+        File::delete('PhotoSiswa/'.$siswa->photosiswa);
 
-        // $siswa->update([
-        //     "nis" => $request->nis,
-        //     "nisn" => $request->nisn,
-        //     "namasiswa" => $request->namasiswa,
-        //     "tmplahir" => $request->tmplahir,
-        //     "tgllahir" => $request->tgllahir,
-        //     "jk" => $request->jk,
-        //     "alamat" => $request->alamat,
-        //     "idagama" => $request->idagama,
-        //     "tlprumah" => $request->tlprumah,
-        //     "hpsiswa" => $request->hpsiswa,
-        //     "idthnajaran" => $request->idthnajaran,
-        // ]);
+        $siswa->update([
+            'nis' => $request->nis,
+            'nisn' => $request->nisn,
+            'namasiswa' => $request->namasiswa,
+            'tempatlahir' => $request->tempatlahir,
+            'tgllahir' => $request->tgllahir,
+            'jk' => $request->jk,
+            'alamat' => $request->alamat,
+            'idagama' => $request->idagama,
+            'tlprumah' => $request->tlprumah,
+            'hpsiswa' => $request->hpsiswa,
+            'photosiswa' => $namafile,
+            'idthnmasuk' => $request->idthnmasuk,
+        ]);
 
-        //HAPUS PHOTO SEBELUMNYA SEBELUM DI EDIT
-        File::delete('PhotoSiswa/'.$siswa->photo);
-        $siswa->photo = $namafile;
+        // $siswa->photosiswa = $namafile;
 
-        $siswa->save();
+        // $siswa->save();
 
         return redirect()->back();
     }
