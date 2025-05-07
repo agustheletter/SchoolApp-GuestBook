@@ -149,23 +149,25 @@
                     </a>
                     <ul class="nav nav-treeview">
 
-                        <!--Awal Master Siswa-->
+                        <!--Awal Data Siswa-->
                         <li class="nav-item">
                             <a href="{{url('siswa')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Master Siswa</p>
+                                <p>Data Siswa</p>
+                                <span class="badge badge-success right">{{ $totalSiswa ?? 0 }}</span>
                             </a>
                         </li>
-                        <!--Akhir Master Siswa-->
+                        <!--Akhir Data Siswa-->
 
-                        <!--Awal Master Orang Tua-->
+                        <!--Awal Data Orang Tua-->
                         <li class="nav-item">
                             <a href="{{ route('orangtua') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Master Orang Tua</p>
+                                <p>Data Orang Tua</p>
+                                <span class="badge badge-success right">{{ $totalOrangtua ?? 0 }}</span>
                             </a>
                         </li>
-                        <!--Akhir Master Orang Tua-->
+                        <!--Akhir Data Orang Tua-->
 
                         {{-- <!--Awal Cari Siswa-->
                         <li class="nav-item">
@@ -300,6 +302,14 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
+                            <a href="{{ route('jabatan') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Jabatan</p>
+                                <span class="badge badge-success right">{{ $totalJabatan ?? 0 }}</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('pegawai') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Pegawai</p>
@@ -311,13 +321,6 @@
                             <a href="{{ route('pegawai.input') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Input Pegawai</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('jabatan') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Master Jabatan</p>
                             </a>
                         </li>
 

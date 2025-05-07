@@ -201,16 +201,16 @@
                 </p>
 
                 <div class="flex justify-center space-x-5 mt-6 text-gray-700 group-hover:text-gray-200 transition duration-300">
-                    <a href="https://instagram.com/akuadre" target="_blank" class="hover:text-pink-400 transition duration-300 hover:scale-125">
+                    <a href="https://instagram.com/liyayyaya" target="_blank" class="hover:text-pink-400 transition duration-300 hover:scale-125">
                     <i class="fab fa-instagram text-xl"></i>
                     </a>
-                    <a href="mailto:dreenation21@gmail.com" class="hover:text-blue-400 transition duration-300 hover:scale-125">
+                    <a href="mailto:evliyasatarii@gmail.com" class="hover:text-blue-400 transition duration-300 hover:scale-125">
                     <i class="fas fa-envelope text-xl"></i>
                     </a>
-                    <a href="https://wa.me/628xxxxxxx" target="_blank" class="hover:text-green-400 transition duration-300 hover:scale-125">
+                    <a href="https://wa.me/6281222678810" target="_blank" class="hover:text-green-400 transition duration-300 hover:scale-125">
                     <i class="fab fa-whatsapp text-xl"></i>
                     </a>
-                    <a href="https://github.com/akuadre" target="_blank" class="hover:text-white transition duration-300 hover:scale-125">
+                    <a href="https://github.com/evliyasatari" target="_blank" class="hover:text-white transition duration-300 hover:scale-125">
                     <i class="fab fa-github text-xl"></i>
                     </a>
                 </div>
