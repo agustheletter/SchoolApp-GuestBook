@@ -7,11 +7,13 @@
   <link rel="icon" href="{{ asset('gambar/icon.png') }}">
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="{{ asset('tailwindcdn.js') }}"></script>
 
-  <!-- Font Awesome untuk ikon -->
-  {{-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> --}}
+  <!-- Font Awesome -->
+  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> --}}
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
 
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
