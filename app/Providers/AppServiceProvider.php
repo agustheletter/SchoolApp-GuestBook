@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use App\Models\BukuTamu;
 use App\Models\PegawaiModel;
+use App\Models\SiswaModel;
+use App\Models\Orangtua;
+use App\Models\JabatanModel;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,5 +36,8 @@ class AppServiceProvider extends ServiceProvider
         // Mengirimkan total pegawai & total buku tamu ke seluruh view yang ada di projek ini
         View::share('totalPegawai', PegawaiModel::count());
         View::share('totalBukuTamu', BukuTamu::count());
+        View::share('totalSiswa', SiswaModel::count());
+        View::share('totalOrangtua', Orangtua::count());
+        View::share('totalJabatan', JabatanModel::count());
     }
 }

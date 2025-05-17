@@ -6,6 +6,15 @@
 <!--awal isi konten dinamis-->
 @section('konten')
 
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahSiswa">
         Tambah Data Siswa
     </button>
@@ -146,26 +155,26 @@
                                             <div class="form-group row">
                                                 <label for="jk" class="col-sm-3 col-form-label text-left">Jenis Kelamin</label>
                                                 <div class="col-sm-9 input-group">
-                                                    @if ($s->jk == "Laki-laki")
+                                                    @if ($s->jk == "L")
                                                         <div class="input-group-text">
-                                                            <input type="radio" id="jk" name="jk" value="Laki-laki" checked>
+                                                            <input type="radio" id="jk" name="jk" value="L" checked>
 
                                                         </div>
                                                         Laki-laki
 
                                                         <div class="input-group-text">
-                                                            <input type="radio" id="jk" name="jk" value="Perempuan">
+                                                            <input type="radio" id="jk" name="jk" value="P">
                                                         </div>
                                                         Perempuan
                                                     @else
                                                         <div class="input-group-text">
-                                                            <input type="radio" id="jk" name="jk" value="Laki-laki" >
+                                                            <input type="radio" id="jk" name="jk" value="L" >
 
                                                         </div>
                                                         Laki-laki
 
                                                         <div class="input-group-text">
-                                                            <input type="radio" id="jk" name="jk" value="Perempuan" checked>
+                                                            <input type="radio" id="jk" name="jk" value="P" checked>
                                                         </div>
                                                         Perempuan
                                                     @endif
@@ -211,14 +220,14 @@
                                             <div class="form-group row">
                                                 <label for="photo" class="col-sm-3 col-form-label text-left">Photo</label>
                                                 <div class="col-sm-9 text-left">
-                                                    <input type="file" id="photo" name="photo">
+                                                    <input type="file" id="photo" name="photosiswa">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="idthnajaran" class="col-sm-3 col-form-label text-left">Tahun Masuk</label>
                                                 <div class="col-sm-9">
-                                                    <select type="text" class="form-control" id="idthnajaran" name="idthnajaran">
+                                                    <select type="text" class="form-control" id="idthnajaran" name="idthnmasuk">
                                                         @foreach ($thnajaran as $t)
                                                             @if ($t->idthnajaran == $s->idthnajaran)
                                                                 <option value="{{ $t->idthnajaran }}" selected>{{ $t->thnajaran }}</option>

@@ -105,7 +105,7 @@ Route::put('/thnajaran/edit/{idthnajaran}', [TahunAjaranController::class,'thnaj
     Route::get('/siswa', [SiswaController::class,'siswa'])->middleware('auth');
     Route::post('/siswa/tambah',[SiswaController::class,'siswatambah'])->middleware('auth');
     Route::get('/siswa/hapus/{nis}',[SiswaController::class,'siswahapus'])->middleware('auth');
-    Route::put('/siswa/edit/{nis}', [SiswaController::class,'siswaedit'])->middleware('auth');
+    Route::put('/siswa/edit/{id}', [SiswaController::class,'siswaedit'])->middleware('auth');
     //AWAL CRUD SISWA
 
     //AWAL CARI SISWA

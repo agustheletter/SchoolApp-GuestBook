@@ -9,13 +9,16 @@
         <img src="{{ asset('gambar/icon.png') }}" class="img-circle elevation-2" width="160px" height="160px" class="text-center">
         <br>
         <br>
-        Aplikasi dibuat oleh
+        <h2>Aplikasi ini dibuat oleh</h2>
         <p>
 
-        <h2>Adrenalin Muhammad Dewangga</h2>
-        <h2>Evliya Satari Nurarifah</h2>
+        <h4>Adrenalin Muhammad Dewangga - <a href="https://adre.my.id">adre.my.id</a></h4>
+        <h4>Evliya Satari Nurarifah - <a href="https://evliya.my.id">evliya.my.id</a></h4>
 
-        <h2>Pembimbing : Agus Suratna Permadi, S.Pd.</h2>
+        <br>
+
+        <h4>Pembimbing :</h4>
+        <h4>Agus Suratna Permadi, S.Pd. - <a href="https://agussuratna.net">agussuratna.net</a></h4>
 
     @endsection
     <!--akhir isi konten dinamis-->

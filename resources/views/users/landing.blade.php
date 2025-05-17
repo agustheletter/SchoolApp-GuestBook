@@ -7,12 +7,17 @@
   <link rel="icon" href="{{ asset('gambar/icon.png') }}">
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <script src="{{ asset('tailwindcdn.js') }}"></script>
+
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> --}}
 
-  <!-- Font Awesome untuk ikon -->
-  {{-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> --}}
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
 
+  <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
 
@@ -50,10 +55,10 @@
 
     <!-- Konten -->
     <div class="relative z-10 w-full h-[440px] container mx-auto px-6 pb-12">
-        <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-36 h-36 mx-auto mb-4 transition duration-300 hover:scale-110">
-        <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4">Selamat Datang di Buku Tamu Digital</h2>
-        <p class="text-xl text-gray-700 drop-shadow-md mb-28">Catat kehadiran tamu secara efisien dan terorganisir</p>
-        <div class="w-fit mx-auto flex items-center justify-center bg-white gap-3 p-2 rounded-full">
+        <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-36 h-36 mx-auto mb-4 transition duration-300 hover:scale-110" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
+        <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">Selamat Datang di Buku Tamu Digital</h2>
+        <p class="text-xl text-gray-700 drop-shadow-md mb-28" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">Catat kehadiran tamu secara efisien dan terorganisir</p>
+        <div class="w-fit mx-auto flex items-center justify-center bg-white gap-3 p-2 rounded-full" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1400">
             <a href="{{ route('bukutamu.user') }}#ortu" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white hover:scale-105 transition duration-300">Orang Tua</a>
             <a href="{{ route('bukutamu.user') }}#umum" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white hover:scale-105 transition duration-300">Tamu Umum</a>
         </div>
@@ -71,22 +76,22 @@
     <div class="container mx-auto px-6 text-center">
         <!-- Header -->
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-gray-900">Features</h2>
-            <p class="text-lg text-gray-600 mt-2">Smart solutions, simple experience 🛠️</p>
+            <h2 class="text-4xl font-bold text-gray-900" data-aos="fade-down" data-aos-duration="500" data-aos-delay="400">Features</h2>
+            <p class="text-lg text-gray-600 mt-2" data-aos="fade-down" data-aos-duration="500" data-aos-delay="1200">Smart solutions, simple experience 🛠️</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2">
+            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-right" data-aos-duration="500" data-aos-delay="1600">
                 <i class="fas fa-keyboard text-6xl mb-4"></i>
                 <h4 class="text-xl font-bold mb-3">Input Otomatis</h4>
                 <p class="text-gray-600">Nama orang tua siswa akan terisi secara otomatis setelah memilih nama siswa dari daftar, sehingga mempercepat dan memudahkan proses pengisian data tamu.</p>
             </div>
-            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2">
+            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="2000">
                 <i class="fas fa-signal text-6xl mb-4"></i>
                 <h4 class="text-xl font-bold mb-3">Rekap Kunjungan</h4>
                 <p class="text-gray-600">Setiap data tamu yang tercatat akan tersimpan secara rapi dalam sistem, sehingga memudahkan sekolah dalam melihat riwayat kunjungan kapan saja.</p>
             </div>
-            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2">
+            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-left" data-aos-duration="500" data-aos-delay="2400">
                 <i class="fas fa-database text-6xl mb-4"></i>
                 <h4 class="text-xl font-bold mb-3">Pengelolaan Data</h4>
                 <p class="text-gray-600 text-base">Aplikasi ini menyediakan fitur pengelolaan data penting seperti pegawai, jabatan, siswa, dan agama, agar sistem tetap terorganisir dan mudah diperbarui.</p>
@@ -105,16 +110,16 @@
     <div class="container mx-auto px-6 text-center">
         <!-- Header -->
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-gray-900">About</h2>
-            <p class="text-lg text-gray-600 mt-2">Discover the story behind our code 📖</p>
+            <h2 class="text-4xl font-bold text-gray-900" data-aos="fade-down" data-aos-duration="500" data-aos-delay="400">About</h2>
+            <p class="text-lg text-gray-600 mt-2" data-aos="fade-down" data-aos-duration="500" data-aos-delay="1200">Discover the story behind our code 📖</p>
         </div>
 
         <!-- Icon -->
-        <div class="flex justify-center mb-8">
+        <div class="flex justify-center mb-8" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1200">
             <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-48 h-w-48 mx-auto drop-shadow-xl transition duration-300 hover:scale-110">
         </div>
 
-        <p class="text-lg text-gray-600 max-w-5xl mx-auto">Aplikasi Buku Tamu Digital ini adalah proyek tugas akhir kami untuk mata pelajaran pengembangan website, dibangun menggunakan Laravel dan MySQL. Aplikasi ini dirancang untuk membantu sekolah dalam mencatat dan mengelola kunjungan tamu—baik orang tua siswa maupun tamu umum—secara efisien dan terstruktur. Fitur-fitur utamanya meliputi input data tamu secara langsung, pemisahan kategori tamu, pencatatan tujuan kunjungan, serta pengelolaan data pegawai, siswa, jabatan, dan agama. Seluruh data tersimpan secara digital sehingga memudahkan pencarian, rekap, dan pelaporan kunjungan.</p>
+        <p class="text-lg text-gray-600 max-w-5xl mx-auto" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1600">Aplikasi Buku Tamu Digital ini adalah proyek tugas akhir kami untuk mata pelajaran pengembangan website, dibangun menggunakan Laravel dan MySQL. Aplikasi ini dirancang untuk membantu sekolah dalam mencatat dan mengelola kunjungan tamu—baik orang tua siswa maupun tamu umum—secara efisien dan terstruktur. Fitur-fitur utamanya meliputi input data tamu secara langsung, pemisahan kategori tamu, pencatatan tujuan kunjungan, serta pengelolaan data pegawai, siswa, jabatan, dan agama. Seluruh data tersimpan secara digital sehingga memudahkan pencarian, rekap, dan pelaporan kunjungan.</p>
     </div>
   </section>
 
@@ -141,14 +146,14 @@
     <div class="">
         <!-- Header -->
         <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-gray-900">Contact Us</h2>
-        <p class="text-lg text-gray-600 mt-2">Let’s get in touch with the developers 🧑🏻‍💻</p>
+        <h2 class="text-4xl font-bold text-gray-900" data-aos="fade-down" data-aos-duration="500" data-aos-delay="400">Contact Us</h2>
+        <p class="text-lg text-gray-600 mt-2" data-aos="fade-down" data-aos-duration="500" data-aos-delay="1200">Let’s get in touch with the developers 🧑🏻‍💻</p>
         </div>
 
         <!-- Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
             <!-- Card -->
-            <div class="group bg-white hover:bg-slate-800 rounded-2xl shadow-xl p-8 border-4 border-slate-800 relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500">
+            <div class="group bg-white hover:bg-slate-800 rounded-2xl shadow-xl p-8 border-4 border-slate-800 relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500" data-aos="fade-right" data-aos-duration="500" data-aos-delay="1600">
                 <div class="absolute inset-0 bg-gradient-to-br from-blue-300 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
                 <div class="relative z-10 text-center">
                 <img src="{{ asset('gambar/people/adre.png') }}" alt="Adrenalin" class="w-24 h-24 mx-auto rounded-full object-cover mb-4 shadow-2xl border-4 border-transparent transform hover:scale-110 hover:border-4 hover:border-white transition duration-300">
@@ -183,7 +188,7 @@
             </div>
 
             <!-- Card 2 -->
-            <div class="group bg-white hover:bg-pink-950 rounded-2xl shadow-xl p-8 border-4 border-slate-800 relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500">
+            <div class="group bg-white hover:bg-pink-950 rounded-2xl shadow-xl p-8 border-4 border-slate-800 relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500" data-aos="fade-left" data-aos-duration="500" data-aos-delay="2000">
                 <div class="absolute inset-0 bg-gradient-to-br from-pink-300 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
                 <div class="relative z-10 text-center">
                 <img src="{{ asset('gambar/people/evliya.jpg') }}" alt="Evliya" class="w-24 h-24 mx-auto rounded-full object-cover mb-4 shadow-2xl border-4 border-transparent transform hover:scale-110 hover:border-4 hover:border-white transition duration-300">
@@ -201,16 +206,16 @@
                 </p>
 
                 <div class="flex justify-center space-x-5 mt-6 text-gray-700 group-hover:text-gray-200 transition duration-300">
-                    <a href="https://instagram.com/akuadre" target="_blank" class="hover:text-pink-400 transition duration-300 hover:scale-125">
+                    <a href="https://instagram.com/liyayyaya" target="_blank" class="hover:text-pink-400 transition duration-300 hover:scale-125">
                     <i class="fab fa-instagram text-xl"></i>
                     </a>
-                    <a href="mailto:dreenation21@gmail.com" class="hover:text-blue-400 transition duration-300 hover:scale-125">
+                    <a href="mailto:evliyasatarii@gmail.com" class="hover:text-blue-400 transition duration-300 hover:scale-125">
                     <i class="fas fa-envelope text-xl"></i>
                     </a>
-                    <a href="https://wa.me/628xxxxxxx" target="_blank" class="hover:text-green-400 transition duration-300 hover:scale-125">
+                    <a href="https://wa.me/6281222678810" target="_blank" class="hover:text-green-400 transition duration-300 hover:scale-125">
                     <i class="fab fa-whatsapp text-xl"></i>
                     </a>
-                    <a href="https://github.com/akuadre" target="_blank" class="hover:text-white transition duration-300 hover:scale-125">
+                    <a href="https://github.com/evliyasatari" target="_blank" class="hover:text-white transition duration-300 hover:scale-125">
                     <i class="fab fa-github text-xl"></i>
                     </a>
                 </div>
@@ -219,10 +224,10 @@
         </div>
 
         <!-- Paragraf Bawah -->
-        <div class="mt-8 text-center max-w-4xl mx-auto">
-        <p class="text-lg font-medium text-gray-900">
-            We are students of Software Engineering (Rekayasa Perangkat Lunak) at SMKN 1 Cimahi, currently in the 11th grade. This project is developed as part of our academic journey to enhance real-world web development skills.
-        </p>
+        <div class="mt-8 text-center max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="500" data-aos-delay="2000">
+            <p class="text-lg font-medium text-gray-900">
+                We are students of Software Engineering (Rekayasa Perangkat Lunak) at SMKN 1 Cimahi, currently in the 11th grade. This project is developed as part of our academic journey to enhance real-world web development skills.
+            </p>
         </div>
     </div>
 
@@ -301,6 +306,9 @@
     //         navbar.classList.add('bg-transparent');
     //     }
     // });
+
+
+    AOS.init();
 
   </script>
 
