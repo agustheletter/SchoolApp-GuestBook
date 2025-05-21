@@ -140,11 +140,15 @@ class BukuTamuController extends Controller
 
         if ($orangtua) {
             return response()->json([
-                'nama_ortu' => $orangtua->nama_ortu
+                'nama_ortu' => $orangtua->nama_ortu,
+                'kontak'    => $orangtua->kontak,
+                'alamat'    => $orangtua->alamat
             ]);
         } else {
             return response()->json([
-                'nama_ortu' => null
+                'nama_ortu' => null,
+                'kontak'    => null,
+                'alamat'    => null
             ]);
         }
     }

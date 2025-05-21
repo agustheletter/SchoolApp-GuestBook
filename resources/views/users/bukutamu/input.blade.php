@@ -108,7 +108,7 @@
                         <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="nama" id="namaOrtu" placeholder="Masukan Nama Anda" required>
                     </div>
 
-                    <div class="mb-4 flex items-center gap-4">
+                    {{-- <div class="mb-4 flex items-center gap-4">
                         <label for="agama" class="w-52 text-left font-semibold">Agama</label>
                         <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="idagama" id="agama" required>
                             <option value="" disabled selected>Pilih Agama</option>
@@ -116,16 +116,16 @@
                                 <option value="{{ $a->idagama }}">{{ $a->agama }}</option>
                             @endforeach
                         </select>
+                    </div> --}}
+
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="kontakOrtu" class="w-52 text-left font-semibold">Nomor Handphone</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="kontak" id="kontakOrtu" placeholder="Masukan Nomor Handphone" required>
                     </div>
 
                     <div class="mb-4 flex items-center gap-4">
-                        <label for="alamat" class="w-52 text-left font-semibold">Alamat</label>
-                        <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="alamat" id="alamat" placeholder="Masukan Alamat" required></textarea>
-                    </div>
-
-                    <div class="mb-4 flex items-center gap-4">
-                        <label for="kontak" class="w-52 text-left font-semibold">Kontak</label>
-                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="kontak" id="kontak" placeholder="Masukan Nomor Handphone / Email" required>
+                        <label for="alamatOrtu" class="w-52 text-left font-semibold">Alamat</label>
+                        <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="alamat" id="alamatOrtu" placeholder="Masukan Alamat Anda" required></textarea>
                     </div>
 
                     <div class="mb-4 flex items-center gap-4">
@@ -139,9 +139,9 @@
                     </div>
 
                     <div class="mb-4 flex items-center gap-4">
-                        <label for="pegawai" class="w-52 text-left font-semibold">Nama Pegawai</label>
+                        <label for="pegawai" class="w-52 text-left font-semibold">Nama Pegawai / Guru</label>
                         <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_pegawai" id="pegawai" required>
-                            <option value="">Pilih Nama Pegawai</option>
+                            <option value="">Pilih Nama Pegawai / Guru</option>
                         </select>
                     </div>
 
@@ -170,16 +170,26 @@
                     <input type="hidden" name="role" value="umum">
 
                     <div class="mb-4 flex items-center gap-4">
-                        <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
-                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
-                    </div>
-
-                    <div class="mb-4 flex items-center gap-4">
                         <label for="namaTamu" class="w-52 text-left font-semibold">Nama</label>
                         <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="nama" id="namaTamu" placeholder="Masukan Nama Anda" required>
                     </div>
 
                     <div class="mb-4 flex items-center gap-4">
+                        <label for="kontak" class="w-52 text-left font-semibold">Nomor Handphone</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="kontak" id="kontak" placeholder="Masukan Nomor Handphone" required>
+                    </div>
+
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="instansi" class="w-52 text-left font-semibold">Asal Instansi</label>
+                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="instansi" id="instansi" placeholder="Masukan Nama Instansi" required>
+                    </div>
+
+                    <div class="mb-4 flex items-center gap-4">
+                        <label for="alamat" class="w-52 text-left font-semibold">Alamat Instansi</label>
+                        <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="alamat" id="alamat" placeholder="Masukan Alamat Instansi" required></textarea>
+                    </div>
+
+                    {{-- <div class="mb-4 flex items-center gap-4">
                         <label for="agama" class="w-52 text-left font-semibold">Agama</label>
                         <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="idagama" id="agama" required>
                             <option value="" disabled selected>Pilih Agama</option>
@@ -187,17 +197,7 @@
                                 <option value="{{ $a->idagama }}">{{ $a->agama }}</option>
                             @endforeach
                         </select>
-                    </div>
-
-                    <div class="mb-4 flex items-center gap-4">
-                        <label for="alamat" class="w-52 text-left font-semibold">Alamat</label>
-                        <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="alamat" id="alamat" placeholder="Masukan Alamat" required></textarea>
-                    </div>
-
-                    <div class="mb-4 flex items-center gap-4">
-                        <label for="kontak" class="w-52 text-left font-semibold">Kontak</label>
-                        <input type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="kontak" id="kontak" placeholder="Masukan Nomor Handphone / Email" required>
-                    </div>
+                    </div> --}}
 
                     <div class="mb-4 flex items-center gap-4">
                         <label for="jabatan2" class="w-52 text-left font-semibold">Bertemu Dengan (Jabatan)</label>
@@ -210,9 +210,9 @@
                     </div>
 
                     <div class="mb-4 flex items-center gap-4">
-                        <label for="pegawai2" class="w-52 text-left font-semibold">Nama Pegawai</label>
+                        <label for="pegawai2" class="w-52 text-left font-semibold">Nama Pegawai / Guru</label>
                         <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_pegawai" id="pegawai2" required>
-                            <option value="">Pilih Nama Pegawai</option>
+                            <option value="">Pilih Nama Pegawai / Guru</option>
                         </select>
                     </div>
 
@@ -330,7 +330,7 @@
 
 
 
-        // fungsi kolom otomatis
+        // fungsi kolom otomatis (jabatan - pegawai)
         $(document).ready(function() {
             $('#jabatan').change(function() {
                 var jabatan_id = $(this).val();
@@ -347,28 +347,35 @@
             });
         });
 
+        // fungsi kolom otomatis (nama siswa - nama ortu)
         document.getElementById('idsiswa').addEventListener('change', function() {
             var idsiswa = this.value;
             if (idsiswa) {
                 fetch('/getOrangtua/' + idsiswa)
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) throw new Error('Data tidak ditemukan');
+                        return response.json();
+                    })
                     .then(data => {
-                        if (data && data.nama_ortu) {
-                            document.getElementById('namaOrtu').value = data.nama_ortu;
-                        } else {
-                            document.getElementById('namaOrtu').value = '';
-                        }
+                        document.getElementById('namaOrtu').value   = data.nama_ortu || '';
+                        document.getElementById('kontakOrtu').value = data.kontak || '';
+                        document.getElementById('alamatOrtu').value = data.alamat || '';
                     })
                     .catch(error => {
                         console.error('Error fetching data:', error);
-                        document.getElementById('namaOrtu').value = '';
+                        document.getElementById('namaOrtu').value   = '';
+                        document.getElementById('kontakOrtu').value = '';
+                        document.getElementById('alamatOrtu').value = '';
                     });
             } else {
                 document.getElementById('namaOrtu').value = '';
+                document.getElementById('kontakOrtu').value = '';
+                document.getElementById('alamatOrtu').value = '';
             }
         });
 
-        // fungsi kolom otomatis 2
+
+        // fungsi kolom otomatis (jabatan - pegawai)
         $(document).ready(function() {
             $('#jabatan2').change(function() {
                 var jabatan_id = $(this).val();
