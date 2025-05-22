@@ -35,38 +35,24 @@
             </div>
         </div> --}}
 
-        @if ($role == 'ortu')
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Orang Tua Dari Siswa</label>
+            <label class="col-sm-3 col-form-label">Nomor Handphone</label>
             <div class="col-sm-9">
-                <select class="form-control" name="idsiswa" required>
-                    <option>Pilih Nama Siswa</option>
-                    @foreach ($siswa as $s)
-                        <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
-                    @endforeach
-                </select>
+                <input type="text" class="form-control" name="kontak" placeholder="Masukan Nomor Handphone" required>
             </div>
         </div>
-        @else
+
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Asal Instansi</label>
             <div class="col-sm-9">
                 <input type="text" class="form-control" name="instansi" placeholder="Masukan Nama Instansi" required>
             </div>
         </div>
-        @endif
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Alamat</label>
+            <label class="col-sm-3 col-form-label">Alamat Instansi</label>
             <div class="col-sm-9">
-                <textarea class="form-control" name="alamat" rows="3" placeholder="Masukan Alamat" required></textarea>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Kontak</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" name="kontak" placeholder="Masukan Nomor/Email" required>
+                <textarea class="form-control" name="alamat" rows="3" placeholder="Masukan Alamat Instansi" required></textarea>
             </div>
         </div>
 
@@ -83,10 +69,10 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Nama Pegawai</label>
+            <label class="col-sm-3 col-form-label">Nama Pegawai / Guru</label>
             <div class="col-sm-9">
                 <select class="form-control" id="pegawai" name="id_pegawai" required>
-                    <option>Pilih Nama Pegawai</option>
+                    <option>Pilih Nama Pegawai / Guru</option>
                 </select>
             </div>
         </div>

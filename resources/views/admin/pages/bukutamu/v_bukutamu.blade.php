@@ -27,10 +27,10 @@
         <thead class="thead-dark">
             <tr>
                 <th><center>No</center></th>
-                <th><center>Nama</center></th>
+                <th><center>Nama Tamu</center></th>
                 <th><center>Role</center></th>
                 {{-- <th><center>Agama</center></th> --}}
-                <th><center>Orang Tua Siswa</center></th>
+                <th><center>Nama Siswa</center></th>
                 <th><center>Instansi</center></th>
                 <th><center>Alamat</center></th>
                 <th><center>Kontak</center></th>

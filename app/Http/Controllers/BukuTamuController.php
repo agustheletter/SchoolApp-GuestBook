@@ -14,7 +14,7 @@ class BukuTamuController extends Controller
 {
     public function index()
     {
-        $bukutamu = BukuTamu::with(['agama', 'siswa', 'jabatan', 'pegawai'])->get();
+        $bukutamu = BukuTamu::with(['siswa', 'jabatan', 'pegawai'])->get();
         return view('admin.pages.bukutamu.v_bukutamu', compact('bukutamu'));
     }
 
