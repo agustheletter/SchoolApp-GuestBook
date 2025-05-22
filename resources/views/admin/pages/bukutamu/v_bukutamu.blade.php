@@ -29,7 +29,7 @@
                 <th><center>No</center></th>
                 <th><center>Nama</center></th>
                 <th><center>Role</center></th>
-                <th><center>Agama</center></th>
+                {{-- <th><center>Agama</center></th> --}}
                 <th><center>Orang Tua Siswa</center></th>
                 <th><center>Instansi</center></th>
                 <th><center>Alamat</center></th>
@@ -52,7 +52,7 @@
                             Tamu Umum
                         @endif
                     </td>
-                    <td>{{ optional($tamu->agama)->agama ?? '-' }}</td>
+                    {{-- <td>{{ optional($tamu->agama)->agama ?? '-' }}</td> --}}
                     <td>{{ $tamu->siswa->namasiswa ?? '-' }}</td>
                     <td>{{ $tamu->instansi ?? '-' }}</td>
                     <td>{{ $tamu->alamat }}</td>
