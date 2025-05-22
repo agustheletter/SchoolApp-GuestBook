@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        {{-- <div class="form-group row">
             <label class="col-sm-3 col-form-label" for="idagama">Agama</label>
             <div class="col-sm-9">
                 <select class="form-control" id="idagama" name="idagama" required>
@@ -39,7 +39,7 @@
                     @endforeach
                 </select>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Input untuk Orang Tua (Hanya muncul jika role=ortu) -->
         <div class="form-group row" id="ortuFields" style="display: none;">

@@ -49,6 +49,13 @@
             </div>
         </div>
 
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Alamat</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="alamat" placeholder="Masukan Alamat" required>
+            </div>
+        </div>
+
         <div class="modal-footer">
             <a href="{{ route('orangtua.input') }}" class="btn btn-secondary">Kembali</a>
             <button type="submit" class="btn btn-success">Tambah</button>

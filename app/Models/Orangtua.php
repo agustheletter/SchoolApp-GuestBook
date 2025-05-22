@@ -16,6 +16,7 @@ class Orangtua extends Model
         'jenis_kelamin',
         'idsiswa',
         'kontak',
+        'alamat',
     ];
 
     public function siswa() {

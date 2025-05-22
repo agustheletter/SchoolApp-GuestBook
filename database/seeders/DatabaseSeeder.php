@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(JabatanSeeder::class);
         $this->call(PegawaiSeeder::class);
         $this->call(SiswaSeeder::class);
-        $this->call(BukuTamuSeeder::class);
         $this->call(OrangtuaSeeder::class);
+        $this->call(BukuTamuSeeder::class);
     }
 }

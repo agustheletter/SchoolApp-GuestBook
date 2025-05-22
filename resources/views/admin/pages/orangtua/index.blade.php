@@ -31,6 +31,7 @@
                 <th><center>Jenis Kelamin</center></th>
                 <th><center>Nama Siswa</center></th>
                 <th><center>Kontak</center></th>
+                <th><center>Alamat</center></th>
                 <th><center>Action</center></th>
             </tr>
         </thead>
@@ -42,6 +43,7 @@
                     <td>{{ $ortu->jenis_kelamin }}</td>
                     <td>{{ $ortu->siswa->namasiswa ?? '-' }}</td>
                     <td>{{ $ortu->kontak }}</td>
+                    <td>{{ $ortu->alamat }}</td>
                     <td align="center">
                         <a href="{{ route('orangtua.edit', $ortu->id) }}" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit"></i>

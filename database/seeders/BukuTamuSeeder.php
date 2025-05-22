@@ -16,9 +16,8 @@ class BukuTamuSeeder extends Seeder
         DB::table('tbl_bukutamu')->insert([
             [
                 'id' => 1,
-                'nama' => 'Andriana Suryani',
+                'nama' => 'Lina Suryani',
                 'role' => 'umum',
-                'idagama' => 1,
                 'idsiswa' => null,
                 'instansi' => 'PT. Tech Solutions',
                 'alamat' => 'Jl. Raya No. 10, Jakarta Pusat, DKI Jakarta',
@@ -32,9 +31,8 @@ class BukuTamuSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'nama' => 'Tamu 1',
+                'nama' => 'Timothy Ronald',
                 'role' => 'umum',
-                'idagama' => 1,
                 'idsiswa' => null,
                 'instansi' => 'PT. Global Trading',
                 'alamat' => 'Jl. Merdeka No.45, Bandung, Jawa Barat',
@@ -48,9 +46,8 @@ class BukuTamuSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'nama' => 'Budi Santoso',
+                'nama' => 'Orang Tua 1',
                 'role' => 'ortu',
-                'idagama' => 1,
                 'idsiswa' => 1,
                 'instansi' => null,
                 'alamat' => 'Jl. Kemuning No. 20, Surabaya, Jawa Timur',

@@ -21,8 +21,8 @@
             <div class="col-sm-9">
                 <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
                     <option value="" disabled>Pilih Jenis Kelamin</option>
-                    <option value="Laki-laki">Laki-Laki</option>
-                    <option value="Perempuan">Perempuan</option>
+                    <option value="Laki-laki" {{ $orangtua->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-Laki</option>
+                    <option value="Perempuan" {{ $orangtua->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                 </select>
             </div>
         </div>
@@ -45,6 +45,13 @@
             <label class="col-sm-3 col-form-label" for="kontak">Kontak</label>
             <div class="col-sm-9">
                 <input type="text" class="form-control" id="kontak" name="kontak" value="{{ $orangtua->kontak }}" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="alamat">Alamat</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $orangtua->alamat }}" required>
             </div>
         </div>
 

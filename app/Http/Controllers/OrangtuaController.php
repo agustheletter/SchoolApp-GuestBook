@@ -27,6 +27,7 @@ class OrangtuaController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'idsiswa' => 'required|exists:tbl_siswa,idsiswa',
             'kontak' => 'nullable|string|max:20',
+            'alamat' => 'required|string|max:255',
         ]);
 
         Orangtua::create(
@@ -36,6 +37,7 @@ class OrangtuaController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'idsiswa' => $request->idsiswa,
             'kontak' => $request->kontak,
+            'alamat' => $request->alamat,
             ]
         );
 
@@ -56,14 +58,17 @@ class OrangtuaController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'idsiswa' => 'required|exists:tbl_siswa,idsiswa',
             'kontak' => 'nullable|string',
+            'alamat' => 'required|string|max:255',
         ]);
 
         $orangtua = Orangtua::findOrFail($id);
+
         $orangtua->update([
             'nama_ortu' => $request->nama_ortu,
             'jenis_kelamin' => $request->jenis_kelamin,
             'idsiswa' => $request->idsiswa,
             'kontak' => $request->kontak,
+            'alamat' => $request->alamat,
         ]);
 
         return redirect()->route('orangtua')->with('success', 'Data Orang Tua berhasil diupdate.');

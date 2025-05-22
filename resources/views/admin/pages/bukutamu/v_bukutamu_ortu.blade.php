@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        {{-- <div class="form-group row">
             <label class="col-sm-3 col-form-label">Agama</label>
             <div class="col-sm-9">
                 <select class="form-control" name="idagama" required>
@@ -47,28 +47,19 @@
                     @endforeach
                 </select>
             </div>
-        </div>
+        </div> --}}
 
-        @if ($role == 'umum')
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Asal Instansi</label>
+            <label class="col-sm-3 col-form-label">Nomor Handphone</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" name="instansi" placeholder="Masukan Nama Instansi" required>
+                <input type="text" class="form-control" name="kontak" placeholder="Masukan Nomor Handphone" required>
             </div>
         </div>
-        @endif
 
         <div class="form-group row">
             <label class="col-sm-3 col-form-label">Alamat</label>
             <div class="col-sm-9">
                 <textarea class="form-control" name="alamat" rows="3" placeholder="Masukan Alamat" required></textarea>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Kontak</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" name="kontak" placeholder="Masukan Nomor/Email" required>
             </div>
         </div>
 
@@ -85,10 +76,10 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Nama Pegawai</label>
+            <label class="col-sm-3 col-form-label">Nama Pegawai / Guru</label>
             <div class="col-sm-9">
                 <select class="form-control" id="pegawai" name="id_pegawai" required>
-                    <option>Pilih Nama Pegawai</option>
+                    <option>Pilih Nama Pegawai / Guru</option>
                 </select>
             </div>
         </div>
