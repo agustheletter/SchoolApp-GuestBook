@@ -21,12 +21,12 @@ class BukuTamuController extends Controller
     public function edit($id)
     {
         $bukutamu = BukuTamu::findOrFail($id);
-        $agama = AgamaModel::all();
+        // $agama = AgamaModel::all();
         $siswa = SiswaModel::all();
         $jabatan = JabatanModel::all();
         $pegawai = PegawaiModel::all();
 
-        return view('admin.pages.bukutamu.v_bukutamu_edit', compact('bukutamu', 'agama', 'siswa', 'jabatan', 'pegawai'));
+        return view('admin.pages.bukutamu.v_bukutamu_edit', compact('bukutamu', 'siswa', 'jabatan', 'pegawai'));
     }
 
     public function update(Request $request, $id)
@@ -34,7 +34,7 @@ class BukuTamuController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'role' => 'required|in:ortu,umum',
-            'idagama' => 'required|exists:tbl_agama,idagama',
+            // 'idagama' => 'required|exists:tbl_agama,idagama',
             'idsiswa' => 'nullable|exists:tbl_siswa,idsiswa',
             'instansi' => 'nullable|string|max:255',
             'alamat' => 'required|string',
@@ -48,7 +48,7 @@ class BukuTamuController extends Controller
         $bukutamu->update([
             'nama' => $request->nama,
             'role' => $request->role,
-            'idagama' => $request->idagama,
+            // 'idagama' => $request->idagama,
             'idsiswa' => $request->idsiswa,
             'instansi' => $request->instansi,
             'alamat' => $request->alamat,
@@ -68,23 +68,23 @@ class BukuTamuController extends Controller
 
     public function input_orangtua()
     {
-        $agama = AgamaModel::all();
+        // $agama = AgamaModel::all();
         $siswa = SiswaModel::all();
         $jabatan = JabatanModel::all();
         $pegawai = PegawaiModel::all();
         $role = 'ortu';
 
-        return view('admin.pages.bukutamu.v_bukutamu_ortu', compact('agama', 'siswa', 'jabatan', 'pegawai', 'role'));
+        return view('admin.pages.bukutamu.v_bukutamu_ortu', compact('siswa', 'jabatan', 'pegawai', 'role'));
     }
 
     public function input_umum()
     {
-        $agama = AgamaModel::all();
+        // $agama = AgamaModel::all();
         $jabatan = JabatanModel::all();
         $pegawai = PegawaiModel::all();
         $role = 'umum';
 
-        return view('admin.pages.bukutamu.v_bukutamu_umum', compact('agama', 'jabatan', 'pegawai', 'role'));
+        return view('admin.pages.bukutamu.v_bukutamu_umum', compact('jabatan', 'pegawai', 'role'));
     }
 
     public function store(Request $request)
@@ -93,7 +93,7 @@ class BukuTamuController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'role' => 'required|in:ortu,umum',
-            'idagama' => 'required|exists:tbl_agama,idagama',
+            // 'idagama' => 'required|exists:tbl_agama,idagama',
             'idsiswa' => 'nullable|exists:tbl_siswa,idsiswa',
             'instansi' => 'nullable|string|max:255',
             'alamat' => 'required|string',
@@ -107,7 +107,7 @@ class BukuTamuController extends Controller
         BukuTamu::create([
             'nama' => $request->nama,
             'role' => $request->role,
-            'idagama' => $request->idagama,
+            // 'idagama' => $request->idagama,
             'idsiswa' => $request->idsiswa,
             'instansi' => $request->instansi,
             'alamat' => $request->alamat,
@@ -155,14 +155,14 @@ class BukuTamuController extends Controller
 
     // Buku Tamu User controller
     public function inputUser() {
-        $agama = AgamaModel::all();
+        // $agama = AgamaModel::all();
         $siswa = SiswaModel::all();
         $jabatan = JabatanModel::all();
         $pegawai = PegawaiModel::all();
         $role = 'ortu';
 
         // return view('users.bukutamu.input');
-        return view('users.bukutamu.input', compact('agama', 'siswa', 'jabatan', 'pegawai', 'role'));
+        return view('users.bukutamu.input', compact('siswa', 'jabatan', 'pegawai', 'role'));
     }
 
     public function storeUser(Request $request)
@@ -171,7 +171,7 @@ class BukuTamuController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'role' => 'required|in:ortu,umum',
-            'idagama' => 'required|exists:tbl_agama,idagama',
+            // 'idagama' => 'required|exists:tbl_agama,idagama',
             'idsiswa' => 'nullable|exists:tbl_siswa,idsiswa',
             'instansi' => 'nullable|string|max:255',
             'alamat' => 'required|string',
@@ -185,7 +185,7 @@ class BukuTamuController extends Controller
         BukuTamu::create([
             'nama' => $request->nama,
             'role' => $request->role,
-            'idagama' => $request->idagama,
+            // 'idagama' => $request->idagama,
             'idsiswa' => $request->idsiswa,
             'instansi' => $request->instansi,
             'alamat' => $request->alamat,
