@@ -14,14 +14,14 @@ class BukuTamu extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'nama', 'role', 'idagama', 'idsiswa', 'instansi',
+        'nama', 'role', 'idsiswa', 'instansi',
         'alamat', 'kontak', 'id_jabatan', 'id_pegawai', 'keperluan'
     ];
 
-    public function agama()
-    {
-        return $this->belongsTo(AgamaModel::class, 'idagama', 'idagama');
-    }
+    // public function agama()
+    // {
+    //     return $this->belongsTo(AgamaModel::class, 'idagama', 'idagama');
+    // }
 
     public function siswa()
     {

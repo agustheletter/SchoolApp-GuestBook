@@ -21,8 +21,8 @@
             <div class="col-sm-9">
                 <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
                     <option value="" disabled>Pilih Jenis Kelamin</option>
-                    <option value="Laki-laki">Laki-Laki</option>
-                    <option value="Perempuan">Perempuan</option>
+                    <option value="Laki-laki" {{ $orangtua->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-Laki</option>
+                    <option value="Perempuan" {{ $orangtua->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                 </select>
             </div>
         </div>

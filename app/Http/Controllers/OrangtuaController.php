@@ -62,6 +62,15 @@ class OrangtuaController extends Controller
         ]);
 
         $orangtua = Orangtua::findOrFail($id);
+
+        dd($request->all(), $orangtua->update([
+            'nama_ortu' => $request->nama_ortu,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'idsiswa' => $request->idsiswa,
+            'kontak' => $request->kontak,
+            'alamat' => $request->alamat,
+        ]));
+
         $orangtua->update([
             'nama_ortu' => $request->nama_ortu,
             'jenis_kelamin' => $request->jenis_kelamin,
