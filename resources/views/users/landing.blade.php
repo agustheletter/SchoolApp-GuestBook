@@ -81,7 +81,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-right" data-aos-duration="500" data-aos-delay="1600">
+            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1600">
                 <i class="fas fa-keyboard text-6xl mb-4"></i>
                 <h4 class="text-xl font-bold mb-3">Input Otomatis</h4>
                 <p class="text-gray-600">Nama orang tua siswa akan terisi secara otomatis setelah memilih nama siswa dari daftar, sehingga mempercepat dan memudahkan proses pengisian data tamu.</p>
@@ -91,7 +91,7 @@
                 <h4 class="text-xl font-bold mb-3">Rekap Kunjungan</h4>
                 <p class="text-gray-600">Setiap data tamu yang tercatat akan tersimpan secara rapi dalam sistem, sehingga memudahkan sekolah dalam melihat riwayat kunjungan kapan saja.</p>
             </div>
-            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-left" data-aos-duration="500" data-aos-delay="2400">
+            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="2400">
                 <i class="fas fa-database text-6xl mb-4"></i>
                 <h4 class="text-xl font-bold mb-3">Pengelolaan Data</h4>
                 <p class="text-gray-600 text-base">Aplikasi ini menyediakan fitur pengelolaan data penting seperti pegawai, jabatan, siswa, dan agama, agar sistem tetap terorganisir dan mudah diperbarui.</p>
@@ -153,7 +153,7 @@
         <!-- Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
             <!-- Card -->
-            <div class="group bg-white hover:bg-slate-800 rounded-2xl shadow-xl p-8 border-4 border-slate-800 relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500" data-aos="fade-right" data-aos-duration="500" data-aos-delay="1600">
+            <div class="group bg-white hover:bg-slate-800 rounded-2xl shadow-xl p-8 border-4 border-slate-800 relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1600">
                 <div class="absolute inset-0 bg-gradient-to-br from-blue-300 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
                 <div class="relative z-10 text-center">
                 <img src="{{ asset('gambar/people/adre.png') }}" alt="Adrenalin" class="w-24 h-24 mx-auto rounded-full object-cover mb-4 shadow-2xl border-4 border-transparent transform hover:scale-110 hover:border-4 hover:border-white transition duration-300">
@@ -188,7 +188,7 @@
             </div>
 
             <!-- Card 2 -->
-            <div class="group bg-white hover:bg-pink-950 rounded-2xl shadow-xl p-8 border-4 border-slate-800 relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500" data-aos="fade-left" data-aos-duration="500" data-aos-delay="2000">
+            <div class="group bg-white hover:bg-pink-950 rounded-2xl shadow-xl p-8 border-4 border-slate-800 relative overflow-hidden transform hover:scale-105 hover:-translate-y-2 transition duration-500" data-aos="fade-up" data-aos-duration="500" data-aos-delay="2000">
                 <div class="absolute inset-0 bg-gradient-to-br from-pink-300 via-white to-gray-100 opacity-40 z-0 transition duration-300 group-hover:opacity-10"></div>
                 <div class="relative z-10 text-center">
                 <img src="{{ asset('gambar/people/evliya.jpg') }}" alt="Evliya" class="w-24 h-24 mx-auto rounded-full object-cover mb-4 shadow-2xl border-4 border-transparent transform hover:scale-110 hover:border-4 hover:border-white transition duration-300">
