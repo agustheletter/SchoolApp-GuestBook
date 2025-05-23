@@ -9,6 +9,10 @@
 
     <script src="{{ asset('tailwindcdn.js') }}"></script>
 
+    {{-- WebcamJS --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script> --}}
+    <script src="{{ asset('webcam.js') }}"></script>
+
     <!-- Font Awesome -->
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> --}}
     <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
@@ -145,9 +149,17 @@
                         </select>
                     </div>
 
-                    <div class="mb-6 flex items-center gap-4">
+                    <div class="mb-4 flex items-center gap-4">
                         <label for="keperluan" class="w-52 text-left font-semibold">Keperluan</label>
                         <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
+                    </div>
+
+                    <div class="mb-6 flex items-center gap-4">
+                        <label for="foto_tamu_ortu" class="w-52 text-left font-semibold">Ambil Foto</label>
+                        <div id="camera_ortu" class="mb-2"></div>
+                        <button type="button" onclick="take_snapshot_ortu()" class="bg-blue-600 text-white px-4 py-2 rounded">Ambil Foto</button>
+                        <input type="hidden" name="foto_tamu" id="foto_tamu_ortu">
+                        <div id="result_ortu" class="mt-2"></div>
                     </div>
 
                     <div class="flex gap-3 justify-end">
@@ -216,9 +228,17 @@
                         </select>
                     </div>
 
-                    <div class="mb-6 flex items-center gap-4">
+                    <div class="mb-4 flex items-center gap-4">
                         <label for="keperluan" class="w-52 text-left font-semibold">Keperluan</label>
                         <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
+                    </div>
+
+                    <div class="mb-6 flex items-center gap-4">
+                        <label for="foto_tamu_umum" class="w-52 text-left font-semibold">Ambil Foto</label>
+                        <div id="camera_umum" class="mb-2"></div>
+                        <button type="button" onclick="take_snapshot_umum()" class="bg-blue-600 text-white px-4 py-2 rounded">Ambil Foto</button>
+                        <input type="hidden" name="foto_tamu" id="foto_tamu_umum">
+                        <div id="result_umum" class="mt-2"></div>
                     </div>
 
                     <div class="flex gap-3 justify-end">
@@ -391,6 +411,38 @@
                 });
             });
         });
+
+        // WebcamJS Orang Tua
+        Webcam.set({
+            width: 320,
+            height: 240,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach('#camera_ortu');
+
+        function take_snapshot_ortu() {
+            Webcam.snap(function(data_uri) {
+            document.getElementById('result_ortu').innerHTML = '<img src="' + data_uri + '"/>';
+            document.getElementById('foto_tamu_ortu').value = data_uri;
+            });
+        }
+
+        // WebcamJS Tamu Umum
+        Webcam.set({
+            width: 320,
+            height: 240,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach('#camera_umum');
+
+        function take_snapshot_umum() {
+            Webcam.snap(function(data_uri) {
+            document.getElementById('result_umum').innerHTML = '<img src="' + data_uri + '"/>';
+            document.getElementById('foto_tamu_umum').value = data_uri;
+            });
+        }
 
     </script>
 

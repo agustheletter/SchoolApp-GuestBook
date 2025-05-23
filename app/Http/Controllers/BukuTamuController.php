@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
 use App\Models\BukuTamu;
+use App\Models\Orangtua;
 use App\Models\AgamaModel;
 use App\Models\SiswaModel;
 use App\Models\JabatanModel;
-use App\Models\Orangtua;
 use App\Models\PegawaiModel;
 use Illuminate\Http\Request;
 
@@ -179,7 +180,17 @@ class BukuTamuController extends Controller
             'id_jabatan' => 'required|exists:tbl_jabatan,id',
             'id_pegawai' => 'required|exists:tbl_pegawai,id',
             'keperluan' => 'required|string',
+            'foto_tamu' => 'nullable|string',
         ]);
+
+        if ($request->has('foto_tamu')) {
+            $image = $request->input('foto_tamu');
+            $image = str_replace('data:image/jpeg;base64,', '', $image);
+            $image = str_replace(' ', '+', $image);
+            $imageName = 'tamu_' . time() . '.jpg';
+            File::put(public_path('uploads/foto_tamu/') . $imageName, base64_decode($image));
+            $validatedData['foto_tamu'] = $imageName;
+        }
 
         // Simpan data ke database
         BukuTamu::create([
@@ -193,6 +204,7 @@ class BukuTamuController extends Controller
             'id_jabatan' => $request->id_jabatan,
             'id_pegawai' => $request->id_pegawai,
             'keperluan' => $request->keperluan,
+            'foto_tamu' => $imageName ?? null, // foto tamu = opsional
         ]);
 
         // pemilihan role

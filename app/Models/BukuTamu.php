@@ -15,7 +15,7 @@ class BukuTamu extends Model
 
     protected $fillable = [
         'nama', 'role', 'idsiswa', 'instansi',
-        'alamat', 'kontak', 'id_jabatan', 'id_pegawai', 'keperluan'
+        'alamat', 'kontak', 'id_jabatan', 'id_pegawai', 'keperluan', 'foto_tamu'
     ];
 
     // public function agama()
