@@ -188,13 +188,44 @@ class BukuTamuController extends Controller
             'foto_tamu' => 'nullable|string',
         ]);
 
-        if ($request->has('foto_tamu')) {
+        // if ($request->has('foto_tamu')) {
+        //     $image = $request->input('foto_tamu');
+        //     $image = str_replace('data:image/jpeg;base64,', '', $image);
+        //     $image = str_replace(' ', '+', $image);
+        //     $imageName = 'tamu_' . time() . '.jpg';
+        //     File::put(public_path('uploads/foto_tamu/') . $imageName, base64_decode($image));
+        //     $validatedData['foto_tamu'] = $imageName;
+        // }
+
+        // Proses foto dari base64 jika ada
+        if ($request->filled('foto_tamu')) {
             $image = $request->input('foto_tamu');
-            $image = str_replace('data:image/jpeg;base64,', '', $image);
-            $image = str_replace(' ', '+', $image);
-            $imageName = 'tamu_' . time() . '.jpg';
-            File::put(public_path('uploads/foto_tamu/') . $imageName, base64_decode($image));
-            $validatedData['foto_tamu'] = $imageName;
+
+            // cek format base64 (jpeg/png)
+            if (preg_match('/^data:image\/(\w+);base64,/', $image, $type)) {
+                $image = substr($image, strpos($image, ',') + 1);
+                $type = strtolower($type[1]); // jpg, png, jpeg
+
+                if (!in_array($type, ['jpg', 'jpeg', 'png'])) {
+                    return back()->withErrors(['foto_tamu' => 'Format gambar tidak didukung']);
+                }
+
+                $image = base64_decode($image);
+                if ($image === false) {
+                    return back()->withErrors(['foto_tamu' => 'Gagal decode gambar']);
+                }
+
+                $imageName = 'tamu_' . time() . '.' . $type;
+                $path = public_path('uploads/foto_tamu/');
+
+                if (!file_exists($path)) {
+                    mkdir($path, 0755, true);
+                }
+
+                file_put_contents($path . $imageName, $image);
+            } else {
+                return back()->withErrors(['foto_tamu' => 'Format data gambar tidak valid']);
+            }
         }
 
         // Simpan data ke database
@@ -209,7 +240,7 @@ class BukuTamuController extends Controller
             'id_jabatan' => $request->id_jabatan,
             'id_pegawai' => $request->id_pegawai,
             'keperluan' => $request->keperluan,
-            'foto_tamu' => $imageName ?? null, // foto tamu = opsional
+            'foto_tamu' => $imageName,
         ]);
 
         // pemilihan role

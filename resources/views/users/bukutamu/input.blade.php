@@ -92,7 +92,7 @@
             @endif
 
             <div id="form-orang-tua" class="">
-                <form method="POST" action="{{ route('guestbook.store') }}">
+                <form method="POST" action="{{ route('guestbook.store') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="role" value="ortu">
 
@@ -188,7 +188,7 @@
             </div>
 
             <div id="form-tamu-umum" class="hidden">
-                <form method="POST" action="{{ route('guestbook.store') }}">
+                <form method="POST" action="{{ route('guestbook.store') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="role" value="umum">
 
