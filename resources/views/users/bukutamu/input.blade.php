@@ -373,6 +373,22 @@
 
 
         // fungsi kolom otomatis (jabatan - pegawai)
+        // $(document).ready(function() {
+        //     $('#jabatan').change(function() {
+        //         var jabatan_id = $(this).val();
+        //         $.ajax({
+        //             url: '/getPegawai/' + jabatan_id,
+        //             type: 'GET',
+        //             success: function(data) {
+        //                 $('#pegawai').empty().append('<option>Pilih Nama Pegawai</option>');
+        //                 $.each(data, function(key, value) {
+        //                     $('#pegawai').append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
+        //                 });
+        //             }
+        //         });
+        //     });
+        // });
+
         $(document).ready(function() {
             $('#jabatan').change(function() {
                 var jabatan_id = $(this).val();
@@ -380,10 +396,24 @@
                     url: '/getPegawai/' + jabatan_id,
                     type: 'GET',
                     success: function(data) {
-                        $('#pegawai').empty().append('<option>Pilih Nama Pegawai</option>');
-                        $.each(data, function(key, value) {
-                            $('#pegawai').append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
-                        });
+                        var $pegawai = $('#pegawai');
+                        $pegawai.empty();
+
+                        if (jabatan_id == 1) {
+                            // Kalau jabatan kepala sekolah, langsung isi satu option dan selected
+                            if (data.length > 0) {
+                                var kepala = data[0];
+                                $pegawai.append('<option value="' + kepala.id + '" selected>' + kepala.nama_pegawai + '</option>');
+                            } else {
+                                $pegawai.append('<option>Pegawai tidak ditemukan</option>');
+                            }
+                        } else {
+                            // Default: opsi pilih nama pegawai
+                            $pegawai.append('<option>Pilih Nama Pegawai</option>');
+                            $.each(data, function(key, value) {
+                                $pegawai.append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
+                            });
+                        }
                     }
                 });
             });
@@ -429,6 +459,36 @@
                         $.each(data, function(key, value) {
                             $('#pegawai2').append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
                         });
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            $('#jabatan2').change(function() {
+                var jabatan_id = $(this).val();
+                $.ajax({
+                    url: '/getPegawai/' + jabatan_id,
+                    type: 'GET',
+                    success: function(data) {
+                        var $pegawai = $('#pegawai2');
+                        $pegawai.empty();
+
+                        if (jabatan_id == 1) {
+                            // Kalau jabatan kepala sekolah, langsung isi satu option dan selected
+                            if (data.length > 0) {
+                                var kepala = data[0];
+                                $pegawai.append('<option value="' + kepala.id + '" selected>' + kepala.nama_pegawai + '</option>');
+                            } else {
+                                $pegawai.append('<option>Pegawai tidak ditemukan</option>');
+                            }
+                        } else {
+                            // Default: opsi pilih nama pegawai
+                            $pegawai.append('<option>Pilih Nama Pegawai</option>');
+                            $.each(data, function(key, value) {
+                                $pegawai.append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
+                            });
+                        }
                     }
                 });
             });
