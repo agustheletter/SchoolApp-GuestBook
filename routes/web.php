@@ -20,6 +20,7 @@ use App\Http\Controllers\SiswaKelasController;
 use App\Http\Controllers\SppController;
 use App\Http\Controllers\TahunAjaranController;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Event\TestRunner\WarningTriggered;
 
 Route::get('/', function () {
     return view('users.landing');
@@ -113,6 +114,24 @@ Route::put('/thnajaran/edit/{idthnajaran}', [TahunAjaranController::class,'thnaj
     //AKHIR CARI SISWA
 
 //========================AKHIR ROUTE SISWA========================
+
+
+//=========================AWAL ROUTE ORANG TUA=========================
+    //AWAL CRUD SISWA
+    Route::get('/orangtua', [SiswaController::class,'siswa'])->middleware('auth');
+    Route::post('/orangtua/tambah',[SiswaController::class,'siswatambah'])->middleware('auth');
+    Route::get('/orangtua/hapus/{id}',[SiswaController::class,'siswahapus'])->middleware('auth');
+    Route::put('/orangtua/edit/{id}', [SiswaController::class,'siswaedit'])->middleware('auth');
+    //AWAL CRUD SISWA
+
+    Route::get('/bukutamu',[BukuTamuController::class,'index'])->middleware('auth')->name('bukutamu');
+    Route::get('/bukutamu/{id}/edit', [BukuTamuController::class, 'edit'])->middleware('auth')->name('bukutamu.edit');
+    Route::put('/bukutamu/{id}', [BukuTamuController::class, 'update'])->middleware('auth')->name('bukutamu.update');
+
+    Route::post('/bukutamu/store',[BukuTamuController::class,'store'])->middleware('auth')->name('bukutamu.store');
+    Route::delete('/bukutamu/{id}',[BukuTamuController::class,'destroy'])->middleware('auth')->name('bukutamu.destroy');
+
+//========================AKHIR ROUTE ORANG TUA========================
 
 
 //========================AWAL ROUTE MUTASI KELAS SISWA========================
