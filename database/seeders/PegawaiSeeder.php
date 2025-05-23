@@ -40,14 +40,14 @@ class PegawaiSeeder extends Seeder
             ['nama_pegawai' => 'Fajar Hidayah', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 6, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
             ['nama_pegawai' => 'Muhammad Toha', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 6, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
             ['nama_pegawai' => 'Cecep Wahyudin', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 6, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
-            ['nama_pegawai' => 'Herry Sudaryan', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 4, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
-            ['nama_pegawai' => 'Wahyu Nur Hidayat', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 4, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
-            ['nama_pegawai' => 'Peltu Budima', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 4, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
-            ['nama_pegawai' => 'Kustiana', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 4, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
-            ['nama_pegawai' => 'Rosadi', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 4, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
-            ['nama_pegawai' => 'Nunu Isya Ansori', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 4, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
-            ['nama_pegawai' => 'Agus Tatang', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 4, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
-            ['nama_pegawai' => 'Andri', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 4, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
+            ['nama_pegawai' => 'Herry Sudaryan', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 5, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
+            ['nama_pegawai' => 'Wahyu Nur Hidayat', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 5, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
+            ['nama_pegawai' => 'Peltu Budima', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 5, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
+            ['nama_pegawai' => 'Kustiana', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 5, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
+            ['nama_pegawai' => 'Rosadi', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 5, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
+            ['nama_pegawai' => 'Nunu Isya Ansori', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 5, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
+            ['nama_pegawai' => 'Agus Tatang', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 5, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
+            ['nama_pegawai' => 'Andri', 'jenis_kelamin' => 'Laki-laki', 'id_jabatan' => 5, 'id_agama' => 1, 'kontak' => $faker->numerify('08##########')],
         ]);
     }
 }
