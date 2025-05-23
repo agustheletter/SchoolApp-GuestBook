@@ -156,10 +156,21 @@
 
                     <div class="mb-6 flex items-center gap-4">
                         <label for="foto_tamu_ortu" class="w-52 text-left font-semibold">Ambil Foto</label>
-                        <div id="camera_ortu" class="mb-2"></div>
-                        <button type="button" onclick="take_snapshot_ortu()" class="bg-blue-600 text-white px-4 py-2 rounded">Ambil Foto</button>
+                        <div class="flex flex-row gap-4 items-center justify-center">
+                            <!-- Video Kamera (Preview) -->
+                            <div id="camera_ortu" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
+
+                            <!-- Tombol Ambil Foto -->
+                            <button type="button" onclick="take_snapshot_ortu()" class="bg-blue-600 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-blue-700 transition">
+                                Ambil Foto
+                            </button>
+
+                            <!-- Hasil Foto (Awalnya hidden) -->
+                            <div id="result_ortu" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] hidden">
+                                <img src="" class="w-full h-full object-cover" id="foto-result-ortu">
+                            </div>
+                        </div>
                         <input type="hidden" name="foto_tamu" id="foto_tamu_ortu">
-                        <div id="result_ortu" class="mt-2"></div>
                     </div>
 
                     <div class="flex gap-3 justify-end">
@@ -235,10 +246,21 @@
 
                     <div class="mb-6 flex items-center gap-4">
                         <label for="foto_tamu_umum" class="w-52 text-left font-semibold">Ambil Foto</label>
-                        <div id="camera_umum" class="mb-2"></div>
-                        <button type="button" onclick="take_snapshot_umum()" class="bg-blue-600 text-white px-4 py-2 rounded">Ambil Foto</button>
+                        <div class="flex flex-row gap-4 items-center justify-center">
+                            <!-- Video Kamera (Preview) -->
+                            <div id="camera_umum" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
+
+                            <!-- Tombol Ambil Foto -->
+                            <button type="button" onclick="take_snapshot_umum()" class="bg-blue-600 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-blue-700 transition">
+                                Ambil Foto
+                            </button>
+
+                            <!-- Hasil Foto (Awalnya hidden) -->
+                            <div id="result_umum" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] hidden">
+                                <img src="" class="w-full h-full object-cover" id="foto-result-umum">
+                            </div>
+                        </div>
                         <input type="hidden" name="foto_tamu" id="foto_tamu_umum">
-                        <div id="result_umum" class="mt-2"></div>
                     </div>
 
                     <div class="flex gap-3 justify-end">
@@ -415,32 +437,62 @@
         // WebcamJS Orang Tua
         Webcam.set({
             width: 320,
-            height: 240,
+            height: 233,
             image_format: 'jpeg',
             jpeg_quality: 90
         });
         Webcam.attach('#camera_ortu');
 
+        // function take_snapshot_ortu() {
+        //     Webcam.snap(function(data_uri) {
+        //     document.getElementById('result_ortu').innerHTML = '<img src="' + data_uri + '"/>';
+        //     document.getElementById('foto_tamu_ortu').value = data_uri;
+        //     });
+        // }
+
+        // Fungsi Ambil Foto (Orang Tua)
         function take_snapshot_ortu() {
             Webcam.snap(function(data_uri) {
-            document.getElementById('result_ortu').innerHTML = '<img src="' + data_uri + '"/>';
-            document.getElementById('foto_tamu_ortu').value = data_uri;
+                const resultDiv = document.getElementById('result_ortu');
+                const fotoResult = document.getElementById('foto-result-ortu');
+
+                // Tampilkan hasil foto di bawah video
+                fotoResult.src = data_uri;
+                resultDiv.classList.remove('hidden');
+
+                // Simpan data foto ke input hidden
+                document.getElementById('foto_tamu_ortu').value = data_uri;
             });
         }
 
         // WebcamJS Tamu Umum
         Webcam.set({
             width: 320,
-            height: 240,
+            height: 233,
             image_format: 'jpeg',
             jpeg_quality: 90
         });
         Webcam.attach('#camera_umum');
 
+        // function take_snapshot_umum() {
+        //     Webcam.snap(function(data_uri) {
+        //     document.getElementById('result_umum').innerHTML = '<img src="' + data_uri + '"/>';
+        //     document.getElementById('foto_tamu_umum').value = data_uri;
+        //     });
+        // }
+
+        // Fungsi Ambil Foto (Tamu Umum)
         function take_snapshot_umum() {
             Webcam.snap(function(data_uri) {
-            document.getElementById('result_umum').innerHTML = '<img src="' + data_uri + '"/>';
-            document.getElementById('foto_tamu_umum').value = data_uri;
+                const resultDiv = document.getElementById('result_umum');
+                const fotoResult = document.getElementById('foto-result-umum');
+
+                // Tampilkan hasil foto di bawah video
+                fotoResult.src = data_uri;
+                resultDiv.classList.remove('hidden');
+
+                // Simpan data foto ke input hidden
+                document.getElementById('foto_tamu_umum').value = data_uri;
             });
         }
 
