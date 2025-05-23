@@ -197,35 +197,20 @@ class BukuTamuController extends Controller
         //     $validatedData['foto_tamu'] = $imageName;
         // }
 
-        // Proses foto dari base64 jika ada
-        if ($request->filled('foto_tamu')) {
-            $image = $request->input('foto_tamu');
+        $image = $request->input('foto_tamu');
+        $imageName = 'tamu_' . time() . '.jpg';
 
-            // cek format base64 (jpeg/png)
-            if (preg_match('/^data:image\/(\w+);base64,/', $image, $type)) {
-                $image = substr($image, strpos($image, ',') + 1);
-                $type = strtolower($type[1]); // jpg, png, jpeg
+        if ($image) {
+            $image = str_replace('data:image/jpeg;base64,', '', $image);
+            $image = str_replace(' ', '+', $image);
+            $imageData = base64_decode($image);
 
-                if (!in_array($type, ['jpg', 'jpeg', 'png'])) {
-                    return back()->withErrors(['foto_tamu' => 'Format gambar tidak didukung']);
-                }
-
-                $image = base64_decode($image);
-                if ($image === false) {
-                    return back()->withErrors(['foto_tamu' => 'Gagal decode gambar']);
-                }
-
-                $imageName = 'tamu_' . time() . '.' . $type;
-                $path = public_path('uploads/foto_tamu/');
-
-                if (!file_exists($path)) {
-                    mkdir($path, 0755, true);
-                }
-
-                file_put_contents($path . $imageName, $image);
-            } else {
-                return back()->withErrors(['foto_tamu' => 'Format data gambar tidak valid']);
+            $folder = 'uploads/foto_tamu'; // folder di public_html
+            if (!file_exists($folder)) {
+                mkdir($folder, 0777, true); // buat folder kalau belum ada
             }
+
+            file_put_contents($folder . '/' . $imageName, $imageData);
         }
 
         // Simpan data ke database
