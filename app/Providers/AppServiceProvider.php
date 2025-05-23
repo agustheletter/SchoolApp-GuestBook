@@ -41,15 +41,15 @@ class AppServiceProvider extends ServiceProvider
         // View::share('totalOrangtua', Orangtua::count());
         // View::share('totalJabatan', JabatanModel::count());
 
-            if (Schema::hasTable('pegawai')) {
+        if (Schema::hasTable('tbl_pegawai')) {
             View::share('totalPegawai', PegawaiModel::count());
         }
 
-        if (Schema::hasTable('buku_tamu')) {
+        if (Schema::hasTable('tbl_bukutamu')) {
             View::share('totalBukuTamu', BukuTamu::count());
         }
 
-        if (Schema::hasTable('siswa')) {
+        if (Schema::hasTable('tbl_siswa')) {
             View::share('totalSiswa', SiswaModel::count());
         }
 
@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
             View::share('totalOrangtua', Orangtua::count());
         }
 
-        if (Schema::hasTable('jabatan')) {
+        if (Schema::hasTable('tbl_jabatan')) {
             View::share('totalJabatan', JabatanModel::count());
         }
     }
