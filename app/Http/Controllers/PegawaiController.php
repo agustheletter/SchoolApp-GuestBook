@@ -11,7 +11,9 @@ class PegawaiController extends Controller
 {
     public function index()
     {
-        $datapegawai = PegawaiModel::with(['jabatan', 'agama'])->get();
+        $datapegawai = PegawaiModel::with(['jabatan', 'agama'])
+                    ->orderBy('id_jabatan', 'asc')
+                    ->get();
         return view('admin.pages.pegawai.v_pegawai', compact('datapegawai'));
     }
 
