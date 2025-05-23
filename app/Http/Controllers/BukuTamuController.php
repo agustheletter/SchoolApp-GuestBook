@@ -124,6 +124,7 @@ class BukuTamuController extends Controller
     public function destroy($id)
     {
         $bukutamu = BukuTamu::findOrFail($id);
+        File::delete('uploads/foto_tamu/'.$bukutamu->foto_tamu);
         $bukutamu->delete();
 
         return redirect()->route('bukutamu')->with('success', 'Data Buku Tamu berhasil dihapus');

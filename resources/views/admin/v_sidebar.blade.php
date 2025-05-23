@@ -349,7 +349,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('bukutamu.input') }}" class="nav-link">
+                            <a href="{{ route('bukutamu.user') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Input Buku Tamu</p>
                             </a>

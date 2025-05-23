@@ -27,8 +27,8 @@ class BukuTamuSeeder extends Seeder
                 'keperluan' => 'Pertemuan terkait kolaborasi proyek baru.',
                 'foto_tamu' => 'tamu_1747981589.jpg',
                 'deleted_at' => null,
-                'created_at' => '2025-03-06 03:51:02',
-                'updated_at' => '2025-03-07 09:55:28',
+                'created_at' => '2025-05-06 03:51:02',
+                'updated_at' => '2025-05-07 09:55:28',
             ],
             [
                 'id' => 2,
@@ -43,8 +43,8 @@ class BukuTamuSeeder extends Seeder
                 'keperluan' => 'Demo produk dan pembahasan kerjasama bisnis.',
                 'foto_tamu' => 'tamu_1747982277.jpg',
                 'deleted_at' => null,
-                'created_at' => '2025-03-06 22:32:44',
-                'updated_at' => '2025-03-06 22:32:44',
+                'created_at' => '2025-05-06 22:32:44',
+                'updated_at' => '2025-05-06 22:32:44',
             ],
             [
                 'id' => 3,
@@ -57,10 +57,10 @@ class BukuTamuSeeder extends Seeder
                 'id_jabatan' => 3,
                 'id_pegawai' => 4,
                 'keperluan' => 'Konsultasi mengenai perkembangan akademis anak saya.',
-                'foto_tamu' => 'tamu_1747982277.jpg',
+                'foto_tamu' => 'tamu_1747982311.jpg',
                 'deleted_at' => null,
-                'created_at' => '2025-03-07 00:02:29',
-                'updated_at' => '2025-03-07 00:02:29',
+                'created_at' => '2025-05-07 00:02:29',
+                'updated_at' => '2025-05-07 00:02:29',
             ],
         ]);
     }

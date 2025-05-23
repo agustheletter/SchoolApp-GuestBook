@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <a href="{{ route('bukutamu.input') }}" type="button" class="btn btn-primary">
+    <a href="{{ route('bukutamu.user') }}" type="button" class="btn btn-primary">
         Tambah Data Buku Tamu
     </a>
 
