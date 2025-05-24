@@ -245,7 +245,7 @@
                     </div>
 
                     <div class="mb-6 flex items-center gap-4">
-                        <label for="foto_tamu_umum" class="w-52 text-left font-semibold">Ambil Foto</label>
+
                         <div class="flex flex-row gap-4 items-center justify-center">
                             <!-- Video Kamera (Preview) -->
                             <div id="camera_umum" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
@@ -259,7 +259,10 @@
                             <div id="result_umum" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] hidden">
                                 <img src="" class="w-full h-full object-cover" id="foto-result-umum">
                             </div>
-                        </div>
+
+                        <div id="camera_umum" class=" class="mb-2"></div>
+                        <button type="button" onclick="take_snapshot_umum()" class="bg-blue-600 text-white px-4 py-2 rounded">Ambil Foto</button>
+
                         <input type="hidden" name="foto_tamu" id="foto_tamu_umum">
                     </div>
 
