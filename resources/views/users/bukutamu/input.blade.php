@@ -158,15 +158,15 @@
                         <label for="foto_tamu_ortu" class="w-52 text-left font-semibold">Ambil Foto</label>
                         <div class="flex flex-row gap-4 items-center justify-center">
                             <!-- Video Kamera (Preview) -->
-                            <div id="camera_ortu" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
+                            <div id="camera_ortu" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
 
                             <!-- Tombol Ambil Foto -->
-                            <button type="button" onclick="take_snapshot_ortu()" class="bg-blue-600 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-blue-700 transition">
+                            <button type="button" onclick="take_snapshot_ortu()" class="bg-yellow-500 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-yellow-600 transition">
                                 Ambil Foto
                             </button>
 
                             <!-- Hasil Foto (Awalnya hidden) -->
-                            <div id="result_ortu" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] hidden">
+                            <div id="result_ortu" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] hidden">
                                 <img src="" class="w-full h-full object-cover" id="foto-result-ortu">
                             </div>
                         </div>
@@ -244,25 +244,23 @@
                         <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
                     </div>
 
-                    <div class="mb-6 flex items-center gap-4">
 
+                    <div class="mb-6 flex items-center gap-4">
+                        <label for="foto_tamu_umum" class="w-52 text-left font-semibold">Ambil Foto</label>
                         <div class="flex flex-row gap-4 items-center justify-center">
                             <!-- Video Kamera (Preview) -->
-                            <div id="camera_umum" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
+                            <div id="camera_umum" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
 
                             <!-- Tombol Ambil Foto -->
-                            <button type="button" onclick="take_snapshot_umum()" class="bg-blue-600 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-blue-700 transition">
+                            <button type="button" onclick="take_snapshot_umum()" class="bg-yellow-500 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-yellow-600 transition">
                                 Ambil Foto
                             </button>
 
                             <!-- Hasil Foto (Awalnya hidden) -->
-                            <div id="result_umum" class="rounded-xl border-4 border-blue-500 overflow-hidden w-[320px] h-[240px] hidden">
+                            <div id="result_umum" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] hidden">
                                 <img src="" class="w-full h-full object-cover" id="foto-result-umum">
                             </div>
-
-                        <div id="camera_umum" class=" class="mb-2"></div>
-                        <button type="button" onclick="take_snapshot_umum()" class="bg-blue-600 text-white px-4 py-2 rounded">Ambil Foto</button>
-
+                        </div>
                         <input type="hidden" name="foto_tamu" id="foto_tamu_umum">
                     </div>
 
