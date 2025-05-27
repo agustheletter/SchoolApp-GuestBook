@@ -238,8 +238,17 @@
   </footer>
 
 
-
   <script>
+    // Scroll ke atas sebelum reload (opsional tambahan keamanan)
+    window.addEventListener('beforeunload', function () {
+        window.scrollTo(0, 0);
+    });
+
+    // Scroll ke atas saat halaman selesai dimuat
+    document.addEventListener("DOMContentLoaded", function () {
+        window.scrollTo({ top: 0, behavior: "auto" });
+    });
+
     // navbar aktif
     document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("section[id]");
