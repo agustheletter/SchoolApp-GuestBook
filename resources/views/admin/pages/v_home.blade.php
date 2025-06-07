@@ -116,8 +116,8 @@
         fetch("{{ route('admin.grafik.data') }}")
             .then(res => res.json())
             .then(data => {
-                // Ambil tanggal dan jumlah dari response JSON
-                const labels = data.map(item => item.tanggal);
+                // Ambil tanggal (sudah diformat di controller) dan jumlah
+                const labels = data.map(item => item.tanggal); // format: YYYY-MM-DD
                 const jumlah = data.map(item => item.jumlah);
 
                 const ctx = document.getElementById('grafikKunjunganHarian').getContext('2d');
