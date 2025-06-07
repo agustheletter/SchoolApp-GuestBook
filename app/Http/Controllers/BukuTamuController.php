@@ -236,12 +236,45 @@ class BukuTamuController extends Controller
     }
 
     // grafik data
-    public function grafikData()
+    public function grafikData(Request $request)
     {
-        $data = BukuTamu::selectRaw('DATE(created_at) as tanggal, COUNT(*) as jumlah')
-            ->groupByRaw('DATE(created_at)')
-            ->orderByRaw('DATE(created_at)')
-            ->get();
+        $filter = $request->get('filter', 'hari');
+
+        $query = BukuTamu::query();
+
+        switch ($filter) {
+            case 'hari':
+                $data = $query->selectRaw("DATE_FORMAT(created_at, '%H:00') as label, COUNT(*) as jumlah")
+                            ->whereDate('created_at', now())
+                            ->groupByRaw("HOUR(created_at)")
+                            ->get();
+                break;
+
+            case 'minggu':
+                $startOfWeek = now()->startOfWeek();
+                $data = $query->selectRaw("DATE(created_at) as label, COUNT(*) as jumlah")
+                            ->whereBetween('created_at', [$startOfWeek, now()])
+                            ->groupByRaw("DATE(created_at)")
+                            ->get();
+                break;
+
+            case 'bulan':
+                $data = $query->selectRaw("DATE(created_at) as label, COUNT(*) as jumlah")
+                            ->whereMonth('created_at', now()->month)
+                            ->groupByRaw("DATE(created_at)")
+                            ->get();
+                break;
+
+            case 'tahun':
+                $data = $query->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as label, COUNT(*) as jumlah")
+                            ->whereYear('created_at', now()->year)
+                            ->groupByRaw("DATE_FORMAT(created_at, '%Y-%m')")
+                            ->get();
+                break;
+
+            default:
+                $data = collect(); // fallback kosong
+        }
 
         return response()->json($data);
     }
