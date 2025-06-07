@@ -97,6 +97,16 @@
 
         </div>
 
+        <div class="mb-3">
+            <label for="filterOption" class="form-label">Filter Grafik</label>
+            <select id="filterOption" class="form-control w-25">
+                <option value="hari">Harian</option>
+                <option value="minggu">Mingguan</option>
+                <option value="bulan">Bulanan</option>
+                <option value="tahun">Tahunan</option>
+            </select>
+        </div>
+
         <div class="card">
             <div class="card-body">
                 <canvas id="grafikKunjunganHarian" height="100"></canvas>
@@ -111,17 +121,23 @@
 <!--akhir konten dinamis-->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-    window.onload = function () {
-        fetch("{{ route('admin.grafik.data') }}")
+    let chart;
+
+    function fetchAndRenderChart(filter = 'hari') {
+        // fetch(`{{ route('admin.grafik.data') }}?filter=${filter}`)
+        fetch(`{{ url('/admin/grafik-data') }}?filter=${filter}`)
             .then(res => res.json())
             .then(data => {
-                // Ambil tanggal (sudah diformat di controller) dan jumlah
-                const labels = data.map(item => item.tanggal); // format: YYYY-MM-DD
+                const labels = data.map(item => item.label);
                 const jumlah = data.map(item => item.jumlah);
 
                 const ctx = document.getElementById('grafikKunjunganHarian').getContext('2d');
-                new Chart(ctx, {
+
+                if (chart) chart.destroy();
+
+                chart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: labels,
@@ -140,7 +156,13 @@
                             legend: { display: true }
                         },
                         scales: {
-                            y: { beginAtZero: true }
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1,
+                                    precision: 0
+                                }
+                            }
                         }
                     }
                 });
@@ -148,6 +170,15 @@
             .catch(error => {
                 console.error('Gagal fetch data grafik:', error);
             });
+    }
+
+    document.getElementById('filterOption').addEventListener('change', function () {
+        fetchAndRenderChart(this.value);
+    });
+
+    window.onload = () => {
+        fetchAndRenderChart();
     };
 </script>
+
 
