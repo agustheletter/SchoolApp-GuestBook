@@ -114,71 +114,71 @@
         </div>
     </div><!-- /.container-fluid -->
 
+    @push('script')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        let chart;
+
+        function fetchAndRenderChart(filter = 'hari') {
+            fetch(`{{ url('/admin/grafik-data') }}?filter=${filter}`)
+                .then(res => res.json())
+                .then(data => {
+                    const labels = data.map(item => item.label);
+                    const jumlah = data.map(item => item.jumlah);
+
+                    const ctx = document.getElementById('grafikKunjunganHarian').getContext('2d');
+
+                    if (chart) chart.destroy();
+
+                    chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Jumlah Tamu',
+                                data: jumlah,
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                fill: true,
+                                tension: 0.3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { display: true }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        stepSize: 1,
+                                        precision: 0
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Gagal fetch data grafik:', error);
+                });
+        }
+
+        document.getElementById('filterOption').addEventListener('change', function () {
+            fetchAndRenderChart(this.value);
+        });
+
+        window.onload = () => {
+            fetchAndRenderChart();
+        };
+    </script>
+    @endpush
+
 
 @endsection
 <!--akhir isi konten dinamis-->
 
 <!--akhir konten dinamis-->
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    let chart;
-
-    function fetchAndRenderChart(filter = 'hari') {
-        // fetch(`{{ route('admin.grafik.data') }}?filter=${filter}`)
-        fetch(`{{ url('/admin/grafik-data') }}?filter=${filter}`)
-            .then(res => res.json())
-            .then(data => {
-                const labels = data.map(item => item.label);
-                const jumlah = data.map(item => item.jumlah);
-
-                const ctx = document.getElementById('grafikKunjunganHarian').getContext('2d');
-
-                if (chart) chart.destroy();
-
-                chart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: 'Jumlah Tamu',
-                            data: jumlah,
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            fill: true,
-                            tension: 0.3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { display: true }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 1,
-                                    precision: 0
-                                }
-                            }
-                        }
-                    }
-                });
-            })
-            .catch(error => {
-                console.error('Gagal fetch data grafik:', error);
-            });
-    }
-
-    document.getElementById('filterOption').addEventListener('change', function () {
-        fetchAndRenderChart(this.value);
-    });
-
-    window.onload = () => {
-        fetchAndRenderChart();
-    };
-</script>
-
 
