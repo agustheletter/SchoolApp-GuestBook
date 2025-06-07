@@ -9,6 +9,7 @@ use App\Models\AgamaModel;
 use App\Models\SiswaModel;
 use App\Models\JabatanModel;
 use App\Models\PegawaiModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -240,42 +241,98 @@ class BukuTamuController extends Controller
     {
         $filter = $request->get('filter', 'hari');
 
-        $query = BukuTamu::query();
-
         switch ($filter) {
-            case 'hari':
-                $data = $query->selectRaw("HOUR(created_at) as jam, DATE_FORMAT(created_at, '%H:00') as label, COUNT(*) as jumlah")
-                            ->whereDate('created_at', now())
-                            ->groupByRaw("HOUR(created_at), DATE_FORMAT(created_at, '%H:00')")
-                            ->get();
-                break;
-
             case 'minggu':
-                $startOfWeek = now()->startOfWeek();
-                $data = $query->selectRaw("DATE(created_at) as label, COUNT(*) as jumlah")
-                            ->whereBetween('created_at', [$startOfWeek, now()])
-                            ->groupByRaw("DATE(created_at)")
-                            ->get();
-                break;
+                // Mulai minggu ini hari Senin
+                $startDate = Carbon::now()->startOfWeek(); // Senin
+                $dates = collect();
+                for ($i = 0; $i < 7; $i++) {
+                    $dates->push($startDate->copy()->addDays($i));
+                }
+
+                // Query data kunjungan grouped by date
+                $data = DB::table('bukutamu')
+                    ->select(DB::raw("DATE(tanggal) as tanggal"), DB::raw("count(*) as jumlah"))
+                    ->whereBetween('tanggal', [$dates->first()->format('Y-m-d'), $dates->last()->format('Y-m-d')])
+                    ->groupBy('tanggal')
+                    ->get()
+                    ->keyBy('tanggal');
+
+                $result = $dates->map(function ($date) use ($data) {
+                    return [
+                        'label' => $date->format('d M'),  // contoh: 01 Jun
+                        'jumlah' => $data->has($date->format('Y-m-d')) ? $data[$date->format('Y-m-d')]->jumlah : 0,
+                    ];
+                });
+
+                return response()->json($result);
 
             case 'bulan':
-                $data = $query->selectRaw("DATE(created_at) as label, COUNT(*) as jumlah")
-                            ->whereMonth('created_at', now()->month)
-                            ->groupByRaw("DATE(created_at)")
-                            ->get();
-                break;
+                $year = Carbon::now()->year; // bisa diubah kalau mau
+
+                $months = collect(range(1,12));
+
+                $data = DB::table('bukutamu')
+                    ->select(DB::raw("MONTH(tanggal) as bulan"), DB::raw("count(*) as jumlah"))
+                    ->whereYear('tanggal', $year)
+                    ->groupBy('bulan')
+                    ->get()
+                    ->keyBy('bulan');
+
+                $result = $months->map(function ($month) use ($data) {
+                    return [
+                        'label' => Carbon::create()->month($month)->format('F'), // Januari, Februari, ...
+                        'jumlah' => $data->has($month) ? $data[$month]->jumlah : 0,
+                    ];
+                });
+
+                return response()->json($result);
 
             case 'tahun':
-                $data = $query->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as label, COUNT(*) as jumlah")
-                            ->whereYear('created_at', now()->year)
-                            ->groupByRaw("DATE_FORMAT(created_at, '%Y-%m')")
-                            ->get();
-                break;
+                $startYear = 2023;
+                $endYear = Carbon::now()->year;
+
+                $years = collect(range($startYear, $endYear));
+
+                $data = DB::table('bukutamu')
+                    ->select(DB::raw("YEAR(tanggal) as tahun"), DB::raw("count(*) as jumlah"))
+                    ->whereBetween(DB::raw("YEAR(tanggal)"), [$startYear, $endYear])
+                    ->groupBy('tahun')
+                    ->get()
+                    ->keyBy('tahun');
+
+                $result = $years->map(function ($year) use ($data) {
+                    return [
+                        'label' => $year,
+                        'jumlah' => $data->has($year) ? $data[$year]->jumlah : 0,
+                    ];
+                });
+
+                return response()->json($result);
 
             default:
-                $data = collect(); // fallback kosong
-        }
+                // hari (default)
+                $today = Carbon::today();
+                $dates = collect();
+                for ($i = 6; $i >= 0; $i--) {
+                    $dates->push($today->copy()->subDays($i));
+                }
 
-        return response()->json($data);
+                $data = DB::table('bukutamu')
+                    ->select(DB::raw("DATE(tanggal) as tanggal"), DB::raw("count(*) as jumlah"))
+                    ->whereBetween('tanggal', [$dates->first()->format('Y-m-d'), $dates->last()->format('Y-m-d')])
+                    ->groupBy('tanggal')
+                    ->get()
+                    ->keyBy('tanggal');
+
+                $result = $dates->map(function ($date) use ($data) {
+                    return [
+                        'label' => $date->format('d M'),
+                        'jumlah' => $data->has($date->format('Y-m-d')) ? $data[$date->format('Y-m-d')]->jumlah : 0,
+                    ];
+                });
+
+                return response()->json($result);
+        }
     }
 }
