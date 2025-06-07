@@ -10,6 +10,7 @@ use App\Models\SiswaModel;
 use App\Models\JabatanModel;
 use App\Models\PegawaiModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BukuTamuController extends Controller
 {
@@ -232,5 +233,17 @@ class BukuTamuController extends Controller
         $role = $request->role;
         // return redirect()->route('bukutamu.user')->with('success', 'Data Buku Tamu berhasil ditambahkan');
         return redirect()->to(route('bukutamu.user') . '#' . $role)->with('success', 'Data Buku Tamu berhasil ditambahkan');
+    }
+
+    // grafik data
+    public function grafikData()
+    {
+        $data = DB::table('tbl_bukutamu')
+            ->selectRaw('DATE(tanggal) as tanggal, COUNT(*) as jumlah')
+            ->groupByRaw('DATE(tanggal)')
+            ->orderByRaw('DATE(tanggal)', 'asc')
+            ->get();
+
+        return response()->json($data);
     }
 }
