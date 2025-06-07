@@ -309,26 +309,27 @@ class BukuTamuController extends Controller
 
                 return response()->json($result);
 
+            case 'hari':
             default:
-                // hari (default)
                 $today = Carbon::today();
-                $dates = collect();
-                for ($i = 6; $i >= 0; $i--) {
-                    $dates->push($today->copy()->subDays($i));
-                }
+                $hours = collect(range(0, 23));
 
-                $data = BukuTamu::select(DB::raw("DATE(created_at) as tanggal"), DB::raw("count(*) as jumlah"))
+                // Ambil data tamu per jam hari ini
+                $data = BukuTamu::select(
+                        DB::raw("HOUR(created_at) as jam"),
+                        DB::raw("count(*) as jumlah")
+                    )
                     ->whereNull('deleted_at')
-                    ->whereBetween('created_at', [$dates->first()->format('Y-m-d').' 00:00:00', $dates->last()->format('Y-m-d').' 23:59:59'])
-                    ->groupBy('tanggal')
+                    ->whereDate('created_at', $today->toDateString())
+                    ->groupBy('jam')
                     ->get()
-                    ->keyBy('tanggal');
+                    ->keyBy('jam');
 
-                $result = $dates->map(function ($date) use ($data) {
-                    $key = $date->format('Y-m-d');
+                $result = $hours->map(function ($hour) use ($data) {
+                    $label = sprintf('%02d:00', $hour); // format jam 00:00, 01:00, dst
                     return [
-                        'label' => $date->format('d M'),
-                        'jumlah' => $data->has($key) ? $data[$key]->jumlah : 0,
+                        'label' => $label,
+                        'jumlah' => $data->has($hour) ? $data[$hour]->jumlah : 0,
                     ];
                 });
 
