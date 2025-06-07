@@ -1,184 +1,193 @@
-<!--awal konten dinamis-->
 @extends('admin.v_admin')
 @section('judulhalaman', 'Home')
 @section('title', 'Admin')
 
-<!--awal isi konten dinamis-->
 @section('konten')
-
-
-
-    <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-3 col-6">
-
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>{{ $totalSiswa ?? 0 }}</h3>
-
-                        <p>Total Siswa</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="{{ url('/siswa') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Total Siswa -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ $totalSiswa ?? 0 }}</h3>
+                    <p>Total Siswa</p>
                 </div>
-            </div>
-
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h3>{{ $totalOrangtua ?? 0 }}</h3>
-
-                        <p>Total Data Orang Tua</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="{{ route('orangtua') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
                 </div>
+                <a href="{{ url('/siswa') }}" class="small-box-footer">
+                    More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
-
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-primary">
-                    <div class="inner">
-                        <h3 class="text-white">{{ $totalJabatan ?? 0 }}</h3>
-
-                        <p class="text-white">Total Data Jabatan</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="{{ route('jabatan') }}" class="small-box-footer"><text class="text-white">More info </text><i class="fas fa-arrow-circle-right text-white"></i></a>
-                </div>
-            </div>
-
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h3>{{ $totalPegawai ?? 0 }}</h3>
-
-                        <p>Total Data Pegawai</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="{{ route('jabatan') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.row -->
-        <!-- Main row -->
-
-        <div class="row">
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-dark">
-                    <div class="inner">
-                        <h3>{{ $totalBukuTamu ?? 0 }}</h3>
-
-                        <p>Total Data Buku Tamu</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="{{ route('bukutamu') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-
         </div>
 
-        <div class="mb-3">
-            <label for="filterOption" class="form-label">Filter Grafik</label>
-            <select id="filterOption" class="form-control w-25">
-                <option value="hari">Harian</option>
-                <option value="minggu">Mingguan</option>
-                <option value="bulan">Bulanan</option>
-                <option value="tahun">Tahunan</option>
-            </select>
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-                <canvas id="grafikKunjunganHarian" height="100"></canvas>
+        <!-- Total Orang Tua -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>{{ $totalOrangtua ?? 0 }}</h3>
+                    <p>Total Data Orang Tua</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="{{ route('orangtua') }}" class="small-box-footer">
+                    More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
 
-    @push('script')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Total Jabatan -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3 class="text-white">{{ $totalJabatan ?? 0 }}</h3>
+                    <p class="text-white">Total Data Jabatan</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="{{ route('jabatan') }}" class="small-box-footer">
+                    <span class="text-white">More info </span>
+                    <i class="fas fa-arrow-circle-right text-white"></i>
+                </a>
+            </div>
+        </div>
 
-    <script>
-        let chart;
+        <!-- Total Pegawai -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>{{ $totalPegawai ?? 0 }}</h3>
+                    <p>Total Data Pegawai</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="{{ route('jabatan') }}" class="small-box-footer">
+                    More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
-        function fetchAndRenderChart(filter = 'hari') {
-            fetch(`{{ url('/admin/grafik-data') }}?filter=${filter}`)
-                .then(res => res.json())
-                .then(data => {
-                    const labels = data.map(item => item.label);
-                    const jumlah = data.map(item => item.jumlah);
+    <div class="row">
+        <!-- Total Buku Tamu -->
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-dark">
+                <div class="inner">
+                    <h3>{{ $totalBukuTamu ?? 0 }}</h3>
+                    <p>Total Data Buku Tamu</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ route('bukutamu') }}" class="small-box-footer">
+                    More info <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
-                    const ctx = document.getElementById('grafikKunjunganHarian').getContext('2d');
+    <div class="mb-3">
+        <label for="filterOption" class="form-label">Filter Grafik</label>
+        <select id="filterOption" class="form-control w-25">
+            <option value="hari">Harian</option>
+            <option value="minggu">Mingguan</option>
+            <option value="bulan">Bulanan</option>
+            <option value="tahun">Tahunan</option>
+        </select>
+    </div>
 
-                    if (chart) chart.destroy();
+    <div class="mb-3" id="rangeTahunContainer" style="display:none;">
+        <label for="tahunMulai" class="form-label">Mulai Tahun</label>
+        <select id="tahunMulai" class="form-control d-inline w-auto"></select>
 
-                    chart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Jumlah Tamu',
-                                data: jumlah,
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                fill: true,
-                                tension: 0.3
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: { display: true }
-                            },
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: {
-                                        stepSize: 1,
-                                        precision: 0
-                                    }
-                                }
-                            }
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Gagal fetch data grafik:', error);
-                });
+        <label for="tahunAkhir" class="form-label ms-3">Akhir Tahun</label>
+        <select id="tahunAkhir" class="form-control d-inline w-auto"></select>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <canvas id="grafikKunjunganHarian" height="100"></canvas>
+        </div>
+    </div>
+</div>
+
+@push('script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let chart;
+
+    function isiDropdownTahun() {
+        const tahunMulai = document.getElementById('tahunMulai');
+        const tahunAkhir = document.getElementById('tahunAkhir');
+        const tahunSekarang = new Date().getFullYear();
+        const tahunAwal = 2023;
+
+        tahunMulai.innerHTML = '';
+        tahunAkhir.innerHTML = '';
+
+        for(let t = tahunAwal; t <= tahunSekarang; t++) {
+            tahunMulai.innerHTML += `<option value="${t}">${t}</option>`;
+            tahunAkhir.innerHTML += `<option value="${t}">${t}</option>`;
         }
 
-        document.getElementById('filterOption').addEventListener('change', function () {
-            fetchAndRenderChart(this.value);
-        });
+        tahunMulai.value = tahunAwal;
+        tahunAkhir.value = tahunSekarang;
+    }
 
-        window.onload = () => {
-            fetchAndRenderChart();
-        };
-    </script>
-    @endpush
+    function fetchAndRenderChart(filter = 'hari') {
+        fetch(`{{ url('/admin/grafik-data') }}?filter=${filter}`)
+            .then(res => res.json())
+            .then(data => {
+                const labels = data.map(item => item.label);
+                const jumlah = data.map(item => item.jumlah);
 
+                const ctx = document.getElementById('grafikKunjunganHarian').getContext('2d');
+
+                if (chart) chart.destroy();
+
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Jumlah Tamu',
+                            data: jumlah,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: true } },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { stepSize: 1, precision: 0 }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Gagal fetch data grafik:', error);
+            });
+    }
+
+    document.getElementById('filterOption').addEventListener('change', function () {
+        fetchAndRenderChart(this.value);
+    });
+
+    window.onload = () => {
+        isiDropdownTahun();
+        fetchAndRenderChart();
+    };
+</script>
+@endpush
 
 @endsection
-<!--akhir isi konten dinamis-->
-
-<!--akhir konten dinamis-->
-
