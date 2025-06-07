@@ -268,8 +268,7 @@ class BukuTamuController extends Controller
 
             case 'bulan':
                 $year = Carbon::now()->year;
-
-                $months = collect(range(1,12));
+                $months = collect(range(1, 12));
 
                 $data = BukuTamu::select(DB::raw("MONTH(created_at) as bulan"), DB::raw("count(*) as jumlah"))
                     ->whereYear('created_at', $year)
@@ -290,7 +289,6 @@ class BukuTamuController extends Controller
             case 'tahun':
                 $startYear = 2023;
                 $endYear = Carbon::now()->year;
-
                 $years = collect(range($startYear, $endYear));
 
                 $data = BukuTamu::select(DB::raw("YEAR(created_at) as tahun"), DB::raw("count(*) as jumlah"))
@@ -314,7 +312,6 @@ class BukuTamuController extends Controller
                 $today = Carbon::today();
                 $hours = collect(range(0, 23));
 
-                // Ambil data tamu per jam hari ini
                 $data = BukuTamu::select(
                         DB::raw("HOUR(created_at) as jam"),
                         DB::raw("count(*) as jumlah")
@@ -326,7 +323,7 @@ class BukuTamuController extends Controller
                     ->keyBy('jam');
 
                 $result = $hours->map(function ($hour) use ($data) {
-                    $label = sprintf('%02d:00', $hour); // format jam 00:00, 01:00, dst
+                    $label = sprintf('%02d:00', $hour); // contoh: 00:00, 01:00, ...
                     return [
                         'label' => $label,
                         'jumlah' => $data->has($hour) ? $data[$hour]->jumlah : 0,
