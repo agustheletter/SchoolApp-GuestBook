@@ -244,9 +244,9 @@ class BukuTamuController extends Controller
 
         switch ($filter) {
             case 'hari':
-                $data = $query->selectRaw("DATE_FORMAT(created_at, '%H:00') as label, COUNT(*) as jumlah")
+                $data = $query->selectRaw("HOUR(created_at) as jam, DATE_FORMAT(created_at, '%H:00') as label, COUNT(*) as jumlah")
                             ->whereDate('created_at', now())
-                            ->groupByRaw("HOUR(created_at)")
+                            ->groupByRaw("HOUR(created_at), DATE_FORMAT(created_at, '%H:00')")
                             ->get();
                 break;
 
