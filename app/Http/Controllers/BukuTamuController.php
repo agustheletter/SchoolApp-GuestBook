@@ -238,21 +238,11 @@ class BukuTamuController extends Controller
     // grafik data
     public function grafikData()
     {
-        $dataOrtu = BukuTamu::selectRaw('DATE(created_at) as tanggal, COUNT(*) as jumlah')
-            ->where('role', 'ortu')
+        $data = BukuTamu::selectRaw('DATE(created_at) as tanggal, COUNT(*) as jumlah')
             ->groupByRaw('DATE(created_at)')
             ->orderByRaw('DATE(created_at)')
             ->get();
 
-        $dataUmum = BukuTamu::selectRaw('DATE(created_at) as tanggal, COUNT(*) as jumlah')
-            ->where('role', 'umum')
-            ->groupByRaw('DATE(created_at)')
-            ->orderByRaw('DATE(created_at)')
-            ->get();
-
-        return response()->json([
-            'ortu' => $dataOrtu,
-            'umum' => $dataUmum,
-        ]);
+        return response()->json($data);
     }
 }
