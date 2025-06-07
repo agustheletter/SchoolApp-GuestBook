@@ -243,38 +243,37 @@ class BukuTamuController extends Controller
 
         switch ($filter) {
             case 'minggu':
-                // Mulai minggu ini hari Senin
                 $startDate = Carbon::now()->startOfWeek(); // Senin
                 $dates = collect();
                 for ($i = 0; $i < 7; $i++) {
                     $dates->push($startDate->copy()->addDays($i));
                 }
 
-                // Query data kunjungan grouped by date
-                $data = DB::table('bukutamu')
-                    ->select(DB::raw("DATE(tanggal) as tanggal"), DB::raw("count(*) as jumlah"))
-                    ->whereBetween('tanggal', [$dates->first()->format('Y-m-d'), $dates->last()->format('Y-m-d')])
+                $data = BukuTamu::select(DB::raw("DATE(created_at) as tanggal"), DB::raw("count(*) as jumlah"))
+                    ->whereNull('deleted_at')
+                    ->whereBetween('created_at', [$dates->first()->format('Y-m-d').' 00:00:00', $dates->last()->format('Y-m-d').' 23:59:59'])
                     ->groupBy('tanggal')
                     ->get()
                     ->keyBy('tanggal');
 
                 $result = $dates->map(function ($date) use ($data) {
+                    $key = $date->format('Y-m-d');
                     return [
                         'label' => $date->format('d M'),  // contoh: 01 Jun
-                        'jumlah' => $data->has($date->format('Y-m-d')) ? $data[$date->format('Y-m-d')]->jumlah : 0,
+                        'jumlah' => $data->has($key) ? $data[$key]->jumlah : 0,
                     ];
                 });
 
                 return response()->json($result);
 
             case 'bulan':
-                $year = Carbon::now()->year; // bisa diubah kalau mau
+                $year = Carbon::now()->year;
 
                 $months = collect(range(1,12));
 
-                $data = DB::table('bukutamu')
-                    ->select(DB::raw("MONTH(tanggal) as bulan"), DB::raw("count(*) as jumlah"))
-                    ->whereYear('tanggal', $year)
+                $data = BukuTamu::select(DB::raw("MONTH(created_at) as bulan"), DB::raw("count(*) as jumlah"))
+                    ->whereYear('created_at', $year)
+                    ->whereNull('deleted_at')
                     ->groupBy('bulan')
                     ->get()
                     ->keyBy('bulan');
@@ -294,9 +293,9 @@ class BukuTamuController extends Controller
 
                 $years = collect(range($startYear, $endYear));
 
-                $data = DB::table('bukutamu')
-                    ->select(DB::raw("YEAR(tanggal) as tahun"), DB::raw("count(*) as jumlah"))
-                    ->whereBetween(DB::raw("YEAR(tanggal)"), [$startYear, $endYear])
+                $data = BukuTamu::select(DB::raw("YEAR(created_at) as tahun"), DB::raw("count(*) as jumlah"))
+                    ->whereBetween(DB::raw("YEAR(created_at)"), [$startYear, $endYear])
+                    ->whereNull('deleted_at')
                     ->groupBy('tahun')
                     ->get()
                     ->keyBy('tahun');
@@ -318,17 +317,18 @@ class BukuTamuController extends Controller
                     $dates->push($today->copy()->subDays($i));
                 }
 
-                $data = DB::table('bukutamu')
-                    ->select(DB::raw("DATE(tanggal) as tanggal"), DB::raw("count(*) as jumlah"))
-                    ->whereBetween('tanggal', [$dates->first()->format('Y-m-d'), $dates->last()->format('Y-m-d')])
+                $data = BukuTamu::select(DB::raw("DATE(created_at) as tanggal"), DB::raw("count(*) as jumlah"))
+                    ->whereNull('deleted_at')
+                    ->whereBetween('created_at', [$dates->first()->format('Y-m-d').' 00:00:00', $dates->last()->format('Y-m-d').' 23:59:59'])
                     ->groupBy('tanggal')
                     ->get()
                     ->keyBy('tanggal');
 
                 $result = $dates->map(function ($date) use ($data) {
+                    $key = $date->format('Y-m-d');
                     return [
                         'label' => $date->format('d M'),
-                        'jumlah' => $data->has($date->format('Y-m-d')) ? $data[$date->format('Y-m-d')]->jumlah : 0,
+                        'jumlah' => $data->has($key) ? $data[$key]->jumlah : 0,
                     ];
                 });
 
