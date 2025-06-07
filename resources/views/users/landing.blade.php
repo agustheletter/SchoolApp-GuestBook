@@ -59,8 +59,8 @@
         <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">Selamat Datang di Buku Tamu Digital</h2>
         <p class="text-xl text-gray-700 drop-shadow-md mb-28" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">Catat kehadiran tamu secara efisien dan terorganisir</p>
         <div class="w-fit mx-auto flex items-center justify-center bg-white gap-3 p-2 rounded-full" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1400">
-            <a href="{{ route('bukutamu.user') }}#ortu" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-blue-600 hover:text-white hover:scale-105 transition duration-300">Orang Tua</a>
-            <a href="{{ route('bukutamu.user') }}#umum" class="bg-gray-200 text-slate-800 font-medium px-6 py-3 rounded-full shadow hover:bg-green-500 hover:text-white hover:scale-105 transition duration-300">Tamu Umum</a>
+            <a href="{{ route('bukutamu.user') }}#ortu" class="bg-gray-200 text-slate-800 font-medium px-10 py-5 text-xl rounded-full shadow hover:bg-blue-600 hover:text-white hover:scale-105 transition duration-300">Orang Tua</a>
+            <a href="{{ route('bukutamu.user') }}#umum" class="bg-gray-200 text-slate-800 font-medium px-10 py-5 text-xl rounded-full shadow hover:bg-green-500 hover:text-white hover:scale-105 transition duration-300">Tamu Umum</a>
         </div>
     </div>
   </section>
