@@ -269,24 +269,38 @@ class BukuTamuController extends Controller
         }
 
         if ($filter == 'minggu') {
-            // Minggu ini Senin - Minggu
-            $startDate = Carbon::now()->startOfWeek();
-            $dates = collect();
-            for ($i = 0; $i < 7; $i++) {
-                $dates->push($startDate->copy()->addDays($i));
+            // Ambil parameter start dan end dari request
+            $startParam = $request->get('start');
+            $endParam = $request->get('end');
+
+            // Validasi input (jika tidak ada, kirim response kosong)
+            if (!$startParam || !$endParam) {
+                return response()->json([]);
             }
 
+            // Ubah ke objek tanggal
+            $startDate = Carbon::parse($startParam);
+            $endDate = Carbon::parse($endParam);
+
+            // Buat list tanggal antara start ~ end
+            $dates = collect();
+            for ($date = $startDate->copy(); $date->lte($endDate); $date->addDay()) {
+                $dates->push($date->copy());
+            }
+
+            // Query data berdasarkan range tanggal
             $data = BukuTamu::select(DB::raw("DATE(created_at) as tanggal"), DB::raw("count(*) as jumlah"))
                 ->whereNull('deleted_at')
-                ->whereBetween('created_at', [$dates->first()->format('Y-m-d').' 00:00:00', $dates->last()->format('Y-m-d').' 23:59:59'])
+                ->whereBetween('created_at', [$startDate->format('Y-m-d') . ' 00:00:00', $endDate->format('Y-m-d') . ' 23:59:59'])
                 ->groupBy('tanggal')
                 ->get()
                 ->keyBy('tanggal');
 
+            // Bentuk hasil akhir untuk chart
             $result = $dates->map(function ($date) use ($data) {
                 $key = $date->format('Y-m-d');
                 return [
-                    'label' => $date->format('d M'),  // ex: 01 Jun
+                    'label' => $date->format('d M'), // Contoh: 04 Jun
                     'jumlah' => $data->has($key) ? $data[$key]->jumlah : 0,
                 ];
             });
@@ -316,6 +330,7 @@ class BukuTamuController extends Controller
                 $key = $currentDate->format('Y-m-d');
                 $result->push([
                     'label' => $d,
+                    'label' => $currentDate->format('d M'), // Contoh: "01 Jun"
                     'jumlah' => $data->has($key) ? $data[$key]->jumlah : 0,
                 ]);
             }
@@ -325,7 +340,7 @@ class BukuTamuController extends Controller
 
         if ($filter == 'tahun') {
             // Tahun ini per bulan (Jan - Des)
-            $year = Carbon::now()->year;
+            $year = request()->get('tahun', Carbon::now()->year); // pakai input dari URL kalau ada
             $months = collect(range(1, 12));
 
             $data = BukuTamu::select(DB::raw("MONTH(created_at) as bulan"), DB::raw("count(*) as jumlah"))

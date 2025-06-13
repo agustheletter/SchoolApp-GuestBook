@@ -103,24 +103,48 @@
     <div class="d-flex justify-content-between align-items-center mt-4 mb-3" style="width: 100%;">
         <h2 class="my-0">Statistik Kunjungan Tamu</h2>
 
-        <div>
-            <label for="filterOption" class="form-label mb-0 me-2">Filter Grafik:</label>
-            <select id="filterOption" class="form-control d-inline-block w-auto">
-                <option value="hari">Harian</option>
+        <div class="text-end d-flex flex-column align-items-end">
+            <label for="filterOption" class="form-label mb-1">Filter Grafik:</label>
+            <select id="filterOption" class="form-control d-inline-block w-auto mb-2">
+                <option value="hari" selected>Harian</option>
                 <option value="minggu">Mingguan</option>
                 <option value="bulan">Bulanan</option>
                 <option value="tahun">Tahunan</option>
             </select>
+
+            <input type="date" id="tanggalInput" class="form-control w-auto mb-2" style="display: none;">
+
+            <div id="filterMinggu" class="flex-wrap justify-content-end" style="display: none; gap: 8px;">
+                <select id="bulanMinggu" class="border p-2 rounded">
+                    <option disabled selected>Pilih Bulan</option>
+                </select>
+
+                <select id="tahunMinggu" class="border p-2 rounded">
+                    <option disabled selected>Pilih Tahun</option>
+                </select>
+
+                <select id="mingguKe" class="border p-2 rounded">
+                    <option disabled selected>Pilih Minggu</option>
+                </select>
+            </div>
+
+            <div id="filterBulan" class="flex-wrap justify-content-end" style="display: none; gap: 8px;">
+                <select id="bulanBulan" class="border p-2 rounded">
+                    <option disabled selected>Pilih Bulan</option>
+                </select>
+
+                <select id="tahunBulan" class="border p-2 rounded">
+                    <option disabled selected>Pilih Tahun</option>
+                </select>
+            </div>
+
+            <div id="filterTahun" class="flex-wrap justify-content-end" style="display: none; gap: 8px;">
+                <select id="nilaiTahun" class="border p-2 rounded">
+                    <option disabled selected>Pilih Tahun</option>
+                </select>
+            </div>
+
         </div>
-    </div>
-
-
-    <div class="mb-3" id="rangeTahunContainer" style="display:none;">
-        <label for="tahunMulai" class="form-label">Mulai Tahun</label>
-        <select id="tahunMulai" class="form-control d-inline w-auto"></select>
-
-        <label for="tahunAkhir" class="form-label ms-3">Akhir Tahun</label>
-        <select id="tahunAkhir" class="form-control d-inline w-auto"></select>
     </div>
 
     <div class="card">
@@ -134,28 +158,290 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const tanggalInput = document.getElementById('tanggalInput');
+        const filterOption = document.getElementById('filterOption');
+
+        const today = new Date().toISOString().split('T')[0];
+        tanggalInput.value = today;
+
+        // Tampilkan atau sembunyikan tanggal sesuai nilai awal filter
+        tanggalInput.style.display = (filterOption.value === 'hari') ? 'block' : 'none';
+
+        fetchAndRenderChart(filterOption.value);
+    });
+
+    document.getElementById('tanggalInput').addEventListener('change', function () {
+        const currentFilter = document.getElementById('filterOption').value;
+        if (currentFilter === 'hari') {
+            fetchAndRenderChart(currentFilter);
+        }
+    });
+
     let chart;
 
-    function isiDropdownTahun() {
-        const tahunMulai = document.getElementById('tahunMulai');
-        const tahunAkhir = document.getElementById('tahunAkhir');
-        const tahunSekarang = new Date().getFullYear();
+    // filter mingguan
+    const filterOption = document.getElementById('filterOption');
+    const filterMinggu = document.getElementById('filterMinggu');
+    const bulanMinggu = document.getElementById('bulanMinggu');
+    const tahunMinggu = document.getElementById('tahunMinggu');
+    const mingguKe = document.getElementById('mingguKe');
+
+    // filter bulanan
+    const filterBulan = document.getElementById('filterBulan');
+    const bulanBulan = document.getElementById('bulanBulan');
+    const tahunBulan = document.getElementById('tahunBulan');
+
+    // filter tahunan
+    const filterTahun = document.getElementById('filterTahun');
+    const nilaiTahun = document.getElementById('nilaiTahun');
+
+    // Isi dropdown tahun dan bulan awal
+    function initMingguFilter() {
+        const now = new Date();
+        const tahunSekarang = now.getFullYear();
         const tahunAwal = 2023;
 
-        tahunMulai.innerHTML = '';
-        tahunAkhir.innerHTML = '';
+        tahunMinggu.innerHTML = '<option disabled selected>Pilih Tahun</option>';
+        bulanMinggu.innerHTML = '<option disabled selected>Pilih Bulan</option>';
+        mingguKe.innerHTML = '<option disabled selected>Pilih Minggu</option>';
 
-        for(let t = tahunAwal; t <= tahunSekarang; t++) {
-            tahunMulai.innerHTML += `<option value="${t}">${t}</option>`;
-            tahunAkhir.innerHTML += `<option value="${t}">${t}</option>`;
+        for (let t = tahunAwal; t <= tahunSekarang; t++) {
+            tahunMinggu.innerHTML += `<option value="${t}">${t}</option>`;
         }
 
-        tahunMulai.value = tahunAwal;
-        tahunAkhir.value = tahunSekarang;
+        const namaBulan = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+
+        namaBulan.forEach((nama, index) => {
+            bulanMinggu.innerHTML += `<option value="${index}">${nama}</option>`;
+        });
     }
 
+    function initBulanFilter() {
+        const now = new Date();
+        const tahunSekarang = now.getFullYear();
+        const tahunAwal = 2023;
+
+        tahunBulan.innerHTML = '<option disabled selected>Pilih Tahun</option>';
+        bulanBulan.innerHTML = '<option disabled selected>Pilih Bulan</option>';
+
+        for (let t = tahunAwal; t <= tahunSekarang; t++) {
+            tahunBulan.innerHTML += `<option value="${t}">${t}</option>`;
+        }
+
+        const namaBulan = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+
+        namaBulan.forEach((nama, index) => {
+            bulanBulan.innerHTML += `<option value="${index + 1}">${nama}</option>`;
+        });
+    }
+
+    function initTahunFilter() {
+        const now = new Date();
+        const tahunSekarang = now.getFullYear();
+        const tahunAwal = 2023;
+
+        nilaiTahun.innerHTML = '<option disabled selected>Pilih Tahun</option>';
+
+        for (let t = tahunAwal; t <= tahunSekarang; t++) {
+            nilaiTahun.innerHTML += `<option value="${t}">${t}</option>`;
+        }
+    }
+
+    // Hitung minggu ke-1 s.d. ke-N dari bulan dan tahun
+    function generateMingguan(tahun, bulan) {
+        mingguKe.innerHTML = '<option disabled selected>Pilih Minggu</option>';
+
+        const firstDay = new Date(tahun, bulan, 1);
+        const lastDay = new Date(tahun, bulan + 1, 0);
+        const mingguList = [];
+
+        let start = new Date(firstDay);
+        start.setDate(1 - start.getDay() + 1); // Awal minggu = Senin
+
+        let index = 1;
+        while (start <= lastDay) {
+            const end = new Date(start);
+            end.setDate(end.getDate() + 6);
+
+            const display = `Minggu ke-${index} (${formatDate(start)} ~ ${formatDate(end)})`;
+            mingguList.push({
+                label: display,
+                start: formatDate(start),
+                end: formatDate(end)
+            });
+
+            start.setDate(start.getDate() + 7);
+            index++;
+        }
+
+        mingguList.forEach((minggu, i) => {
+            mingguKe.innerHTML += `<option value="${minggu.start}|${minggu.end}">${minggu.label}</option>`;
+        });
+    }
+
+    // Format YYYY-MM-DD
+    function formatDate(date) {
+        return date.toISOString().split('T')[0];
+    }
+
+    // Event ketika filter diganti
+    filterOption.addEventListener('change', function () {
+        const selected = this.value;
+        const tanggalInput = document.getElementById('tanggalInput');
+
+        tanggalInput.style.display = (selected === 'hari') ? 'block' : 'none';
+        filterMinggu.style.display = (selected === 'minggu') ? 'flex' : 'none';
+        filterBulan.style.display = (selected === 'bulan') ? 'flex' : 'none';
+        filterTahun.style.display = (selected === 'tahun') ? 'flex' : 'none';
+
+
+        if (selected === 'minggu') {
+            initMingguFilter();
+
+            // Tunggu sejenak isi dropdown selesai (karena innerHTML)
+            setTimeout(() => {
+                const now = new Date();
+                const bulanSekarang = now.getMonth(); // 0 = Januari
+                const tahunSekarang = 2025;
+
+                // Set dropdown tahun dan bulan
+                tahunMinggu.value = tahunSekarang;
+                bulanMinggu.value = bulanSekarang;
+
+                // Generate daftar minggu berdasarkan tahun & bulan
+                generateMingguan(tahunSekarang, bulanSekarang);
+
+                // Cari dan pilih minggu yang cocok dengan tanggal hari ini
+                setTimeout(() => {
+                    const options = mingguKe.options;
+                    for (let i = 0; i < options.length; i++) {
+                        const [start, end] = options[i].value.split('|');
+                        const today = new Date().toISOString().split('T')[0];
+                        if (today >= start && today <= end) {
+                            mingguKe.selectedIndex = i;
+                            break;
+                        }
+                    }
+
+                    fetchAndRenderChart('minggu');
+                }, 50);
+            }, 50);
+        }
+
+        if (selected === 'bulan') {
+            initBulanFilter();
+
+            // Tunggu dropdown terisi, lalu set default otomatis
+            setTimeout(() => {
+                const now = new Date();
+                const bulanSekarang = now.getMonth() + 1; // 1 = Januari
+                const tahunSekarang = 2025;
+
+                bulanBulan.value = bulanSekarang;
+                tahunBulan.value = tahunSekarang;
+
+                fetchAndRenderChart('bulan');
+            }, 50);
+        }
+
+        if (selected === 'tahun') {
+            initTahunFilter();
+
+            // Tunggu dropdown terisi, lalu set default otomatis
+            setTimeout(() => {
+                const now = new Date();
+                const tahunSekarang = now.getFullYear();
+                nilaiTahun.value = tahunSekarang;
+
+                fetchAndRenderChart('tahun');
+            }, 50);
+        }
+
+        fetchAndRenderChart(selected);
+    });
+
+    // mingguan
+    bulanMinggu.addEventListener('change', () => {
+        if (tahunMinggu.value) generateMingguan(parseInt(tahunMinggu.value), parseInt(bulanMinggu.value));
+    });
+
+    tahunMinggu.addEventListener('change', () => {
+        if (bulanMinggu.value) generateMingguan(parseInt(tahunMinggu.value), parseInt(bulanMinggu.value));
+    });
+
+    mingguKe.addEventListener('change', () => {
+        const currentFilter = filterOption.value;
+        if (currentFilter === 'minggu') fetchAndRenderChart(currentFilter);
+    });
+
+    // bulanan
+    bulanBulan.addEventListener('change', () => {
+        const currentFilter = filterOption.value;
+        if (currentFilter === 'bulan' && tahunBulan.value) {
+            fetchAndRenderChart(currentFilter);
+        }
+    });
+
+    tahunBulan.addEventListener('change', () => {
+        const currentFilter = filterOption.value;
+        if (currentFilter === 'bulan' && bulanBulan.value) {
+            fetchAndRenderChart(currentFilter);
+        }
+    });
+
+
+    // tahunan
+    nilaiTahun.addEventListener('change', () => {
+        const currentFilter = filterOption.value;
+        if (currentFilter === 'tahun' && nilaiTahun.value) {
+            fetchAndRenderChart(currentFilter);
+        }
+    });
+
+
+    // fetch data
     function fetchAndRenderChart(filter = 'hari') {
-        fetch(`{{ url('/admin/grafik-data') }}?filter=${filter}`)
+        let url = `{{ url('/admin/grafik-data') }}?filter=${filter}`;
+
+        if (filter === 'hari') {
+            const tanggal = document.getElementById('tanggalInput').value;
+            if (tanggal) {
+                url += `&date=${tanggal}`;
+            }
+        }
+
+        if (filter === 'minggu') {
+            const value = mingguKe.value;
+            if (value) {
+                const [start, end] = value.split('|');
+                url += `&start=${start}&end=${end}`;
+            }
+        }
+
+        if (filter === 'bulan') {
+            const bulan = bulanBulan.value;
+            const tahun = tahunBulan.value;
+            if (bulan && tahun) {
+                url += `&bulan=${bulan}&tahun=${tahun}`;
+            }
+        }
+
+        if (filter === 'tahun') {
+            const tahun = nilaiTahun.value;
+            if (tahun) {
+                url += `&tahun=${tahun}`;
+            }
+        }
+
+        fetch(url)
             .then(res => res.json())
             .then(data => {
                 const labels = data.map(item => item.label);
@@ -164,6 +450,12 @@
                 const ctx = document.getElementById('grafikKunjunganHarian').getContext('2d');
 
                 if (chart) chart.destroy();
+
+                // Tentukan label X sesuai filter
+                let labelX = 'Waktu';
+                if (filter === 'hari') labelX = 'Jam';
+                else if (filter === 'minggu' || filter === 'bulan') labelX = 'Tanggal';
+                else if (filter === 'tahun') labelX = 'Bulan';
 
                 chart = new Chart(ctx, {
                     type: 'line',
@@ -207,10 +499,23 @@
                         responsive: true,
                         plugins: { legend: { display: true } },
                         scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: labelX,
+                                }
+                            },
                             y: {
                                 beginAtZero: true,
-                                ticks: { stepSize: 1, precision: 0 }
-                            }
+                                title: {
+                                    display: true,
+                                    text: 'Total Tamu'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    precision: 0
+                                }
+                            },
                         }
                     }
                 });
@@ -220,12 +525,7 @@
             });
     }
 
-    document.getElementById('filterOption').addEventListener('change', function () {
-        fetchAndRenderChart(this.value);
-    });
-
     window.onload = () => {
-        isiDropdownTahun();
         fetchAndRenderChart();
     };
 </script>
