@@ -89,7 +89,8 @@
         </div>
     </div>
 
-    <div class="mb-3">
+    {{-- <div class="mb-3" style="width: 100%;">
+        <h2 class="text-end my-4 d-inline-block">Statistik Kunjungan Tamu</h2>
         <label for="filterOption" class="form-label">Filter Grafik</label>
         <select id="filterOption" class="form-control w-25">
             <option value="hari">Harian</option>
@@ -97,7 +98,22 @@
             <option value="bulan">Bulanan</option>
             <option value="tahun">Tahunan</option>
         </select>
+    </div> --}}
+
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-3" style="width: 100%;">
+        <h2 class="my-0">Statistik Kunjungan Tamu</h2>
+
+        <div>
+            <label for="filterOption" class="form-label mb-0 me-2">Filter Grafik:</label>
+            <select id="filterOption" class="form-control d-inline-block w-auto">
+                <option value="hari">Harian</option>
+                <option value="minggu">Mingguan</option>
+                <option value="bulan">Bulanan</option>
+                <option value="tahun">Tahunan</option>
+            </select>
+        </div>
     </div>
+
 
     <div class="mb-3" id="rangeTahunContainer" style="display:none;">
         <label for="tahunMulai" class="form-label">Mulai Tahun</label>
@@ -156,8 +172,33 @@
                         datasets: [{
                             label: 'Jumlah Tamu',
                             data: jumlah,
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            // borderColor: 'rgba(54, 162, 235, 1)',
+                            // backgroundColor: 'rgba(54, 162, 235, 0.2)',
+
+                            // borderColor: 'rgba(255, 99, 132, 1)',
+                            // backgroundColor: 'rgba(255, 99, 132, 0.2)',
+
+                            borderColor: 'rgba(255, 206, 86, 1)',
+                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+
+                            // borderColor: 'rgba(75, 192, 192, 1)',
+                            // backgroundColor: 'rgba(75, 192, 192, 0.2)',
+
+                            // borderColor: 'rgba(153, 102, 255, 1)',
+                            // backgroundColor: 'rgba(153, 102, 255, 0.2)',
+
+                            // borderColor: 'rgba(255, 159, 64, 1)',
+                            // backgroundColor: 'rgba(255, 159, 64, 0.2)',
+
+                            // borderColor: 'rgba(255, 105, 180, 1)',
+                            // backgroundColor: 'rgba(255, 105, 180, 0.2)',
+
+                            // borderColor: 'rgba(64, 224, 208, 1)',
+                            // backgroundColor: 'rgba(64, 224, 208, 0.2)',
+
+                            // borderColor: 'rgba(144, 238, 144, 1)',
+                            // backgroundColor: 'rgba(144, 238, 144, 0.2)',
+
                             fill: true,
                             tension: 0.3
                         }]
