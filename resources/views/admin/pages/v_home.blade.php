@@ -89,18 +89,7 @@
         </div>
     </div>
 
-    {{-- <div class="mb-3" style="width: 100%;">
-        <h2 class="text-end my-4 d-inline-block">Statistik Kunjungan Tamu</h2>
-        <label for="filterOption" class="form-label">Filter Grafik</label>
-        <select id="filterOption" class="form-control w-25">
-            <option value="hari">Harian</option>
-            <option value="minggu">Mingguan</option>
-            <option value="bulan">Bulanan</option>
-            <option value="tahun">Tahunan</option>
-        </select>
-    </div> --}}
-
-    <div class="d-flex justify-content-between align-items-center mt-4 mb-3" style="width: 100%;">
+    <div class="d-flex justify-content-between align-items-center mb-3" style="width: 100%;">
         <h2 class="my-0">Statistik Kunjungan Tamu</h2>
 
         <div class="text-end d-flex flex-column align-items-end">
