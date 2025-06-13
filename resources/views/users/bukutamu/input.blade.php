@@ -30,6 +30,12 @@
             background-size: cover;
             background-position: center;
         }
+
+        #camera_ortu video,
+        #camera_umum video {
+            transform: scaleX(-1); /* efek mirror */
+            -webkit-transform: scaleX(-1); /* untuk Safari */
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 poppins flex flex-col min-h-screen">
@@ -371,9 +377,37 @@
             }
         });
 
+        // fungsi kolom otomatis (jabatan - pegawai)
+        function setupJabatanDropdown(jabatanSelector, pegawaiSelector) {
+            $(jabatanSelector).change(function() {
+                const jabatan_id = $(this).val();
+                $.ajax({
+                    url: '/getPegawai/' + jabatan_id,
+                    type: 'GET',
+                    success: function(data) {
+                        const $pegawai = $(pegawaiSelector);
+                        $pegawai.empty();
 
+                        if (jabatan_id == 1 && data.length > 0) {
+                            const kepala = data[0];
+                            $pegawai.append('<option value="' + kepala.id + '" selected>' + kepala.nama_pegawai + '</option>');
+                        } else {
+                            $pegawai.append('<option>Pilih Nama Pegawai</option>');
+                            $.each(data, function(_, value) {
+                                $pegawai.append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
+                            });
+                        }
+                    }
+                });
+            });
+        }
 
         // fungsi kolom otomatis (jabatan - pegawai)
+        $(document).ready(function() {
+            setupJabatanDropdown('#jabatan', '#pegawai');
+            setupJabatanDropdown('#jabatan2', '#pegawai2');
+        });
+
         // $(document).ready(function() {
         //     $('#jabatan').change(function() {
         //         var jabatan_id = $(this).val();
@@ -381,44 +415,28 @@
         //             url: '/getPegawai/' + jabatan_id,
         //             type: 'GET',
         //             success: function(data) {
-        //                 $('#pegawai').empty().append('<option>Pilih Nama Pegawai</option>');
-        //                 $.each(data, function(key, value) {
-        //                     $('#pegawai').append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
-        //                 });
+        //                 var $pegawai = $('#pegawai');
+        //                 $pegawai.empty();
+
+        //                 if (jabatan_id == 1) {
+        //                     // Kalau jabatan kepala sekolah, langsung isi satu option dan selected
+        //                     if (data.length > 0) {
+        //                         var kepala = data[0];
+        //                         $pegawai.append('<option value="' + kepala.id + '" selected>' + kepala.nama_pegawai + '</option>');
+        //                     } else {
+        //                         $pegawai.append('<option>Pegawai tidak ditemukan</option>');
+        //                     }
+        //                 } else {
+        //                     // Default: opsi pilih nama pegawai
+        //                     $pegawai.append('<option>Pilih Nama Pegawai</option>');
+        //                     $.each(data, function(key, value) {
+        //                         $pegawai.append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
+        //                     });
+        //                 }
         //             }
         //         });
         //     });
         // });
-
-        $(document).ready(function() {
-            $('#jabatan').change(function() {
-                var jabatan_id = $(this).val();
-                $.ajax({
-                    url: '/getPegawai/' + jabatan_id,
-                    type: 'GET',
-                    success: function(data) {
-                        var $pegawai = $('#pegawai');
-                        $pegawai.empty();
-
-                        if (jabatan_id == 1) {
-                            // Kalau jabatan kepala sekolah, langsung isi satu option dan selected
-                            if (data.length > 0) {
-                                var kepala = data[0];
-                                $pegawai.append('<option value="' + kepala.id + '" selected>' + kepala.nama_pegawai + '</option>');
-                            } else {
-                                $pegawai.append('<option>Pegawai tidak ditemukan</option>');
-                            }
-                        } else {
-                            // Default: opsi pilih nama pegawai
-                            $pegawai.append('<option>Pilih Nama Pegawai</option>');
-                            $.each(data, function(key, value) {
-                                $pegawai.append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
-                            });
-                        }
-                    }
-                });
-            });
-        });
 
         // fungsi kolom otomatis (nama siswa - nama ortu)
         document.getElementById('idsiswa').addEventListener('change', function() {
@@ -447,115 +465,127 @@
             }
         });
 
+        // $(document).ready(function() {
+        //     $('#jabatan2').change(function() {
+        //         var jabatan_id = $(this).val();
+        //         $.ajax({
+        //             url: '/getPegawai/' + jabatan_id,
+        //             type: 'GET',
+        //             success: function(data) {
+        //                 var $pegawai = $('#pegawai2');
+        //                 $pegawai.empty();
 
-        // fungsi kolom otomatis (jabatan - pegawai)
-        $(document).ready(function() {
-            $('#jabatan2').change(function() {
-                var jabatan_id = $(this).val();
-                $.ajax({
-                    url: '/getPegawai/' + jabatan_id,
-                    type: 'GET',
-                    success: function(data) {
-                        $('#pegawai2').empty().append('<option>Pilih Nama Pegawai</option>');
-                        $.each(data, function(key, value) {
-                            $('#pegawai2').append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
-                        });
-                    }
-                });
-            });
-        });
+        //                 if (jabatan_id == 1) {
+        //                     // Kalau jabatan kepala sekolah, langsung isi satu option dan selected
+        //                     if (data.length > 0) {
+        //                         var kepala = data[0];
+        //                         $pegawai.append('<option value="' + kepala.id + '" selected>' + kepala.nama_pegawai + '</option>');
+        //                     } else {
+        //                         $pegawai.append('<option>Pegawai tidak ditemukan</option>');
+        //                     }
+        //                 } else {
+        //                     // Default: opsi pilih nama pegawai
+        //                     $pegawai.append('<option>Pilih Nama Pegawai</option>');
+        //                     $.each(data, function(key, value) {
+        //                         $pegawai.append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
+        //                     });
+        //                 }
+        //             }
+        //         });
+        //     });
+        // });
 
-        $(document).ready(function() {
-            $('#jabatan2').change(function() {
-                var jabatan_id = $(this).val();
-                $.ajax({
-                    url: '/getPegawai/' + jabatan_id,
-                    type: 'GET',
-                    success: function(data) {
-                        var $pegawai = $('#pegawai2');
-                        $pegawai.empty();
-
-                        if (jabatan_id == 1) {
-                            // Kalau jabatan kepala sekolah, langsung isi satu option dan selected
-                            if (data.length > 0) {
-                                var kepala = data[0];
-                                $pegawai.append('<option value="' + kepala.id + '" selected>' + kepala.nama_pegawai + '</option>');
-                            } else {
-                                $pegawai.append('<option>Pegawai tidak ditemukan</option>');
-                            }
-                        } else {
-                            // Default: opsi pilih nama pegawai
-                            $pegawai.append('<option>Pilih Nama Pegawai</option>');
-                            $.each(data, function(key, value) {
-                                $pegawai.append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
-                            });
-                        }
-                    }
-                });
-            });
-        });
-
-        // WebcamJS Orang Tua
+        // Inisialisasi WebcamJS
         Webcam.set({
             width: 320,
             height: 233,
             image_format: 'jpeg',
             jpeg_quality: 90
         });
-        Webcam.attach('#camera_ortu');
 
-        // function take_snapshot_ortu() {
-        //     Webcam.snap(function(data_uri) {
-        //     document.getElementById('result_ortu').innerHTML = '<img src="' + data_uri + '"/>';
-        //     document.getElementById('foto_tamu_ortu').value = data_uri;
-        //     });
-        // }
+        // Deteksi jika webcam gagal digunakan
+        Webcam.on('error', function(err) {
+            alert('Kamera tidak bisa digunakan. Pastikan sudah memberi izin atau cek apakah perangkat memiliki webcam.');
+        });
+
+        // Attach kamera ke elemen video
+        Webcam.attach('#camera_ortu');
+        Webcam.attach('#camera_umum');
+
+        function take_snapshot(target, resultSelector, hiddenInputId) {
+            if (typeof Webcam === 'undefined') return;
+
+            // Webcam.snap(function(data_uri) {
+            //     document.querySelector(resultSelector).src = data_uri;
+            //     document.querySelector(resultSelector).parentElement.classList.remove('hidden');
+            //     document.getElementById(hiddenInputId).value = data_uri;
+            // });
+
+            Webcam.snap(function(data_uri) {
+                const img = new Image();
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+
+                    const ctx = canvas.getContext('2d');
+
+                    // Mirror horizontal
+                    ctx.translate(img.width, 0);
+                    ctx.scale(-1, 1);
+                    ctx.drawImage(img, 0, 0);
+
+                    const mirroredDataUri = canvas.toDataURL('image/jpeg', 0.9);
+
+                    // Tampilkan dan simpan
+                    const resultImage = document.querySelector(resultSelector);
+                    resultImage.src = mirroredDataUri;
+                    resultImage.parentElement.classList.remove('hidden');
+
+                    document.getElementById(hiddenInputId).value = mirroredDataUri;
+                };
+
+                img.src = data_uri;
+            });
+        }
 
         // Fungsi Ambil Foto (Orang Tua)
         function take_snapshot_ortu() {
-            Webcam.snap(function(data_uri) {
-                const resultDiv = document.getElementById('result_ortu');
-                const fotoResult = document.getElementById('foto-result-ortu');
-
-                // Tampilkan hasil foto di bawah video
-                fotoResult.src = data_uri;
-                resultDiv.classList.remove('hidden');
-
-                // Simpan data foto ke input hidden
-                document.getElementById('foto_tamu_ortu').value = data_uri;
-            });
+            take_snapshot('camera_ortu', '#foto-result-ortu', 'foto_tamu_ortu');
         }
-
-        // WebcamJS Tamu Umum
-        Webcam.set({
-            width: 320,
-            height: 233,
-            image_format: 'jpeg',
-            jpeg_quality: 90
-        });
-        Webcam.attach('#camera_umum');
-
-        // function take_snapshot_umum() {
-        //     Webcam.snap(function(data_uri) {
-        //     document.getElementById('result_umum').innerHTML = '<img src="' + data_uri + '"/>';
-        //     document.getElementById('foto_tamu_umum').value = data_uri;
-        //     });
-        // }
 
         // Fungsi Ambil Foto (Tamu Umum)
         function take_snapshot_umum() {
-            Webcam.snap(function(data_uri) {
-                const resultDiv = document.getElementById('result_umum');
-                const fotoResult = document.getElementById('foto-result-umum');
-
-                // Tampilkan hasil foto di bawah video
-                fotoResult.src = data_uri;
-                resultDiv.classList.remove('hidden');
-
-                // Simpan data foto ke input hidden
-                document.getElementById('foto_tamu_umum').value = data_uri;
-            });
+            take_snapshot('camera_umum', '#foto-result-umum', 'foto_tamu_umum');
         }
+
+        // function take_snapshot_ortu() {
+        //     Webcam.snap(function(data_uri) {
+        //         const resultDiv = document.getElementById('result_ortu');
+        //         const fotoResult = document.getElementById('foto-result-ortu');
+
+        //         // Tampilkan hasil foto di bawah video
+        //         fotoResult.src = data_uri;
+        //         resultDiv.classList.remove('hidden');
+
+        //         // Simpan data foto ke input hidden
+        //         document.getElementById('foto_tamu_ortu').value = data_uri;
+        //     });
+        // }
+
+        // function take_snapshot_umum() {
+        //     Webcam.snap(function(data_uri) {
+        //         const resultDiv = document.getElementById('result_umum');
+        //         const fotoResult = document.getElementById('foto-result-umum');
+
+        //         // Tampilkan hasil foto di bawah video
+        //         fotoResult.src = data_uri;
+        //         resultDiv.classList.remove('hidden');
+
+        //         // Simpan data foto ke input hidden
+        //         document.getElementById('foto_tamu_umum').value = data_uri;
+        //     });
+        // }
 
     </script>
 
