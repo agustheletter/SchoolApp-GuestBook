@@ -237,6 +237,23 @@
     <p>&copy; {{ date('Y') }} Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
   </footer>
 
+  <!-- Sweet Alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#EAB308'
+            });
+        });
+    </script>
+@endif
+
   <script>
     // Scroll ke atas sebelum reload (opsional tambahan keamanan)
     window.addEventListener('beforeunload', function () {

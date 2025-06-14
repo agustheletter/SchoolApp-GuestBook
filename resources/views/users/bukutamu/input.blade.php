@@ -88,15 +88,15 @@
             @endif
 
             @if (session('success'))
-                {{-- <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                     <strong class="font-bold">Sukses! </strong>
                     <span class="block sm:inline">{{ session('success') }}</span>
                     <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3 text-green-700" onclick="this.parentElement.remove()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div> --}}
+                </div>
 
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                     <script>
                         document.addEventListener('DOMContentLoaded', function () {
                             Swal.fire({
@@ -111,7 +111,7 @@
                                 }
                             });
                         });
-                    </script>
+                    </script> --}}
             @endif
 
             <div id="form-orang-tua" class="">
@@ -303,22 +303,6 @@
 
         </div>
     </section>
-
-<!-- Sweet Alert -->
-{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if (session('success'))
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: '{{ session('success') }}',
-                confirmButtonText: 'OK'
-            });
-        });
-    </script>
-@endif --}}
 
     <!-- Footer -->
     <footer class="bg-slate-700 text-white text-center py-6">
