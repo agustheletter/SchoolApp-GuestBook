@@ -62,13 +62,13 @@ class LoginController extends Controller
                 'idthnajaran' => $request->thnajaran
             ]);
 
-            return redirect('/home');
-            // return redirect('/home',$katakunci);
+            return redirect()->intended('/home');
+            // return redirect('/home');
         }
         else
         {
             Session::flash('error', 'Email atau Password Salah');
-            
+
             // return redirect('login')->withInput();
             return redirect()->back()->withInput();
         }
