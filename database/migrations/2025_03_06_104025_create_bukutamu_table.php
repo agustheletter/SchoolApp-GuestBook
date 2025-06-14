@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->foreignId('id_jabatan')->constrained('tbl_jabatan');
             $table->foreignId('id_pegawai')->constrained('tbl_pegawai');
             $table->text('keperluan');
-            $table->softDeletes();
+            // $table->softDeletes();
             $table->timestamps();
         });
     }

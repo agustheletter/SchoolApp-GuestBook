@@ -248,11 +248,20 @@ class BukuTamuController extends Controller
 
             $hours = collect(range(0, 23));
 
+            // $data = BukuTamu::select(
+            //         DB::raw("HOUR(created_at) as jam"),
+            //         DB::raw("count(*) as jumlah")
+            //     )
+            //     ->whereNull('deleted_at')
+            //     ->whereDate('created_at', $date)
+            //     ->groupBy('jam')
+            //     ->get()
+            //     ->keyBy('jam');
+
             $data = BukuTamu::select(
                     DB::raw("HOUR(created_at) as jam"),
                     DB::raw("count(*) as jumlah")
                 )
-                ->whereNull('deleted_at')
                 ->whereDate('created_at', $date)
                 ->groupBy('jam')
                 ->get()
@@ -290,8 +299,14 @@ class BukuTamuController extends Controller
             }
 
             // Query data berdasarkan range tanggal
+            // $data = BukuTamu::select(DB::raw("DATE(created_at) as tanggal"), DB::raw("count(*) as jumlah"))
+            //     ->whereNull('deleted_at')
+            //     ->whereBetween('created_at', [$startDate->format('Y-m-d') . ' 00:00:00', $endDate->format('Y-m-d') . ' 23:59:59'])
+            //     ->groupBy('tanggal')
+            //     ->get()
+            //     ->keyBy('tanggal');
+
             $data = BukuTamu::select(DB::raw("DATE(created_at) as tanggal"), DB::raw("count(*) as jumlah"))
-                ->whereNull('deleted_at')
                 ->whereBetween('created_at', [$startDate->format('Y-m-d') . ' 00:00:00', $endDate->format('Y-m-d') . ' 23:59:59'])
                 ->groupBy('tanggal')
                 ->get()
@@ -316,8 +331,15 @@ class BukuTamuController extends Controller
             $startDate = Carbon::create($tahun, $bulan, 1);
             $daysInMonth = $startDate->daysInMonth;
 
+            // $data = BukuTamu::select(DB::raw("DATE(created_at) as tanggal"), DB::raw("count(*) as jumlah"))
+            //     ->whereNull('deleted_at')
+            //     ->whereMonth('created_at', $bulan)
+            //     ->whereYear('created_at', $tahun)
+            //     ->groupBy('tanggal')
+            //     ->get()
+            //     ->keyBy('tanggal');
+
             $data = BukuTamu::select(DB::raw("DATE(created_at) as tanggal"), DB::raw("count(*) as jumlah"))
-                ->whereNull('deleted_at')
                 ->whereMonth('created_at', $bulan)
                 ->whereYear('created_at', $tahun)
                 ->groupBy('tanggal')
@@ -344,8 +366,14 @@ class BukuTamuController extends Controller
             $year = request()->get('tahun', Carbon::now()->year); // pakai input dari URL kalau ada
             $months = collect(range(1, 12));
 
+            // $data = BukuTamu::select(DB::raw("MONTH(created_at) as bulan"), DB::raw("count(*) as jumlah"))
+            //     ->whereNull('deleted_at')
+            //     ->whereYear('created_at', $year)
+            //     ->groupBy('bulan')
+            //     ->get()
+            //     ->keyBy('bulan');
+
             $data = BukuTamu::select(DB::raw("MONTH(created_at) as bulan"), DB::raw("count(*) as jumlah"))
-                ->whereNull('deleted_at')
                 ->whereYear('created_at', $year)
                 ->groupBy('bulan')
                 ->get()
