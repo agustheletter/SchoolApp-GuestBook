@@ -237,7 +237,6 @@
     <p>&copy; {{ date('Y') }} Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
   </footer>
 
-
   <script>
     // Scroll ke atas sebelum reload (opsional tambahan keamanan)
     window.addEventListener('beforeunload', function () {
