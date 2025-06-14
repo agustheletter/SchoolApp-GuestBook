@@ -68,7 +68,9 @@ class LoginController extends Controller
         else
         {
             Session::flash('error', 'Email atau Password Salah');
-            return redirect('login');
+            
+            // return redirect('login')->withInput();
+            return redirect()->back()->withInput();
         }
     }
 
