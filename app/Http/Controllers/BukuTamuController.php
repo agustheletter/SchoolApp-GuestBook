@@ -200,9 +200,9 @@ class BukuTamuController extends Controller
         // }
 
         $image = $request->input('foto_tamu');
-        $imageName = 'tamu_' . time() . '.jpg';
+        $imageName = null;
 
-        if ($image) {
+        if (!empty($image)) {
             $image = str_replace('data:image/jpeg;base64,', '', $image);
             $image = str_replace(' ', '+', $image);
             $imageData = base64_decode($image);
@@ -212,6 +212,7 @@ class BukuTamuController extends Controller
                 mkdir($folder, 0777, true); // buat folder kalau belum ada
             }
 
+            $imageName = 'tamu_' . time() . '.jpg';
             file_put_contents($folder . '/' . $imageName, $imageData);
         }
 
