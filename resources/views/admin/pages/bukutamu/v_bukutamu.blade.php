@@ -64,7 +64,15 @@
                             {{ $tamu->jabatan->nama_jabatan ?? '-' }}
                         </td>
                         <td>{{ $tamu->keperluan }}</td>
-                        <td><img width="120px" src="{{ asset('uploads/foto_tamu/' . $tamu->foto_tamu) }}"></td>
+                        
+                        <td>
+                            @if (!empty($tamu->foto_tamu))
+                                <img width="120px" src="{{ asset('uploads/foto_tamu/' . $tamu->foto_tamu) }}">
+                            @else
+                                <span>Tidak ada foto</span>
+                            @endif
+                        </td>
+
                         <td>{{ Carbon::parse($tamu->created_at)->locale('id')->translatedFormat('l, d F Y - H:i:s') }}</td>
                         <td align="center">
                             <a href="{{ route('bukutamu.edit', $tamu->id) }}" class="btn btn-warning btn-sm">
