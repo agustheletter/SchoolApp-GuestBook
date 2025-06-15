@@ -48,7 +48,7 @@
                 <select class="form-control" name="idsiswa">
                     <option value="" disabled>Pilih Siswa</option>
                     @foreach ($siswa as $item)
-                    <option value="{{ $item->id }}" {{ $bukutamu->idsiswa == $item->id ? 'selected' : '' }}>
+                    <option value="{{ $item->idsiswa }}" {{ $bukutamu->idsiswa == $item->idsiswa ? 'selected' : '' }}>
                         {{ $item->namasiswa }}
                     </option>
                     @endforeach
@@ -137,6 +137,7 @@
             if (roleSelect.value === "ortu") {
                 ortuFields.style.display = "flex";
                 instansiField.style.display = "none";
+                siswaSelect.disabled = false;
 
                 // Reset pilihan siswa jika sebelumnya "Umum"
                 if (initialRole === "umum") {
@@ -145,9 +146,12 @@
             } else if (roleSelect.value === "umum") {
                 ortuFields.style.display = "none";
                 instansiField.style.display = "flex";
+                siswaSelect.value = ""; // Hapus value agar tidak ikut submit
             } else {
                 ortuFields.style.display = "none";
                 instansiField.style.display = "none";
+                siswaSelect.disabled = true;
+                siswaSelect.value = "";
             }
 
             // Update role awal setelah perubahan

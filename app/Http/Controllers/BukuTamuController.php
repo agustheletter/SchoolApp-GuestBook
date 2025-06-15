@@ -38,7 +38,8 @@ class BukuTamuController extends Controller
             'nama' => 'required|string|max:255',
             'role' => 'required|in:ortu,umum',
             // 'idagama' => 'required|exists:tbl_agama,idagama',
-            'idsiswa' => 'nullable|exists:tbl_siswa,idsiswa',
+            // 'idsiswa' => 'nullable|exists:tbl_siswa,idsiswa',
+            'idsiswa' => $request->role === 'ortu' ? 'required|exists:tbl_siswa,idsiswa' : 'nullable',
             'instansi' => 'nullable|string|max:255',
             'alamat' => 'required|string',
             'kontak' => 'required|string|max:255',
@@ -48,11 +49,13 @@ class BukuTamuController extends Controller
         ]);
 
         $bukutamu = BukuTamu::findOrFail($id);
+
         $bukutamu->update([
             'nama' => $request->nama,
             'role' => $request->role,
             // 'idagama' => $request->idagama,
-            'idsiswa' => $request->idsiswa,
+            // 'idsiswa' => $request->idsiswa,
+            'idsiswa' => $request->role === 'ortu' ? $request->idsiswa : null,
             'instansi' => $request->instansi,
             'alamat' => $request->alamat,
             'kontak' => $request->kontak,
