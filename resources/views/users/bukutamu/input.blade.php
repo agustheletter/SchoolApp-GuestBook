@@ -193,7 +193,8 @@
 
                     <div class="mb-4 flex items-center gap-4">
                         <label for="jabatan" class="w-52 text-left font-semibold">Bertemu Dengan (Jabatan)</label>
-                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_jabatan" id="jabatan" required>
+                        <select class="select2 flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" 
+                            name="id_jabatan" id="jabatan" required>
                             <option value="" disabled selected>Pilih Jabatan</option>
                             @foreach ($jabatan as $j)
                                 <option value="{{ $j->id }}">{{ $j->nama_jabatan }}</option>
@@ -203,7 +204,8 @@
 
                     <div class="mb-4 flex items-center gap-4">
                         <label for="pegawai" class="w-52 text-left font-semibold">Nama Pegawai / Guru</label>
-                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="id_pegawai" id="pegawai" required>
+                        <select class="select2 flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" 
+                            name="id_pegawai" id="pegawai" required>
                             <option value="">Pilih Nama Pegawai / Guru</option>
                         </select>
                     </div>
@@ -354,8 +356,14 @@
                 width: 'resolve'
             });
 
-            $('#idsiswa').select2({
-                placeholder: 'Pilih Nama Siswa',
+            $('#jabatan').select2({
+                placeholder: 'Pilih Jabatan',
+                allowClear: true,
+                width: 'resolve'
+            });
+
+            $('#pegawai').select2({
+                placeholder: 'Pilih Nama Pegawai',
                 allowClear: true,
                 width: 'resolve'
             });
