@@ -148,10 +148,29 @@
                     @csrf
                     <input type="hidden" name="role" value="ortu">
 
+                    <div class="mb-6 flex items-center gap-4">
+                        <label for="foto_tamu_ortu" class="w-52 text-left font-semibold">Ambil Foto</label>
+                        <div class="flex flex-row gap-4 items-center justify-center">
+                            <!-- Video Kamera (Preview) -->
+                            <div id="camera_ortu" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
+
+                            <!-- Tombol Ambil Foto -->
+                            <button type="button" onclick="take_snapshot_ortu()" class="bg-yellow-500 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-yellow-600 transition">
+                                Ambil Foto
+                            </button>
+
+                            <!-- Hasil Foto (Awalnya hidden) -->
+                            <div id="result_ortu" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] hidden">
+                                <img src="" class="w-full h-full object-cover" id="foto-result-ortu">
+                            </div>
+                        </div>
+                        <input type="hidden" name="foto_tamu" id="foto_tamu_ortu">
+                    </div>
+
                     <div class="mb-4 flex items-center gap-4">
                         <label for="idsiswa" class="w-52 text-left font-semibold">Orang Tua dari Siswa</label>
                         <select class="select2 flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            name="idsiswa" id="idsiswa" required>
+                            style="width: 300px" name="idsiswa" id="idsiswa" required>
                             <option value="" selected disabled>Pilih Nama Siswa</option>
                             @foreach ($siswa as $s)
                                 <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
@@ -208,25 +227,6 @@
                         <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
                     </div>
 
-                    <div class="mb-6 flex items-center gap-4">
-                        <label for="foto_tamu_ortu" class="w-52 text-left font-semibold">Ambil Foto</label>
-                        <div class="flex flex-row gap-4 items-center justify-center">
-                            <!-- Video Kamera (Preview) -->
-                            <div id="camera_ortu" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
-
-                            <!-- Tombol Ambil Foto -->
-                            <button type="button" onclick="take_snapshot_ortu()" class="bg-yellow-500 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-yellow-600 transition">
-                                Ambil Foto
-                            </button>
-
-                            <!-- Hasil Foto (Awalnya hidden) -->
-                            <div id="result_ortu" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] hidden">
-                                <img src="" class="w-full h-full object-cover" id="foto-result-ortu">
-                            </div>
-                        </div>
-                        <input type="hidden" name="foto_tamu" id="foto_tamu_ortu">
-                    </div>
-
                     <div class="flex gap-3 justify-end">
                         <a href="{{ route('landing') }}"
                             class="w-52 bg-[#ffd369] hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300 text-center">
@@ -245,6 +245,25 @@
                 <form method="POST" action="{{ route('guestbook.store') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="role" value="umum">
+
+                    <div class="mb-6 flex items-center gap-4">
+                        <label for="foto_tamu_umum" class="w-52 text-left font-semibold">Ambil Foto</label>
+                        <div class="flex flex-row gap-4 items-center justify-center">
+                            <!-- Video Kamera (Preview) -->
+                            <div id="camera_umum" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
+
+                            <!-- Tombol Ambil Foto -->
+                            <button type="button" onclick="take_snapshot_umum()" class="bg-yellow-500 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-yellow-600 transition">
+                                Ambil Foto
+                            </button>
+
+                            <!-- Hasil Foto (Awalnya hidden) -->
+                            <div id="result_umum" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] hidden">
+                                <img src="" class="w-full h-full object-cover" id="foto-result-umum">
+                            </div>
+                        </div>
+                        <input type="hidden" name="foto_tamu" id="foto_tamu_umum">
+                    </div>
 
                     <div class="mb-4 flex items-center gap-4">
                         <label for="namaTamu" class="w-52 text-left font-semibold">Nama</label>
@@ -296,26 +315,6 @@
                     <div class="mb-4 flex items-center gap-4">
                         <label for="keperluan" class="w-52 text-left font-semibold">Keperluan</label>
                         <textarea rows="3" type="text" class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" name="keperluan" id="keperluan" placeholder="Masukan Keperluan" required></textarea>
-                    </div>
-
-
-                    <div class="mb-6 flex items-center gap-4">
-                        <label for="foto_tamu_umum" class="w-52 text-left font-semibold">Ambil Foto</label>
-                        <div class="flex flex-row gap-4 items-center justify-center">
-                            <!-- Video Kamera (Preview) -->
-                            <div id="camera_umum" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
-
-                            <!-- Tombol Ambil Foto -->
-                            <button type="button" onclick="take_snapshot_umum()" class="bg-yellow-500 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-yellow-600 transition">
-                                Ambil Foto
-                            </button>
-
-                            <!-- Hasil Foto (Awalnya hidden) -->
-                            <div id="result_umum" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] hidden">
-                                <img src="" class="w-full h-full object-cover" id="foto-result-umum">
-                            </div>
-                        </div>
-                        <input type="hidden" name="foto_tamu" id="foto_tamu_umum">
                     </div>
 
                     <div class="flex gap-3 justify-end">
