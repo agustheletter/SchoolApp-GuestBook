@@ -44,33 +44,26 @@
             -webkit-transform: scaleX(-1); /* untuk Safari */
         }
 
-        /* Samakan tampilan select2 dengan input Tailwind */
         .select2-container--default .select2-selection--single {
             background-color: white;
-            border: 1px solid #cbd5e1; /* Tailwind border-slate-300 */
-            border-radius: 0.375rem;   /* Tailwind rounded-md */
-            padding: 0.5rem 1rem;      /* Tailwind px-4 py-2 */
-            height: 42px;              /* Set height agar sama dengan input */
+            border: 1px solid #cbd5e1; /* border-slate-300 */
+            border-radius: 0.375rem;   /* rounded-md */
+            padding: 0 0.75rem;        /* px-3 */
+            height: 42px;              /* sama kayak input biasa */
             display: flex;
             align-items: center;
             box-sizing: border-box;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__rendered {
-            color: #000;
-            padding-left: 0;
-            line-height: 1.25rem; /* Sama seperti input biasa */
+            padding-left: 0; /* biar ga dobel padding */
+            line-height: normal;
         }
 
-        .select2-container--default .select2-selection--single .select2-selection__arrow {
-            height: 100%;
-            top: 0;
-            right: 10px;
-        }
-
-        /* Biar select2 tetap full width */
         .select2-container {
             width: 100% !important;
+            max-width: 100%; /* batasi biar nggak lebih lebar */
+            box-sizing: border-box; /* ini penting */
         }
     </style>
 </head>
@@ -193,7 +186,7 @@
 
                     <div class="mb-4 flex items-center gap-4">
                         <label for="jabatan" class="w-52 text-left font-semibold">Bertemu Dengan (Jabatan)</label>
-                        <select class="select2 flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" 
+                        <select class="select2 flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                             name="id_jabatan" id="jabatan" required>
                             <option value="" disabled selected>Pilih Jabatan</option>
                             @foreach ($jabatan as $j)
@@ -204,7 +197,7 @@
 
                     <div class="mb-4 flex items-center gap-4">
                         <label for="pegawai" class="w-52 text-left font-semibold">Nama Pegawai / Guru</label>
-                        <select class="select2 flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" 
+                        <select class="select2 flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                             name="id_pegawai" id="pegawai" required>
                             <option value="">Pilih Nama Pegawai / Guru</option>
                         </select>
@@ -353,7 +346,7 @@
             $('#idsiswa').select2({
                 placeholder: 'Pilih Nama Siswa',
                 allowClear: true,
-                width: 'resolve'
+                width: '80%' // pastikan ini juga
             });
 
             $('#jabatan').select2({
@@ -516,31 +509,60 @@
         // });
 
         // fungsi kolom otomatis (nama siswa - nama ortu)
-        document.getElementById('idsiswa').addEventListener('change', function() {
-            var idsiswa = this.value;
-            if (idsiswa) {
-                fetch('/getOrangtua/' + idsiswa)
-                    .then(response => {
-                        if (!response.ok) throw new Error('Data tidak ditemukan');
-                        return response.json();
-                    })
-                    .then(data => {
-                        document.getElementById('namaOrtu').value   = data.nama_ortu || '';
-                        document.getElementById('kontakOrtu').value = data.kontak || '';
-                        document.getElementById('alamatOrtu').value = data.alamat || '';
-                    })
-                    .catch(error => {
-                        console.error('Error fetching data:', error);
-                        document.getElementById('namaOrtu').value   = '';
-                        document.getElementById('kontakOrtu').value = '';
-                        document.getElementById('alamatOrtu').value = '';
-                    });
-            } else {
-                document.getElementById('namaOrtu').value = '';
-                document.getElementById('kontakOrtu').value = '';
-                document.getElementById('alamatOrtu').value = '';
-            }
+        // document.getElementById('idsiswa').addEventListener('change', function() {
+        //     var idsiswa = this.value;
+        //     if (idsiswa) {
+        //         fetch('/getOrangtua/' + idsiswa)
+        //             .then(response => {
+        //                 if (!response.ok) throw new Error('Data tidak ditemukan');
+        //                 return response.json();
+        //             })
+        //             .then(data => {
+        //                 document.getElementById('namaOrtu').value   = data.nama_ortu || '';
+        //                 document.getElementById('kontakOrtu').value = data.kontak || '';
+        //                 document.getElementById('alamatOrtu').value = data.alamat || '';
+        //             })
+        //             .catch(error => {
+        //                 console.error('Error fetching data:', error);
+        //                 document.getElementById('namaOrtu').value   = '';
+        //                 document.getElementById('kontakOrtu').value = '';
+        //                 document.getElementById('alamatOrtu').value = '';
+        //             });
+        //     } else {
+        //         document.getElementById('namaOrtu').value = '';
+        //         document.getElementById('kontakOrtu').value = '';
+        //         document.getElementById('alamatOrtu').value = '';
+        //     }
+        // });
+
+        $(document).ready(function() {
+            $('#idsiswa').on('change', function () {
+                var idsiswa = $(this).val();
+                if (idsiswa) {
+                    fetch('/getOrangtua/' + idsiswa)
+                        .then(response => {
+                            if (!response.ok) throw new Error('Data tidak ditemukan');
+                            return response.json();
+                        })
+                        .then(data => {
+                            $('#namaOrtu').val(data.nama_ortu || '');
+                            $('#kontakOrtu').val(data.kontak || '');
+                            $('#alamatOrtu').val(data.alamat || '');
+                        })
+                        .catch(error => {
+                            console.error('Error fetching data:', error);
+                            $('#namaOrtu').val('');
+                            $('#kontakOrtu').val('');
+                            $('#alamatOrtu').val('');
+                        });
+                } else {
+                    $('#namaOrtu').val('');
+                    $('#kontakOrtu').val('');
+                    $('#alamatOrtu').val('');
+                }
+            });
         });
+
 
         // $(document).ready(function() {
         //     $('#jabatan2').change(function() {
