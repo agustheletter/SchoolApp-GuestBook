@@ -55,6 +55,12 @@
 
     <!-- Konten -->
     <div class="relative z-10 w-full h-[440px] container mx-auto px-6 pb-12">
+
+        {{-- <div class="w-full h-[350px] my-0 flex justify-center gap-4">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div> --}}
+        
         <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-36 h-36 mx-auto mb-4 transition duration-300 hover:scale-110" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
         <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">Selamat Datang di Buku Tamu Digital</h2>
         <p class="text-xl text-gray-700 drop-shadow-md mb-28" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">Catat kehadiran tamu secara efisien dan terorganisir</p>

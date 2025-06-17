@@ -360,6 +360,18 @@
                 width: 'resolve'
             });
 
+            $('#jabatan2').select2({
+                placeholder: 'Pilih Jabatan',
+                allowClear: true,
+                width: 'resolve'
+            });
+
+            $('#pegawai2').select2({
+                placeholder: 'Pilih Nama Pegawai',
+                allowClear: true,
+                width: 'resolve'
+            });
+
         });
 
         // Fungsi untuk mengatur tab aktif: 'tamu-umum' atau 'orang-tua' dan menampilkan/menghilangkan form terkait
