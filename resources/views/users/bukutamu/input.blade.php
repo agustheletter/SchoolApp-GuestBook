@@ -6,6 +6,9 @@
     <title>Input | Guestbook</title>
     <link rel="icon" href="{{ asset('gambar/icon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/css/select2.min.css" rel="stylesheet" />
+    <script src="assets/js/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/select2.min.js"></script>
 
     <script src="{{ asset('tailwindcdn.js') }}"></script>
 
@@ -123,7 +126,8 @@
                         <label for="idsiswa" class="w-52 text-left font-semibold">Orang Tua dari Siswa</label>
                         <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                             name="idsiswa" id="idsiswa" required>
-                            <option value="" selected disabled>Pilih Nama Siswa</option>
+                            {{-- <option value="" selected disabled>Pilih Nama Siswa</option> --}}
+                            <option></option>
                             @foreach ($siswa as $s)
                                 <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
                             @endforeach
@@ -310,6 +314,14 @@
     </footer>
 
     <script>
+        // Fungsi untuk select two
+        $(document).ready(function() {
+            $('#idsiswa').select2({
+                placeholder: 'Pilih Nama Siswa',
+                allowClear: true
+            });
+        });
+
         // Fungsi untuk mengatur tab aktif: 'tamu-umum' atau 'orang-tua' dan menampilkan/menghilangkan form terkait
         function setActiveTab(tabId) {
             const tabIds = ['tamu-umum', 'orang-tua'];
