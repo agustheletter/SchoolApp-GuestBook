@@ -6,9 +6,17 @@
     <title>Input | Guestbook</title>
     <link rel="icon" href="{{ asset('gambar/icon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="assets/css/select2.min.css" rel="stylesheet" />
-    <script src="assets/js/jquery-3.5.1.min.js"></script>
-    <script src="assets/js/select2.min.js"></script>
+
+    <!-- CSS Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- jQuery (wajib) -->
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script src="{{ asset('TemplateAdminLTE') }}/plugins/jquery/jquery.min.js"></script>
+
+    <!-- JS Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
     <script src="{{ asset('tailwindcdn.js') }}"></script>
 
@@ -22,10 +30,6 @@
 
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
-    {{-- JQuery --}}
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-    <script src="{{ asset('TemplateAdminLTE') }}/plugins/jquery/jquery.min.js"></script>
-
     <style>
         body {
             background-image: url('{{ asset('gambar/smkn1cimahi.jpg') }}');
@@ -38,6 +42,35 @@
         #camera_umum video {
             transform: scaleX(-1); /* efek mirror */
             -webkit-transform: scaleX(-1); /* untuk Safari */
+        }
+
+        /* Samakan tampilan select2 dengan input Tailwind */
+        .select2-container--default .select2-selection--single {
+            background-color: white;
+            border: 1px solid #cbd5e1; /* Tailwind border-slate-300 */
+            border-radius: 0.375rem;   /* Tailwind rounded-md */
+            padding: 0.5rem 1rem;      /* Tailwind px-4 py-2 */
+            height: 42px;              /* Set height agar sama dengan input */
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #000;
+            padding-left: 0;
+            line-height: 1.25rem; /* Sama seperti input biasa */
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100%;
+            top: 0;
+            right: 10px;
+        }
+
+        /* Biar select2 tetap full width */
+        .select2-container {
+            width: 100% !important;
         }
     </style>
 </head>
@@ -124,10 +157,9 @@
 
                     <div class="mb-4 flex items-center gap-4">
                         <label for="idsiswa" class="w-52 text-left font-semibold">Orang Tua dari Siswa</label>
-                        <select class="flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        <select class="select2 flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                             name="idsiswa" id="idsiswa" required>
-                            {{-- <option value="" selected disabled>Pilih Nama Siswa</option> --}}
-                            <option></option>
+                            <option value="" selected disabled>Pilih Nama Siswa</option>
                             @foreach ($siswa as $s)
                                 <option value="{{ $s->idsiswa }}">{{ $s->namasiswa }}</option>
                             @endforeach
@@ -318,8 +350,16 @@
         $(document).ready(function() {
             $('#idsiswa').select2({
                 placeholder: 'Pilih Nama Siswa',
-                allowClear: true
+                allowClear: true,
+                width: 'resolve'
             });
+
+            $('#idsiswa').select2({
+                placeholder: 'Pilih Nama Siswa',
+                allowClear: true,
+                width: 'resolve'
+            });
+
         });
 
         // Fungsi untuk mengatur tab aktif: 'tamu-umum' atau 'orang-tua' dan menampilkan/menghilangkan form terkait
