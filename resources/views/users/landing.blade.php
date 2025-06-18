@@ -60,7 +60,7 @@
             <iframe width="560" height="315" src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div> --}}
-        
+
         <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-36 h-36 mx-auto mb-4 transition duration-300 hover:scale-110" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
         <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">Selamat Datang di Buku Tamu Digital</h2>
         <p class="text-xl text-gray-700 drop-shadow-md mb-28" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">Catat kehadiran tamu secara efisien dan terorganisir</p>
@@ -87,20 +87,20 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-right" data-aos-duration="500" data-aos-delay="1600">
+            <div class="flex flex-col group px-8 py-20 bg-white text-gray-600 rounded shadow transition-all duration-300 hover:scale-[1.03] hover:translate-y-2 hover:bg-slate-800 hover:text-white" data-aos="fade-right" data-aos-duration="500" data-aos-delay="1600">
                 <i class="fas fa-keyboard text-6xl mb-4"></i>
                 <h4 class="text-xl font-bold mb-3">Input Otomatis</h4>
-                <p class="text-gray-600">Nama orang tua siswa akan terisi secara otomatis setelah memilih nama siswa dari daftar, sehingga mempercepat dan memudahkan proses pengisian data tamu.</p>
+                <p class="text-base">Nama orang tua siswa akan terisi secara otomatis setelah memilih nama siswa dari daftar, sehingga mempercepat dan memudahkan proses pengisian data tamu.</p>
             </div>
-            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="2000">
+            <div class="flex flex-col group px-8 py-20 bg-white text-gray-600 rounded shadow transition-all duration-300 hover:scale-[1.03] hover:translate-y-2 hover:bg-slate-800 hover:text-white" data-aos="fade-up" data-aos-duration="500" data-aos-delay="2000">
                 <i class="fas fa-signal text-6xl mb-4"></i>
                 <h4 class="text-xl font-bold mb-3">Rekap Kunjungan</h4>
-                <p class="text-gray-600">Setiap data tamu yang tercatat akan tersimpan secara rapi dalam sistem, sehingga memudahkan sekolah dalam melihat riwayat kunjungan kapan saja.</p>
+                <p class="text-base">Setiap data tamu yang tercatat akan tersimpan secara rapi dalam sistem, sehingga memudahkan sekolah dalam melihat riwayat kunjungan kapan saja.</p>
             </div>
-            <div class="px-8 py-20 bg-white rounded shadow transition duration-300 hover:scale-[1.03] hover:translate-y-2" data-aos="fade-left" data-aos-duration="500" data-aos-delay="2400">
+            <div class="flex flex-col group px-8 py-20 bg-white text-gray-600 rounded shadow transition-all duration-300 hover:scale-[1.03] hover:translate-y-2 hover:bg-slate-800 hover:text-white" data-aos="fade-left" data-aos-duration="500" data-aos-delay="2400">
                 <i class="fas fa-database text-6xl mb-4"></i>
                 <h4 class="text-xl font-bold mb-3">Pengelolaan Data</h4>
-                <p class="text-gray-600 text-base">Aplikasi ini menyediakan fitur pengelolaan data penting seperti pegawai, jabatan, siswa, dan agama, agar sistem tetap terorganisir dan mudah diperbarui.</p>
+                <p class="text-base">Aplikasi ini menyediakan fitur pengelolaan data penting seperti pegawai, jabatan, siswa, dan agama, agar sistem tetap terorganisir dan mudah diperbarui.</p>
             </div>
         </div>
     </div>
@@ -243,7 +243,7 @@
     <p>&copy; {{ date('Y') }} Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
   </footer>
 
-  <!-- Sweet Alert -->
+<!-- Sweet Alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if (session('success'))
