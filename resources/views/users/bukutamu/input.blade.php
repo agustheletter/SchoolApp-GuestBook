@@ -65,6 +65,10 @@
             max-width: 100%; /* batasi biar nggak lebih lebar */
             box-sizing: border-box; /* ini penting */
         }
+
+        span.select2 {
+            flex: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 poppins flex flex-col min-h-screen">
@@ -218,7 +222,7 @@
                         <label for="pegawai" class="w-52 text-left font-semibold">Nama Pegawai / Guru</label>
                         <select class="select2 flex-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                             name="id_pegawai" id="pegawai" required>
-                            <option value="">Pilih Nama Pegawai / Guru</option>
+                            <option value="" disabled selected>Pilih Nama Pegawai / Guru</option>
                         </select>
                     </div>
 
@@ -345,7 +349,7 @@
             $('#idsiswa').select2({
                 placeholder: 'Pilih Nama Siswa',
                 allowClear: true,
-                width: '80%' // pastikan ini juga
+                width: '80%'
             });
 
             $('#jabatan').select2({
@@ -355,7 +359,7 @@
             });
 
             $('#pegawai').select2({
-                placeholder: 'Pilih Nama Pegawai',
+                placeholder: 'Pilih Nama Pegawai / Guru',
                 allowClear: true,
                 width: 'resolve'
             });
@@ -367,7 +371,7 @@
             });
 
             $('#pegawai2').select2({
-                placeholder: 'Pilih Nama Pegawai',
+                placeholder: 'Pilih Nama Pegawai / Guru',
                 allowClear: true,
                 width: 'resolve'
             });
@@ -473,7 +477,7 @@
                             const kepala = data[0];
                             $pegawai.append('<option value="' + kepala.id + '" selected>' + kepala.nama_pegawai + '</option>');
                         } else {
-                            $pegawai.append('<option>Pilih Nama Pegawai</option>');
+                            $pegawai.append('<option value="">Pilih Nama Pegawai / Guru</option>');
                             $.each(data, function(_, value) {
                                 $pegawai.append('<option value="' + value.id + '">' + value.nama_pegawai + '</option>');
                             });
