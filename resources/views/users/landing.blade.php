@@ -42,7 +42,7 @@
         @if(Auth::check())
         <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
         @else
-        <a href="{{ route('login') }}" class="ml-1 bg-black text-white px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-white hover:text-black">Login</a>
+        <a href="{{ route('login') }}" class="ml-1 bg-white text-black px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-black hover:text-white">Login</a>
         @endif
       </nav>
     </div>
@@ -50,7 +50,11 @@
 
   <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center text-center overflow-hidden">
     <!-- Lingkaran Kuning Hanya di Atas -->
-    <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] bg-[#ffd369] rounded-full z-0"></div>
+    {{-- <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] bg-[#ffd369] rounded-full z-0"></div> --}}
+
+    <!-- Lingkaran Gradasi Biru Cool -->
+    <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] rounded-full z-0" style="background: linear-gradient(135deg, #1E3A8A, #2563EB, #3B82F6, #60A5FA, #93C5FD);"></div>
+
     <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
     <!-- Konten -->
@@ -318,10 +322,14 @@
 
     window.addEventListener('scroll', () => {
         if (window.scrollY > 10) {
-        navbar.classList.add('bg-[#f0c256]', 'shadow-md');
+        // navbar.classList.add('bg-[#f0c256]', 'shadow-md');
+
+        navbar.classList.add('bg-[#568ef8]', 'shadow-md');
         navbar.classList.remove('bg-transparent');
         } else {
-        navbar.classList.remove('bg-[#f0c256]', 'shadow-md');
+        // navbar.classList.remove('bg-[#f0c256]', 'shadow-md');
+
+        navbar.classList.remove('bg-[#568ef8]', 'shadow-md');
         navbar.classList.add('bg-transparent');
         }
     });
