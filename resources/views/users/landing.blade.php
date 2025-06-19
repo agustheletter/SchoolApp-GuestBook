@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home | Guestbook</title>
-  <link rel="icon" href="{{ asset('gambar/icon.png') }}">
+  <link rel="icon" href="{{ asset('gambar/icon2.png') }}">
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script src="{{ asset('tailwindcdn.js') }}"></script>
@@ -31,7 +31,7 @@
   <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-900 p-5">
     <div class="mx-12 flex justify-between items-center">
         <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
-            <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
+            <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
             <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl group-hover:text-slate-100 transition duration-300">GuestBook</h1>
         </a>
       <nav class="flex items-center justify-center gap-5">
@@ -65,7 +65,7 @@
             <iframe width="560" height="315" src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div> --}}
 
-        <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-36 h-36 mx-auto mb-4 transition duration-300 hover:scale-110" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
+        <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-36 h-36 mx-auto mb-4 transition duration-300 hover:scale-110" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
         <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">Selamat Datang di Buku Tamu Digital</h2>
         <p class="text-xl text-gray-700 drop-shadow-md mb-28" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">Catat kehadiran tamu secara efisien dan terorganisir</p>
         <div class="w-fit mx-auto flex items-center justify-center bg-white gap-3 p-2 rounded-full" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1400">
@@ -126,7 +126,7 @@
 
         <!-- Icon -->
         <div class="flex justify-center mb-8" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1200">
-            <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-48 h-w-48 mx-auto drop-shadow-xl transition duration-300 hover:scale-110">
+            <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-48 h-w-48 mx-auto drop-shadow-xl transition duration-300 hover:scale-110">
         </div>
 
         <p class="text-lg text-gray-600 max-w-5xl mx-auto" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1600">Aplikasi Buku Tamu Digital ini adalah proyek tugas akhir kami untuk mata pelajaran pengembangan website, dibangun menggunakan Laravel dan MySQL. Aplikasi ini dirancang untuk membantu sekolah dalam mencatat dan mengelola kunjungan tamu—baik orang tua siswa maupun tamu umum—secara efisien dan terstruktur. Fitur-fitur utamanya meliputi input data tamu secara langsung, pemisahan kategori tamu, pencatatan tujuan kunjungan, serta pengelolaan data pegawai, siswa, jabatan, dan agama. Seluruh data tersimpan secara digital sehingga memudahkan pencarian, rekap, dan pelaporan kunjungan.</p>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Guestbook</title>
-    <link rel="icon" href="{{ asset('gambar/icon.png') }}">
+    <link rel="icon" href="{{ asset('gambar/icon2.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script src="{{ asset('tailwindcdn.js') }}"></script>
@@ -21,7 +21,7 @@
     <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[#f0c256] text-slate-900 p-5 shadow-2xl">
         <div class="mx-12 flex justify-between items-center">
             <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
-                <img src="{{ asset('gambar/icon.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
+                <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
                 <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl group-hover:text-slate-100 transition duration-300">GuestBook</h1>
             </a>
             <nav class="flex items-center justify-center gap-5">
