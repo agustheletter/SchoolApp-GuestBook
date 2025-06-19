@@ -74,7 +74,7 @@
 <body class="bg-gray-50 text-gray-800 poppins flex flex-col min-h-screen">
 
     <!-- Navbar -->
-    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[#f0c256] text-slate-900 p-5 shadow-2xl">
+    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[radial-gradient(circle_800px_at_100%_200px,#60A5FA)] text-slate-900 p-5 shadow-2xl">
         <div class="mx-12 flex justify-between items-center">
             <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
                 <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
@@ -156,15 +156,15 @@
                         <label for="foto_tamu_ortu" class="w-52 text-left font-semibold">Ambil Foto</label>
                         <div class="flex flex-row gap-4 items-center justify-center">
                             <!-- Video Kamera (Preview) -->
-                            <div id="camera_ortu" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
+                            <div id="camera_ortu" class="rounded-xl border-4 border-[#60A5FA] overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
 
                             <!-- Tombol Ambil Foto -->
-                            <button type="button" onclick="take_snapshot_ortu()" class="bg-yellow-500 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-yellow-600 transition">
+                            <button type="button" onclick="take_snapshot_ortu()" class="bg-[#60A5FA] text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-[#3B82F6] transition">
                                 Ambil Foto
                             </button>
 
                             <!-- Hasil Foto (Awalnya hidden) -->
-                            <div id="result_ortu" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] hidden">
+                            <div id="result_ortu" class="rounded-xl border-4 border-[#60A5FA] overflow-hidden w-[320px] h-[240px] hidden">
                                 <img src="" class="w-full h-full object-cover" id="foto-result-ortu">
                             </div>
                         </div>
@@ -233,7 +233,7 @@
 
                     <div class="flex gap-3 justify-end">
                         <a href="{{ route('landing') }}"
-                            class="w-52 bg-[#ffd369] hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300 text-center">
+                            class="w-52 bg-[#60A5FA] hover:bg-gray-800 hover:text-[#60A5FA] text-gray-800 font-semibold py-2 rounded-md transition duration-300 text-center">
                             Kembali
                         </a>
 
@@ -254,15 +254,15 @@
                         <label for="foto_tamu_umum" class="w-52 text-left font-semibold">Ambil Foto</label>
                         <div class="flex flex-row gap-4 items-center justify-center">
                             <!-- Video Kamera (Preview) -->
-                            <div id="camera_umum" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
+                            <div id="camera_umum" class="rounded-xl border-4 border-[#60A5FA] overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
 
                             <!-- Tombol Ambil Foto -->
-                            <button type="button" onclick="take_snapshot_umum()" class="bg-yellow-500 text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-yellow-600 transition">
+                            <button type="button" onclick="take_snapshot_umum()" class="bg-[#60A5FA] text-white px-4 py-2 w-40 h-12 rounded-md hover:bg-[#3B82F6] transition">
                                 Ambil Foto
                             </button>
 
                             <!-- Hasil Foto (Awalnya hidden) -->
-                            <div id="result_umum" class="rounded-xl border-4 border-yellow-400 overflow-hidden w-[320px] h-[240px] hidden">
+                            <div id="result_umum" class="rounded-xl border-4 border-[#60A5FA] overflow-hidden w-[320px] h-[240px] hidden">
                                 <img src="" class="w-full h-full object-cover" id="foto-result-umum">
                             </div>
                         </div>
@@ -323,7 +323,7 @@
 
                     <div class="flex gap-3 justify-end">
                         <a href="{{ route('landing') }}"
-                            class="w-52 bg-[#ffd369] hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300 text-center">
+                            class="w-52 bg-[#60A5FA] hover:bg-gray-800 hover:text-[#60A5FA] text-gray-800 font-semibold py-2 rounded-md transition duration-300 text-center">
                             Kembali
                         </a>
 

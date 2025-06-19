@@ -23,7 +23,7 @@
 
 <body class="bg-gray-50 text-gray-800 poppins overflow-x-hidden">
   <!-- Tombol Scroll ke Atas -->
-  <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-yellow-500 text-white p-4 rounded-full shadow-lg hover:bg-yellow-600 transition opacity-0 pointer-events-none flex flex-col items-center justify-center z-[9999]">
+  <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-[#60A5FA] text-white p-4 rounded-full shadow-lg hover:bg-[#3B82F6] transition opacity-0 pointer-events-none flex flex-col items-center justify-center z-[9999]">
     <span class="text-2xl font-bold">↑</span>
     <span class="text-xs mt-1">Top</span>
   </button>
@@ -113,7 +113,7 @@
   <section id="tentang" class="py-28 flex items-center justify-center min-h-screen relative">
 
     <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
-        <div class="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#facc1580,transparent)]"></div>
+        <div class="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#60A5FA,transparent)]"></div>
     </div>
 
 
