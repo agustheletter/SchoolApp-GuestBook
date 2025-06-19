@@ -18,7 +18,7 @@
 <body class="bg-gray-50 text-gray-800 poppins">
 
     <!-- Navbar -->
-    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[#f0c256] text-slate-900 p-5 shadow-2xl">
+    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[radial-gradient(circle_800px_at_100%_200px,#60A5FA)] text-slate-900 p-5 shadow-2xl">
         <div class="mx-12 flex justify-between items-center">
             <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
                 <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
@@ -69,7 +69,7 @@
                 @endforeach
             </select>
         </div>
-        <button type="submit" class="w-full bg-yellow-500 hover:bg-gray-800 hover:text-yellow-500 text-gray-800 font-semibold py-2 rounded-md transition duration-300">Masuk</button>
+        <button type="submit" class="w-full bg-[#60A5FA] hover:bg-gray-800 hover:text-[#3B82F6] text-gray-800 font-semibold py-2 rounded-md transition duration-300">Masuk</button>
         </form>
     </div>
   </section>
