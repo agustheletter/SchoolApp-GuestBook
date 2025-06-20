@@ -28,25 +28,67 @@
     <span class="text-xs mt-1">Top</span>
   </button>
 
-  <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-900 p-5">
+  {{-- <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-300 p-5">
     <div class="mx-12 flex justify-between items-center">
         <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
             <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
             <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-gray-800 transition duration-300">GuestBook</h1>
         </a>
       <nav class="flex items-center justify-center gap-5">
-        <a href="#beranda" class="hover:text-slate-100 transition duration-300">Beranda</a>
-        <a href="#fitur" class="hover:text-slate-100 transition duration-300">Fitur</a>
-        <a href="#tentang" class="hover:text-slate-100 transition duration-300">Tentang</a>
-        <a href="#kontak" class="hover:text-slate-100 transition duration-300">Kontak</a>
+        <a href="#beranda" class="hover:text-white transition duration-300">Beranda</a>
+        <a href="#fitur" class="hover:text-white transition duration-300">Fitur</a>
+        <a href="#tentang" class="hover:text-white transition duration-300">Tentang</a>
+        <a href="#kontak" class="hover:text-white transition duration-300">Kontak</a>
         @if(Auth::check())
         <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
         @else
-        <a href="{{ route('login') }}" class="ml-1 bg-white text-black px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-white">Login</a>
+        <a href="{{ route('login') }}" class="ml-1 bg-sky-500 text-slate-100 px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-slate-200">Login</a>
         @endif
       </nav>
     </div>
-  </header>
+  </header> --}}
+
+    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-300 p-5">
+        <div class="mx-4 md:mx-12 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
+            <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
+            <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-gray-800 transition duration-300">GuestBook</h1>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="flex md:flex items-center justify-center gap-5">
+            <a href="#beranda" class="hover:text-white transition duration-300">Beranda</a>
+            <a href="#fitur" class="hover:text-white transition duration-300">Fitur</a>
+            <a href="#tentang" class="hover:text-white transition duration-300">Tentang</a>
+            <a href="#kontak" class="hover:text-white transition duration-300">Kontak</a>
+            @if(Auth::check())
+            <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
+            @else
+            <a href="{{ route('login') }}" class="ml-1 bg-sky-500 text-slate-100 px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-slate-200">Login</a>
+            @endif
+            </nav>
+
+            <!-- Hamburger (Mobile Only) -->
+            <div class="md:hidden">
+            <button id="menuBtn" class="text-white text-2xl focus:outline-none">☰</button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Dropdown) -->
+        <div id="mobileMenu" class="md:hidden hidden mt-4 px-4">
+            <a href="#beranda" class="block py-2 text-white hover:text-blue-400 transition">Beranda</a>
+            <a href="#fitur" class="block py-2 text-white hover:text-blue-400 transition">Fitur</a>
+            <a href="#tentang" class="block py-2 text-white hover:text-blue-400 transition">Tentang</a>
+            <a href="#kontak" class="block py-2 text-white hover:text-blue-400 transition">Kontak</a>
+            @if(Auth::check())
+            <a href="{{ route('home') }}" class="block py-2 mt-2 bg-green-600 hover:bg-green-700 text-white px-6 rounded-md transition duration-200 w-fit">Admin</a>
+            @else
+            <a href="{{ route('login') }}" class="block py-2 mt-2 bg-sky-500 text-white px-6 rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-slate-200 w-fit">Login</a>
+            @endif
+        </div>
+    </header>
+
 
 
 
@@ -417,6 +459,16 @@
 @endif
 
   <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+    });
+
     // Scroll ke atas sebelum reload (opsional tambahan keamanan)
     window.addEventListener('beforeunload', function () {
         window.scrollTo(0, 0);
