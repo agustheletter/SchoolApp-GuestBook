@@ -175,7 +175,7 @@
       <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
       <!-- Main Content Container -->
-      <div class="relative z-10 w-full container mx-auto px-6 flex items-center justify-between min-h-[600px]">
+      <div class="relative z-10 w-full container mx-auto px-6 flex flex-col lg:flex-row items-center justify-between min-h-[600px]">
 
         <!-- Left Side - Content -->
         <div class="w-1/2 flex flex-col items-center text-center space-y-8">
@@ -201,8 +201,8 @@
         </div>
 
         <!-- Right Side - YouTube Video -->
-        <div class="w-1/2 flex items-center justify-center pl-12">
-          <div class="w-full max-w-2xl">
+        <div class="w-full lg:w-1/2 flex items-center justify-center lg:pl-12 my-12 lg:my-0">
+          <div class="w-full max-w-2xl mx-auto">
             <div class="bg-white/90 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-white/30">
               <h3 class="text-2xl font-semibold text-slate-800 mb-6 text-center">
                 Video Profil Sekolah
@@ -476,12 +476,14 @@
         if (window.scrollY > 10) {
         // navbar.classList.add('bg-[#f0c256]', 'shadow-md');
 
-        navbar.classList.add('bg-[#568ef8]', 'shadow-md');
+        // navbar.classList.add('bg-[#568ef8]', 'shadow-md');
+        navbar.classList.add('bg-[#213374]', 'shadow-md');
         navbar.classList.remove('bg-transparent');
         } else {
         // navbar.classList.remove('bg-[#f0c256]', 'shadow-md');
 
-        navbar.classList.remove('bg-[#568ef8]', 'shadow-md');
+        // navbar.classList.remove('bg-[#568ef8]', 'shadow-md');
+        navbar.classList.remove('bg-[#213374]', 'shadow-md');
         navbar.classList.add('bg-transparent');
         }
     });
