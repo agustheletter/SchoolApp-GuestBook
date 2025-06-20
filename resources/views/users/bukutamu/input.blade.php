@@ -74,7 +74,7 @@
 <body class="bg-gray-50 text-gray-800 poppins flex flex-col min-h-screen">
 
     <!-- Navbar -->
-    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[radial-gradient(circle_800px_at_100%_200px,#60A5FA)] text-slate-900 p-5 shadow-2xl">
+    {{-- <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[radial-gradient(circle_800px_at_100%_200px,#60A5FA)] text-slate-900 p-5 shadow-2xl">
         <div class="mx-12 flex justify-between items-center">
             <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
                 <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
@@ -91,6 +91,47 @@
                 <a href="{{ route('login') }}" class="ml-1 bg-black text-white px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-white hover:text-black">Login</a>
                 @endif
             </nav>
+        </div>
+    </header> --}}
+
+    <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[#213374] text-slate-300 p-5">
+        <div class="mx-4 md:mx-12 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
+            <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
+            <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-slate-300 transition duration-300">GuestBook</h1>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="flex md:flex items-center justify-center gap-5">
+            <a href="{{ route('landing') }}" class="hover:text-white transition duration-300">Beranda</a>
+            <a href="{{ route('landing') }}" class="hover:text-white transition duration-300">Fitur</a>
+            <a href="{{ route('landing') }}" class="hover:text-white transition duration-300">Tentang</a>
+            <a href="{{ route('landing') }}" class="hover:text-white transition duration-300">Kontak</a>
+            @if(Auth::check())
+            <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
+            @else
+            <a href="{{ route('login') }}" class="ml-1 bg-sky-500 text-slate-100 px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-slate-200">Login</a>
+            @endif
+            </nav>
+
+            <!-- Hamburger (Mobile Only) -->
+            <div class="md:hidden">
+            <button id="menuBtn" class="text-white text-2xl focus:outline-none">☰</button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Dropdown) -->
+        <div id="mobileMenu" class="md:hidden hidden mt-4 px-4">
+            <a href="{{ route('landing') }}" class="block py-2 text-white hover:text-blue-400 transition">Beranda</a>
+            <a href="{{ route('landing') }}" class="block py-2 text-white hover:text-blue-400 transition">Fitur</a>
+            <a href="{{ route('landing') }}" class="block py-2 text-white hover:text-blue-400 transition">Tentang</a>
+            <a href="{{ route('landing') }}" class="block py-2 text-white hover:text-blue-400 transition">Kontak</a>
+            @if(Auth::check())
+            <a href="{{ route('home') }}" class="block py-2 mt-2 bg-green-600 hover:bg-green-700 text-white px-6 rounded-md transition duration-200 w-fit">Admin</a>
+            @else
+            <a href="{{ route('login') }}" class="block py-2 mt-2 bg-sky-500 text-white px-6 rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-slate-200 w-fit">Login</a>
+            @endif
         </div>
     </header>
 
