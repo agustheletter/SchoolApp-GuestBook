@@ -86,3 +86,24 @@ nav a.active {
     max-width: 800px;
     border-collapse: collapse;
 }
+
+
+/* shape */
+
+@keyframes float {
+0%, 100% { transform: translateY(0px) rotate(0deg); }
+50% { transform: translateY(-20px) rotate(180deg); }
+}
+@keyframes pulse-glow {
+0%, 100% { opacity: 0.6; transform: scale(1); }
+50% { opacity: 0.8; transform: scale(1.05); }
+}
+@keyframes drift {
+0% { transform: translateX(0px) translateY(0px); }
+33% { transform: translateX(30px) translateY(-15px); }
+66% { transform: translateX(-20px) translateY(10px); }
+100% { transform: translateX(0px) translateY(0px); }
+}
+.float-animation { animation: float 6s ease-in-out infinite; }
+.pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+.drift { animation: drift 8s ease-in-out infinite; }

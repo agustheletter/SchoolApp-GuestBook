@@ -32,7 +32,7 @@
     <div class="mx-12 flex justify-between items-center">
         <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
             <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
-            <h1 class="text-2xl font-semibold text-gray-800 drop-shadow-xl group-hover:text-slate-100 transition duration-300">GuestBook</h1>
+            <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-gray-800 transition duration-300">GuestBook</h1>
         </a>
       <nav class="flex items-center justify-center gap-5">
         <a href="#beranda" class="hover:text-slate-100 transition duration-300">Beranda</a>
@@ -42,39 +42,191 @@
         @if(Auth::check())
         <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
         @else
-        <a href="{{ route('login') }}" class="ml-1 bg-white text-black px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-black hover:text-white">Login</a>
+        <a href="{{ route('login') }}" class="ml-1 bg-white text-black px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-white">Login</a>
         @endif
       </nav>
     </div>
   </header>
 
-  <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center text-center overflow-hidden">
+
+
+  {{-- Versi 1 --}}
+  {{-- <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center text-center overflow-hidden">
     <!-- Lingkaran Kuning Hanya di Atas -->
-    {{-- <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] bg-[#ffd369] rounded-full z-0"></div> --}}
+    <!-- <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] bg-[#ffd369] rounded-full z-0"></div> -->
+    <!-- <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] bg-[#699bff] rounded-full z-0"></div> -->
 
     <!-- Lingkaran Gradasi Biru Cool -->
     <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] rounded-full z-0" style="background: linear-gradient(135deg, #1E3A8A, #2563EB, #3B82F6, #60A5FA, #93C5FD);"></div>
+    <!--- <div class="absolute left-1/2 -translate-x-1/2 -top-[1800px] aspect-square rounded-full z-0" style="width: min(3600px, 300vw); background: linear-gradient(135deg, #1E3A8A, #2563EB, #3B82F6, #60A5FA, #93C5FD);"></div> -->
+
 
     <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
     <!-- Konten -->
     <div class="relative z-10 w-full h-[440px] container mx-auto px-6 pb-12">
 
-        {{-- <div class="w-full h-[350px] my-0 flex justify-center gap-4">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div> --}}
-
         <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-36 h-36 mx-auto mb-4 transition duration-300 hover:scale-110" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
-        <h2 class="text-5xl text-gray-800 drop-shadow-lg font-bold mb-4" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">Selamat Datang di Buku Tamu Digital</h2>
-        <p class="text-xl text-gray-700 drop-shadow-md mb-28" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">Catat kehadiran tamu secara efisien dan terorganisir</p>
+        <h2 class="text-5xl text-slate-100 drop-shadow-lg font-bold mb-4" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">Selamat Datang di Buku Tamu Digital</h2>
+        <p class="text-xl text-slate-100 drop-shadow-md mb-28" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">Catat kehadiran tamu secara efisien dan terorganisir</p>
         <div class="w-fit mx-auto flex items-center justify-center bg-white gap-3 p-2 rounded-full" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1400">
             <a href="{{ route('bukutamu.user') }}#ortu" class="bg-gray-200 text-slate-800  font-medium px-9 py-5 text-xl rounded-full shadow hover:bg-blue-600 hover:text-white hover:scale-105 transition duration-300">Orang Tua</a>
             <a href="{{ route('bukutamu.user') }}#umum" class="bg-gray-200 text-slate-800 font-medium px-9 py-5 text-xl rounded-full shadow hover:bg-green-500 hover:text-white hover:scale-105 transition duration-300">Tamu Umum</a>
         </div>
     </div>
-  </section>
+  </section> --}}
 
+  {{-- Versi 2 --}}
+  {{-- <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300">
+      <!-- Blue Gradient Circle Background -->
+      <div class="absolute top-[-3000px] left-1/2 -translate-x-1/2 w-[3600px] h-[3600px] rounded-full z-0" style="background: linear-gradient(135deg, #1E3A8A, #2563EB, #3B82F6, #60A5FA, #93C5FD);"></div>
+
+      <!-- Dot Pattern Background -->
+      <div class="absolute inset-0 -z-10 h-full w-full bg-white/10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+      <!-- Main Content Container -->
+      <div class="relative z-10 w-full container mx-auto px-6 flex items-center justify-between min-h-[600px]">
+
+        <!-- Left Side - Content -->
+        <div class="w-1/2 flex flex-col items-center text-center space-y-8">
+          <img src="{{ asset('gambar/icon2.png') }}" alt="School Icon" class="w-36 h-36 transition duration-300 hover:scale-110" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
+
+          <div class="space-y-4">
+            <h2 class="text-5xl text-slate-100 drop-shadow-lg font-bold" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">
+              Selamat Datang di Buku Tamu Digital
+            </h2>
+            <p class="text-xl text-slate-100 drop-shadow-md" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">
+              Catat kehadiran tamu secara efisien dan terorganisir
+            </p>
+          </div>
+
+          <div class="w-fit flex items-center justify-center bg-white/90 backdrop-blur-sm gap-3 p-2 rounded-full shadow-lg" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1400">
+            <a href="{{ route('bukutamu.user') }}#ortu" class="bg-blue-500 text-white font-medium px-9 py-5 text-xl rounded-full shadow hover:bg-blue-600 hover:scale-105 transition duration-300">
+              Orang Tua
+            </a>
+            <a href="{{ route('bukutamu.user') }}#umum" class="bg-green-500 text-white font-medium px-9 py-5 text-xl rounded-full shadow hover:bg-green-600 hover:scale-105 transition duration-300">
+              Tamu Umum
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Side - YouTube Video -->
+        <div class="w-1/2 flex items-center justify-center pl-12">
+          <div class="w-full max-w-2xl">
+            <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-blue-200">
+              <h3 class="text-2xl font-semibold text-blue-800 mb-6 text-center">
+                Video Profil Sekolah
+              </h3>
+              <div class="relative aspect-video rounded-xl overflow-hidden shadow-md">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd"
+                  title="School Profile Video"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <p class="text-sm text-blue-600 text-center mt-4">
+                Tonton video profil sekolah kami untuk mengetahui lebih lanjut tentang program dan komunitas kami
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section> --}}
+
+    {{-- Versi 3 --}}
+    <section id="beranda" class="relative min-h-screen pt-[88px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-800">
+
+      <!-- Main Gradient Orb - Top Center -->
+      <div class="absolute top-[-2800px] left-1/2 -translate-x-1/2 w-[3400px] h-[3400px] rounded-full z-0 pulse-glow"
+           style="background: radial-gradient(circle, #3B82F6 0%, #1D4ED8 25%, #1E40AF 50%, #1E3A8A 75%, transparent 100%);"></div>
+
+      <!-- Secondary Gradient Orb - Right Side -->
+      <div class="absolute top-[-2000px] right-[-1500px] w-[2800px] h-[2800px] rounded-full z-0 opacity-40"
+           style="background: radial-gradient(circle, #06B6D4 0%, #0891B2 30%, #0E7490 60%, transparent 100%);"></div>
+
+      <!-- Left Side Accent Orb -->
+      <div class="absolute top-[-1800px] left-[-1200px] w-[2400px] h-[2400px] rounded-full z-0 opacity-30"
+           style="background: radial-gradient(circle, #8B5CF6 0%, #7C3AED 40%, #6D28D9 70%, transparent 100%);"></div>
+
+      <!-- Floating Geometric Shapes -->
+      <div class="absolute top-20 left-20 w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl opacity-20 float-animation z-0" style="animation-delay: 0s;"></div>
+      <div class="absolute top-40 right-32 w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full opacity-25 float-animation z-0" style="animation-delay: 1s;"></div>
+      <div class="absolute bottom-32 left-40 w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rotate-45 opacity-15 drift z-0" style="animation-delay: 2s;"></div>
+      <div class="absolute top-60 left-1/3 w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-30 float-animation z-0" style="animation-delay: 3s;"></div>
+      <div class="absolute bottom-48 right-20 w-14 h-14 bg-gradient-to-br from-rose-400 to-red-500 rounded-lg opacity-20 drift z-0" style="animation-delay: 4s;"></div>
+
+      <!-- Hexagonal Shapes -->
+      <div class="absolute top-32 right-1/4 w-10 h-10 opacity-25 float-animation z-0" style="animation-delay: 1.5s; background: linear-gradient(135deg, #F59E0B, #D97706); clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);"></div>
+      <div class="absolute bottom-40 left-1/4 w-16 h-16 opacity-20 drift z-0" style="animation-delay: 2.5s; background: linear-gradient(135deg, #10B981, #059669); clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);"></div>
+
+      <!-- Diamond Shapes -->
+      <div class="absolute top-80 left-16 w-12 h-12 bg-gradient-to-br from-indigo-400 to-purple-600 opacity-30 float-animation z-0 rotate-45" style="animation-delay: 0.5s;"></div>
+      <div class="absolute bottom-60 right-40 w-8 h-8 bg-gradient-to-br from-pink-400 to-rose-600 opacity-25 drift z-0 rotate-45" style="animation-delay: 3.5s;"></div>
+
+      <!-- Dot Pattern Overlay -->
+      <div class="absolute inset-0 -z-10 h-full w-full bg-white/5 bg-[radial-gradient(#ffffff20_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+      <!-- Subtle Grid Overlay -->
+      <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+
+      <!-- Main Content Container -->
+      <div class="relative z-10 w-full container mx-auto px-6 flex items-center justify-between min-h-[600px]">
+
+        <!-- Left Side - Content -->
+        <div class="w-1/2 flex flex-col items-center text-center space-y-8">
+          <img src="{{ asset('gambar/icon2.png') }}" alt="School Icon" class="w-36 h-36 transition duration-300 hover:scale-110 drop-shadow-2xl" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
+
+          <div class="space-y-4">
+            <h2 class="text-5xl text-white drop-shadow-2xl font-bold" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">
+              Selamat Datang di Buku Tamu Digital
+            </h2>
+            <p class="text-xl text-blue-100 drop-shadow-lg" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">
+              Catat kehadiran tamu secara efisien dan terorganisir
+            </p>
+          </div>
+
+          <div class="w-fit flex items-center justify-center bg-white/95 backdrop-blur-lg gap-3 p-2 rounded-full shadow-2xl border border-white/20" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1400">
+            <a href="{{ route('bukutamu.user') }}#ortu" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium px-9 py-5 text-xl rounded-full shadow-lg hover:from-blue-600 hover:to-blue-700 hover:scale-105 transition duration-300">
+              Orang Tua
+            </a>
+            <a href="{{ route('bukutamu.user') }}#umum" class="bg-gradient-to-r from-green-500 to-green-600 text-white font-medium px-9 py-5 text-xl rounded-full shadow-lg hover:from-green-600 hover:to-green-700 hover:scale-105 transition duration-300">
+              Tamu Umum
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Side - YouTube Video -->
+        <div class="w-1/2 flex items-center justify-center pl-12">
+          <div class="w-full max-w-2xl">
+            <div class="bg-white/90 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-white/30">
+              <h3 class="text-2xl font-semibold text-slate-800 mb-6 text-center">
+                Video Profil Sekolah
+              </h3>
+              <div class="relative aspect-video rounded-xl overflow-hidden shadow-xl">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd"
+                  title="School Profile Video"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <p class="text-sm text-slate-600 text-center mt-4">
+                Tonton video profil sekolah kami untuk mengetahui lebih lanjut tentang program dan komunitas kami
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
   {{-- Fitur --}}
   <section id="fitur" class="py-36 min-h-screen relative">
