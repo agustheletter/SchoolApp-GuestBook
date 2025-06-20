@@ -53,7 +53,7 @@
             <!-- Logo -->
             <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
             <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
-            <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-gray-800 transition duration-300">GuestBook</h1>
+            <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-slate-300 transition duration-300">GuestBook</h1>
             </a>
 
             <!-- Desktop Nav -->
