@@ -1,473 +1,397 @@
-<!--awal konten dinamis-->
 @extends('admin/v_admin')
 @section('judulhalaman', 'Daftar Siswa')
 @section('title', 'Siswa')
 
-<!--awal isi konten dinamis-->
 @section('konten')
-
+<div class="p-4">
+    <!-- Success Alert -->
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+        <div class="mb-4 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded flex justify-between items-center">
+            <p>{{ session('success') }}</p>
+            <button type="button" class="text-green-700 hover:text-green-900" onclick="this.parentElement.remove()">
+                <span class="text-2xl">&times;</span>
             </button>
         </div>
     @endif
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahSiswa">
+    <!-- Add Student Button -->
+    <button type="button" class="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded" 
+            onclick="document.getElementById('modalTambahSiswa').classList.remove('hidden')">
         Tambah Data Siswa
     </button>
 
-    <p>
-
-        <!-- Awal membuat table-->
-    <table class="table table-bordered table-striped table-hover" id="table-siswa">
-        <!-- Awal header table-->
-        <thead class="bg-success">
-            <tr>
-                <th><center>No</center></th>
-                <th><center>NIS</center></th>
-                <th><center>NISN</center></th>
-                <th>  <center>Nama Siswa</center>
-                </th>
-
-                <th>
-                    <center>Tempat Lahir</center>
-                </th>
-
-                <th>
-                    <center>Tanggal Lahir</center>
-                </th>
-
-                <th>
-                    <center>Jenis Kelamin</center>
-                </th>
-
-                <th>
-                    <center>Alamat</center>
-                </th>
-
-                <th>
-                    <center>Agama</center>
-                </th>
-
-                <th>
-                    <center>Tlp Rumah</center>
-                </th>
-
-                <th>
-                    <center>HP</center>
-                </th>
-
-                <th>
-                    <center>Photo</center>
-                </th>
-
-                <th>
-                    <center>Tahun Masuk</center>
-                </th>
-
-                <th>
-                    <center>Aksi</center>
-                </th>
-            </tr>
-        </thead>
-
-        <!-- Akhir header table-->
-
-        <!-- Awal menampilkan data dalam table-->
-        <tbody>
-            @foreach ($siswa as $index=> $s)
+    <!-- Student Table -->
+    <div class="overflow-x-auto bg-white rounded-lg shadow">
+        <table class="min-w-full divide-y divide-gray-200" id="table-siswa">
+            <thead class="bg-green-500 text-white">
                 <tr>
-                    <td align="center" scope="row">{{ $index + 1 }}</td>
-                    <td align="center">{{ $s->nis }}</td>
-                    <td align="center">{{ $s->nisn }}</td>
-                    <td>{{ $s->namasiswa }}</td>
-                    <td>{{ $s->tempatlahir }}</td>
-                    <td align="right">{{ $s->tgllahir }}</td>
-                    <td>{{ $s->jk }}</td>
-                    <td>{{ $s->alamat }}</td>
-                    <td>{{ optional($s->agama)->agama }}</td>
-                    <td>{{ $s->tlprumah }}</td>
-                    <td>{{ $s->hpsiswa }}</td>
-                    <td><img width="60px" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}"></td>
-                    <td align="center">{{ $s->thnajaran->thnajaran }}</td>
-
-                    <td align="center">
-                        <button type="button" class="btn btn-xs btn-warning" data-toggle="modal"
-                            data-target="#modalsiswaEdit{{ $s->idsiswa }}">
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">No</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">NIS</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">NISN</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Nama Siswa</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tempat Lahir</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tanggal Lahir</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Alamat</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Agama</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tlp Rumah</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">HP</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Photo</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tahun Masuk</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach ($siswa as $index => $s)
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ $index + 1 }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ $s->nis }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ $s->nisn }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->namasiswa }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->tempatlahir }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right">{{ $s->tgllahir }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->jk }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->alamat }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ optional($s->agama)->agama }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->tlprumah }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->hpsiswa }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <img class="w-16 h-16 object-cover" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}" alt="Photo">
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ $s->thnajaran->thnajaran }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
+                        <!-- Edit Button -->
+                        <button type="button" class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded"
+                                onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.remove('hidden')">
                             <i class="fas fa-edit"></i>
                         </button>
-
-                        <!-- Awal Modal EDIT data siswa -->
-                        <div class="modal fade" id="modalsiswaEdit{{ $s->idsiswa }}" tabindex="-1" role="dialog"
-                            aria-labelledby="modalsiswaEditLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modalsiswaEditLabel">Form Edit Data siswa</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form name="formsiswaedit" id="formsiswaedit" action="/siswa/edit/{{ $s->idsiswa }}" method="post" enctype="multipart/form-data">
-                                            <!--z@csrf-->
-                                            {{ csrf_field() }}
-                                            {{ method_field('PUT') }}
-
-                                            <div class="form-group row">
-                                                <label for="nis" class="col-sm-3 col-form-label text-left">NIS</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="nis" name="nis" value="{{ $s->nis }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="nisn" class="col-sm-3 col-form-label text-left">NISN</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="nisn" name="nisn" value="{{ $s->nisn }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="namasiswa" class="col-sm-3 col-form-label text-left">Nama Siswa</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="namasiswa" name="namasiswa" value="{{ $s->namasiswa }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="tempatlahir" class="col-sm-3 col-form-label text-left">Tempat Lahir</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="tempatlahir" name="tempatlahir" value="{{ $s->tempatlahir }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="tgllahir" class="col-sm-3 col-form-label text-left">Tanggal Lahir</label>
-                                                <div class="col-sm-9">
-                                                    <input type="date" class="form-control" id="tgllahir" name="tgllahir" value="{{ $s->tgllahir }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="jk" class="col-sm-3 col-form-label text-left">Jenis Kelamin</label>
-                                                <div class="col-sm-9 input-group">
-                                                    @if ($s->jk == "L")
-                                                        <div class="input-group-text">
-                                                            <input type="radio" id="jk" name="jk" value="L" checked>
-
-                                                        </div>
-                                                        Laki-laki
-
-                                                        <div class="input-group-text">
-                                                            <input type="radio" id="jk" name="jk" value="P">
-                                                        </div>
-                                                        Perempuan
-                                                    @else
-                                                        <div class="input-group-text">
-                                                            <input type="radio" id="jk" name="jk" value="L" >
-
-                                                        </div>
-                                                        Laki-laki
-
-                                                        <div class="input-group-text">
-                                                            <input type="radio" id="jk" name="jk" value="P" checked>
-                                                        </div>
-                                                        Perempuan
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="alamat" class="col-sm-3 col-form-label text-left">Alamat</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $s->alamat }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="idagama" class="col-sm-3 col-form-label text-left">Agama</label>
-                                                <div class="col-sm-9">
-                                                    <select type="text" class="form-control" id="idagama" name="idagama">
-                                                        @foreach ($agama as $a)
-                                                            @if ($a->idagama == $s->idagama)
-                                                                <option value="{{ $a->idagama }}" selected>{{ $a->agama }}</option>
-                                                            @else
-                                                                <option value="{{ $a->idagama }}">{{ $a->agama }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="tlprumah" class="col-sm-3 col-form-label text-left">Telepon Rumah</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="tlprumah" name="tlprumah" value="{{ $s->tlprumah }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="hpsiswa" class="col-sm-3 col-form-label text-left">HP</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="hpsiswa" name="hpsiswa" value="{{ $s->hpsiswa }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="photo" class="col-sm-3 col-form-label text-left">Photo</label>
-                                                <div class="col-sm-9 text-left">
-                                                    <input type="file" id="photo" name="photosiswa">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="idthnajaran" class="col-sm-3 col-form-label text-left">Tahun Masuk</label>
-                                                <div class="col-sm-9">
-                                                    <select type="text" class="form-control" id="idthnajaran" name="idthnmasuk">
-                                                        @foreach ($thnajaran as $t)
-                                                            @if ($t->idthnajaran == $s->idthnajaran)
-                                                                <option value="{{ $t->idthnajaran }}" selected>{{ $t->thnajaran }}</option>
-                                                            @else
-                                                                <option value="{{ $t->idthnajaran }}">{{ $t->thnajaran }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="modal-footer">
-                                                <button type="button" name="tutup" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                <button type="submit" name="siswaedit" class="btn btn-success">Edit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Akhir Modal EDIT data siswa -->
-
-
-                        |
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
-                            data-target="#modalsiswaHapus{{ $s->idsiswa}}">
+                        
+                        <!-- Delete Button -->
+                        <button type="button" class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded"
+                                onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.remove('hidden')">
                             <i class="fas fa-trash-alt"></i>
                         </button>
-
-                        <!-- Awal Modal hapus data siswa -->
-                        <div class="modal fade" id="modalsiswaHapus{{ $s->idsiswa }}" tabindex="-1"
-                            aria-labelledby="modalsiswaHapusLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h6 class="modal-title" id="modalsiswaHapusLabel">Hapus Data siswa</h6>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h5>Yakin Mau menghapus data siswa ?</h5>
-                                        <h3>
-                                            <font color="red"><span>{{ $s->siswa }} </span></font>
-                                        </h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form action="/siswa/hapus/{{ $s->idsiswa }}" method="get">
-                                            <button type="submit" name="siswahapus" class="btn btn-danger">Hapus</a></button>
-                                        </form>
-                                        <button type="button" name="tutup" class="btn btn-secondary" data-dismiss="modal"
-                                            class="float-right">Tutup</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Akhir Modal hapus data siswa -->
                     </td>
                 </tr>
-            @endforeach
-        <tbody
-        <!-- Akhir menampilkan data dalam table-->
-    </table>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#table-siswa').DataTable();
-        });
-    </script>
+<!-- Add Student Modal -->
+<div id="modalTambahSiswa" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+    <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-start p-5 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">Form Input Data Siswa</h3>
+            <button type="button" onclick="document.getElementById('modalTambahSiswa').classList.add('hidden')" 
+                    class="text-gray-400 hover:text-gray-500">
+                <span class="text-2xl">&times;</span>
+            </button>
+        </div>
+        
+        <!-- Modal Body -->
+        <div class="p-6 space-y-4">
+            <form name="formsiswatambah" id="formsiswatambah" action="/siswa/tambah" method="post" enctype="multipart/form-data">
+                @csrf
+                <!-- NIS Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="nis" class="md:col-span-1 font-medium text-gray-700">NIS</label>
+                    <input type="text" id="nis" name="nis" placeholder="Masukan NIS"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
+                <!-- NISN Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="nisn" class="md:col-span-1 font-medium text-gray-700">NISN</label>
+                    <input type="text" id="nisn" name="nisn" placeholder="Masukan NISN"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
-    {{-- <script type="text/javascript">
-        $(document).ready(function() {
-            $('#table-siswa').DataTable( {
-                "processing": true,
-                "serverSide": true,
-                "ajax": "{{ asset('ssp') }}/loaddata.php",
-            } );
-        } );
-    </script> --}}
+                <!-- Nama Siswa Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="namasiswa" class="md:col-span-1 font-medium text-gray-700">Nama Siswa</label>
+                    <input type="text" id="namasiswa" name="namasiswa" placeholder="Masukan Nama siswa"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
+                <!-- Tempat Lahir Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="tempatlahir" class="md:col-span-1 font-medium text-gray-700">Tempat Lahir</label>
+                    <input type="text" id="tempatlahir" name="tempatlahir" placeholder="Masukan Kota Kelahiran"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
-    <!-- Akhir membuat table-->
+                <!-- Tanggal Lahir Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="tgllahir" class="md:col-span-1 font-medium text-gray-700">Tanggal Lahir</label>
+                    <input type="date" id="tgllahir" name="tgllahir"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
+                <!-- Jenis Kelamin Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label class="md:col-span-1 font-medium text-gray-700">Jenis Kelamin</label>
+                    <div class="md:col-span-3 flex items-center space-x-6">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="jk" value="L" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2">Laki-laki</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="jk" value="P" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2">Perempuan</span>
+                        </label>
+                    </div>
+                </div>
 
+                <!-- Alamat Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="alamat" class="md:col-span-1 font-medium text-gray-700">Alamat</label>
+                    <input type="text" id="alamat" name="alamat" placeholder="Masukan Alamat"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
-    {{-- <!--awal pagination-->
-    Halaman : {{ $siswa->currentPage() }} <br />
-    Jumlah Data : {{ $siswa->total() }} <br />
-    Data Per Halaman : {{ $siswa->perPage() }} <br />
+                <!-- Agama Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="idagama" class="md:col-span-1 font-medium text-gray-700">Agama</label>
+                    <select id="idagama" name="idagama"
+                            class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value=""></option>
+                        @foreach ($agama as $a)
+                            <option value="{{ $a->idagama }}">{{ $a->agama }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-    {{ $siswa->links() }}
-    <!--akhir pagination--> --}}
+                <!-- Telepon Rumah Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="tlprumah" class="md:col-span-1 font-medium text-gray-700">Telepon Rumah</label>
+                    <input type="text" id="tlprumah" name="tlprumah" placeholder="Masukan Nomor Telepon Rumah"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
+                <!-- HP Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="hpsiswa" class="md:col-span-1 font-medium text-gray-700">HP</label>
+                    <input type="text" id="hpsiswa" name="hpsiswa" placeholder="Masukan Nomor HP Siswa"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
+                <!-- Photo Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="photo" class="md:col-span-1 font-medium text-gray-700">Photo</label>
+                    <input type="file" id="photo" name="photo"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
+                <!-- Tahun Masuk Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="idthnajaran" class="md:col-span-1 font-medium text-gray-700">Tahun Masuk</label>
+                    <select id="idthnajaran" name="idthnajaran"
+                            class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value=""></option>
+                        @foreach ($thnajaran as $t)
+                            <option value="{{ $t->idthnajaran }}">{{ $t->thnajaran }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-    <!-- Awal Modal tambah data siswa -->
-    <div class="modal fade" id="modalTambahSiswa" tabindex="-1" role="dialog" aria-labelledby="modalTambahSiswaLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTambahSiswaLabel">Form Input Data Siswa</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                <!-- Modal Footer -->
+                <div class="flex justify-end space-x-4 pt-6 border-t">
+                    <button type="button" onclick="document.getElementById('modalTambahSiswa').classList.add('hidden')"
+                            class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-md transition">
+                        Tutup
+                    </button>
+                    <button type="submit" name="tambahsiswa"
+                            class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition">
+                        Tambah
                     </button>
                 </div>
-                <div class="modal-body">
-
-                    <form name="formsiswatambah" id="formsiswatambah" action="/siswa/tambah " method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group row">
-                            <label for="nis" class="col-sm-3 col-form-label">NIS</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="nis" name="nis" placeholder="Masukan NIS">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="nisn" class="col-sm-3 col-form-label">NISN</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="nisn" name="nisn" placeholder="Masukan NISN">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="namasiswa" class="col-sm-3 col-form-label">Nama Siswa</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="namasiswa" name="namasiswa"
-                                    placeholder="Masukan Nama siswa">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="tempatlahir" class="col-sm-3 col-form-label">Tempat Lahir</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="tempatlahir" name="tempatlahir"
-                                    placeholder="Masukan Kota Kelahiran">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="tgllahir" class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control" id="tgllahir" name="tgllahir">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-
-                            <label for="jk" class="col-sm-3 col-form-label">Jenis Kelamin</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-text">
-                                    <input type="radio" name="jk" value="L">
-                                </div>
-                                Laki-laki
-
-                                <div class="input-group-text">
-                                    <input type="radio" name="jk" value="P">
-                                </div>
-                                Perempuan
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="alamat" name="alamat"
-                                    placeholder="Masukan Alamat">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="idagama" class="col-sm-3 col-form-label">Agama</label>
-                            <div class="col-sm-9">
-                                <select type="text" class="form-control" id="idagama" name="idagama">
-                                    <option></option>
-                                    @foreach ($agama as $a)
-                                        <option value="{{ $a->idagama }}">{{ $a->agama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="tlprumah" class="col-sm-3 col-form-label">Telepon Rumah</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="tlprumah" name="tlprumah"
-                                    placeholder="Masukan Nomor Telepon Rumah">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="hpsiswa" class="col-sm-3 col-form-label">HP</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="hpsiswa" name="hpsiswa"
-                                    placeholder="Masukan Nomor HP Siswa">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="photo" class="col-sm-3 col-form-label">Photo</label>
-                            <div class="col-sm-9">
-                                <input type="file" id="photo" name="photo">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="idthnajaran" class="col-sm-3 col-form-label">Tahun Masuk</label>
-                            <div class="col-sm-9">
-                                <select type="text" class="form-control" id="idthnajaran" name="idthnajaran">
-                                    <option></option>
-                                    @foreach ($thnajaran as $t)
-                                        <option value="{{ $t->idthnajaran }}">{{ $t->thnajaran }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" name="tutup" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                            <button type="submit" name="tambahsiswa" class="btn btn-success">Tambah</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
+            </form>
         </div>
     </div>
-    <!-- Akhir Modal tambah data siswa -->
+</div>
 
+<!-- Edit Student Modals -->
+@foreach ($siswa as $s)
+<div id="modalsiswaEdit{{ $s->idsiswa }}" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+<div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-start p-5 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">Form Edit Data Siswa</h3>
+            <button type="button" onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.add('hidden')" 
+                    class="text-gray-400 hover:text-gray-500">
+                <span class="text-2xl">&times;</span>
+            </button>
+        </div>
+        
+        <!-- Modal Body -->
+        <div class="p-6 space-y-4">
+            <form name="formsiswaedit" id="formsiswaedit" action="/siswa/edit/{{ $s->idsiswa }}" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
 
+                <!-- NIS Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="nis" class="md:col-span-1 font-medium text-gray-700">NIS</label>
+                    <input type="text" id="nis" name="nis" value="{{ $s->nis }}"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
 
+                <!-- NISN Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="nisn" class="md:col-span-1 font-medium text-gray-700">NISN</label>
+                    <input type="text" id="nisn" name="nisn" value="{{ $s->nisn }}"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Nama Siswa Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="namasiswa" class="md:col-span-1 font-medium text-gray-700">Nama Siswa</label>
+                    <input type="text" id="namasiswa" name="namasiswa" value="{{ $s->namasiswa }}"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Tempat Lahir Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="tempatlahir" class="md:col-span-1 font-medium text-gray-700">Tempat Lahir</label>
+                    <input type="text" id="tempatlahir" name="tempatlahir" value="{{ $s->tempatlahir }}"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Tanggal Lahir Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="tgllahir" class="md:col-span-1 font-medium text-gray-700">Tanggal Lahir</label>
+                    <input type="date" id="tgllahir" name="tgllahir" value="{{ $s->tgllahir }}"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Jenis Kelamin Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label class="md:col-span-1 font-medium text-gray-700">Jenis Kelamin</label>
+                    <div class="md:col-span-3 flex items-center space-x-6">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="jk" value="L" class="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                                {{ $s->jk == "L" ? 'checked' : '' }}>
+                            <span class="ml-2">Laki-laki</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="jk" value="P" class="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                                {{ $s->jk == "P" ? 'checked' : '' }}>
+                            <span class="ml-2">Perempuan</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Alamat Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="alamat" class="md:col-span-1 font-medium text-gray-700">Alamat</label>
+                    <input type="text" id="alamat" name="alamat" value="{{ $s->alamat }}"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Agama Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="idagama" class="md:col-span-1 font-medium text-gray-700">Agama</label>
+                    <select id="idagama" name="idagama"
+                            class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        @foreach ($agama as $a)
+                            <option value="{{ $a->idagama }}" {{ $a->idagama == $s->idagama ? 'selected' : '' }}>
+                                {{ $a->agama }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Telepon Rumah Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="tlprumah" class="md:col-span-1 font-medium text-gray-700">Telepon Rumah</label>
+                    <input type="text" id="tlprumah" name="tlprumah" value="{{ $s->tlprumah }}"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- HP Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="hpsiswa" class="md:col-span-1 font-medium text-gray-700">HP</label>
+                    <input type="text" id="hpsiswa" name="hpsiswa" value="{{ $s->hpsiswa }}"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Photo Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="photo" class="md:col-span-1 font-medium text-gray-700">Photo</label>
+                    <input type="file" id="photo" name="photosiswa"
+                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Tahun Masuk Field -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <label for="idthnajaran" class="md:col-span-1 font-medium text-gray-700">Tahun Masuk</label>
+                    <select id="idthnajaran" name="idthnmasuk"
+                            class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        @foreach ($thnajaran as $t)
+                            <option value="{{ $t->idthnajaran }}" {{ $t->idthnajaran == $s->idthnajaran ? 'selected' : '' }}>
+                                {{ $t->thnajaran }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-end space-x-4 pt-6 border-t">
+                    <button type="button" onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.add('hidden')"
+                            class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-md transition">
+                        Tutup
+                    </button>
+                    <button type="submit" name="siswaedit"
+                            class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md transition">
+                        Edit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="modalsiswaHapus{{ $s->idsiswa }}" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+    <div class="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+        <!-- Modal Header -->
+        <div class="flex justify-between items-start p-5 border-b rounded-t">
+            <h3 class="text-lg font-semibold text-gray-900">Hapus Data Siswa</h3>
+            <button type="button" onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.add('hidden')" 
+                    class="text-gray-400 hover:text-gray-500">
+                <span class="text-2xl">&times;</span>
+            </button>
+        </div>
+        
+        <!-- Modal Body -->
+        <div class="p-6">
+            <p class="mb-4">Yakin mau menghapus data siswa?</p>
+            <p class="text-red-500 font-medium">{{ $s->siswa }}</p>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="flex justify-end space-x-4 p-6 border-t">
+            <button type="button" onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.add('hidden')"
+                    class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-md transition">
+                Tutup
+            </button>
+            <form action="/siswa/hapus/{{ $s->idsiswa }}" method="get" class="inline">
+                <button type="submit" name="siswahapus"
+                        class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md transition">
+                    Hapus
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#table-siswa').DataTable();
+    });
+</script>
 @endsection
-<!--akhir isi konten dinamis-->
-
-
-
-
-
-<!--akhir konten dinamis-->

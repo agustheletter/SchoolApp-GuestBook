@@ -1,6 +1,5 @@
-<footer class="main-footer bg-dark">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 1.0.0
+<footer class="bg-white shadow-inner py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 text-sm">
+        &copy; {{ date('Y') }} School Guestbook. All rights reserved.
     </div>
-    <strong>Copyright &copy; {{ date('Y') }} <a href="{{ route('home') }}" target="blank">Guestbook App</a>.</strong> All rights reserved.
 </footer>

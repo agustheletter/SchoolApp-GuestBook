@@ -1,210 +1,221 @@
-<!--awal konten dinamis-->
 @extends('admin/v_admin')
 @section('judulhalaman', 'Daftar Jabatan')
 @section('title', 'Jabatan')
 
-<!--awal isi konten dinamis-->
 @section('konten')
-
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+<div class="container mx-auto px-4 py-6">
+    <!-- Success Alert -->
+    @if (session('success'))
+    <div id="successAlert" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded relative transition-all duration-300">
+        <p>{{ session('success') }}</p>
+        <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="document.getElementById('successAlert').classList.add('hidden')">
+            <span class="text-xl">&times;</span>
         </button>
     </div>
-@endif
+    @endif
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahJabatan">
-        Tambah Data Jabatan
+    <!-- Add Button -->
+    <button onclick="toggleModal('addModal')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition-colors">
+        <i class="fas fa-plus mr-2"></i> Tambah Data Jabatan
     </button>
 
-    <p>
-
-        <!-- Awal membuat table-->
-    <table class="table table-bordered table-striped table-hover" id="table-jabatan">
-        <!-- Awal header table-->
-        <thead class="bg-warning">
-            <tr>
-                <th>
-                    <center>No</center>
-                </th>
-
-                <th>
-                    <center>Nama Jabatan</center>
-                </th>
-
-                <th>
-                    <center>Aksi</center>
-                </th>
-            </tr>
-        </thead>
-
-        <!-- Akhir header table-->
-
-        <!-- Awal menampilkan data dalam table-->
-        <tbody>
-            @foreach ($datajabatan as $index=> $jabatan)
+    <!-- Table -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200" id="table-jabatan">
+            <thead class="bg-yellow-500 text-white">
                 <tr>
-                    <td align="center" scope="row">{{ $index + 1 }}</td>
-                    <td>{{ $jabatan->nama_jabatan }}</td>
-                    <td align="center">
-                        <button type="button" class="btn btn-xs btn-warning" data-toggle="modal"
-                            data-target="#modalJabatanEdit{{ $jabatan->id }}">
-                            <i class="fas fa-edit"></i>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">No</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Nama Jabatan</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach ($datajabatan as $index=> $jabatan)
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ $index + 1 }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $jabatan->nama_jabatan }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center space-x-1">
+                        <!-- Edit Button -->
+                        <button onclick="toggleModal('editModal{{ $jabatan->id }}')" 
+                                class="inline-flex items-center px-2 py-1 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded">
+                            <i class="fas fa-edit mr-1"></i> Edit
                         </button>
 
-                        <!-- Awal Modal EDIT data jabatan -->
-                        <div class="modal fade" id="modalJabatanEdit{{ $jabatan->id }}" tabindex="-1" role="dialog"
-                            aria-labelledby="modalJabatanEditLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modalJabatanEditLabel">Form Edit Data Jabatan</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form name="formjabatanedit" id="formjabatanedit" action="{{ route('jabatan.update', $jabatan->id) }}}}" method="post">
-                                            <!--z@csrf-->
-                                            {{ csrf_field() }}
-                                            {{ method_field('PUT') }}
-
-                                            <div class="form-group row">
-                                                <label for="nama_jabatan" class="col-sm-3 col-form-label text-left">Nama Jabatan</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="nama_jabatan" name="nama_jabatan" value="{{ $jabatan->nama_jabatan }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" name="tutup" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                <button type="submit" name="jabatanedit" class="btn btn-success">Edit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Akhir Modal EDIT data siswa -->
-
-
-                        |
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
-                            data-target="#modalJabatanHapus{{ $jabatan->id }}">
-                            <i class="fas fa-trash-alt"></i>
+                        <!-- Delete Button -->
+                        <button onclick="toggleModal('deleteModal{{ $jabatan->id }}')" 
+                                class="inline-flex items-center px-2 py-1 bg-red-500 hover:bg-red-600 text-white text-xs rounded">
+                            <i class="fas fa-trash-alt mr-1"></i> Hapus
                         </button>
-
-                        <!-- Awal Modal hapus data siswa -->
-                        <div class="modal fade" id="modalJabatanHapus{{ $jabatan->id }}" tabindex="-1"
-                            aria-labelledby="modalJabatanHapusLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h6 class="modal-title" id="modalJabatanHapusLabel">Hapus Data Jabatan</h6>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h5>Yakin Mau Hapus Data Jabatan?</h5>
-                                        <h3>
-                                            <font color="red"><span>{{ $jabatan->nama_jabatan }} </span></font>
-                                        </h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form action="{{ route('jabatan.destroy', $jabatan->id) }}}}" method="POST">
-                                            <button type="submit" name="jabatanhapus" class="btn btn-danger">Hapus</a></button>
-                                        </form>
-                                        <button type="button" name="tutup" class="btn btn-secondary" data-dismiss="modal"
-                                            class="float-right">Tutup</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Akhir Modal hapus data jabatan -->
                     </td>
                 </tr>
-            @endforeach
-        <tbody
-        <!-- Akhir menampilkan data dalam table-->
-    </table>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#table-jabatan').DataTable();
-        });
-    </script>
-
-
-    {{-- <script type="text/javascript">
-        $(document).ready(function() {
-            $('#table-jabatan').DataTable( {
-                "processing": true,
-                "serverSide": true,
-                "ajax": "{{ asset('ssp') }}/loaddata.php",
-            } );
-        } );
-    </script> --}}
-
-
-    <!-- Akhir membuat table-->
-
-
-
-    {{-- <!--awal pagination-->
-    Halaman : {{ $siswa->currentPage() }} <br />
-    Jumlah Data : {{ $siswa->total() }} <br />
-    Data Per Halaman : {{ $siswa->perPage() }} <br />
-
-    {{ $siswa->links() }}
-    <!--akhir pagination--> --}}
-
-
-
-
-    <!-- Awal Modal tambah data siswa -->
-    <div class="modal fade" id="modalTambahJabatan" tabindex="-1" role="dialog" aria-labelledby="modalTambahJabatanLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTambahJabatanLabel">Form Input Data Jabatan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form name="formjabatantambah   " id="formjabatantambah    " action="{{ route('jabatan.store') }} " method="post">
-                        @csrf
-                        <div class="form-group row">
-                            <label for="nama_jabatan" class="col-sm-3 col-form-label">Nama Jabatan</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="nama_jabatan" name="nama_jabatan" placeholder="Masukan Nama Jabatan">
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" name="tutup" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                            <button type="submit" name="tambahjabatan" class="btn btn-success">Tambah</button>
-                        </div>
-                    </form>
-
-                </div>
+<!-- Add Position Modal -->
+<div id="addModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <div class="relative w-full max-w-md">
+        <!-- Modal Content -->
+        <div class="relative bg-white rounded-lg shadow-xl transform transition-all duration-300 scale-95 opacity-0"
+             id="addModalContent">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b px-6 py-4">
+                <h3 class="text-lg font-bold">Form Input Data Jabatan</h3>
+                <button onclick="toggleModal('addModal')" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6">
+                <form name="formjabatantambah" id="formjabatantambah" action="{{ route('jabatan.store') }}" method="post">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="nama_jabatan" class="block text-gray-700 font-medium mb-2">Nama Jabatan</label>
+                        <input type="text" id="nama_jabatan" name="nama_jabatan" placeholder="Masukan Nama Jabatan" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="toggleModal('addModal')" 
+                                class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-md transition-colors">
+                            Tutup
+                        </button>
+                        <button type="submit" 
+                                class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md transition-colors">
+                            Tambah
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- Akhir Modal tambah data jabatan -->
+</div>
 
+<!-- Edit Modals (for each item) -->
+@foreach ($datajabatan as $jabatan)
+<div id="editModal{{ $jabatan->id }}" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="relative w-full max-w-md">
+        <div class="relative bg-white rounded-lg shadow-xl transform transition-all duration-300 scale-95 opacity-0"
+             id="editModalContent{{ $jabatan->id }}">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b px-6 py-4">
+                <h3 class="text-lg font-bold">Form Edit Data Jabatan</h3>
+                <button onclick="toggleModal('editModal{{ $jabatan->id }}')" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6">
+                <form name="formjabatanedit" id="formjabatanedit" action="{{ route('jabatan.update', $jabatan->id) }}" method="post">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-4">
+                        <label for="nama_jabatan" class="block text-gray-700 font-medium mb-2">Nama Jabatan</label>
+                        <input type="text" id="nama_jabatan" name="nama_jabatan" value="{{ $jabatan->nama_jabatan }}" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                    </div>
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="toggleModal('editModal{{ $jabatan->id }}')" 
+                                class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-md transition-colors">
+                            Tutup
+                        </button>
+                        <button type="submit" 
+                                class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md transition-colors">
+                            Edit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Delete Modals (for each item) -->
+<div id="deleteModal{{ $jabatan->id }}" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="relative w-full max-w-md">
+        <div class="relative bg-white rounded-lg shadow-xl transform transition-all duration-300 scale-95 opacity-0"
+             id="deleteModalContent{{ $jabatan->id }}">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b px-6 py-4">
+                <h3 class="text-lg font-bold">Hapus Data Jabatan</h3>
+                <button onclick="toggleModal('deleteModal{{ $jabatan->id }}')" class="text-gray-500 hover:text-gray-700 transition-colors">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6">
+                <p class="mb-4">Yakin mau menghapus data jabatan?</p>
+                <p class="text-red-500 font-bold mb-6">{{ $jabatan->nama_jabatan }}</p>
+                <form action="{{ route('jabatan.destroy', $jabatan->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="flex justify-end space-x-3 pt-4 border-t">
+                        <button type="button" onclick="toggleModal('deleteModal{{ $jabatan->id }}')" 
+                                class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-md transition-colors">
+                            Batal
+                        </button>
+                        <button type="submit" 
+                                class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-md transition-colors">
+                            Hapus
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
+<script>
+    // Enhanced toggleModal function with animations
+    function toggleModal(modalId) {
+        const modal = document.getElementById(modalId);
+        const modalContent = document.getElementById(modalId + 'Content') || 
+                            modal.querySelector('.relative.bg-white');
+        
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        } else {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('fixed') && e.target.classList.contains('inset-0')) {
+            const modalId = e.target.id;
+            if (modalId) toggleModal(modalId);
+        }
+    });
+
+    // Initialize DataTable
+    $(document).ready(function() {
+        $('#table-jabatan').DataTable({
+            responsive: true,
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
+        });
+    });
+</script>
 @endsection
-<!--akhir isi konten dinamis-->
-
-
-
-
-
-<!--akhir konten dinamis-->

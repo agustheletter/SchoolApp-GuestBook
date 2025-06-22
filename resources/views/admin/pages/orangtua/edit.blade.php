@@ -3,23 +3,26 @@
 @section('title', 'Edit Orang Tua')
 
 @section('konten')
-<div class="my-4 poppins">
-    <p>
-    <form action="{{ route('orangtua.update', $orangtua->id) }}" method="POST">
+<div class="container mx-auto px-4 py-6 font-poppins">
+    <form action="{{ route('orangtua.update', $orangtua->id) }}" method="POST" class="bg-white shadow-md rounded-lg p-6">
         @csrf
         @method('PUT')
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="nama">Nama Orang Tua</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="nama" name="nama_ortu" value="{{ $orangtua->nama_ortu }}" required>
+        <!-- Nama Orang Tua -->
+        <div class="mb-4 md:flex md:items-center">
+            <label for="nama" class="block text-gray-700 font-medium mb-2 md:mb-0 md:w-1/4">Nama Orang Tua</label>
+            <div class="md:w-3/4">
+                <input type="text" id="nama" name="nama_ortu" value="{{ $orangtua->nama_ortu }}" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             </div>
         </div>
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label" class="">Jenis Kelamin</label>
-            <div class="col-sm-9">
-                <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+        <!-- Jenis Kelamin -->
+        <div class="mb-4 md:flex md:items-center">
+            <label class="block text-gray-700 font-medium mb-2 md:mb-0 md:w-1/4">Jenis Kelamin</label>
+            <div class="md:w-3/4">
+                <select id="jenis_kelamin" name="jenis_kelamin" 
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="" disabled>Pilih Jenis Kelamin</option>
                     <option value="Laki-laki" {{ $orangtua->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-Laki</option>
                     <option value="Perempuan" {{ $orangtua->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
@@ -27,10 +30,12 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="siswa">Nama Siswa</label>
-            <div class="col-sm-9">
-                <select class="form-control" name="idsiswa" id="idsiswa" required>
+        <!-- Nama Siswa -->
+        <div class="mb-4 md:flex md:items-center">
+            <label for="siswa" class="block text-gray-700 font-medium mb-2 md:mb-0 md:w-1/4">Nama Siswa</label>
+            <div class="md:w-3/4">
+                <select name="idsiswa" id="idsiswa" 
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="" disabled selected>Pilih Siswa</option>
                     @foreach ($siswa as $item)
                     <option value="{{ $item->idsiswa }}" {{ $orangtua->idsiswa == $item->idsiswa ? 'selected' : '' }}>
@@ -41,27 +46,35 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="kontak">Kontak</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="kontak" name="kontak" value="{{ $orangtua->kontak }}" required>
+        <!-- Kontak -->
+        <div class="mb-4 md:flex md:items-center">
+            <label for="kontak" class="block text-gray-700 font-medium mb-2 md:mb-0 md:w-1/4">Kontak</label>
+            <div class="md:w-3/4">
+                <input type="text" id="kontak" name="kontak" value="{{ $orangtua->kontak }}" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             </div>
         </div>
 
-        <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="alamat">Alamat</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $orangtua->alamat }}" required>
+        <!-- Alamat -->
+        <div class="mb-6 md:flex md:items-center">
+            <label for="alamat" class="block text-gray-700 font-medium mb-2 md:mb-0 md:w-1/4">Alamat</label>
+            <div class="md:w-3/4">
+                <input type="text" id="alamat" name="alamat" value="{{ $orangtua->alamat }}" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             </div>
         </div>
 
-        <div class="mt-3 modal-footer">
-            <a href="{{ route('orangtua') }}" type="button" class="btn btn-secondary">
+        <!-- Form Actions -->
+        <div class="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-200">
+            <a href="{{ route('orangtua') }}" 
+               class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-md transition-colors">
                 Kembali
             </a>
-            <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+            <button type="submit" 
+                    class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-md transition-colors">
+                Simpan Perubahan
+            </button>
         </div>
     </form>
 </div>
-
 @endsection
