@@ -151,7 +151,7 @@
     </div>
 </div>
 
-@push('script')
+@push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // (Keep all the original JavaScript code exactly as is)
