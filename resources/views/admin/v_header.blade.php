@@ -1,6 +1,6 @@
 <!-- v_header.blade.php -->
 <header class="bg-[#213374] shadow-sm border-b border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="mx-4 px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16 items-center">
       <!-- Left side - Logo/Brand -->
       <div class="flex items-center">
@@ -16,7 +16,7 @@
         <div class="hidden md:flex items-center text-sm text-white">
           <span>Tahun Ajaran Aktif: <strong class="ml-1 text-red-500">{{Session::get('namatahunajaran')}}</strong></span>
         </div>
-        
+
         <!-- User dropdown -->
         <div class="relative">
           <div class="flex items-center">
@@ -28,7 +28,7 @@
               </svg>
             </button>
           </div>
-          
+
           <!-- Dropdown menu -->
           <div id="user-menu" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div class="py-1">
