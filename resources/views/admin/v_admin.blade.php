@@ -56,7 +56,7 @@
         @include('admin.v_header')
 
         <div class="flex flex-1">
-            <div class="w-64 flex-shrink-0">
+            <div class="w-72 flex-shrink-0">
                 @include('admin.v_sidebar')
             </div>
 
