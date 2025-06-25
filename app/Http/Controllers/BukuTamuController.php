@@ -46,6 +46,16 @@ class BukuTamuController extends Controller
             'id_jabatan' => 'required|exists:tbl_jabatan,id',
             'id_pegawai' => 'required|exists:tbl_pegawai,id',
             'keperluan' => 'required|string',
+        ], [
+            'idsiswa.required' => 'Nama siswa wajib dipilih jika role adalah Orang Tua.',
+            'idsiswa.exists' => 'Nama siswa yang dipilih tidak ditemukan.',
+            'nama.required' => 'Nama tidak boleh kosong.',
+            'alamat.required' => 'Alamat wajib diisi.',
+            'kontak.required' => 'Kontak wajib diisi.',
+            'id_jabatan.required' => 'Jabatan harus dipilih.',
+            'id_pegawai.required' => 'Pegawai harus dipilih.',
+            'keperluan.required' => 'Keperluan wajib diisi.',
+            // Tambahkan custom lainnya jika perlu
         ]);
 
         $bukutamu = BukuTamu::findOrFail($id);
@@ -56,7 +66,7 @@ class BukuTamuController extends Controller
             // 'idagama' => $request->idagama,
             // 'idsiswa' => $request->idsiswa,
             'idsiswa' => $request->role === 'ortu' ? $request->idsiswa : null,
-            'instansi' => $request->instansi,
+            'instansi' => $request->role === 'umum' ? $request->instansi : null,
             'alamat' => $request->alamat,
             'kontak' => $request->kontak,
             'id_jabatan' => $request->id_jabatan,

@@ -4,6 +4,19 @@
 
 @section('konten')
 <div class="p-4 poppins">
+
+    {{-- Tampilkan Error Validasi --}}
+    @if ($errors->any())
+        <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <strong>Terjadi kesalahan!</strong>
+            <ul class="mt-2 list-disc list-inside">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('bukutamu.update', $bukutamu->id) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
@@ -12,8 +25,8 @@
         <div class="flex flex-col md:flex-row md:items-center gap-4">
             <label for="nama" class="w-full md:w-1/4 font-medium">Nama</label>
             <div class="w-full md:w-3/4">
-                <input type="text" id="nama" name="nama" value="{{ $bukutamu->nama }}" 
-                       class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <input type="text" id="nama" name="nama" value="{{ $bukutamu->nama }}"
+                       class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan Nama" required>
             </div>
         </div>
 
@@ -21,7 +34,7 @@
         <div class="flex flex-col md:flex-row md:items-center gap-4">
             <label for="roleSelect" class="w-full md:w-1/4 font-medium">Role</label>
             <div class="w-full md:w-3/4">
-                <select id="roleSelect" name="role" 
+                <select id="roleSelect" name="role"
                         class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="" disabled>Pilih Role</option>
                     <option value="ortu" {{ $bukutamu->role == 'ortu' ? 'selected' : '' }}>Orang Tua</option>
@@ -31,7 +44,7 @@
         </div>
 
         <!-- Orang Tua Fields (Conditional) -->
-        <div id="ortuFields" class="hidden flex flex-col md:flex-row md:items-center gap-4">
+        <div id="ortuFields" class="flex flex-col md:flex-row md:items-center gap-4">
             <label for="siswa" class="w-full md:w-1/4 font-medium">Nama Siswa</label>
             <div class="w-full md:w-3/4">
                 <select name="idsiswa" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -46,11 +59,11 @@
         </div>
 
         <!-- Instansi Field (Conditional) -->
-        <div id="instansiField" class="hidden flex flex-col md:flex-row md:items-center gap-4">
+        <div id="instansiField" class="flex flex-col md:flex-row md:items-center gap-4">
             <label for="instansi" class="w-full md:w-1/4 font-medium">Instansi</label>
             <div class="w-full md:w-3/4">
-                <input type="text" name="instansi" value="{{ $bukutamu->instansi ?? '' }}" 
-                       class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" name="instansi" value="{{ $bukutamu->instansi ?? '' }}"
+                       class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan Nama Instansi">
             </div>
         </div>
 
@@ -59,7 +72,7 @@
             <label for="alamat" class="w-full md:w-1/4 font-medium">Alamat</label>
             <div class="w-full md:w-3/4">
                 <textarea id="alamat" name="alamat" rows="3"
-                          class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>{{ $bukutamu->alamat }}</textarea>
+                          class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan Alamat" required>{{ $bukutamu->alamat }}</textarea>
             </div>
         </div>
 
@@ -67,7 +80,7 @@
         <div class="flex flex-col md:flex-row md:items-center gap-4">
             <label for="kontak" class="w-full md:w-1/4 font-medium">Kontak</label>
             <div class="w-full md:w-3/4">
-                <input type="text" id="kontak" name="kontak" value="{{ $bukutamu->kontak }}" 
+                <input type="text" id="kontak" name="kontak" value="{{ $bukutamu->kontak }}"
                        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
         </div>
@@ -76,7 +89,7 @@
         <div class="flex flex-col md:flex-row md:items-center gap-4">
             <label for="jabatan" class="w-full md:w-1/4 font-medium">Bertemu Dengan (Jabatan)</label>
             <div class="w-full md:w-3/4">
-                <select id="jabatan" name="id_jabatan" 
+                <select id="jabatan" name="id_jabatan"
                         class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="" disabled>Pilih Jabatan</option>
                     @foreach ($jabatan as $j)
@@ -90,7 +103,7 @@
         <div class="flex flex-col md:flex-row md:items-center gap-4">
             <label for="pegawai" class="w-full md:w-1/4 font-medium">Nama Pegawai</label>
             <div class="w-full md:w-3/4">
-                <select id="pegawai" name="id_pegawai" 
+                <select id="pegawai" name="id_pegawai"
                         class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="">Pilih Nama Pegawai</option>
                 </select>
@@ -101,19 +114,19 @@
         <div class="flex flex-col md:flex-row md:items-start gap-4">
             <label for="keperluan" class="w-full md:w-1/4 font-medium">Keperluan</label>
             <div class="w-full md:w-3/4">
-                <textarea id="keperluan" name="keperluan" 
-                          class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>{{ $bukutamu->keperluan }}</textarea>
+                <textarea id="keperluan" name="keperluan"
+                          class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan Keperluan" required>{{ $bukutamu->keperluan }}</textarea>
             </div>
         </div>
 
         <!-- Tanggal Field -->
-        <div class="flex flex-col md:flex-row md:items-center gap-4">
+        {{-- <div class="flex flex-col md:flex-row md:items-center gap-4">
             <label for="tanggal" class="w-full md:w-1/4 font-medium">Tanggal</label>
             <div class="w-full md:w-3/4">
-                <input type="datetime-local" id="tanggal" name="tanggal" value="{{ $bukutamu->created_at }}" 
+                <input type="datetime-local" id="tanggal" name="tanggal" value="{{ $bukutamu->created_at }}"
                        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Form Actions -->
         <div class="flex justify-end gap-4 pt-4">
