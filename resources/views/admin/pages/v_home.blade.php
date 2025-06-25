@@ -116,16 +116,18 @@
 
                 <input type="date" id="tanggalInput" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" style="display: none;">
 
-                <div id="filterMinggu" class="grid grid-cols-3 gap-2" style="display: none;">
-                    <select id="bulanMinggu" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option disabled selected>Pilih Bulan</option>
-                    </select>
-                    <select id="tahunMinggu" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option disabled selected>Pilih Tahun</option>
-                    </select>
-                    <select id="mingguKe" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option disabled selected>Pilih Minggu</option>
-                    </select>
+                <div class="w-full">
+                    <div id="filterMinggu" class="flex flex-row flex-wrap gap-2" style="display: none;">
+                        <select id="bulanMinggu" class="w-auto border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option disabled selected>Pilih Bulan</option>
+                        </select>
+                        <select id="tahunMinggu" class="w-auto border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option disabled selected>Pilih Tahun</option>
+                        </select>
+                        <select id="mingguKe" class="w-auto border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option disabled selected>Pilih Minggu</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div id="filterBulan" class="grid grid-cols-2 gap-2" style="display: none;">
