@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://github.com/agustheletter/SchoolApp-GuestBook">
-        <img src="git-src/icon.png" alt="Product Logo" width="200">
+        <img src="git-src/icon-v2.png" alt="Product Logo" width="200">
     </a>
 </p>
 
@@ -202,7 +202,7 @@ Project Link: [https://github.com/agustheletter/SchoolApp-GuestBook](https://git
 [issues-url]: https://github.com/agustheletter/SchoolApp-GuestBook/issues
 [license-shield]: https://img.shields.io/github/license/agustheletter/SchoolApp-GuestBook.svg?style=for-the-badge
 [license-url]: https://github.com/agustheletter/SchoolApp-GuestBook/blob/master/LICENSE.txt
-[product-screenshot]: git-src/guestbook-user.png
+[product-screenshot]: git-src/guestbook-user-v2.png
 [admin-screenshot]: git-src/icon.png
 [Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
 [Laravel-url]: https://laravel.com
