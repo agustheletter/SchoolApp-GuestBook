@@ -36,7 +36,6 @@
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Alamat</th>
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Agama</th>
-                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Tlp Rumah</th>
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">HP</th>
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Photo</th>
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Tahun Masuk</th>
@@ -55,8 +54,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $s->jk }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $s->alamat }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ optional($s->agama)->agama }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->tlprumah }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->hpsiswa }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->kontak }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <img class="mx-auto rounded-md max-w-[80px] max-h-[80px]" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}" alt="Photo">
                     </td>
@@ -166,17 +164,10 @@
                     </select>
                 </div>
 
-                <!-- Telepon Rumah Field -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-                    <label for="tlprumah" class="md:col-span-1 font-medium text-gray-700">Telepon Rumah</label>
-                    <input type="text" id="tlprumah" name="tlprumah" placeholder="Masukan Nomor Telepon Rumah"
-                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-
                 <!-- HP Field -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-                    <label for="hpsiswa" class="md:col-span-1 font-medium text-gray-700">HP</label>
-                    <input type="text" id="hpsiswa" name="hpsiswa" placeholder="Masukan Nomor HP Siswa"
+                    <label for="kontak" class="md:col-span-1 font-medium text-gray-700">HP</label>
+                    <input type="text" id="kontak" name="kontak" placeholder="Masukan Nomor HP Siswa"
                            class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
@@ -306,17 +297,10 @@
                     </select>
                 </div>
 
-                <!-- Telepon Rumah Field -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-                    <label for="tlprumah" class="md:col-span-1 font-medium text-gray-700">Telepon Rumah</label>
-                    <input type="text" id="tlprumah" name="tlprumah" value="{{ $s->tlprumah }}"
-                           class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-
                 <!-- HP Field -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-                    <label for="hpsiswa" class="md:col-span-1 font-medium text-gray-700">HP</label>
-                    <input type="text" id="hpsiswa" name="hpsiswa" value="{{ $s->hpsiswa }}"
+                    <label for="kontak" class="md:col-span-1 font-medium text-gray-700">HP</label>
+                    <input type="text" id="kontak" name="kontak" value="{{ $s->kontak }}"
                            class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 

@@ -57,8 +57,7 @@ class SiswaController extends Controller
             'jk' => 'required',
             'alamat' => 'required',
             'idagama' => 'required',
-            'tlprumah' => 'required',
-            'hpsiswa' => 'required',
+            'kontak' => 'required',
             //'photosiswa' => 'required',
             'idthnajaran' => 'required'
         ]);
@@ -84,8 +83,7 @@ class SiswaController extends Controller
             'jk' => $request->jk,
             'alamat' => $request->alamat,
             'idagama' => $request->idagama,
-            'tlprumah' => $request->tlprumah,
-            'hpsiswa' => $request->hpsiswa,
+            'kontak' => $request->kontak,
             'photosiswa' => $namafile,
             'idthnmasuk' => $request->idthnajaran
         ]);
@@ -123,8 +121,7 @@ class SiswaController extends Controller
             'jk' => 'required',
             'alamat' => 'required',
             'idagama' => 'required',
-            'tlprumah' => 'required',
-            'hpsiswa' => 'required',
+            'kontak' => 'required',
             'photosiswa' => 'required',
             'idthnmasuk' => 'required'
         ]);
@@ -142,7 +139,7 @@ class SiswaController extends Controller
         }
 
         $siswa = siswaModel::findOrFail($idsiswa);
-        
+
         File::delete('PhotoSiswa/'.$siswa->photosiswa);
 
         $siswa->update([
@@ -154,8 +151,7 @@ class SiswaController extends Controller
             'jk' => $request->jk,
             'alamat' => $request->alamat,
             'idagama' => $request->idagama,
-            'tlprumah' => $request->tlprumah,
-            'hpsiswa' => $request->hpsiswa,
+            'kontak' => $request->kontak,
             'photosiswa' => $namafile,
             'idthnmasuk' => $request->idthnmasuk,
         ]);

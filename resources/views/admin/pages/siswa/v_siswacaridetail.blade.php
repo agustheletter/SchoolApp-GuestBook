@@ -2,13 +2,13 @@
 @extends('admin/v_admin')
 @section('judulhalaman', 'Form Data Siswa')
 @section('title','Data Siswa')
-    
+
     <!--awal isi konten dinamis-->
     @section('konten')
         <table width="100%">
             <tr>
                 <td width="55%">
-                    
+
                 </td>
 
 
@@ -23,7 +23,7 @@
                         <input type="submit" value="CARI" class="btn btn-primary">
                     </form>
                 </td>
-                
+
                 <script type="text/javascript">
                     $(document).ready(function() {
                         $('#siswacari').select2({
@@ -44,7 +44,7 @@
                     <td width="30%">ID Siswa</></td>
                     <td width="70%"><b>{{$s->idsiswa}}</b></td>
                 </tr>
-                
+
                 <tr>
                     <td>NIS</></td>
                     <td><b>{{$s->nis}}</b></td>
@@ -78,12 +78,8 @@
                     <td><b>{{$s->agama->agama}}</b></td>
                 </tr>
                 <tr>
-                    <td>Tlp Rumah</td>
-                    <td><b>{{$s->tlprumah}}</b></td>
-                </tr>
-                <tr>
                     <td>HP</td>
-                    <td><b>{{$s->hpsiswa}}</b></td>
+                    <td><b>{{$s->kontak}}</b></td>
                 </tr>
                 <tr>
                     <td>Photo</td>
