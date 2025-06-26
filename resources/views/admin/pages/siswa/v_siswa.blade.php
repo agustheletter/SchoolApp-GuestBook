@@ -16,7 +16,7 @@
         @endif
 
         <div class="flex items-center mb-4">
-            <button type="button" class="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded" 
+            <button type="button" class="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
                     onclick="document.getElementById('modalTambahSiswa').classList.remove('hidden')">
                 Tambah Data Siswa
             </button>
@@ -58,7 +58,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $s->tlprumah }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $s->hpsiswa }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <img class="w-16 h-16 object-cover" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}" alt="Photo">
+                        <img class="mx-auto rounded-md max-w-[80px] max-h-[80px]" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}" alt="Photo">
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center">{{ $s->thnajaran->thnajaran }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
@@ -67,7 +67,7 @@
                                 onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.remove('hidden')">
                             <i class="fas fa-edit"></i>
                         </button>
-                        
+
                         <!-- Delete Button -->
                         <button type="button" class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded"
                                 onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.remove('hidden')">
@@ -394,6 +394,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table-siswa').DataTable({
+            scrollX: true,
+            responsive: false,
             language: {
                 search: "Cari:",
                 lengthMenu: "Tampilkan _MENU_ data per halaman",
