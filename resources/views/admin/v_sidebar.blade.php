@@ -14,7 +14,9 @@
     <!-- Navigation Menu -->
     <nav class="p-4 space-y-2">
         <!-- Dashboard -->
-        <a href="{{ route('home') }}" class="flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-blue-600 transition-colors">
+        <a href="{{ route('home') }}"
+                    class="flex items-center p-3 rounded-lg transition-colors
+                        {{ str_starts_with($currentRoute, 'home') ? 'bg-gray-100 text-blue-600' : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600' }}">
             <i class="fas fa-tachometer-alt w-5 text-center text-gray-500"></i>
             <span class="ml-2">Dashboard</span>
         </a>
@@ -33,7 +35,9 @@
             </button>
 
             <div x-show="open" x-collapse class="pl-8 space-y-2">
-                <a href="{{url('siswa')}}" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-blue-600 transition-colors">
+                <a href="{{url('siswa')}}"
+                    class="flex items-center justify-between p-2 rounded-lg transition-colors
+                        {{ str_starts_with($currentRoute, 'siswa') ? 'bg-gray-100 text-blue-600' : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600' }}">
                     <div class="flex items-center gap-2">
                         {{-- <input type="checkbox" class="rounded mr-2 text-blue-600 focus:ring-blue-500"> --}}
                         <i class="fas fa-user-shield w-5 text-center text-gray-500"></i>
@@ -41,7 +45,9 @@
                     </div>
                     <span class="bg-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-full">{{ $totalSiswa }}</span>
                 </a>
-                <a href="{{ route('orangtua') }}" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-blue-600 transition-colors">
+                <a href="{{ route('orangtua') }}"
+                    class="flex items-center justify-between p-2 rounded-lg transition-colors
+                        {{ str_starts_with($currentRoute, 'orangtua') ? 'bg-gray-100 text-blue-600' : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600' }}">
                     <div class="flex items-center gap-2">
                         {{-- <input type="checkbox" class="rounded mr-2 text-blue-600 focus:ring-blue-500"> --}}
                         <i class="fas fa-user-friends w-5 text-center text-gray-500"></i>
@@ -66,7 +72,9 @@
             </button>
 
             <div x-show="open" x-collapse class="pl-8 space-y-2">
-                <a href="{{ route('jabatan') }}" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-blue-600 transition-colors">
+                <a href="{{ route('jabatan') }}"
+                    class="flex items-center justify-between p-2 rounded-lg transition-colors
+                        {{ str_starts_with($currentRoute, 'jabatan') ? 'bg-gray-100 text-blue-600' : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600' }}">
                     <div class="flex items-center gap-2">
                         {{-- <input type="checkbox" class="rounded mr-2 text-blue-600 focus:ring-blue-500"> --}}
                         <i class="fas fa-user-secret w-5 text-center text-gray-500"></i>
@@ -74,7 +82,9 @@
                     </div>
                     <span class="bg-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-full">{{ $totalJabatan }}</span>
                 </a>
-                <a href="{{ route('pegawai') }}" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-blue-600 transition-colors">
+                <a href="{{ route('pegawai') }}"
+                    class="flex items-center justify-between p-2 rounded-lg transition-colors
+                        {{ str_starts_with($currentRoute, 'pegawai') ? 'bg-gray-100 text-blue-600' : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600' }}">
                     <div class="flex items-center gap-2">
                         {{-- <input type="checkbox" class="rounded mr-2 text-blue-600 focus:ring-blue-500"> --}}
                         <i class="fas fa-users w-5 text-center text-gray-500"></i>
@@ -103,7 +113,9 @@
             </button>
 
             <div x-show="open" x-collapse class="pl-8 space-y-2">
-                <a href="{{ route('bukutamu') }}" class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-blue-600 transition-colors">
+                <a href="{{ route('bukutamu') }}"
+                    class="flex items-center justify-between p-2 rounded-lg transition-colors
+                        {{ str_starts_with($currentRoute, 'bukutamu') ? 'bg-gray-100 text-blue-600' : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600' }}">
                     <div class="flex items-center gap-2">
                         {{-- <input type="checkbox" class="rounded mr-2 text-blue-600 focus:ring-blue-500"> --}}
                         <i class="fas fa-book-open w-5 text-center text-gray-500"></i>
