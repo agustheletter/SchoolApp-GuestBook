@@ -69,7 +69,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table-ortu').DataTable({
-            responsive: true,
+            scrollX: true,
+            responsive: false,
             language: {
                 search: "Cari:",
                 lengthMenu: "Tampilkan _MENU_ data per halaman",
