@@ -87,12 +87,12 @@
         <!-- Modal Header -->
         <div class="flex justify-between items-start p-5 border-b rounded-t">
             <h3 class="text-xl font-semibold text-gray-900">Form Input Data Siswa</h3>
-            <button type="button" onclick="document.getElementById('modalTambahSiswa').classList.add('hidden')" 
+            <button type="button" onclick="document.getElementById('modalTambahSiswa').classList.add('hidden')"
                     class="text-gray-400 hover:text-gray-500">
                 <span class="text-2xl">&times;</span>
             </button>
         </div>
-        
+
         <!-- Modal Body -->
         <div class="p-6 space-y-4">
             <form name="formsiswatambah" id="formsiswatambah" action="/siswa/tambah" method="post" enctype="multipart/form-data">
@@ -222,12 +222,12 @@
         <!-- Modal Header -->
         <div class="flex justify-between items-start p-5 border-b rounded-t">
             <h3 class="text-xl font-semibold text-gray-900">Form Edit Data Siswa</h3>
-            <button type="button" onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.add('hidden')" 
+            <button type="button" onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.add('hidden')"
                     class="text-gray-400 hover:text-gray-500">
                 <span class="text-2xl">&times;</span>
             </button>
         </div>
-        
+
         <!-- Modal Body -->
         <div class="p-6 space-y-4">
             <form name="formsiswaedit" id="formsiswaedit" action="/siswa/edit/{{ $s->idsiswa }}" method="post" enctype="multipart/form-data">
@@ -362,12 +362,12 @@
         <!-- Modal Header -->
         <div class="flex justify-between items-start p-5 border-b rounded-t">
             <h3 class="text-lg font-semibold text-gray-900">Hapus Data Siswa</h3>
-            <button type="button" onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.add('hidden')" 
+            <button type="button" onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.add('hidden')"
                     class="text-gray-400 hover:text-gray-500">
                 <span class="text-2xl">&times;</span>
             </button>
         </div>
-        
+
         <!-- Modal Body -->
         <div class="p-6">
             <p class="mb-4">Yakin mau menghapus data siswa?</p>
@@ -394,7 +394,6 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#table-siswa').DataTable({
-            responsive: true,
             language: {
                 search: "Cari:",
                 lengthMenu: "Tampilkan _MENU_ data per halaman",

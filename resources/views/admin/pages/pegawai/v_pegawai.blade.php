@@ -21,8 +21,8 @@
         @endif
 
         <div class="flex items-center mb-4">
-            <a href="{{ route('bukutamu.user') }}" class="px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition">
-                Tambah Data Buku Tamu
+            <a href="{{ route('pegawai.input') }}" class="px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition">
+                Tambah Data Pegawai
             </a>
         </div>
 
@@ -37,18 +37,19 @@
                         <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Agama</th>
                         <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Kontak</th>
                         <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Aksi</th>
+
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($datapegawai as $index => $pegawai)
                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-center">{{ $index + 1 }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->nama_pegawai }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->jenis_kelamin }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->jabatan->nama_jabatan }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->agama->agama ?? '-' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->kontak }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">{{ $index + 1 }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->nama_pegawai }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->jenis_kelamin }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->jabatan->nama_jabatan }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->agama->agama ?? '-' }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->kontak }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">
                                 <div class="flex justify-center space-x-2">
                                     <a href="{{ route('pegawai.edit', $pegawai->id) }}" class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 rounded-md text-white transition">
                                         <i class="fas fa-edit"></i>
