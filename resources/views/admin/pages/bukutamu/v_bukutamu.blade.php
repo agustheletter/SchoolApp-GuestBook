@@ -26,7 +26,7 @@
             </a>
         </div>
 
-        <div class="overflow-x-auto bg-white mb-4">
+        <div class="overflow-x-auto">
             <table class="min-w-full w-full table-auto border-collapse divide-y divide-gray-200" id="table-bukutamu">
                 <thead class="bg-gray-800 text-white text-center">
                     <tr>
@@ -39,7 +39,8 @@
                         <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Kontak</th>
                         <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Bertemu Dengan</th>
                         <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Keperluan</th>
-                        <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Foto Tamu</th>
+                        {{-- <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Foto Tamu</th> --}}
+                        <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Foto</th>
                         <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Tanggal Kunjungan</th>
                         <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Action</th>
                     </tr>

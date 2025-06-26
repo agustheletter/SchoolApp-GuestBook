@@ -9,7 +9,7 @@
 
 @section('konten')
 <div class="bg-white rounded-lg shadow">
-    <h2 class="text-lg border-b border-gray-300 p-3">Daftar Buku Tamu</h2>
+    <h2 class="text-lg border-b border-gray-300 p-3">Daftar Pegawai</h2>
     <div class="p-4">
         @if (session('success'))
             <div class="mb-4 p-3 bg-green-100 border-l-4 border-green-500 text-green-700 rounded flex justify-between items-center">
@@ -22,33 +22,33 @@
 
         <div class="flex items-center mb-4">
             <a href="{{ route('bukutamu.user') }}" class="px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition">
-                Tambah Data Buku Tamu
+                Tambah Data Pegawai
             </a>
         </div>
 
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200" id="table-bukutamu">
-                <thead class="bg-blue-500 text-white">
+                <thead class="bg-blue-500 text-white text-center">
                     <tr>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">No</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Nama Pegawai</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Jabatan</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Agama</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Kontak</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Action</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">No</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Nama Pegawai</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Jabatan</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Agama</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Kontak</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Action</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($datapegawai as $index => $pegawai)
                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-center">{{ $index + 1 }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->nama_pegawai }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->jenis_kelamin }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->jabatan->nama_jabatan }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->agama->agama ?? '-' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $pegawai->kontak }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">{{ $index + 1 }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->nama_pegawai }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->jenis_kelamin }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->jabatan->nama_jabatan }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->agama->agama ?? '-' }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $pegawai->kontak }}</td>
+                            <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">
                                 <div class="flex justify-center space-x-2">
                                     <a href="{{ route('pegawai.edit', $pegawai->id) }}" class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 rounded-md text-white transition">
                                         <i class="fas fa-edit"></i>

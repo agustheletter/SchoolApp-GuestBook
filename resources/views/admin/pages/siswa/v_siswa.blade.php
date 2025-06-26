@@ -3,79 +3,82 @@
 @section('title', 'Siswa')
 
 @section('konten')
-<div class="p-4">
-    <!-- Success Alert -->
-    @if (session('success'))
-        <div class="mb-4 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded flex justify-between items-center">
-            <p>{{ session('success') }}</p>
-            <button type="button" class="text-green-700 hover:text-green-900" onclick="this.parentElement.remove()">
-                <span class="text-2xl">&times;</span>
-            </button>
+<div class="bg-white rounded-lg shadow">
+    <h2 class="text-lg border-b border-gray-300 p-3">Daftar Siswa</h2>
+    <div class="p-4">
+        <!-- Success Alert -->
+        @if (session('success'))
+            <div class="mb-4 p-3 bg-green-100 border-l-4 border-green-500 text-green-700 rounded flex justify-between items-center">
+                <p>{{ session('success') }}</p>
+                <button type="button" class="text-green-700 hover:text-green-900" onclick="this.parentElement.remove()">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        <!-- Add Student Button -->
+        <button type="button" class="mb-4 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition"
+                onclick="document.getElementById('modalTambahSiswa').classList.remove('hidden')">
+            Tambah Data Siswa
+        </button>
+
+        <!-- Student Table -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full w-full table-auto border-collapse divide-y divide-gray-200" id="table-siswa">
+                <thead class="bg-green-500 text-white text-center">
+                    <tr>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">No</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">NIS</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">NISN</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Nama Siswa</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Tempat Lahir</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Tanggal Lahir</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Alamat</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Agama</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Tlp Rumah</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">HP</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Photo</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Tahun Masuk</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach ($siswa as $index => $s)
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">{{ $index + 1 }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">{{ $s->nis }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">{{ $s->nisn }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $s->namasiswa }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $s->tempatlahir }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-right">{{ $s->tgllahir }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $s->jk }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $s->alamat }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ optional($s->agama)->agama }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $s->tlprumah }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $s->hpsiswa }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">
+                            <img class="w-16 h-16 object-cover" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}" alt="Photo">
+                        </td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">{{ $s->thnajaran->thnajaran }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center space-x-2">
+                            <!-- Edit Button -->
+                            <button type="button" class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded"
+                                    onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.remove('hidden')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+
+                            <!-- Delete Button -->
+                            <button type="button" class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded"
+                                    onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.remove('hidden')">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    @endif
-
-    <!-- Add Student Button -->
-    <button type="button" class="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded" 
-            onclick="document.getElementById('modalTambahSiswa').classList.remove('hidden')">
-        Tambah Data Siswa
-    </button>
-
-    <!-- Student Table -->
-    <div class="overflow-x-auto bg-white rounded-lg shadow">
-        <table class="min-w-full divide-y divide-gray-200" id="table-siswa">
-            <thead class="bg-green-500 text-white">
-                <tr>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">No</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">NIS</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">NISN</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Nama Siswa</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tempat Lahir</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tanggal Lahir</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Alamat</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Agama</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tlp Rumah</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">HP</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Photo</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tahun Masuk</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Aksi</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @foreach ($siswa as $index => $s)
-                <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ $index + 1 }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ $s->nis }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ $s->nisn }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->namasiswa }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->tempatlahir }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-right">{{ $s->tgllahir }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->jk }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->alamat }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ optional($s->agama)->agama }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->tlprumah }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $s->hpsiswa }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <img class="w-16 h-16 object-cover" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}" alt="Photo">
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center">{{ $s->thnajaran->thnajaran }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
-                        <!-- Edit Button -->
-                        <button type="button" class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded"
-                                onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.remove('hidden')">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        
-                        <!-- Delete Button -->
-                        <button type="button" class="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded"
-                                onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.remove('hidden')">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
     </div>
 </div>
 
@@ -85,12 +88,12 @@
         <!-- Modal Header -->
         <div class="flex justify-between items-start p-5 border-b rounded-t">
             <h3 class="text-xl font-semibold text-gray-900">Form Input Data Siswa</h3>
-            <button type="button" onclick="document.getElementById('modalTambahSiswa').classList.add('hidden')" 
+            <button type="button" onclick="document.getElementById('modalTambahSiswa').classList.add('hidden')"
                     class="text-gray-400 hover:text-gray-500">
                 <span class="text-2xl">&times;</span>
             </button>
         </div>
-        
+
         <!-- Modal Body -->
         <div class="p-6 space-y-4">
             <form name="formsiswatambah" id="formsiswatambah" action="/siswa/tambah" method="post" enctype="multipart/form-data">
@@ -220,12 +223,12 @@
         <!-- Modal Header -->
         <div class="flex justify-between items-start p-5 border-b rounded-t">
             <h3 class="text-xl font-semibold text-gray-900">Form Edit Data Siswa</h3>
-            <button type="button" onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.add('hidden')" 
+            <button type="button" onclick="document.getElementById('modalsiswaEdit{{ $s->idsiswa }}').classList.add('hidden')"
                     class="text-gray-400 hover:text-gray-500">
                 <span class="text-2xl">&times;</span>
             </button>
         </div>
-        
+
         <!-- Modal Body -->
         <div class="p-6 space-y-4">
             <form name="formsiswaedit" id="formsiswaedit" action="/siswa/edit/{{ $s->idsiswa }}" method="post" enctype="multipart/form-data">
@@ -360,12 +363,12 @@
         <!-- Modal Header -->
         <div class="flex justify-between items-start p-5 border-b rounded-t">
             <h3 class="text-lg font-semibold text-gray-900">Hapus Data Siswa</h3>
-            <button type="button" onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.add('hidden')" 
+            <button type="button" onclick="document.getElementById('modalsiswaHapus{{ $s->idsiswa }}').classList.add('hidden')"
                     class="text-gray-400 hover:text-gray-500">
                 <span class="text-2xl">&times;</span>
             </button>
         </div>
-        
+
         <!-- Modal Body -->
         <div class="p-6">
             <p class="mb-4">Yakin mau menghapus data siswa?</p>
@@ -391,7 +394,23 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#table-siswa').DataTable();
+        $('#table-siswa').DataTable({
+            scrollX: true,
+            responsive: false,
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
+
+
+        });
     });
 </script>
 @endsection

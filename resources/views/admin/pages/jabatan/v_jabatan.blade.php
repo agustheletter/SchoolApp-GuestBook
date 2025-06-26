@@ -4,7 +4,7 @@
 
 @section('konten')
 <div class="bg-white rounded-lg shadow">
-    <h2 class="text-lg border-b border-gray-300 p-3">Daftar Buku Tamu</h2>
+    <h2 class="text-lg border-b border-gray-300 p-3">Daftar Jabatan</h2>
     <div class="p-4">
         <!-- Success Alert -->
         @if (session('success'))
@@ -24,19 +24,19 @@
         <!-- Table -->
         <div class="bg-white overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200" id="table-jabatan">
-                <thead class="bg-yellow-500 text-white">
+                <thead class="bg-yellow-500 text-white text-center">
                     <tr>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">No</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Nama Jabatan</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Aksi</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">No</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Nama Jabatan</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-100 text-xs font-medium uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($datajabatan as $index=> $jabatan)
                     <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap text-center">{{ $index + 1 }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $jabatan->nama_jabatan }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center space-x-1">
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">{{ $index + 1 }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $jabatan->nama_jabatan }}</td>
+                        <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center space-x-1">
                             <!-- Edit Button -->
                             <button onclick="toggleModal('editModal{{ $jabatan->id }}')"
                                     class="inline-flex items-center px-2 py-1 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded">
