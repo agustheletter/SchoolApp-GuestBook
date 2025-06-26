@@ -20,8 +20,7 @@ class SiswaSeeder extends Seeder
                 'jk' => 'L',
                 'alamat' => 'Jl. Pasteur No. 37, Bandung',
                 'idagama' => 1,
-                'tlprumah' => '088222134661',
-                'hpsiswa' => '088222134661',
+                'kontak' => '088222134661',
                 'photosiswa' => '1746523062_adre.jpg',
                 'idthnmasuk' => 1
             ],
@@ -34,8 +33,7 @@ class SiswaSeeder extends Seeder
                 'jk' => 'P',
                 'alamat' => 'Jl. Juanda No. 91, Cimahi',
                 'idagama' => 1,
-                'tlprumah' => '081222678810',
-                'hpsiswa' => '081222678810',
+                'kontak' => '081222678810',
                 'photosiswa' => '1746523063_evliya.jpg',
                 'idthnmasuk' => 1
             ],
