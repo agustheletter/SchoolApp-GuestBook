@@ -21,8 +21,8 @@ return new class extends Migration
             $table->enum('jk', ['L', 'P']);
             $table->string('alamat');
             $table->integer('idagama');
-            $table->string('tlprumah');
-            $table->string('hpsiswa');
+            // $table->string('tlprumah');
+            $table->string('kontak');
             $table->string('photosiswa');
             $table->integer('idthnmasuk');
             $table->timestamps();
