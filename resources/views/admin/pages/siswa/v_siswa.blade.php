@@ -16,7 +16,7 @@
         @endif
 
         <div class="flex items-center mb-4">
-            <button type="button" class="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
+            <button type="button" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
                     onclick="document.getElementById('modalTambahSiswa').classList.remove('hidden')">
                 Tambah Data Siswa
             </button>
