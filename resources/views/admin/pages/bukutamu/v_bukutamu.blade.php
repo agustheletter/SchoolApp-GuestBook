@@ -26,8 +26,8 @@
             </a>
         </div>
 
-        <div class="scroll-table bg-white">
-            <table class=" divide-y divide-gray-200" id="table-bukutamu">
+        <div class="overflow-x-auto bg-white mb-4">
+            <table class="min-w-full w-full table-auto border-collapse divide-y divide-gray-200" id="table-bukutamu">
                 <thead class="bg-gray-800 text-white text-center">
                     <tr>
                         <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">No</th>
@@ -100,7 +100,10 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#table-bukutamu').DataTable();
+        $('#table-bukutamu').DataTable({
+            scrollX: true,
+            responsive: false, // MATIKAN responsive bawaan datatables
+        });
     });
 </script>
 @endsection
