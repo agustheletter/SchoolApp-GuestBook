@@ -1,3 +1,7 @@
+@php
+    $currentRoute = Route::currentRouteName() ?? request()->path();
+@endphp
+
 <aside class="bg-white w-72 min-h-screen border-r border-gray-200 shadow-sm">
     <!-- User Panel -->
     <div class="p-4 border-b border-gray-200">
@@ -16,7 +20,7 @@
         </a>
 
         <!-- Siswa Menu -->
-        <div x-data="{ open: false }" class="space-y-2">
+        <div x-data="{ open: {{ str_starts_with($currentRoute, 'siswa') || str_starts_with($currentRoute, 'orangtua') ? 'true' : 'false' }} }" class="space-y-2">
             <button @click="open = !open" class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-blue-600 transition-colors">
                 <div class="flex items-center">
                     <i class="fa-solid fa-graduation-cap w-5 text-center text-gray-500"></i>
@@ -49,7 +53,7 @@
         </div>
 
         <!-- Pegawai Menu -->
-        <div x-data="{ open: false }" class="space-y-2">
+        <div x-data="{ open: {{ str_starts_with($currentRoute, 'pegawai') || str_starts_with($currentRoute, 'jabatan') ? 'true' : 'false'}} }" class="space-y-2">
             <button @click="open = !open" class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-blue-600 transition-colors">
                 <div class="flex items-center">
                     <i class="fa-solid fa-user-tie w-5 text-center text-gray-500"></i>
@@ -86,7 +90,7 @@
         </div>
 
         <!-- Buku Tamu Menu -->
-        <div x-data="{ open: true }" class="space-y-2">
+        <div x-data="{ open: {{ str_starts_with($currentRoute, 'bukutamu') ? 'true' : 'false'}} }" class="space-y-2">
             <button @click="open = !open" class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-100 text-gray-700 hover:text-blue-600 transition-colors">
                 <div class="flex items-center">
                     <i class="fas fa-book-open w-5 text-center text-gray-500"></i>

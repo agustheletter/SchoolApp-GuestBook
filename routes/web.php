@@ -26,6 +26,11 @@ Route::get('/', function () {
     return view('users.landing');
 })->name('landing');
 
+// 404 Route
+Route::fallback(function () {
+    return redirect()->route('home');
+});
+
 //=========================AWAL ROUTE BUKU TAMU USER =========================
 Route::get('/guestbook',[BukuTamuController::class,'inputUser'])->name('bukutamu.user');
 
