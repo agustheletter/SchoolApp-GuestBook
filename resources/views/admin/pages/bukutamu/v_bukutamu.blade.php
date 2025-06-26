@@ -20,7 +20,7 @@
             </div>
         @endif
 
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex items-center mb-4">
             <a href="{{ route('bukutamu.user') }}" class="px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md transition">
                 Tambah Data Buku Tamu
             </a>
@@ -102,7 +102,19 @@
     $(document).ready(function() {
         $('#table-bukutamu').DataTable({
             scrollX: true,
-            responsive: false, // MATIKAN responsive bawaan datatables
+            responsive: false,
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
+
         });
     });
 </script>
