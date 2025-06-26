@@ -4,7 +4,7 @@
 
 @section('konten')
 
-<div class="container mx-auto mb-6 px-4 py-6 bg-white rounded-lg shadow md:items-center md:justify-between">
+<div class="mx-auto mb-6 px-4 py-6 bg-white rounded-lg shadow md:items-center md:justify-between">
     <h2 class="font-semibold text-3xl mb-6 border-b border-gray-300 pb-2">Admin Dashboard</h2>
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
