@@ -4,8 +4,8 @@
 
 @section('konten')
 
-<h2 class="font-bold text-4xl mx-4">Dashboard</h2>
-<div class="container mx-auto px-4 py-6 md:items-center md:justify-between">
+<div class="container mx-auto mb-6 px-4 py-6 bg-white rounded-lg shadow md:items-center md:justify-between">
+    <h2 class="font-semibold text-3xl mb-6 border-b border-gray-300 pb-2">Admin Dashboard</h2>
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <!-- Total Siswa -->
@@ -75,14 +75,14 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('jabatan') }}" class="block bg-red-600 hover:bg-red-700 text-white text-center py-2 px-4 transition-colors">
+            <a href="{{ route('pegawai') }}" class="block bg-red-600 hover:bg-red-700 text-white text-center py-2 px-4 transition-colors">
                 More info <i class="fas fa-arrow-circle-right ml-1"></i>
             </a>
         </div>
     </div>
 
     <!-- Buku Tamu Card -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"> 
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
             <div class="p-4">
                 <div class="flex items-center">
@@ -105,7 +105,7 @@
     <!-- Chart Section -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Statistik Kunjungan Tamu</h2>
+            <h2 class="text-3xl font-semibold mb-4 md:mb-0">Statistik Kunjungan Tamu</h2>
 
             <div class="flex flex-col space-y-2 w-full md:w-auto">
                 <label for="filterOption" class="text-sm font-medium text-gray-700">Filter Grafik:</label>
