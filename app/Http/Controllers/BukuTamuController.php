@@ -256,6 +256,21 @@ class BukuTamuController extends Controller
     {
         $filter = $request->get('filter', 'hari');
 
+        $namaBulanIndo = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember'
+        ];
+
         if ($filter == 'hari') {
             // Ambil tanggal dari query param, default hari ini
             $date = $request->get('date', Carbon::today()->toDateString());
@@ -327,10 +342,11 @@ class BukuTamuController extends Controller
                 ->keyBy('tanggal');
 
             // Bentuk hasil akhir untuk chart
-            $result = $dates->map(function ($date) use ($data) {
+            $result = $dates->map(function ($date) use ($data, $namaBulanIndo) {
                 $key = $date->format('Y-m-d');
+                $bulan = $date->month;
                 return [
-                    'label' => $date->format('d M'), // Contoh: 04 Jun
+                    'label' => $date->format('d') . ' ' . $namaBulanIndo[$bulan],
                     'jumlah' => $data->has($key) ? $data[$key]->jumlah : 0,
                 ];
             });
@@ -361,13 +377,14 @@ class BukuTamuController extends Controller
                 ->keyBy('tanggal');
 
             $result = collect();
+            $namaBulan = $namaBulanIndo[$bulan];
 
             for ($d = 1; $d <= $daysInMonth; $d++) {
                 $currentDate = $startDate->copy()->day($d);
                 $key = $currentDate->format('Y-m-d');
                 $result->push([
                     'label' => $d,
-                    'label' => $currentDate->format('d M'), // Contoh: "01 Jun"
+                    'label' => $d . ' ' . $namaBulan, // Contoh: "01 Jun"
                     'jumlah' => $data->has($key) ? $data[$key]->jumlah : 0,
                 ]);
             }
@@ -393,9 +410,9 @@ class BukuTamuController extends Controller
                 ->get()
                 ->keyBy('bulan');
 
-            $result = $months->map(function ($month) use ($data) {
+            $result = $months->map(function ($month) use ($data, $namaBulanIndo) {
                 return [
-                    'label' => Carbon::create()->month($month)->format('F'), // Januari, Februari, ...
+                    'label' => $namaBulanIndo[$month] ?? 'Unknown', // Januari, Februari, ...
                     'jumlah' => $data->has($month) ? $data[$month]->jumlah : 0,
                 ];
             });

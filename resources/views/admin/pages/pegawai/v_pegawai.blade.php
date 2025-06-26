@@ -9,7 +9,7 @@
 
 @section('konten')
 <div class="bg-white rounded-lg shadow">
-    <h2 class="text-lg border-b border-gray-300 p-3">Daftar Buku Tamu</h2>
+    <h2 class="text-lg border-b border-gray-300 p-3">Daftar Pegawai</h2>
     <div class="p-4">
         @if (session('success'))
             <div class="mb-4 p-3 bg-green-100 border-l-4 border-green-500 text-green-700 rounded flex justify-between items-center">
@@ -26,17 +26,17 @@
             </a>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200" id="table-bukutamu">
-                <thead class="bg-blue-500 text-white">
+        <div class="overflow-x-auto bg-white mb-4">
+            <table class="min-w-full w-full table-auto border-collapse divide-y divide-gray-200" id="table-bukutamu">
+                <thead class="bg-gray-800 text-white text-center">
                     <tr>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">No</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Nama Pegawai</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Jabatan</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Agama</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Kontak</th>
-                        <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Action</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">No</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Nama Pegawai</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Jabatan</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Agama</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Kontak</th>
+                        <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">

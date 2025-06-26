@@ -2,7 +2,7 @@
     $currentRoute = Route::currentRouteName() ?? request()->path();
 @endphp
 
-<aside class="bg-white w-72 min-h-screen border-r border-gray-200 shadow-sm">
+<aside class="bg-white w-72 min-h-full border-r border-gray-200 shadow-sm">
     <!-- User Panel -->
     <div class="p-4 border-b border-gray-200">
         <div class="flex items-center space-x-3">

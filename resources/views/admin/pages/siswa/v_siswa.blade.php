@@ -3,42 +3,44 @@
 @section('title', 'Siswa')
 
 @section('konten')
-<div class="p-4">
-    <!-- Success Alert -->
-    @if (session('success'))
-        <div class="mb-4 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded flex justify-between items-center">
-            <p>{{ session('success') }}</p>
-            <button type="button" class="text-green-700 hover:text-green-900" onclick="this.parentElement.remove()">
-                <span class="text-2xl">&times;</span>
+<div class="bg-white rounded-lg shadow">
+    <h2 class="text-lg border-b border-gray-300 p-3">Daftar Data Siswa</h2>
+    <div class="p-4">
+        @if (session('success'))
+            <div class="mb-4 p-3 bg-green-100 border-l-4 border-green-500 text-green-700 rounded flex justify-between items-center">
+                <p>{{ session('success') }}</p>
+                <button type="button" class="text-green-700 hover:text-green-900" onclick="this.parentElement.remove()">
+                    <span class="text-2xl">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        <div class="flex items-center mb-4">
+            <button type="button" class="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded" 
+                    onclick="document.getElementById('modalTambahSiswa').classList.remove('hidden')">
+                Tambah Data Siswa
             </button>
         </div>
-    @endif
-
-    <!-- Add Student Button -->
-    <button type="button" class="mb-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded" 
-            onclick="document.getElementById('modalTambahSiswa').classList.remove('hidden')">
-        Tambah Data Siswa
-    </button>
 
     <!-- Student Table -->
-    <div class="overflow-x-auto bg-white rounded-lg shadow">
-        <table class="min-w-full divide-y divide-gray-200" id="table-siswa">
-            <thead class="bg-green-500 text-white">
+    <div class="overflow-x-auto bg-white mb-4">
+        <table class="min-w-full w-full table-auto border-collapse divide-y divide-gray-200" id="table-siswa">
+            <thead class="bg-gray-800 text-white text-center">
                 <tr>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">No</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">NIS</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">NISN</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Nama Siswa</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tempat Lahir</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tanggal Lahir</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Alamat</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Agama</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tlp Rumah</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">HP</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Photo</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Tahun Masuk</th>
-                    <th class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Aksi</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">No</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">NIS</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">NISN</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Nama Siswa</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Tempat Lahir</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Tanggal Lahir</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Jenis Kelamin</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Alamat</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Agama</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Tlp Rumah</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">HP</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Photo</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Tahun Masuk</th>
+                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -391,7 +393,20 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#table-siswa').DataTable();
+        $('#table-siswa').DataTable({
+            responsive: true,
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data per halaman",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Selanjutnya",
+                    previous: "Sebelumnya"
+                }
+            }
+        });
     });
 </script>
 @endsection

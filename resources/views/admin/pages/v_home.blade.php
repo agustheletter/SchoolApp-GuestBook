@@ -3,12 +3,14 @@
 @section('title', 'Admin')
 
 @section('konten')
-<div class="container mx-auto px-4 py-6">
+
+<h2 class="font-bold text-4xl mx-4">Dashboard</h2>
+<div class="container mx-auto px-4 py-6 md:items-center md:justify-between">
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <!-- Total Siswa -->
-        <div class="flex flex-col bg-blue-500 rounded-lg shadow-md overflow-hidden h-full">
-            <div class="p-6 flex-grow">
+        <div class="bg-blue-500 rounded-lg shadow-md overflow-hidden">
+            <div class="p-4">
                 <div class="flex items-center">
                     <div class="flex-1">
                         <h3 class="text-3xl font-bold text-white">{{ $totalSiswa ?? 0 }}</h3>
@@ -25,8 +27,8 @@
         </div>
 
         <!-- Total Orang Tua -->
-        <div class="flex flex-col bg-green-500 rounded-lg shadow-md overflow-hidden h-full">
-            <div class="p-6 flex-grow">
+        <div class="bg-green-500 rounded-lg shadow-md overflow-hidden">
+            <div class="p-4">
                 <div class="flex items-center">
                     <div class="flex-1">
                         <h3 class="text-3xl font-bold text-white">{{ $totalOrangtua ?? 0 }}</h3>
@@ -43,8 +45,8 @@
         </div>
 
         <!-- Total Jabatan -->
-        <div class="flex flex-col bg-indigo-500 rounded-lg shadow-md overflow-hidden h-full">
-            <div class="p-6 flex-grow">
+        <div class="bg-indigo-500 rounded-lg shadow-md overflow-hidden">
+            <div class="p-4">
                 <div class="flex items-center">
                     <div class="flex-1">
                         <h3 class="text-3xl font-bold text-white">{{ $totalJabatan ?? 0 }}</h3>
@@ -61,8 +63,8 @@
         </div>
 
         <!-- Total Pegawai -->
-        <div class="flex flex-col bg-red-500 rounded-lg shadow-md overflow-hidden h-full">
-            <div class="p-6 flex-grow">
+        <div class="bg-red-500 rounded-lg shadow-md overflow-hidden">
+            <div class="p-4">
                 <div class="flex items-center">
                     <div class="flex-1">
                         <h3 class="text-3xl font-bold text-white">{{ $totalPegawai ?? 0 }}</h3>
@@ -80,9 +82,9 @@
     </div>
 
     <!-- Buku Tamu Card -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="flex flex-col bg-gray-800 rounded-lg shadow-md overflow-hidden h-full">
-            <div class="p-6 flex-grow">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"> 
+        <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
+            <div class="p-4">
                 <div class="flex items-center">
                     <div class="flex-1">
                         <h3 class="text-3xl font-bold text-white">{{ $totalBukuTamu ?? 0 }}</h3>
