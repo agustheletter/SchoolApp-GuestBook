@@ -58,7 +58,7 @@
                         <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $s->tlprumah }}</td>
                         <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">{{ $s->hpsiswa }}</td>
                         <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap">
-                            <img class="w-16 h-16 object-cover" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}" alt="Photo">
+                            <img class="mx-auto rounded-md max-w-[80px] max-h-[80px]" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}" alt="Photo">
                         </td>
                         <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center">{{ $s->thnajaran->thnajaran }}</td>
                         <td class="px-3 py-3 border-[0.5px] border-gray-100 whitespace-nowrap text-center space-x-2">
