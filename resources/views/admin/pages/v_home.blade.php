@@ -441,10 +441,37 @@
             }
         }
 
+        
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                const labels = data.map(item => item.label);
+                const bulanMap = {
+                    'Januari': '01',
+                    'Februari': '02',
+                    'Maret': '03',
+                    'April': '04',
+                    'Mei': '05',
+                    'Juni': '06',
+                    'Juli': '07',
+                    'Agustus': '08',
+                    'September': '09',
+                    'Oktober': '10',
+                    'November': '11',
+                    'Desember': '12'
+                };
+
+                const labels = data.map(item => {
+                    if (filter === 'bulan') {
+                        const [tanggal, bulanNama] = item.label.split(' ');
+                        const bulan = bulanMap[bulanNama];
+                        const date = new Date(`2025-${bulan}-${tanggal}`);
+                        const day = date.getDate();
+                        const monthShort = date.toLocaleString('id-ID', { month: 'short' });
+                        return `${day} ${monthShort}`;
+                    }
+                    return item.label;
+                });
+
                 const jumlah = data.map(item => item.jumlah);
 
                 const ctx = document.getElementById('grafikKunjunganHarian').getContext('2d');
