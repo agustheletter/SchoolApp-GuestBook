@@ -47,6 +47,14 @@
     <script type="text/javascript" src="{{ asset('TemplateAdminLTE') }}/dist/datatable/DataTables-1.11.5/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('TemplateAdminLTE') }}/dist/datatable/DataTables-1.11.5/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('TemplateAdminLTE') }}/dist/datatable/DataTables-1.11.5/css/dataTables.bootstrap.css">
+
+    {{-- Datatables header --}}
+    <style>
+        .dataTables_scrollBody thead {
+            visibility: collapse !important;
+        }
+    </style>
+
     <!--AKHIR LIBRARY DATA TABLE-->
     @stack('styles')
 </head>
