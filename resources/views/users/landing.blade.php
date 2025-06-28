@@ -22,32 +22,16 @@
 </head>
 
 <body class="bg-gray-50 text-gray-800 poppins overflow-x-hidden">
-  <!-- Tombol Scroll ke Atas -->
-  <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-[#60A5FA] text-white p-4 rounded-full shadow-lg hover:bg-[#3B82F6] transition opacity-0 pointer-events-none flex flex-col items-center justify-center z-[9999]">
-    <span class="text-2xl font-bold">↑</span>
-    <span class="text-xs mt-1">Top</span>
-  </button>
+    <!-- Loading Overlay -->
+    @include('components.loading')
 
-  {{-- <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-300 p-5">
-    <div class="mx-12 flex justify-between items-center">
-        <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
-            <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
-            <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-gray-800 transition duration-300">GuestBook</h1>
-        </a>
-      <nav class="flex items-center justify-center gap-5">
-        <a href="#beranda" class="hover:text-white transition duration-300">Beranda</a>
-        <a href="#fitur" class="hover:text-white transition duration-300">Fitur</a>
-        <a href="#tentang" class="hover:text-white transition duration-300">Tentang</a>
-        <a href="#kontak" class="hover:text-white transition duration-300">Kontak</a>
-        @if(Auth::check())
-        <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
-        @else
-        <a href="{{ route('login') }}" class="ml-1 bg-sky-500 text-slate-100 px-6 py-[6px] rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-slate-200">Login</a>
-        @endif
-      </nav>
-    </div>
-  </header> --}}
+    <!-- Tombol Scroll ke Atas -->
+    <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-[#60A5FA] text-white p-4 rounded-full shadow-lg hover:bg-[#3B82F6] transition opacity-0 pointer-events-none flex flex-col items-center justify-center z-[9999]">
+        <span class="text-2xl font-bold">↑</span>
+        <span class="text-xs mt-1">Top</span>
+    </button>
 
+    {{-- Navbar --}}
     <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-300 p-5">
         <div class="mx-4 md:mx-12 flex justify-between items-center">
             <!-- Logo -->
@@ -131,7 +115,7 @@
 
         <!-- Left Side - Content -->
         <div class="w-1/2 flex flex-col items-center text-center space-y-8">
-          <img src="{{ asset('gambar/icon2.png') }}" alt="School Icon" class="w-36 h-36 transition duration-300 hover:scale-110" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
+          <img src="{{ asset('gambar/icon2.png') }}" alt="Guestbook Icon" class="w-36 h-36 transition duration-300 hover:scale-110" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
 
           <div class="space-y-4">
             <h2 class="text-5xl text-slate-100 drop-shadow-lg font-bold" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">
@@ -221,10 +205,10 @@
 
         <!-- Left Side - Content -->
         <div class="w-1/2 flex flex-col items-center text-center space-y-8">
-          <img src="{{ asset('gambar/icon2.png') }}" alt="School Icon" class="w-36 h-36 transition duration-300 hover:scale-110 drop-shadow-2xl" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
+          <img src="{{ asset('gambar/icon2.png') }}" alt="Guestbook Icon" class="w-36 h-36 transition duration-300 hover:scale-110 drop-shadow-2xl" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
 
           <div class="space-y-4">
-            <h2 class="text-5xl text-white drop-shadow-2xl font-bold" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">
+            <h2 class="text-5xl text-white drop-shadow-2xl font-bold leading-tight" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">
               Selamat Datang di Buku Tamu Digital
             </h2>
             <p class="text-xl text-blue-100 drop-shadow-lg" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">
@@ -441,6 +425,8 @@
     <p>&copy; {{ date('Y') }} Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
   </footer>
 
+<script src="{{ asset('js/script.js') }}"></script>
+
 <!-- Sweet Alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -457,105 +443,103 @@
         });
     </script>
 @endif
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuBtn = document.getElementById("menuBtn");
+            const mobileMenu = document.getElementById("mobileMenu");
 
-  <script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const menuBtn = document.getElementById("menuBtn");
-        const mobileMenu = document.getElementById("mobileMenu");
-
-        menuBtn.addEventListener("click", () => {
-            mobileMenu.classList.toggle("hidden");
+            menuBtn.addEventListener("click", () => {
+                mobileMenu.classList.toggle("hidden");
+            });
         });
-    });
 
-    // Scroll ke atas sebelum reload (opsional tambahan keamanan)
-    window.addEventListener('beforeunload', function () {
-        window.scrollTo(0, 0);
-    });
+        // Scroll ke atas sebelum reload (opsional tambahan keamanan)
+        window.addEventListener('beforeunload', function () {
+            window.scrollTo(0, 0);
+        });
 
-    // Scroll ke atas saat halaman selesai dimuat
-    document.addEventListener("DOMContentLoaded", function () {
-        window.scrollTo({ top: 0, behavior: "auto" });
-    });
+        // Scroll ke atas saat halaman selesai dimuat
+        document.addEventListener("DOMContentLoaded", function () {
+            window.scrollTo({ top: 0, behavior: "auto" });
+        });
 
-    // navbar aktif
-    document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll("nav a[href^='#']");
+        // navbar aktif
+        document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll("nav a[href^='#']");
 
-    function updateActiveNav() {
-        let current = "";
+        function updateActiveNav() {
+            let current = "";
 
-        sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionHeight = section.offsetHeight;
-        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
-            current = section.getAttribute("id");
+            sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.offsetHeight;
+            if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                current = section.getAttribute("id");
+            }
+            });
+
+            navLinks.forEach(link => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === `#${current}`) {
+                link.classList.add("active");
+            }
+            });
         }
+
+        window.addEventListener("scroll", updateActiveNav);
+        updateActiveNav(); // Jalankan sekali saat halaman dimuat
         });
 
-        navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active");
-        }
-        });
-    }
-
-    window.addEventListener("scroll", updateActiveNav);
-    updateActiveNav(); // Jalankan sekali saat halaman dimuat
-    });
-
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-    window.onscroll = function () {
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-        scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
-      } else {
-        scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
-        scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
-      }
-    };
-    scrollToTopBtn.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // navbar scrolling
-    const navbar = document.getElementById('navbar');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 10) {
-        // navbar.classList.add('bg-[#f0c256]', 'shadow-md');
-
-        // navbar.classList.add('bg-[#568ef8]', 'shadow-md');
-        navbar.classList.add('bg-[#213374]', 'shadow-md');
-        navbar.classList.remove('bg-transparent');
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        window.onscroll = function () {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+            scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
         } else {
-        // navbar.classList.remove('bg-[#f0c256]', 'shadow-md');
-
-        // navbar.classList.remove('bg-[#568ef8]', 'shadow-md');
-        navbar.classList.remove('bg-[#213374]', 'shadow-md');
-        navbar.classList.add('bg-transparent');
+            scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+            scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
         }
-    });
+        };
+        scrollToTopBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
-    // const navbar = document.getElementById('navbar');
+        // navbar scrolling
+        const navbar = document.getElementById('navbar');
 
-    // window.addEventListener('scroll', () => {
-    //     if (window.scrollY > 10) {
-    //         navbar.classList.add('scrolled', 'bg-slate-800', 'shadow-md');
-    //         navbar.classList.remove('bg-transparent');
-    //     } else {
-    //         navbar.classList.remove('scrolled', 'bg-slate-800', 'shadow-md');
-    //         navbar.classList.add('bg-transparent');
-    //     }
-    // });
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+            // navbar.classList.add('bg-[#f0c256]', 'shadow-md');
+
+            // navbar.classList.add('bg-[#568ef8]', 'shadow-md');
+            navbar.classList.add('bg-[#213374]', 'shadow-md');
+            navbar.classList.remove('bg-transparent');
+            } else {
+            // navbar.classList.remove('bg-[#f0c256]', 'shadow-md');
+
+            // navbar.classList.remove('bg-[#568ef8]', 'shadow-md');
+            navbar.classList.remove('bg-[#213374]', 'shadow-md');
+            navbar.classList.add('bg-transparent');
+            }
+        });
+
+        // const navbar = document.getElementById('navbar');
+
+        // window.addEventListener('scroll', () => {
+        //     if (window.scrollY > 10) {
+        //         navbar.classList.add('scrolled', 'bg-slate-800', 'shadow-md');
+        //         navbar.classList.remove('bg-transparent');
+        //     } else {
+        //         navbar.classList.remove('scrolled', 'bg-slate-800', 'shadow-md');
+        //         navbar.classList.add('bg-transparent');
+        //     }
+        // });
 
 
-    AOS.init();
+        AOS.init();
 
-  </script>
+    </script>
 
 </body>
 </html>

@@ -53,6 +53,16 @@
         .dataTables_scrollBody thead {
             visibility: collapse !important;
         }
+
+        .loader {
+            border-top-color: #3498db;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 
     <!--AKHIR LIBRARY DATA TABLE-->
@@ -60,6 +70,10 @@
 </head>
 
 <body class="bg-gray-50 font-sans">
+
+    <!-- Loading Overlay -->
+    @include('components.loading')
+
     <div class="min-h-screen flex flex-col">
         @include('admin.v_header')
 
@@ -91,10 +105,11 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('TemplateAdminLTE') }}/dist/js/demo.js"></script>
 
+    <script src="{{ asset('js/script.js') }}"></script>
 
-        {{-- NEW --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    {{-- NEW --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script> --}}
     <script>
         // Toggle sidebar on mobile
         $(document).ready(function() {
