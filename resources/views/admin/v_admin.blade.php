@@ -54,7 +54,7 @@
             visibility: collapse !important;
         }
 
-        .loader {
+        /* .loader {
             border-top-color: #3498db;
             animation: spin 1s linear infinite;
         }
@@ -62,7 +62,10 @@
         @keyframes spin {
             0%   { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
+        } */
+
+        /* Loading Style */
+
     </style>
 
     <!--AKHIR LIBRARY DATA TABLE-->
@@ -106,6 +109,7 @@
     <script src="{{ asset('TemplateAdminLTE') }}/dist/js/demo.js"></script>
 
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
     {{-- NEW --}}
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}

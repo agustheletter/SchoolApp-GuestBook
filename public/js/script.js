@@ -63,3 +63,16 @@ window.addEventListener('load', () => {
         hideLoading();
     }, 800); // delay lebih lama di refresh (misal 800ms)
 });
+
+
+// Typed JS
+// document.addEventListener('DOMContentLoaded', function () {
+//     new Typed("#typedLoading", {
+//         strings: ["Memuat data ...", "Mengambil informasi ...", "Mohon tunggu ..."],
+//         typeSpeed: 30,
+//         backSpeed: 30,
+//         backDelay: 1000,
+//         loop: true,
+//         showCursor: false
+//     });
+// });

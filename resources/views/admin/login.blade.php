@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="{{ asset('TemplateAdminLTE') }}/plugins/fontawesome-free/css/all.min.css">
 </head>
 <body class="bg-gray-50 text-gray-800 poppins">
+    <!-- Loading Overlay -->
+    @include('components.loading')
 
     <!-- Navbar -->
     {{-- <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-[radial-gradient(circle_800px_at_100%_200px,#60A5FA)] text-slate-900 p-5 shadow-2xl">
@@ -120,21 +122,24 @@
     <p>&copy; 2025 Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
   </footer>
 
-  <!-- Script sama seperti landing page -->
-  <script>
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-    window.onscroll = function () {
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-        scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
-      } else {
-        scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
-        scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
-      }
-    };
-    scrollToTopBtn.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
+
+    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- Script sama seperti landing page -->
+    <script>
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        window.onscroll = function () {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+            scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+            scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+            scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+        }
+        };
+        scrollToTopBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
