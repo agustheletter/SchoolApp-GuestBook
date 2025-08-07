@@ -155,16 +155,16 @@
         <div class="mx-4 md:mx-12 flex justify-between items-center">
             <!-- Logo -->
             <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
-            <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
+            <img src="{{ asset('gambar/iconsekolah.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
             <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-slate-300 transition duration-300">GuestBook</h1>
             </a>
 
-            <!-- Desktop Nav -->
+            {{-- <!-- Desktop Nav -->
             <nav class="flex md:flex items-center justify-center gap-5">
             <a href="#beranda" class="hover:text-white transition duration-300">Beranda</a>
             <a href="#fitur" class="hover:text-white transition duration-300">Fitur</a>
             <a href="#tentang" class="hover:text-white transition duration-300">Tentang</a>
-            {{-- <a href="#kontak" class="hover:text-white transition duration-300">Kontak</a> --}}
+            <a href="#kontak" class="hover:text-white transition duration-300">Kontak</a>
             @if(Auth::check())
             <a href="{{ route('home') }}" class="ml-1 bg-green-600 hover:bg-green-700 text-white px-6 py-[6px] rounded-md transition duration-200">Admin</a>
             @else
@@ -175,21 +175,21 @@
             <!-- Hamburger (Mobile Only) -->
             <div class="md:hidden">
             <button id="menuBtn" class="text-white text-2xl focus:outline-none">☰</button>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Mobile Menu (Dropdown) -->
-        <div id="mobileMenu" class="md:hidden hidden mt-4 px-4">
+        {{-- <div id="mobileMenu" class="md:hidden hidden mt-4 px-4">
             <a href="#beranda" class="block py-2 text-white hover:text-blue-400 transition">Beranda</a>
             <a href="#fitur" class="block py-2 text-white hover:text-blue-400 transition">Fitur</a>
             <a href="#tentang" class="block py-2 text-white hover:text-blue-400 transition">Tentang</a>
-            {{-- <a href="#kontak" class="block py-2 text-white hover:text-blue-400 transition">Kontak</a> --}}
+            <a href="#kontak" class="block py-2 text-white hover:text-blue-400 transition">Kontak</a>
             @if(Auth::check())
             <a href="{{ route('home') }}" class="block py-2 mt-2 bg-green-600 hover:bg-green-700 text-white px-6 rounded-md transition duration-200 w-fit">Admin</a>
             @else
             <a href="{{ route('login') }}" class="block py-2 mt-2 bg-sky-500 text-white px-6 rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-slate-200 w-fit">Login</a>
             @endif
-        </div>
+        </div> --}}
     </header>
 
     {{-- Home Page --}}
@@ -281,18 +281,18 @@
             <!-- Left Side - Content -->
             <div class="w-1/2 flex flex-col items-center text-center space-y-8">
 
-            <img src="{{ asset('gambar/icon2.png') }}" alt="Guestbook Icon" class="w-36 h-36 transition duration-300 hover:scale-110 drop-shadow-2xl" data-aos="fade-in" data-aos-duration="500" data-aos-delay="100">
+            <img src="{{ asset('gambar/iconsekolah.png') }}" alt="Guestbook Icon" class="w-36 h-36 transition duration-300 hover:scale-110 drop-shadow-2xl">
 
             <div class="space-y-4">
-                <h2 class="text-5xl text-white drop-shadow-2xl font-bold leading-tight" data-aos="fade-in" data-aos-duration="500" data-aos-delay="600">
-                Selamat Datang di Buku Tamu Digital
+                <h2 class="text-5xl text-white drop-shadow-2xl font-bold leading-tight">
+                Selamat Datang di SMK Negeri 1 Cimahi
                 </h2>
-                <p class="text-xl text-blue-100 drop-shadow-lg" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1000">
-                Catat kehadiran tamu secara efisien dan terorganisir
+                <p class="text-xl text-blue-100 drop-shadow-lg">
+                Silahkan untuk mengisi buku tamu
                 </p>
             </div>
 
-            <div class="w-fit flex items-center justify-center bg-white/95 backdrop-blur-lg gap-3 p-2 rounded-full shadow-2xl border border-white/20" data-aos="fade-in" data-aos-duration="500" data-aos-delay="1400">
+            <div class="w-fit flex items-center justify-center bg-white/95 backdrop-blur-lg gap-3 p-2 rounded-full shadow-2xl border border-white/20">
                 <a href="{{ route('bukutamu.user') }}#ortu" class="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium px-9 py-5 text-xl rounded-full shadow-lg hover:from-blue-600 hover:to-blue-700 hover:scale-105 transition duration-300">
                 Orang Tua
                 </a>
@@ -312,7 +312,7 @@
                 <div class="relative aspect-video rounded-xl overflow-hidden shadow-xl">
                     <iframe
                     class="w-full h-full"
-                    src="https://www.youtube.com/embed/RfwrndR_uAU?si=vjVTr_eEebuqppfd"
+                    src="https://www.youtube.com/embed/j-vz3ZuL3jw?si=jlsqPoDToplWY9Uj"
                     title="School Profile Video"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -332,7 +332,7 @@
     </section>
 
     {{-- Fitur --}}
-    <section id="fitur" class="py-36 min-h-screen relative">
+    {{-- <section id="fitur" class="py-36 min-h-screen relative">
 
         <div class="absolute bottom-0 -z-10 left-0 right-0 top-0 pointer-events-none bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
 
@@ -362,9 +362,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <section id="tentang" class="py-28 flex items-center justify-center min-h-screen relative">
+    {{-- Tentang --}}
+    {{-- <section id="tentang" class="py-28 flex items-center justify-center min-h-screen relative">
 
         <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
             <div class="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#60A5FA,transparent)]"></div>
@@ -382,13 +383,11 @@
             <div class="flex justify-center mb-8" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1200">
                 <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-48 h-w-48 mx-auto drop-shadow-xl transition duration-300 hover:scale-110">
             </div>
-
-        {{-- <p class="text-lg text-gray-600 max-w-5xl mx-auto" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1600">Aplikasi Buku Tamu Digital ini adalah proyek tugas akhir kami untuk mata pelajaran pengembangan website, dibangun menggunakan Laravel dan MySQL. Aplikasi ini dirancang untuk membantu sekolah dalam mencatat dan mengelola kunjungan tamu—baik orang tua siswa maupun tamu umum—secara efisien dan terstruktur. Fitur-fiturnya meliputi input data tamu secara langsung, pemisahan kategori tamu, pencatatan tujuan kunjungan, serta pengelolaan data pegawai, siswa, jabatan, dan agama. Seluruh data tersimpan secara digital sehingga memudahkan pencarian, rekap, dan pelaporan kunjungan.</p> --}}
             <p class="text-lg text-gray-600 max-w-5xl mx-auto" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1600">Aplikasi Buku Tamu Digital ini dirancang untuk mempermudah pengelolaan kunjungan di sekolah, khususnya bagi jurusan Hubungan Industri di SMKN 1 Cimahi. Sistem ini memungkinkan pencatatan tamu—mulai dari orang tua, tamu umum, hingga pihak industri—secara efisien dan terstruktur. Semua data kunjungan tersimpan secara digital, yang memudahkan proses rekapitulasi dan pelaporan, sehingga administrasi sekolah menjadi lebih cepat dan rapi.</p>
         </div>
-    </section>
+    </section> --}}
 
-    {{-- Kontek --}}
+    {{-- Kontak --}}
     {{-- <section id="kontak" class="py-28 px-4 min-h-screen relative">
 
         <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"></div>
@@ -483,9 +482,10 @@
 
     </section> --}}
 
-    <footer class="bg-slate-700 text-white text-center py-6">
+    {{-- Footer --}}
+    {{-- <footer class="bg-slate-700 text-white text-center py-6">
         <p>© {{ date('Y') }} Buku Tamu Digital. Development by Software Engineer SMKN 1 Cimahi.</p>
-    </footer>
+    </footer> --}}
 
 {{-- JS dari Splide.js --}}
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>

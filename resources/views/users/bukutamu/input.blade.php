@@ -80,11 +80,11 @@
         <div class="mx-4 md:mx-12 flex justify-between items-center">
             <!-- Logo -->
             <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
-            <img src="{{ asset('gambar/icon2.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
+            <img src="{{ asset('gambar/iconsekolah.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
             <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-slate-300 transition duration-300">GuestBook</h1>
             </a>
 
-            <!-- Desktop Nav -->
+            {{-- <!-- Desktop Nav -->
             <nav class="flex md:flex items-center justify-center gap-5">
             <a href="{{ route('landing') }}" class="hover:text-white transition duration-300">Beranda</a>
             <a href="{{ route('landing') }}" class="hover:text-white transition duration-300">Fitur</a>
@@ -100,11 +100,11 @@
             <!-- Hamburger (Mobile Only) -->
             <div class="md:hidden">
             <button id="menuBtn" class="text-white text-2xl focus:outline-none">☰</button>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Mobile Menu (Dropdown) -->
-        <div id="mobileMenu" class="md:hidden hidden mt-4 px-4">
+        {{-- <div id="mobileMenu" class="md:hidden hidden mt-4 px-4">
             <a href="{{ route('landing') }}" class="block py-2 text-white hover:text-blue-400 transition">Beranda</a>
             <a href="{{ route('landing') }}" class="block py-2 text-white hover:text-blue-400 transition">Fitur</a>
             <a href="{{ route('landing') }}" class="block py-2 text-white hover:text-blue-400 transition">Tentang</a>
@@ -114,7 +114,7 @@
             @else
             <a href="{{ route('login') }}" class="block py-2 mt-2 bg-sky-500 text-white px-6 rounded-md transition duration-300 shadow-xl hover:bg-sky-600 hover:text-slate-200 w-fit">Login</a>
             @endif
-        </div>
+        </div> --}}
     </header>
 
     <!-- Login Form -->
@@ -262,7 +262,7 @@
 
                         <button type="submit"
                         class="w-52 bg-[#8fd14f] hover:bg-gray-800 hover:text-[#8fd14f] text-gray-800 font-semibold py-2 rounded-md transition duration-300">
-                        Simpan
+                        Kirim
                     </button>
                     </div>
                 </form>
@@ -352,7 +352,7 @@
 
                         <button type="submit"
                         class="w-52 bg-[#8fd14f] hover:bg-gray-800 hover:text-[#8fd14f] text-gray-800 font-semibold py-2 rounded-md transition duration-300">
-                        Simpan
+                        Kirim
                     </button>
                     </div>
                 </form>
