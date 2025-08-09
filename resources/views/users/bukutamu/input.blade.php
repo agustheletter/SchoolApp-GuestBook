@@ -118,7 +118,7 @@
     </header>
 
     <!-- Login Form -->
-    <section class="pt-[120px] flex items-center justify-center mb-16 flex-grow"">
+    <section class="pt-[120px] flex items-center justify-center mb-16 flex-grow">
         <div class="bg-[#eee] shadow-lg rounded-xl px-8 py-6 w-full max-w-7xl mx-6 text-slate-800">
             <h2 class="text-center text-2xl font-bold mb-4">Buku Tamu Digital SMK Negeri 1 Cimahi</h2>
             <div class="w-fit mb-4 flex flex-row-reverse text-sm items-center bg-gray-300 gap-2 px-2 py-1 rounded-full group">
