@@ -177,7 +177,7 @@
 
                     <div class="mb-6 flex items-center gap-4">
                         <label for="foto_tamu_ortu" class="w-52 text-left font-semibold">Ambil Foto</label>
-                        <div class="flex flex-row gap-4 items-center justify-center">
+                        <div class="w-full flex flex-col xl:flex-row flex-wrap gap-4 items-center justify-center">
                             <!-- Video Kamera (Preview) -->
                             <div id="camera_ortu" class="rounded-xl border-4 border-[#60A5FA] overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
 
@@ -275,7 +275,7 @@
 
                     <div class="mb-6 flex items-center gap-4">
                         <label for="foto_tamu_umum" class="w-52 text-left font-semibold">Ambil Foto</label>
-                        <div class="flex flex-row gap-4 items-center justify-center">
+                        <div class="w-full flex flex-col xl:flex-row flex-wrap gap-4 items-center justify-center">
                             <!-- Video Kamera (Preview) -->
                             <div id="camera_umum" class="rounded-xl border-4 border-[#60A5FA] overflow-hidden w-[320px] h-[240px] bg-gray-200"></div>
 
