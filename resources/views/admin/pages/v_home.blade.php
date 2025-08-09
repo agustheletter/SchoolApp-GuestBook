@@ -103,7 +103,7 @@
 </div>
 
     <!-- Chart Section -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <div class="w-full mb-6 px-4 py-6 bg-white rounded-lg shadow">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
             <h2 class="text-3xl font-semibold mb-4 md:mb-0">Statistik Kunjungan Tamu</h2>
 
@@ -152,7 +152,7 @@
         <div class="bg-white rounded-lg p-4">
             <canvas id="grafikKunjunganHarian" height="100"></canvas>
         </div>
-    </div>
+    </>
 </div>
 
 @push('scripts')

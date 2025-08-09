@@ -312,13 +312,13 @@
                 <div class="relative aspect-video rounded-xl overflow-hidden shadow-xl">
                     <iframe
                     class="w-full h-full"
-                    src="https://www.youtube.com/embed/j-vz3ZuL3jw?si=jlsqPoDToplWY9Uj"
-                    title="School Profile Video"
+                    src="https://www.youtube.com/embed/j-vz3ZuL3jw?list=PLNAS39DmeQR2GBdURgc-iLgDclggkff2s&autoplay=1&controls=0"
+                    title="Playlist Video Profil Sekolah"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen
-                    ></iframe>
+                ></iframe>
                 </div>
                 <p class="text-sm text-slate-600 text-center mt-4">
                     Tonton video profil sekolah kami untuk mengetahui lebih lanjut tentang program dan komunitas kami
