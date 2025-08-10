@@ -12,7 +12,8 @@
         <div class="loader mb-6">
             <div class="flex items-center justify-center loader-icon">
                 <!-- Placeholder for your project icon -->
-                <img src="{{ asset('gambar/icon2.png') }}" class="w-20 h-20 cursor" alt="">
+                {{-- <img src="{{ asset('gambar/icon2.png') }}" class="w-20 h-20 cursor" alt=""> --}}
+                <img src="{{ asset('gambar/iconsekolah.png') }}" class="w-20 h-20 cursor" alt="">
             </div>
         </div>
         <p class="text-gray-700 font-medium poppins text-2xl">Memuat data...</p>

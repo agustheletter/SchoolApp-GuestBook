@@ -154,7 +154,7 @@
     <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-300 p-5">
         <div class="mx-4 md:mx-12 flex justify-between items-center">
             <!-- Logo -->
-            <a href="{{ route('landing') }}" class="flex items-center justify-center gap-2 group">
+            <a href="#" class="flex items-center justify-center gap-2 group">
             <img src="{{ asset('gambar/iconsekolah.png') }}" alt="" class="w-7 h-7 mx-auto drop-shadow-xl">
             <h1 class="text-2xl font-semibold text-slate-100 drop-shadow-xl group-hover:text-slate-300 transition duration-300">GuestBook</h1>
             </a>
