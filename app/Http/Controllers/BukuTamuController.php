@@ -12,6 +12,7 @@ use App\Models\PegawaiModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class BukuTamuController extends Controller
 {
@@ -230,7 +231,7 @@ class BukuTamuController extends Controller
         }
 
         // Simpan data ke database
-        BukuTamu::create([
+        $bukuTamu = BukuTamu::create([
             'nama' => $request->nama,
             'role' => $request->role,
             // 'idagama' => $request->idagama,
@@ -244,11 +245,79 @@ class BukuTamuController extends Controller
             'foto_tamu' => $imageName,
         ]);
 
+        // --- LOGIKA PENGIRIMAN WHATSAPP BARU DIMULAI DI SINI ---
+
+        // 1. Ambil data pegawai yang dituju dari database
+        $pegawai = PegawaiModel::find($request->id_pegawai);
+
+        // 2. Tentukan format pesan berdasarkan role tamu
+        $pesan = "Assalamualaikum Bapak/Ibu {$pegawai->nama_pegawai},\n\n";
+
+        if ($request->role == 'ortu') {
+            // Jika role adalah 'ortu', ambil nama siswa
+            $siswa = SiswaModel::find($request->idsiswa);
+
+            $pesan .= "Ini adalah nomor layanan Hotline SMK Negeri 1 Cimahi.\n"
+                    . "Saat ini ada tamu yang ingin bertemu dengan Anda sedang menunggu di Ruang Resepsionis.\n\n"
+                    . "Nama Tamu: {$bukuTamu->nama}.\n"
+                    . "Orang tua dari siswa: {$siswa->namasiswa}.\n"
+                    . "Siswa Kelas: -.\n"
+                    . "Dengan Nomor WA: {$bukuTamu->kontak} .\n";
+
+                    if ($bukuTamu->foto_tamu) {
+                        $pesan .= "Photo: ". env('APP_URL') ."/uploads/foto_tamu/{$bukuTamu->foto_tamu} .\n\n";
+                    }
+
+                    $pesan .= "Keperluan: {$bukuTamu->keperluan}\n"
+                    . "Waktu: " . now()->format('d F Y, H:i') . " WIB\n\n"
+                    . "Untuk konfirmasi atau informasi lebih lanjut, silakan hubungi kontak nomor Whatsapp tamu tersebut.\n";
+
+        } else { // 'umum'
+            $pesan .= "Ini adalah nomor layanan Hotline SMK Negeri 1 Cimahi.\n"
+                    . "Saat ini ada tamu yang ingin bertemu dengan Anda sedang menunggu di Ruang Resepsionis.\n\n"
+                    . "Nama Tamu: {$bukuTamu->nama}.\n"
+                    . "Asal Instansi: {$bukuTamu->instansi}.\n"
+                    . "Dengan Nomor WA: {$bukuTamu->kontak} .\n";
+
+                    if ($bukuTamu->foto_tamu) {
+                        $pesan .= "Photo: ". env('APP_URL') ."/uploads/foto_tamu/{$bukuTamu->foto_tamu} .\n\n";
+                    }
+
+                    $pesan .= "Keperluan: {$bukuTamu->keperluan}\n"
+                    . "Waktu: " . now()->format('d F Y, H:i') . " WIB\n\n"
+                    . "Untuk konfirmasi atau informasi lebih lanjut, silakan hubungi kontak nomor Whatsapp tamu tersebut.\n";
+        }
+
+        // 3. Kirim pesan jika nomor HP pegawai tersedia
+        if ($pegawai && !empty($pegawai->kontak)) {
+            $this->kirimPesanWhatsapp($pegawai->kontak, $pesan);
+        }
+
         // pemilihan role
         $role = $request->role;
         // return redirect()->route('bukutamu.user')->with('success', 'Data Buku Tamu berhasil ditambahkan');
         //return redirect()->to(route('bukutamu.user') . '#' . $role)->with('success', 'Data Buku Tamu berhasil ditambahkan');
         return redirect()->to(route('landing'))->with('success', 'Data Buku Tamu berhasil ditambahkan');
+    }
+
+    private function kirimPesanWhatsapp($nomor, $pesan)
+    {
+        $apiKey = env('FONNTE_API_KEY');
+
+        // Pastikan nomor diawali dengan 62
+        $nomor = ltrim($nomor, '0');
+        if (!str_starts_with($nomor, '62')) {
+            $nomor = '62' . $nomor;
+        }
+
+        $response = Http::withHeaders([
+            'Authorization' => $apiKey
+        ])->post('https://api.fonnte.com/send', [
+            'target' => $nomor,
+            'message' => $pesan,
+        ]);
+
+        // return $response->json(); // Opsional: untuk debugging
     }
 
     // grafik data

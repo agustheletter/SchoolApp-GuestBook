@@ -37,7 +37,7 @@
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Alamat</th>
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Agama</th>
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">HP</th>
-                    <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Photo</th>
+                    {{-- <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Photo</th> --}}
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Tahun Masuk</th>
                     <th class="px-3 py-3 border-[0.5px] border-gray-600 text-xs font-medium uppercase tracking-wider">Aksi</th>
                 </tr>
@@ -55,9 +55,9 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $s->alamat }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ optional($s->agama)->agama }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $s->kontak }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    {{-- <td class="px-6 py-4 whitespace-nowrap">
                         <img class="mx-auto rounded-md max-w-[80px] max-h-[80px]" src="{{ asset('PhotoSiswa/' . $s->photosiswa) }}" alt="Photo">
-                    </td>
+                    </td> --}}
                     <td class="px-6 py-4 whitespace-nowrap text-center">{{ $s->thnajaran->thnajaran }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-center space-x-2">
                         <!-- Edit Button -->
@@ -172,11 +172,11 @@
                 </div>
 
                 <!-- Photo Field -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                {{-- <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
                     <label for="photo" class="md:col-span-1 font-medium text-gray-700">Photo</label>
                     <input type="file" id="photo" name="photo"
                            class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
+                </div> --}}
 
                 <!-- Tahun Masuk Field -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
@@ -305,11 +305,11 @@
                 </div>
 
                 <!-- Photo Field -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                {{-- <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
                     <label for="photo" class="md:col-span-1 font-medium text-gray-700">Photo</label>
                     <input type="file" id="photo" name="photosiswa"
                            class="md:col-span-3 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
+                </div> --}}
 
                 <!-- Tahun Masuk Field -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
