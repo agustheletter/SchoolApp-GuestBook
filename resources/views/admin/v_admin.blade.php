@@ -80,7 +80,7 @@
     <div class="min-h-screen flex flex-col">
         @include('admin.v_header')
 
-        <div class="flex flex-1">
+        <div class="flex flex-1 pt-16">
             <div class="w-72 flex-shrink-0">
                 @include('admin.v_sidebar')
             </div>

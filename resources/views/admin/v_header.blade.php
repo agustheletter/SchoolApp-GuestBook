@@ -1,5 +1,5 @@
 <!-- v_header.blade.php -->
-<header class="bg-[#213374] shadow-sm border-b border-gray-200">
+<header class="fixed top-0 left-0 right-0 h-16 bg-[#213374] shadow-sm border-b border-gray-200">
   <div class="mx-4 px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16 items-center">
       <!-- Left side - Logo/Brand -->

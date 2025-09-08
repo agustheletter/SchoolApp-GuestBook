@@ -145,10 +145,10 @@
     @include('components.loading')
 
     <!-- Tombol Scroll ke Atas -->
-    <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-[#60A5FA] text-white p-4 rounded-full shadow-lg hover:bg-[#3B82F6] transition opacity-0 pointer-events-none flex flex-col items-center justify-center z-[9999]">
+    {{-- <button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-[#60A5FA] text-white p-4 rounded-full shadow-lg hover:bg-[#3B82F6] transition opacity-0 pointer-events-none flex flex-col items-center justify-center z-[9999]">
         <span class="text-2xl font-bold">↑</span>
         <span class="text-xs mt-1">Top</span>
-    </button>
+    </button> --}}
 
     {{-- Navbar --}}
     <header id="navbar" class="fixed top-0 w-full z-50 transition duration-300 bg-transparent text-slate-300 p-5">
@@ -229,10 +229,10 @@
     <div class="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]"></div>
 
     <!-- Main Content Container -->
-    <div class="relative z-10 w-full container mx-auto px-6 flex flex-col">
+    <div class="relative z-10 w-full container mx-auto px-6 flex flex-col items-center">
 
         <!-- Slider Section - Baru ditambahkan -->
-        <div class="w-full mb-16" data-aos="fade-in" data-aos-duration="500">
+        <div class="w-full lg:w-2/3 px-12 mb-16" data-aos="fade-in" data-aos-duration="500">
             @if ($error)
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     <strong class="font-bold">Oops!</strong>

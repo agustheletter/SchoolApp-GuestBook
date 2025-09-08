@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class BukuTamuController extends Controller
 {
@@ -213,21 +214,26 @@ class BukuTamuController extends Controller
         //     $validatedData['foto_tamu'] = $imageName;
         // }
 
+        // 2. Proses dan simpan foto
         $image = $request->input('foto_tamu');
         $imageName = null;
+        $fotoTamuPath = null;
 
+        // Logika penyimpanan foto sesuai permintaan, tanpa perubahan path
         if (!empty($image)) {
             $image = str_replace('data:image/jpeg;base64,', '', $image);
             $image = str_replace(' ', '+', $image);
             $imageData = base64_decode($image);
 
-            $folder = 'uploads/foto_tamu'; // folder di public_html
+            $folder = 'uploads/foto_tamu';
             if (!file_exists($folder)) {
-                mkdir($folder, 0777, true); // buat folder kalau belum ada
+                mkdir($folder, 0777, true);
             }
 
             $imageName = 'tamu_' . time() . '.jpg';
-            file_put_contents($folder . '/' . $imageName, $imageData);
+            // Perbaikan: Sekarang $fotoTamuPath diisi dengan path yang benar
+            $fotoTamuPath = public_path($folder . '/' . $imageName);
+            file_put_contents($fotoTamuPath, $imageData);
         }
 
         // Simpan data ke database
@@ -245,52 +251,59 @@ class BukuTamuController extends Controller
             'foto_tamu' => $imageName,
         ]);
 
-        // --- LOGIKA PENGIRIMAN WHATSAPP BARU DIMULAI DI SINI ---
-
-        // 1. Ambil data pegawai yang dituju dari database
+        // --- Logika Pengiriman WhatsApp Baru ---
+        $apiKey = env('FONNTE_API_KEY');
         $pegawai = PegawaiModel::find($request->id_pegawai);
 
-        // 2. Tentukan format pesan berdasarkan role tamu
-        $pesan = "Assalamualaikum Bapak/Ibu {$pegawai->nama_pegawai},\n\n";
-
-        if ($request->role == 'ortu') {
-            // Jika role adalah 'ortu', ambil nama siswa
-            $siswa = SiswaModel::find($request->idsiswa);
-
-            $pesan .= "Ini adalah nomor layanan Hotline SMK Negeri 1 Cimahi.\n"
-                    . "Saat ini ada tamu yang ingin bertemu dengan Anda sedang menunggu di Ruang Resepsionis.\n\n"
-                    . "Nama Tamu: {$bukuTamu->nama}.\n"
-                    . "Orang tua dari siswa: {$siswa->namasiswa}.\n"
-                    . "Siswa Kelas: -.\n"
-                    . "Dengan Nomor WA: {$bukuTamu->kontak} .\n";
-
-                    if ($bukuTamu->foto_tamu) {
-                        $pesan .= "Photo: ". env('APP_URL') ."/uploads/foto_tamu/{$bukuTamu->foto_tamu} .\n\n";
-                    }
-
-                    $pesan .= "Keperluan: {$bukuTamu->keperluan}\n"
-                    . "Waktu: " . now()->format('d F Y, H:i') . " WIB\n\n"
-                    . "Untuk konfirmasi atau informasi lebih lanjut, silakan hubungi kontak nomor Whatsapp tamu tersebut.\n";
-
-        } else { // 'umum'
-            $pesan .= "Ini adalah nomor layanan Hotline SMK Negeri 1 Cimahi.\n"
-                    . "Saat ini ada tamu yang ingin bertemu dengan Anda sedang menunggu di Ruang Resepsionis.\n\n"
-                    . "Nama Tamu: {$bukuTamu->nama}.\n"
-                    . "Asal Instansi: {$bukuTamu->instansi}.\n"
-                    . "Dengan Nomor WA: {$bukuTamu->kontak} .\n";
-
-                    if ($bukuTamu->foto_tamu) {
-                        $pesan .= "Photo: ". env('APP_URL') ."/uploads/foto_tamu/{$bukuTamu->foto_tamu} .\n\n";
-                    }
-
-                    $pesan .= "Keperluan: {$bukuTamu->keperluan}\n"
-                    . "Waktu: " . now()->format('d F Y, H:i') . " WIB\n\n"
-                    . "Untuk konfirmasi atau informasi lebih lanjut, silakan hubungi kontak nomor Whatsapp tamu tersebut.\n";
-        }
-
-        // 3. Kirim pesan jika nomor HP pegawai tersedia
         if ($pegawai && !empty($pegawai->kontak)) {
-            $this->kirimPesanWhatsapp($pegawai->kontak, $pesan);
+            $nomor = ltrim($pegawai->kontak, '0');
+            if (!str_starts_with($nomor, '62')) {
+                $nomor = '62' . $nomor;
+            }
+
+            // Langkah 1: Kirim foto terlebih dahulu (jika ada)
+            if ($fotoTamuPath && file_exists($fotoTamuPath)) {
+                // $imageUrl = env('APP_URL') . "/uploads/foto_tamu/{$imageName}";
+                $imageUrl = "https://www.mpmhondajatim.com/images/optimized-produk_foto-1717579654_2.jpg";
+
+                $response = Http::withHeaders([
+                    'Authorization' => $apiKey
+                ])->post('https://api.fonnte.com/send', [
+                        'target' => $nomor,
+                        'url' => $imageUrl,
+                        'message' => "Assalamualaikum Bapak/Ibu {$pegawai->nama_pegawai}, ini adalah foto tamu Anda. Informasi lengkapnya akan menyusul di pesan selanjutnya.",
+                  ]);
+                Log::info('Fonnte Photo Response: ' . $response->body());
+            }
+
+            // Langkah 2: Siapkan dan kirim pesan teks terpisah
+            $pesanTeks = "Assalamualaikum Bapak/Ibu {$pegawai->nama_pegawai},\n\n"
+                       . "Ini adalah nomor layanan Hotline SMK Negeri 1 Cimahi.\n"
+                       . "Saat ini ada tamu yang ingin bertemu dengan Anda sedang menunggu di Ruang Resepsionis.\n\n";
+
+            if ($request->role == 'ortu') {
+                $siswa = SiswaModel::find($request->idsiswa);
+                $pesanTeks .= "Nama Tamu: {$bukuTamu->nama}.\n"
+                           . "Orang tua dari siswa: {$siswa->namasiswa}.\n"
+                           . "Siswa Kelas: -.\n"
+                           . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
+            } else { // 'umum'
+                $pesanTeks .= "Nama Tamu: {$bukuTamu->nama}.\n"
+                           . "Asal Instansi: {$bukuTamu->instansi}.\n"
+                           . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
+            }
+
+            $pesanTeks .= "\nKeperluan: {$bukuTamu->keperluan}\n"
+                       . "Waktu: " . now()->format('d F Y, H:i') . " WIB\n\n"
+                       . "Untuk konfirmasi atau informasi lebih lanjut, silakan hubungi kontak nomor Whatsapp tamu tersebut.\n";
+
+            $response = Http::withHeaders([
+                'Authorization' => $apiKey
+            ])->post('https://api.fonnte.com/send', [
+                'target' => $nomor,
+                'message' => $pesanTeks,
+            ]);
+            Log::info('Fonnte Message Response: ' . $response->body());
         }
 
         // pemilihan role
@@ -300,25 +313,25 @@ class BukuTamuController extends Controller
         return redirect()->to(route('landing'))->with('success', 'Data Buku Tamu berhasil ditambahkan');
     }
 
-    private function kirimPesanWhatsapp($nomor, $pesan)
-    {
-        $apiKey = env('FONNTE_API_KEY');
+    // private function kirimPesanWhatsapp($nomor, $pesan)
+    // {
+    //     $apiKey = env('FONNTE_API_KEY');
 
-        // Pastikan nomor diawali dengan 62
-        $nomor = ltrim($nomor, '0');
-        if (!str_starts_with($nomor, '62')) {
-            $nomor = '62' . $nomor;
-        }
+    //     // Pastikan nomor diawali dengan 62
+    //     $nomor = ltrim($nomor, '0');
+    //     if (!str_starts_with($nomor, '62')) {
+    //         $nomor = '62' . $nomor;
+    //     }
 
-        $response = Http::withHeaders([
-            'Authorization' => $apiKey
-        ])->post('https://api.fonnte.com/send', [
-            'target' => $nomor,
-            'message' => $pesan,
-        ]);
+    //     $response = Http::withHeaders([
+    //         'Authorization' => $apiKey
+    //     ])->post('https://api.fonnte.com/send', [
+    //         'target' => $nomor,
+    //         'message' => $pesan,
+    //     ]);
 
-        // return $response->json(); // Opsional: untuk debugging
-    }
+    //     // return $response->json(); // Opsional: untuk debugging
+    // }
 
     // grafik data
     public function grafikData(Request $request)
