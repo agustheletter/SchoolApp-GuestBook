@@ -19,6 +19,11 @@ class SiswaModel extends Model
         return $this->belongsTo('App\Models\AgamaModel','idagama');
     }
 
+    public function tahunAjaranMasuk()
+    {
+        return $this->belongsTo(TahunAjaranModel::class, 'idthnmasuk', 'idthnajaran');
+    }
+
     public function thnajaran()
     {
         return $this->belongsTo('App\Models\TahunAjaranModel','idthnmasuk');
