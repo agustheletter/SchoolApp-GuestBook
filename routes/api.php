@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\BukuTamuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -8,6 +7,8 @@ use App\Http\Controllers\API\SiswaController;
 use App\Http\Controllers\API\OrangtuaController;
 use App\Http\Controllers\API\JabatanController;
 use App\Http\Controllers\API\PegawaiController;
+use App\Http\Controllers\API\BukuTamuController;
+use App\Http\Controllers\API\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,3 +65,5 @@ Route::delete('/bukutamu/{id}', [BukuTamuController::class, 'destroy']);
 // Helper routes
 Route::get('/jabatan/{id}/pegawai', [BukuTamuController::class, 'getPegawaiByJabatan']);
 Route::get('/siswa/{id}/orangtua', [BukuTamuController::class, 'getOrangtuaBySiswa']);
+
+Route::get('/dashboard', [DashboardController::class, 'index']);
