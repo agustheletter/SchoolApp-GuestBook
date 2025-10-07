@@ -16,7 +16,7 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        $jabatan = JabatanModel::orderBy('nama_jabatan', 'asc')->get();
+        $jabatan = JabatanModel::all();
         return response()->json([
             'success' => true,
             'message' => 'Data jabatan berhasil diambil',
