@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\SiswaController;
 use App\Http\Controllers\API\OrangtuaController;
 use App\Http\Controllers\API\JabatanController;
+use App\Http\Controllers\API\PegawaiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,7 @@ Route::delete('/siswa/{id}', [SiswaController::class, 'destroy']);
 Route::get('/orangtua', [OrangtuaController::class, 'index']);
 Route::get('/orangtua/{id}', [OrangtuaController::class, 'show']);
 Route::post('/orangtua', [OrangtuaController::class, 'store']);
-Route::put('/orangtua/{id}', [OrangtuaController::class, 'update']); // Menggunakan PUT untuk update
+Route::put('/orangtua/{id}', [OrangtuaController::class, 'update']);
 Route::delete('/orangtua/{id}', [OrangtuaController::class, 'destroy']);
 
 // Route untuk resource Jabatan
@@ -44,3 +45,10 @@ Route::get('/jabatan/{id}', [JabatanController::class, 'show']);
 Route::post('/jabatan', [JabatanController::class, 'store']);
 Route::put('/jabatan/{id}', [JabatanController::class, 'update']);
 Route::delete('/jabatan/{id}', [JabatanController::class, 'destroy']);
+
+// Route untuk resource Pegawai
+Route::get('/pegawai', [PegawaiController::class, 'index']);
+Route::get('/pegawai/{id}', [PegawaiController::class, 'show']);
+Route::post('/pegawai', [PegawaiController::class, 'store']);
+Route::put('/pegawai/{id}', [PegawaiController::class, 'update']);
+Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy']);
