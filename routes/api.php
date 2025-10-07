@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\BukuTamuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +53,14 @@ Route::get('/pegawai/{id}', [PegawaiController::class, 'show']);
 Route::post('/pegawai', [PegawaiController::class, 'store']);
 Route::put('/pegawai/{id}', [PegawaiController::class, 'update']);
 Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy']);
+
+// Route untuk resource Buku Tamu
+Route::get('/bukutamu', [BukuTamuController::class, 'index']);
+Route::get('/bukutamu/grafik', [BukuTamuController::class, 'getGrafikData']); // Route untuk data grafik
+Route::get('/bukutamu/{id}', [BukuTamuController::class, 'show']);
+Route::post('/bukutamu', [BukuTamuController::class, 'store']);
+Route::delete('/bukutamu/{id}', [BukuTamuController::class, 'destroy']);
+
+// Helper routes
+Route::get('/jabatan/{id}/pegawai', [BukuTamuController::class, 'getPegawaiByJabatan']);
+Route::get('/siswa/{id}/orangtua', [BukuTamuController::class, 'getOrangtuaBySiswa']);
