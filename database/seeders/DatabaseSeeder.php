@@ -21,17 +21,39 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        $this->call(TahunAjaranSeeder::class);
-        $this->call(BulanSeeder::class);
-        $this->call(AgamaSeeder::class);
-        $this->call(KelasSeeder::class);
-        $this->call(TingkatSeeder::class);
-        $this->call(JurusanSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(ProgramKeahlianSeeder::class);
-        $this->call(SemesterSeeder::class);
 
-        $this->call(JabatanSeeder::class);
+        $this->call([
+            AgamaSeeder::class,
+            BulanSeeder::class,
+            ProgramKeahlianSeeder::class,
+            JurusanSeeder::class,
+            KelasSeeder::class,
+            KelasDetailSeeder::class,
+            TahunAjaranSeeder::class,
+            SemesterSeeder::class,
+            TingkatSeeder::class,
+            UserSeeder::class,
+            JenisBayarSeeder::class,
+            JenisBayarDetailSeeder::class,
+            // GuruSeeder::class,
+            // PegawaiSeeder::class,
+            PangkatSeeder::class,
+            JabatanSeeder::class,
+            MapelSeeder::class,
+            // Tambahkan seeder lain jika ada
+        ]);
+
+        // $this->call(TahunAjaranSeeder::class);
+        // $this->call(BulanSeeder::class);
+        // $this->call(AgamaSeeder::class);
+        // $this->call(KelasSeeder::class);
+        // $this->call(TingkatSeeder::class);
+        // $this->call(JurusanSeeder::class);
+        // $this->call(UserSeeder::class);
+        // $this->call(ProgramKeahlianSeeder::class);
+        // $this->call(SemesterSeeder::class);
+
+        // $this->call(JabatanSeeder::class);
 
         // DB::table('tbl_jabatan')->insert([
         //     ['nama_jabatan' => 'Developer'],

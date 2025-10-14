@@ -13,6 +13,10 @@ class BulanSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus semua data lama
+        DB::table('tbl_bulan')->truncate();
+
+        // insert data ke dtabase
         DB::table('tbl_bulan')->insert([
             [
                 'idbulan' => 1,
@@ -62,7 +66,7 @@ class BulanSeeder extends Seeder
                 'idbulan' => 12,
                 'namabulan' => 'Juni',
             ],
-            
+
         ]);
     }
 }

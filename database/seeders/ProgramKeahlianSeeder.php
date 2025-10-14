@@ -13,6 +13,10 @@ class ProgramKeahlianSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus semua data lama
+        DB::table('tbl_programkeahlian')->truncate();
+
+        // insert data ke dtabase
         DB::table('tbl_programkeahlian')->insert([
             [
                 'idprogramkeahlian' => 1,
@@ -33,7 +37,7 @@ class ProgramKeahlianSeeder extends Seeder
                 'idprogramkeahlian' => 4,
                 'kodeprogramkeahlian' => 'BP',
                 'namaprogramkeahlian' => 'Broadcasting dan Perfilman',
-            ],    
+            ],
         ]);
     }
 }

@@ -13,6 +13,10 @@ class SemesterSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus semua data lama
+        DB::table('tbl_semester')->truncate();
+
+        // insert data ke dtabase
         DB::table('tbl_semester')->insert([
             [
                 'idsemester' => 1,

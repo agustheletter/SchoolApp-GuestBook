@@ -24,43 +24,54 @@ class JurusanSeeder extends Seeder
         //     ]);
         // }
 
+        // Hapus semua data lama
+        DB::table('tbl_jurusan')->truncate();
+
+        // insert data ke dtabase
         DB::table('tbl_jurusan')->insert([
+
             [
                 'idjurusan' => 1,
-                'kodejurusan' => 'TPTUP',
-                'namajurusan' => "Teknik Pemanasan, Tata Udara, dan Pendinginan (Heating, Ventilation, and Air Conditioning)",
-                'idprogramkeahlian' => 2,
-            ],
-            [
-                'idjurusan' => 2,
-                'kodejurusan' => 'IOP',
-                'namajurusan' => 'Instrumentasi dan Otomatisasi Proses',
-                'idprogramkeahlian' => 1,
-            ],
-            [
-                'idjurusan' => 3,
-                'kodejurusan' => 'TEK',
-                'namajurusan' => 'Teknik Elektronika Komunikasi',
-                'idprogramkeahlian' => 1,
-            ],
-            [
-                'idjurusan' => 4,
                 'kodejurusan' => 'TOI',
                 'namajurusan' => 'Teknik Otomasi Industri',
                 'idprogramkeahlian' => 1,
             ],
+
             [
-                'idjurusan' => 5,
+                'idjurusan' => 2,
+                'kodejurusan' => 'TPTUP',
+                'namajurusan' => "Teknik Pemanasan, Tata Udara, dan Pendinginan (Heating, Ventilation, and Air Conditioning)",
+                'idprogramkeahlian' => 2,
+            ],
+
+            [
+                'idjurusan' => 3,
                 'kodejurusan' => 'TEI',
                 'namajurusan' => 'Teknik Elektronika Industri',
                 'idprogramkeahlian' => 1,
             ],
+
             [
-                'idjurusan' => 6,
+                'idjurusan' => 4,
+                'kodejurusan' => 'TEK',
+                'namajurusan' => 'Teknik Elektronika Komunikasi',
+                'idprogramkeahlian' => 1,
+            ],
+
+            [
+                'idjurusan' => 5,
                 'kodejurusan' => 'MEKA',
                 'namajurusan' => 'Teknik Mekatronika',
                 'idprogramkeahlian' => 1,
             ],
+
+            [
+                'idjurusan' => 6,
+                'kodejurusan' => 'IOP',
+                'namajurusan' => 'Instrumentasi dan Otomatisasi Proses',
+                'idprogramkeahlian' => 1,
+            ],
+
             [
                 'idjurusan' => 7,
                 'kodejurusan' => 'SIJA',
@@ -79,7 +90,7 @@ class JurusanSeeder extends Seeder
                 'namajurusan' => 'Produksi dan Siaran Program Televisi',
                 'idprogramkeahlian' => 4,
             ],
-            
+
         ]);
     }
 }

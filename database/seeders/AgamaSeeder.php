@@ -13,6 +13,11 @@ class AgamaSeeder extends Seeder
      */
     public function run(): void
     {
+
+        // Hapus semua data lama
+        DB::table('tbl_agama')->truncate();
+
+        // inserta data ke database
         DB::table('tbl_agama')->insert([
             [
                 'idagama' => 1,
@@ -37,11 +42,11 @@ class AgamaSeeder extends Seeder
             [
                 'idagama' => 6,
                 'agama' => 'Konghucu',
-            ], 
+            ],
             [
                 'idagama' => 7,
                 'agama' => 'Lainnya',
-            ],  
+            ],
         ]);
     }
 }

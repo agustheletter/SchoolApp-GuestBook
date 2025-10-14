@@ -13,6 +13,10 @@ class TingkatSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus semua data lama
+        DB::table('tbl_tingkat')->truncate();
+
+        // insert data ke dtabase
         DB::table('tbl_tingkat')->insert([
             [
                 'idtingkat' => 1,
