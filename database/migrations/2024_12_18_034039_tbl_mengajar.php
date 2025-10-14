@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbl_mengajar', function (Blueprint $table) {
             $table->increments('idmengajar');
-            $table->integer('idguru');
+            $table->integer('idpegawai');
             $table->integer('idthnajaran');
             $table->integer('idmapeldetail');
             $table->timestamps();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tbl_mengajar');
     }
 };

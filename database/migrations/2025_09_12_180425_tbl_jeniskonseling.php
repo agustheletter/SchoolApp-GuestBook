@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_mapel', function (Blueprint $table) {
-            $table->increments('idmapel');
-            $table->string('kodemapel');
-            $table->string('namamapel');
-            $table->integer('idjurusan')->nullable();
+        Schema::create('tbl_jenis_konseling', function (Blueprint $table) {
+            $table->id('idjenis');
+            $table->string('namajenis', 100);
+            $table->text('keterangan')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_mapel');
+        Schema::dropIfExists('tbl_jenis_konseling');
     }
 };

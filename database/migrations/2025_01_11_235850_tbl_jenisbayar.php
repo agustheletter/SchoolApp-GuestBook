@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbl_jenisbayar', function (Blueprint $table) {
             $table->increments('idjenisbayar');
+            $table->string('kodejenisbayar');
             $table->string('jenisbayar');
             $table->enum('periode',['Bulanan','Cicilan']);
             $table->timestamps();
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tbl_jenisbayar');
     }
 };

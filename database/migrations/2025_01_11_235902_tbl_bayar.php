@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('idsiswa');
             $table->integer('iduser');
             $table->integer('idthnajaran');
-            $table->datetime('waktubayar');
+            // $table->datetime('waktubayar');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tbl_bayar');
     }
 };

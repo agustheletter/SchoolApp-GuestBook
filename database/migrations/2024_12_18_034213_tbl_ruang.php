@@ -15,10 +15,14 @@ return new class extends Migration
             $table->increments('idruangan');
             $table->string('koderuangan');
             $table->string('namaruangan');
-            $table->string('lokasi');
-            $table->integer('lebar');
-            $table->integer('panjang');
-            $table->string('kondisi');
+            $table->string('gedung');
+            $table->string('lantai');
+            $table->string('lokasi')->nullable();
+            $table->integer('lebar')->nullable();
+            $table->integer('panjang')->nullable();
+            $table->string('kondisi')->nullable();
+            $table->string('thn_perolehan')->nullable();
+            $table->string('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tbl_ruangan');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_level', function (Blueprint $table) {
+        Schema::create('tbl_leveladmin', function (Blueprint $table) {
             $table->increments('idlevel');
             $table->string('namalevel');
             $table->timestamps();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tbl_leveladmin');
     }
 };

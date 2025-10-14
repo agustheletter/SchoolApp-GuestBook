@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tbl_login', function (Blueprint $table) {
             $table->increments('idlogin');
             $table->string('email');
-            $table->integer('idthnajaran'); 
+            $table->integer('idthnajaran');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tbl_login');
     }
 };
