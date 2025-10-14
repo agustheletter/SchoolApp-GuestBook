@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbl_kelas', function (Blueprint $table) {
             $table->increments('idkelas');
+            $table->string('kodekelas');
             $table->string('namakelas');
             $table->integer('idjurusan');
             $table->integer('idtingkat');
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tbl_kelas');
     }
 };
