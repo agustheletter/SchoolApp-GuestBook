@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('idkelasdetail');
             $table->integer('idkelas');
             $table->integer('idthnajaran');
-            $table->integer('idguru');
+            $table->integer('idpegawai');
             $table->integer('idruangan');
             $table->timestamps();
             $table->softDeletes();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tbl_kelasdetail');
     }
 };
