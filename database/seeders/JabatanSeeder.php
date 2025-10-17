@@ -15,7 +15,8 @@ class JabatanSeeder extends Seeder
     {
 
         // Hapus semua data lama
-        DB::table('tbl_jabatan')->truncate();
+        // DB::table('tbl_jabatan')->truncate();
+        DB::table('tbl_jabatan')->delete();
 
         // inserta data ke database
         DB::table('tbl_jabatan')->insert([

@@ -18,8 +18,15 @@ return new class extends Migration {
             $table->string('instansi')->nullable();
             $table->text('alamat');
             $table->string('kontak');
-            $table->foreignId('id_jabatan')->constrained('tbl_jabatan');
-            $table->foreignId('id_pegawai')->constrained('tbl_pegawai');
+
+            // FK ke jabatan (tbl_jabatan.idjabatan)
+            $table->integer('idjabatan')->unsigned(); // BUKAN id_jabatan
+            $table->foreign('idjabatan')->references('idjabatan')->on('tbl_jabatan')->onDelete('cascade');
+
+            // FK ke pegawai (tbl_pegawai.idpegawai)
+            $table->integer('idpegawai')->unsigned();
+            $table->foreign('idpegawai')->references('idpegawai')->on('tbl_pegawai')->onDelete('cascade');
+
             $table->text('keperluan');
             $table->longText('foto_tamu')->nullable();
             // $table->softDeletes();
