@@ -33,10 +33,10 @@ class KelasDetailModel extends Model
         return $this->belongsTo('App\Models\TahunAjaranModel','idthnajaran');
     }
 
-    //relasi ke guru
-    public function guru()
+    //relasi ke pegawai
+    public function pegawai()
     {
-        return $this->belongsTo('App\Models\GuruModel','idguru');
+        return $this->belongsTo('App\Models\PegawaiModel','idpegawai');
     }
 
     //relasi ke ruang

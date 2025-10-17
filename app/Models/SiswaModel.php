@@ -10,86 +10,81 @@ class SiswaModel extends Model
     use HasFactory;
     protected $table        = "tbl_siswa";
     protected $primaryKey   = 'idsiswa';
-    protected $keyType      = 'string';
+    // protected $keyType      = 'string';
+    public $incrementing    = false;
 
-    /**
-     * PENTING: Beri tahu Laravel bahwa primary key ini BUKAN auto-increment.
-     */
-    public $incrementing = false;
+    protected $fillable     = [
+                                    // 'idsiswa',
+                                    'namasiswa',
+                                    'nis',
+                                    'nisn',
+                                    'nik',
+                                    'tmplahir',
+                                    'tgllahir',
+                                    'jk',
+                                    'idagama',
+                                    'photosiswa',
+                                    'idthnmasuk',
+                                    'asalsekolah',
+                                    'jalan',
+                                    'rt',
+                                    'rw',
+                                    'dusun',
+                                    'desa',
+                                    'kecamatan',
+                                    'kabupaten',
+                                    'kodepos',
+                                    'tlprumah',
+                                    'hpsiswa',
+                                    'email',
+                                    'jenistinggal',
+                                    'kepemilikan',
+                                    'transportasi',
+                                    'jarak',
+                                    'lintang',
+                                    'bujur',
+                                    'nomorkk',
+                                    'nomoraktalahir',
+                                    'anakke',
+                                    'jumlahsaudara',
+                                    'penerimakps',
+                                    'nomorkps',
+                                    'nomorun',
+                                    'nomorijazah',
+                                    'penerimakip',
+                                    'nomorkip',
+                                    'namakip',
+                                    'nomorkks',
+                                    'bank',
+                                    'nomorrekening',
+                                    'atasnamarekening',
+                                    'layakpip',
+                                    'alasanlayakpip',
+                                    'abk',
+                                    'beratbadan',
+                                    'tinggibadan',
+                                    'lingkarkepala',
+                                ];
 
-    /**
-     * Kolom yang boleh diisi secara massal saat sinkronisasi.
-     * Pastikan semua kolom dari migration ada di sini.
-     */
-    protected $fillable = [
-        'idsiswa',
-        'namasiswa',
-        'nis',
-        'nisn',
-        'nik',
-        'tmplahir',
-        'tgllahir',
-        'jk',
-        'idagama',
-        'photosiswa',
-        'idthnmasuk',
-        'asalsekolah',
-        'jalan',
-        'rt',
-        'rw',
-        'dusun',
-        'desa',
-        'kecamatan',
-        'kabupaten',
-        'kodepos',
-        'tlprumah',
-        'hpsiswa',
-        'email',
-        'jenistinggal',
-        'kepemilikan',
-        'transportasi',
-        'jarak',
-        'lintang',
-        'bujur',
-        'nomorkk',
-        'nomoraktalahir',
-        'anakke',
-        'jumlahsaudara',
-        'penerimakps',
-        'nomorkps',
-        'nomorun',
-        'nomorijazah',
-        'penerimakip',
-        'nomorkip',
-        'namakip',
-        'nomorkks',
-        'bank',
-        'nomorrekening',
-        'atasnamarekening',
-        'layakpip',
-        'alasanlayakpip',
-        'abk',
-        'beratbadan',
-        'tinggibadan',
-        'lingkarkepala',
-        'created_at',
-        'updated_at',
-    ];
+
 
     public function agama()
     {
         return $this->belongsTo('App\Models\AgamaModel','idagama');
     }
 
-    public function tahunAjaranMasuk()
+    public function ortu()
     {
-        return $this->belongsTo(TahunAjaranModel::class, 'idthnmasuk', 'idthnajaran');
+        return $this->hasOne(OrtuModel::class,'idsiswa');
     }
 
     public function thnajaran()
     {
-        return $this->belongsTo('App\Models\TahunAjaranModel','idthnmasuk');
+        // return $this->belongsTo('App\Models\TahunAjaranModel','idthnmasuk');
+
+        return $this->belongsTo(TahunAjaranModel::class, 'idthnmasuk', 'idthnajaran');
     }
+
 
     public function siswakelas()
     {

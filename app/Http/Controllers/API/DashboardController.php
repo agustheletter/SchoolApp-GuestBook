@@ -15,6 +15,7 @@ use App\Models\PegawaiModel;
 use App\Models\SiswaModel;
 use App\Models\Orangtua;
 use App\Models\JabatanModel;
+use App\Models\OrtuModel;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -23,8 +24,10 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         // Hitung total data dari tabel yang ADA di Aplikasi Anak
-        $totalPegawai = PegawaiModel::count();
         $totalSiswa = SiswaModel::count();
+        $totalOrangtua = OrtuModel::count();
+        $totalJabatan = JabatanModel::count();
+        $totalPegawai = PegawaiModel::count();
         $totalBukuTamu = BukuTamu::count();
 
         // Ambil 5 tamu terbaru
@@ -41,8 +44,10 @@ class DashboardController extends Controller
         return response()->json([
             'success' => true,
             'stats' => [
-                'totalPegawai' => $totalPegawai,
                 'totalSiswa' => $totalSiswa,
+                'totalOrangtua' => $totalOrangtua,
+                'totalJabatan' => $totalJabatan,
+                'totalPegawai' => $totalPegawai,
                 'totalBukuTamu' => $totalBukuTamu,
                 // Hapus count untuk tabel yang tidak ada (orangtua, jabatan, dll)
                 // Nanti kita akan tambahkan lagi setelah tabelnya disinkronkan.

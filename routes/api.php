@@ -6,17 +6,11 @@ use App\Http\Controllers\API\SiswaController;
 use App\Http\Controllers\API\PegawaiController;
 use App\Http\Controllers\API\BukuTamuController;
 use App\Http\Controllers\API\DashboardController;
-use App\Http\Controllers\API\SyncController; // <--- TAMBAHKAN INI
-
-/* ... route-route lain ... */
+use App\Http\Controllers\API\SyncController;
 
 // Endpoint untuk data Pegawai
 Route::get('/pegawai', [PegawaiController::class, 'index']);
 Route::get('/pegawai/{nip}', [PegawaiController::class, 'show']);
-
-// Endpoint untuk data Siswa
-Route::get('/siswa', [SiswaController::class, 'index']);
-Route::get('/siswa/{nis}', [SiswaController::class, 'show']);
 
 // Endpoint untuk resource Buku Tamu
 Route::get('/bukutamu', [BukuTamuController::class, 'index']);
@@ -34,3 +28,6 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 // =========================================================
 Route::post('/sync-manual', [SyncController::class, 'triggerSync']);
 
+// Endpoint untuk data Siswa
+Route::get('/siswa', [SiswaController::class, 'index']);
+Route::get('/siswa/{nis}', [SiswaController::class, 'show']);
