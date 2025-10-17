@@ -16,7 +16,7 @@ class KelasDetailModel extends Model
                                 'idkelasdetail',
                                 'idkelas',
                                 'idthnajaran',
-                                'idguru',
+                                'idpegawai',
                                 'idruangan'
                             ];
 

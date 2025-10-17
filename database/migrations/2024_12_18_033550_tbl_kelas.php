@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_kelas', function (Blueprint $table) {
-            $table->increments('idkelas');
+            $table->unsignedInteger('idkelas')->primary(); // <-- PENTING!
             $table->string('kodekelas');
             $table->string('namakelas');
             $table->integer('idjurusan');

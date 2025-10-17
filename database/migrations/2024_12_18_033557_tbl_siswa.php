@@ -19,7 +19,7 @@ return new class extends Migration
 
             // Kolom-kolom lain dibuat persis seperti di Aplikasi Induk
             $table->string('namasiswa');
-            $table->string('nis')->unique(); // NIS tetap unique sebagai kunci sinkronisasi
+            $table->string('nis');
             $table->string('nisn');
             $table->string('nik');
             $table->string('tmplahir');

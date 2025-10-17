@@ -16,7 +16,8 @@ class TahunAjaranModel extends Model
                                 'idthnajaran',
                                 'thnajaran',
                                 'tglmulai',
-                                'tglakhir'
+                                'tglakhir',
+                                'statusaktif'
                             ];
 
     public function siswa()

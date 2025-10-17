@@ -12,7 +12,7 @@ class KelasModel extends Model
     protected $primaryKey   = 'idkelas';
     protected $keyType      = 'string';
     public $incrementing    = false;
-    protected $fillable     = ['idkelas','namakelas','idjurusan','idtingkat'];
+    protected $fillable     = ['idkelas', 'kodekelas', 'namakelas','idjurusan','idtingkat'];
 
     //relasi ke jurusan
     public function jurusan()

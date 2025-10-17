@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_thnajaran', function (Blueprint $table) {
-            $table->increments('idthnajaran');
+            // Menggunakan unsignedInteger sebagai Primary Key, tidak auto-increment
+            $table->unsignedInteger('idthnajaran')->primary();
+            
             $table->string('thnajaran');
             $table->date('tglmulai');
             $table->date('tglakhir');
