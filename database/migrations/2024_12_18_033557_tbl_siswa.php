@@ -12,82 +12,83 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_siswa', function (Blueprint $table) {
-
             // ========================= PERUBAHAN PENTING =========================
             // idsiswa dijadikan Primary Key, TAPI TIDAK auto-increment.
-            // Nomornya akan kita isi manual sesuai data dari Induk saat sinkronisasi.
             $table->unsignedInteger('idsiswa')->primary();
             // =====================================================================
 
-            // NIS kita jadikan unique sebagai "KTP" untuk sinkronisasi
-            $table->string('nis')->unique();
-
-            // Sisa kolom disamakan dengan tabel Induk
+            // Kolom-kolom lain dibuat persis seperti di Aplikasi Induk
             $table->string('namasiswa');
-            $table->string('nisn')->unique(); // NISN juga harusnya unique
-            $table->string('nik')->unique();
+            $table->string('nis')->unique(); // NIS tetap unique sebagai kunci sinkronisasi
+            $table->string('nisn');
+            $table->string('nik');
             $table->string('tmplahir');
             $table->date('tgllahir');
-            $table->enum('jk', ['L', 'P']);
+
+            // PERUBAHAN: Mengizinkan kolom jk untuk bernilai NULL
+            $table->enum('jk', ['L', 'P'])->nullable();
+
             $table->integer('idagama');
-            $table->string('photosiswa')->nullable();
+            $table->string('photosiswa');
             $table->integer('idthnmasuk');
-            $table->string('asalsekolah')->nullable();
+            $table->string('asalsekolah');
 
             //alamat
             $table->string('jalan')->nullable();
-            $table->string('rt')->nullable();
-            $table->string('rw')->nullable();
+            $table->string('rt');
+            $table->string('rw');
             $table->string('dusun')->nullable();
-            $table->string('desa')->nullable();
-            $table->string('kecamatan')->nullable();
-            $table->string('kabupaten')->nullable();
-            $table->string('kodepos')->nullable();
+            $table->string('desa');
+            $table->string('kecamatan');
+            $table->string('kabupaten');
+            $table->string('kodepos');
 
             //kontak
             $table->string('tlprumah')->nullable();
-            $table->string('hpsiswa')->nullable();
-            $table->string('email')->nullable()->unique();
+            $table->string('hpsiswa');
+            $table->string('email'); // Aturan UNIQUE dihapus
 
             //tempat tinggal
             $table->string('jenistinggal')->nullable();
             $table->string('kepemilikan')->nullable();
             $table->string('transportasi')->nullable();
-            $table->integer('jarak')->nullable();
+            $table->integer('jarak');
             $table->string('lintang')->nullable();
             $table->string('bujur')->nullable();
             $table->string('nomorkk')->nullable();
             $table->string('nomoraktalahir');
-            $table->integer('anakke')->nullable();
-            $table->integer('jumlahsaudara')->nullable();
+            $table->integer('anakke');
+            $table->integer('jumlahsaudara');
 
-            $table->enum('penerimakps', ['Ya', 'Tidak'])->nullable();
+            // PERUBAHAN: Mengubah ENUM menjadi STRING agar lebih fleksibel
+            $table->string('penerimakps')->nullable();
             $table->string('nomorkps')->nullable();
             $table->string('nomorun')->nullable();
             $table->string('nomorijazah')->nullable();
-            $table->enum('penerimakip', ['Ya', 'Tidak'])->nullable();
+            $table->string('penerimakip')->nullable();
             $table->string('nomorkip')->nullable();
-            $table->string('namakip')->nullable();
-            $table->string('nomorkks')->nullable();
+            $table->string('namakip');
+            $table->string('nomorkks');
 
             //Bank
             $table->string('bank')->nullable();
             $table->string('nomorrekening')->nullable();
             $table->string('atasnamarekening')->nullable();
 
-            $table->enum('layakpip', ['Ya', 'Tidak'])->nullable();
-            $table->string('alasanlayakpip')->nullable();
+            // PERUBAHAN: Mengubah ENUM menjadi STRING agar lebih fleksibel
+            $table->string('layakpip')->nullable();
+            $table->string('alasanlayakpip');
 
-            $table->enum('abk', ['Ya', 'Tidak'])->nullable();
-            $table->integer('beratbadan')->nullable();
-            $table->integer('tinggibadan')->nullable();
-            $table->integer('lingkarkepala')->nullable();
+            // PERUBAHAN: Mengubah ENUM menjadi STRING agar lebih fleksibel
+            $table->string('abk')->nullable();
+            $table->integer('beratbadan');
+            $table->integer('tinggibadan');
+            $table->integer('lingkarkepala');
 
             $table->timestamps();
             $table->softDeletes();
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -97,3 +98,4 @@ return new class extends Migration
         Schema::dropIfExists('tbl_siswa');
     }
 };
+

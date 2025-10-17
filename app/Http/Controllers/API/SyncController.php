@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
 
 class SyncController extends Controller
 {
@@ -17,17 +15,9 @@ class SyncController extends Controller
     public function triggerSync(Request $request)
     {
         try {
-            // Menjalankan command sync:master-data di background
-            // agar tidak membuat request dari frontend menunggu (timeout).
-            $process = new Process(['php', base_path('artisan'), 'sync:master-data']);
-            $process->disableOutput();
-            $process->run();
-
-            // Cek jika proses gagal (opsional, tapi bagus untuk logging)
-            if (!$process->isSuccessful()) {
-                 // Log error jika command gagal dieksekusi
-                 Log::error('Sync process failed to start: ' . $process->getErrorOutput());
-            }
+            // Mendorong command ke antrian (queue) untuk dieksekusi di background.
+            // Ini adalah cara standar Laravel dan lebih aman.
+            Artisan::queue('sync:master-data');
 
             return response()->json([
                 'success' => true,
@@ -35,10 +25,10 @@ class SyncController extends Controller
             ], 202); // 202 Accepted
 
         } catch (\Exception $e) {
-            Log::error('Failed to trigger sync: ' . $e->getMessage());
+            Log::error('Failed to queue sync command: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal memulai proses sinkronisasi.'
+                'message' => 'Gagal memulai proses sinkronisasi. Cek log untuk detail.'
             ], 500);
         }
     }
