@@ -10,7 +10,31 @@ class PegawaiModel extends Model
     use HasFactory;
 
     protected $table = 'tbl_pegawai';
-    protected $fillable = ['nama_pegawai', 'jenis_kelamin', 'id_jabatan', 'id_agama', 'kontak'];
+
+    /**
+     * Primary key dari tabel.
+     */
+    protected $primaryKey = 'idpegawai';
+
+    /**
+     * PENTING: Beri tahu Laravel bahwa primary key ini BUKAN auto-increment.
+     */
+    public $incrementing = false;
+
+    /**
+     * Kolom yang boleh diisi secara massal saat sinkronisasi.
+     * Pastikan semua kolom dari migration ada di sini.
+     */
+    protected $fillable = [
+        'idpegawai', 'nip', 'nuptk', 'rekening', 'npwp', 'nik',
+        'gelardepan', 'gelarbelakang', 'namapegawai', 'tmplahir', 'tgllahir',
+        'jk', 'statuskepegawaian', 'kategorikepegawaian', 'idagama',
+        'golongan_darah', 'karpeg', 'askes', 'taspen', 'karis', 'jalan',
+        'rt', 'rw', 'dusun', 'desa', 'kecamatan', 'kabupaten', 'kodepos',
+        'tlprumah', 'hppegawai', 'email', 'namaibu', 'statusperkawinan',
+        'namapasangan', 'pekerjaanpasangan', 'nippasangan', 'jml_anak',
+        'photopegawai', 'statusaktif'
+    ];
 
     public function jabatan()
     {
