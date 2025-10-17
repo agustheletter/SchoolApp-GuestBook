@@ -2,68 +2,35 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\API\SiswaController;
-use App\Http\Controllers\API\OrangtuaController;
-use App\Http\Controllers\API\JabatanController;
 use App\Http\Controllers\API\PegawaiController;
 use App\Http\Controllers\API\BukuTamuController;
 use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\API\SyncController; // <--- TAMBAHKAN INI
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+/* ... route-route lain ... */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-// Route untuk resource Siswa
-Route::get('/siswa', [SiswaController::class, 'index']);
-Route::get('/siswa/{id}', [SiswaController::class, 'show']);
-Route::post('/siswa', [SiswaController::class, 'store']);
-
-// NOTE: Untuk update, kita pakai POST karena form-data (untuk upload file) tidak sepenuhnya support method PUT/PATCH
-Route::post('/siswa/{id}', [SiswaController::class, 'update']);
-Route::delete('/siswa/{id}', [SiswaController::class, 'destroy']);
-
-// Route untuk resource Orang Tua
-Route::get('/orangtua', [OrangtuaController::class, 'index']);
-Route::get('/orangtua/{id}', [OrangtuaController::class, 'show']);
-Route::post('/orangtua', [OrangtuaController::class, 'store']);
-Route::put('/orangtua/{id}', [OrangtuaController::class, 'update']);
-Route::delete('/orangtua/{id}', [OrangtuaController::class, 'destroy']);
-
-// Route untuk resource Jabatan
-Route::get('/jabatan', [JabatanController::class, 'index']);
-Route::get('/jabatan/{id}', [JabatanController::class, 'show']);
-Route::post('/jabatan', [JabatanController::class, 'store']);
-Route::put('/jabatan/{id}', [JabatanController::class, 'update']);
-Route::delete('/jabatan/{id}', [JabatanController::class, 'destroy']);
-
-// Route untuk resource Pegawai
+// Endpoint untuk data Pegawai
 Route::get('/pegawai', [PegawaiController::class, 'index']);
-Route::get('/pegawai/{id}', [PegawaiController::class, 'show']);
-Route::post('/pegawai', [PegawaiController::class, 'store']);
-Route::put('/pegawai/{id}', [PegawaiController::class, 'update']);
-Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy']);
+Route::get('/pegawai/{nip}', [PegawaiController::class, 'show']);
 
-// Route untuk resource Buku Tamu
+// Endpoint untuk data Siswa
+Route::get('/siswa', [SiswaController::class, 'index']);
+Route::get('/siswa/{nis}', [SiswaController::class, 'show']);
+
+// Endpoint untuk resource Buku Tamu
 Route::get('/bukutamu', [BukuTamuController::class, 'index']);
 Route::get('/bukutamu/grafik', [BukuTamuController::class, 'getGrafikData']); // Route untuk data grafik
 Route::get('/bukutamu/{id}', [BukuTamuController::class, 'show']);
 Route::post('/bukutamu', [BukuTamuController::class, 'store']);
 Route::delete('/bukutamu/{id}', [BukuTamuController::class, 'destroy']);
 
-// Helper routes
-Route::get('/jabatan/{id}/pegawai', [BukuTamuController::class, 'getPegawaiByJabatan']);
-Route::get('/siswa/{id}/orangtua', [BukuTamuController::class, 'getOrangtuaBySiswa']);
-
+// Endpoint untuk Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index']);
+
+
+// =========================================================
+// === ENDPOINT BARU UNTUK TOMBOL SINKRONISASI DARI REACT ===
+// =========================================================
+Route::post('/sync-manual', [SyncController::class, 'triggerSync']);
+

@@ -19,50 +19,33 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+
     public function index(Request $request)
     {
-        // Ambil id tahun ajaran aktif (kalau ada di session, atau pakai default)
-        $idthnajaran = Session::get('idthnajaran') ?? 1;
-
-        // Ambil data tahun ajaran aktif
-        $tahunajaran = TahunAjaranModel::where('tbl_thnajaran.idthnajaran', $idthnajaran)->first();
-
-        // Hitung total data
-        $datajurusan = JurusanModel::count('namajurusan');
-        $datakelas = KelasModel::count('namakelas');
-        $databayar = BayarDetailModel::join('tbl_bayar', 'tbl_bayar.idbayar', '=', 'tbl_bayardetail.idbayar')
-            ->where('tbl_bayar.idthnajaran', $idthnajaran)
-            ->count();
-
-        $datasiswa = SiswaKelasModel::join('tbl_kelasdetail', 'tbl_kelasdetail.idkelasdetail', '=', 'tbl_siswakelas.idkelasdetail')
-            ->where('tbl_kelasdetail.idthnajaran', $idthnajaran)
-            ->count();
-
-        // Data tambahan dari AppServiceProvider biar sinkron
+        // Hitung total data dari tabel yang ADA di Aplikasi Anak
         $totalPegawai = PegawaiModel::count();
-        $totalBukuTamu = BukuTamu::count();
         $totalSiswa = SiswaModel::count();
-        $totalOrangtua = Orangtua::count();
-        $totalJabatan = JabatanModel::count();
+        $totalBukuTamu = BukuTamu::count();
 
         // Ambil 5 tamu terbaru
-        $recentGuests = BukuTamu::select('id', 'nama', 'keperluan', DB::raw('DATE_FORMAT(CREATED_AT, "%d %b") as tanggal'))
-            ->orderBy('tanggal', 'desc')
+        $recentGuests = BukuTamu::select(
+                'id',
+                'nama',
+                'keperluan',
+                DB::raw('DATE_FORMAT(created_at, "%d %b %Y") as tanggal') // Format tanggal
+            )
+            ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();
 
         return response()->json([
-            'tahun_ajaran' => $tahunajaran,
+            'success' => true,
             'stats' => [
-                'jurusan' => $datajurusan,
-                'kelas' => $datakelas,
-                'bayar' => $databayar,
-                'siswa' => $datasiswa,
                 'totalPegawai' => $totalPegawai,
-                'totalBukuTamu' => $totalBukuTamu,
                 'totalSiswa' => $totalSiswa,
-                'totalOrangtua' => $totalOrangtua,
-                'totalJabatan' => $totalJabatan,
+                'totalBukuTamu' => $totalBukuTamu,
+                // Hapus count untuk tabel yang tidak ada (orangtua, jabatan, dll)
+                // Nanti kita akan tambahkan lagi setelah tabelnya disinkronkan.
             ],
             'recentGuests' => $recentGuests,
         ]);

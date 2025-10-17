@@ -3,74 +3,40 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\PegawaiModel;
+use App\Models\PegawaiModel; // Pastikan menggunakan model yang benar (App\Models\Pegawai)
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class PegawaiController extends Controller
 {
     /**
-     * Menampilkan semua data pegawai.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * Endpoint untuk React: Mengambil daftar pegawai dari database LOKAL.
+     * Mendukung paginasi dan pencarian.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pegawai = PegawaiModel::with(['jabatan', 'agama'])
-            ->orderBy('id_jabatan', 'asc')
-            ->get();
+        $query = PegawaiModel::query();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data pegawai berhasil diambil',
-            'data' => $pegawai
-        ], 200);
-    }
-
-    /**
-     * Menyimpan data pegawai baru.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'nama_pegawai' => 'required|string|max:255',
-            'jenis_kelamin' => 'required|in:L,P',
-            'id_agama' => 'required|exists:tbl_agama,idagama',
-            'id_jabatan' => 'required|exists:tbl_jabatan,idjabatan',
-            'kontak' => 'required|string|max:20',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validasi gagal',
-                'errors' => $validator->errors()
-            ], 422);
+        if ($request->has('search')) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('namapegawai', 'like', "%{$searchTerm}%")
+                  ->orWhere('nip', 'like', "%{$searchTerm}%");
+            });
         }
 
-        $pegawai = PegawaiModel::create($request->all());
-        // Muat relasi agar langsung ada di response
-        $pegawai->load(['jabatan', 'agama']);
+        // Ambil data dengan paginasi agar tidak berat di frontend
+        $pegawai = $query->orderBy('namapegawai', 'asc')->paginate(20);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data pegawai berhasil ditambahkan',
-            'data' => $pegawai
-        ], 201);
+        return response()->json($pegawai);
     }
 
     /**
-     * Menampilkan detail satu data pegawai.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * Endpoint untuk React: Mengambil detail satu pegawai dari database LOKAL berdasarkan NIP.
      */
-    public function show($id)
+    public function show($nip)
     {
-        $pegawai = PegawaiModel::with(['jabatan', 'agama'])->find($id);
+        // Cari pegawai berdasarkan NIP, bukan ID.
+        $pegawai = PegawaiModel::where('nip', $nip)->first();
 
         if (!$pegawai) {
             return response()->json([
@@ -81,69 +47,10 @@ class PegawaiController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Detail data pegawai',
             'data' => $pegawai
-        ], 200);
-    }
-
-    /**
-     * Memperbarui data pegawai.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(Request $request, $id)
-    {
-        $pegawai = PegawaiModel::find($id);
-        if (!$pegawai) {
-            return response()->json(['success' => false, 'message' => 'Data pegawai tidak ditemukan'], 404);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'nama_pegawai' => 'required|string|max:255',
-            'jenis_kelamin' => 'required|in:L,P',
-            'id_agama' => 'required|exists:tbl_agama,idagama',
-            'id_jabatan' => 'required|exists:tbl_jabatan,idjabatan',
-            'kontak' => 'required|string|max:20',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Validasi gagal', 'errors' => $validator->errors()], 422);
-        }
-
-        $pegawai->update($request->all());
-        $pegawai->load(['jabatan', 'agama']);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Data pegawai berhasil diperbarui',
-            'data' => $pegawai
-        ], 200);
     }
 
-    /**
-     * Menghapus data pegawai.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy($id)
-    {
-        $pegawai = PegawaiModel::find($id);
-
-        if (!$pegawai) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data pegawai tidak ditemukan'
-            ], 404);
-        }
-
-        $pegawai->delete();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Data pegawai berhasil dihapus'
-        ], 200);
-    }
+    // Fungsi store(), update(), dan destroy() kita hapus karena
+    // Aplikasi Anak tidak boleh mengubah data master pegawai.
 }
