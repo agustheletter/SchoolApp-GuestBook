@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_ortu', function (Blueprint $table) {
-            $table->increments('idortu');
+            // Menggunakan unsignedInteger sebagai Primary Key, tidak auto-increment
+            $table->unsignedInteger('idortu')->primary();
             $table->integer('idsiswa');
 
             //ayah
@@ -24,8 +25,6 @@ return new class extends Migration
             $table->string('nik_ayah');
             $table->string('hp_ayah');
             $table->string('alamat_ayah');
-
-
 
             //ibu
             $table->string('nama_ibu');
@@ -57,6 +56,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::dropIfExists('tbl_ortu');
+        Schema::dropIfExists('tbl_ortu');
     }
 };
