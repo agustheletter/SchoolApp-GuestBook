@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->string('nama');
             $table->enum('role', ['ortu', 'umum']);
 
-            $table->unsignedBigInteger('idsiswa')->nullable();
+            $table->integer('idsiswa')->unsigned()->nullable();
             $table->foreign('idsiswa')->references('idsiswa')->on('tbl_siswa')->onDelete('cascade');
 
             $table->string('instansi')->nullable();
