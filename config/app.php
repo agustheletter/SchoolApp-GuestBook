@@ -14,7 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-'induk_api_url' => env('INDUK_API_URL'),
+    'induk_api_url' => env('INDUK_API_URL'),
     'induk_api_token' => env('INDUK_API_TOKEN'),
 
     /*
