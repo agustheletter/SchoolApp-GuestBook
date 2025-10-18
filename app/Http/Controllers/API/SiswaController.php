@@ -39,20 +39,21 @@ class SiswaController extends Controller
     public function show($idsiswa)
     {
         // Eager load semua relasi yang dibutuhkan untuk halaman detail.
-        // Ini akan mengambil data siswa, data orang tuanya, dan semua riwayat kelasnya
-        // beserta detail dari setiap kelas tersebut dalam satu query efisien.
         $siswa = SiswaModel::with([
             'ortu',
+            'agama',
+            'thnajaran',
+            // 'siswakelas',
             'siswakelas.kelasDetail.kelas',
-            'siswakelas.kelasDetail.thnajaran', // Relasi di KelasDetailModel diubah menjadi 'thnajaran'
-            'siswakelas.kelasDetail.pegawai' // <-- PERUBAHAN DI SINI: Menggunakan nama relasi yang benar
+            'siswakelas.kelasDetail.thnajaran',
+            'siswakelas.kelasDetail.pegawai'
         ])->find($idsiswa);
 
         if (!$siswa) {
             return response()->json(['success' => false, 'message' => 'Data siswa tidak ditemukan'], 404);
         }
 
-        // Opsional: kita bisa format riwayat kelas agar lebih rapi untuk frontend
+        // Format riwayat kelas agar lebih rapi untuk frontend
         $siswa->riwayat_kelas_formatted = $siswa->siswakelas->map(function ($item) {
             return [
                 'tahun_ajaran' => $item->kelasDetail->thnajaran->thnajaran ?? 'N/A',

@@ -14,7 +14,7 @@ class SiswaModel extends Model
     public $incrementing    = false;
 
     protected $fillable     = [
-                                    // 'idsiswa',
+                                    'idsiswa',
                                     'namasiswa',
                                     'nis',
                                     'nisn',
