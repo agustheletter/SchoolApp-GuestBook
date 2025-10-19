@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\AgamaModel;
 use App\Models\KelasDetailModel;
 use App\Models\KelasModel;
 use App\Models\OrtuModel;
@@ -56,12 +57,13 @@ class SyncMasterData extends Command
         $this->processData('SiswaKelas', SiswaKelasModel::class, $allData['siswa_kelas'] ?? [], 'idsiswakelas');
         $this->processData('TahunAjaran', TahunAjaranModel::class, $allData['tahun_ajaran'] ?? [], 'idthnajaran');
         $this->processData('OrangTua', OrtuModel::class, $allData['orang_tua'] ?? [], 'idortu');
+        $this->processData('Agama', AgamaModel::class, $allData['agama'] ?? [], 'idagama');
 
         $this->info('Master data synchronization finished successfully!');
         return 0;
     }
 
-    /**
+    /**z
      * Fungsi generik untuk memproses dan menyinkronkan data.
      *
      * @param string $modelName Nama model untuk logging (e.g., 'Siswa')
