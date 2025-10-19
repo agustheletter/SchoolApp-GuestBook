@@ -33,11 +33,11 @@ class BukuTamu extends Model
 
     public function jabatan()
     {
-        return $this->belongsTo(JabatanModel::class, 'idjabatan', 'id');
+        return $this->belongsTo(JabatanModel::class, 'idjabatan', 'idjabatan');
     }
 
     public function pegawai()
     {
-        return $this->belongsTo(PegawaiModel::class, 'idpegawai', 'id');
+        return $this->belongsTo(PegawaiModel::class, 'idpegawai', 'idpegawai');
     }
 }
