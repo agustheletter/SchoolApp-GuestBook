@@ -2,52 +2,102 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PegawaiModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbl_pegawai';
+    protected $table        = "tbl_pegawai";
+    protected $primaryKey   = 'idpegawai';
+    protected $keyType      = 'string';
+    public $incrementing    = false;
 
-    /**
-     * Primary key dari tabel.
-     */
-    protected $primaryKey = 'idpegawai';
+    protected $fillable     = [
+        'idpegawai',
+        'nip',
+        'nuptk',
+        'rekening',
+        'npwp',
+        'nik',
+        'gelardepan',
+        'gelarbelakang',
+        'namapegawai',
+        'tmplahir',
+        'tgllahir',
+        'jk',
+        'statuskepegawaian',
+        'kategorikepegawaian',
+        'idagama',
+        'golongan_darah',
+        'karpeg',
+        'askes',
+        'taspen',
+        'karis',
 
-    /**
-     * PENTING: Beri tahu Laravel bahwa primary key ini BUKAN auto-increment.
-     */
-    public $incrementing = false;
-
-    /**
-     * Kolom yang boleh diisi secara massal saat sinkronisasi.
-     * Pastikan semua kolom dari migration ada di sini.
-     */
-    protected $fillable = [
-        'idpegawai', 'nip', 'nuptk', 'rekening', 'npwp', 'nik',
-        'gelardepan', 'gelarbelakang', 'namapegawai', 'tmplahir', 'tgllahir',
-        'jk', 'statuskepegawaian', 'kategorikepegawaian', 'idagama',
-        'golongan_darah', 'karpeg', 'askes', 'taspen', 'karis', 'jalan',
-        'rt', 'rw', 'dusun', 'desa', 'kecamatan', 'kabupaten', 'kodepos',
-        'tlprumah', 'hppegawai', 'email', 'namaibu', 'statusperkawinan',
-        'namapasangan', 'pekerjaanpasangan', 'nippasangan', 'jml_anak',
-        'photopegawai', 'statusaktif'
+        'jalan',
+        'rt',
+        'rw',
+        'dusun',
+        'desa',
+        'kecamatan',
+        'kabupaten',
+        'kodepos',
+        'tlprumah',
+        'hppegawai',
+        'email',
+        'namaibu',
+        'statusperkawinan',
+        'namapasangan',
+        'pekerjaanpasangan',
+        'nippasangan',
+        'jml_anak',
+        'photopegawai',
+        'statusaktif',
     ];
 
-    public function jabatan()
-    {
-        return $this->belongsTo(JabatanModel::class, 'id_jabatan', 'id');
-    }
+    // ================= RELASI =================
 
+    // Agama
     public function agama()
     {
-        return $this->belongsTo(AgamaModel::class, 'id_agama', 'idagama');
+        return $this->belongsTo(AgamaModel::class, 'idagama');
     }
 
-    public function bukutamu()
+    // Detail kelas (jika ada)
+    public function kelasdetail()
     {
-        return $this->hasMany(BukuTamu::class, 'id_pegawai', 'id');
+        return $this->hasMany(KelasDetailModel::class, 'idpegawai', 'idpegawai');
+    }
+
+    // Mengajar (jika ada)
+    public function mengajar()
+    {
+        return $this->hasMany(MengajarModel::class, 'idpegawai', 'idpegawai');
+    }
+
+    // Pangkat Pegawai
+    public function pangkatpegawai()
+    {
+        return $this->hasMany(PangkatPegawaiModel::class, 'idpegawai', 'idpegawai');
+    }
+
+    // Gaji Berkala
+    public function gajiberkala()
+    {
+        return $this->hasMany(GajiBerkalaModel::class, 'idpegawai', 'idpegawai');
+    }
+
+    // Pendidikan Pegawai
+    public function pendidikanpegawai()
+    {
+        return $this->hasMany(PendidikanPegawaiModel::class, 'idpegawai', 'idpegawai');
+    }
+
+    // Keluarga Pegawai
+    public function keluargapegawai()
+    {
+        return $this->hasMany(KeluargaPegawaiModel::class, 'idpegawai', 'idpegawai');
     }
 }
