@@ -8,9 +8,11 @@ use App\Http\Controllers\API\BukuTamuController;
 use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\SyncController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\TahunAjaranController;
 
 // PUBLIC ROUTES
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/tahun-ajaran', [TahunAjaranController::class, 'index']);
 
 // PROTECTED ROUTES - BUTUH AUTH
 Route::middleware(['auth:sanctum'])->group(function () {
