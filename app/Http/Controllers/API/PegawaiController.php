@@ -50,7 +50,4 @@ class PegawaiController extends Controller
             'data' => $pegawai
         ]);
     }
-
-    // Fungsi store(), update(), dan destroy() kita hapus karena
-    // Aplikasi Anak tidak boleh mengubah data master pegawai.
 }
