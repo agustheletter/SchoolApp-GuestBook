@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\BukuTamu;
-use App\Models\Orangtua;
+use App\Models\OrtuModel;
 use App\Models\PegawaiModel;
 use App\Models\SiswaModel;
 use Carbon\Carbon;
@@ -145,7 +145,7 @@ class BukuTamuController extends Controller
      */
     public function getOrangtuaBySiswa($siswaId)
     {
-        $orangtua = Orangtua::where('idsiswa', $siswaId)->first();
+        $orangtua = OrtuModel::where('idsiswa', $siswaId)->first();
         if ($orangtua) {
             return response()->json($orangtua);
         }
