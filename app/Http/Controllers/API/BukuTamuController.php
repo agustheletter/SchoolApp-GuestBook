@@ -20,17 +20,30 @@ class BukuTamuController extends Controller
     /**
      * Menampilkan semua data buku tamu.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bukutamu = BukuTamu::with(['siswa', 'jabatan', 'pegawai'])
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = BukuTamu::with(['siswa', 'jabatan', 'pegawai']);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data buku tamu berhasil diambil',
-            'data' => $bukutamu
-        ]);
+        // Logika pencarian server-side
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('nama', 'like', "%{$searchTerm}%")
+                  ->orWhere('keperluan', 'like', "%{$searchTerm}%")
+                  ->orWhere('kontak', 'like', "%{$searchTerm}%")
+                  ->orWhereHas('siswa', function($q) use ($searchTerm) {
+                      $q->where('namasiswa', 'like', "%{$searchTerm}%");
+                  })
+                  ->orWhereHas('pegawai', function($q) use ($searchTerm) {
+                      $q->where('nama_pegawai', 'like', "%{$searchTerm}%");
+                  });
+            });
+        }
+
+        $perPage = $request->get('rows_per_page', 10);
+        $bukutamu = $query->orderBy('created_at', 'desc')->paginate($perPage);
+
+        return response()->json($bukutamu);
     }
 
     /**
@@ -101,13 +114,19 @@ class BukuTamuController extends Controller
      */
     public function show($id)
     {
-        $bukutamu = BukuTamu::with(['siswa', 'jabatan', 'pegawai'])->find($id);
+        $tamu = BukuTamu::with(['siswa', 'jabatan', 'pegawai'])->find($id);
 
-        if (!$bukutamu) {
-            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan'], 404);
+        if (!$tamu) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data buku tamu tidak ditemukan'
+            ], 404);
         }
 
-        return response()->json(['success' => true, 'data' => $bukutamu]);
+        return response()->json([
+            'success' => true,
+            'data' => $tamu
+        ]);
     }
 
     /**
