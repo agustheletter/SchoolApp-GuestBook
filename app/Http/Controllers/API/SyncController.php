@@ -17,18 +17,22 @@ class SyncController extends Controller
         try {
             // Mendorong command ke antrian (queue) untuk dieksekusi di background.
             // Ini adalah cara standar Laravel dan lebih aman.
-            Artisan::queue('sync:master-data');
+            // Artisan::queue('sync:master-data');
+
+            // Menggunakan Artisan::call() untuk eksekusi langsung (blocking)
+            // Cocok untuk development, tapi berisiko timeout jika proses lama.
+            Artisan::call('sync:master-data');
 
             return response()->json([
                 'success' => true,
-                'message' => 'Proses sinkronisasi telah dimulai di background. Data akan diperbarui dalam beberapa saat.'
-            ], 202); // 202 Accepted
+                'message' => 'Sinkronisasi telah selesai dijalankan.'
+            ], 200); // 200 OK karena proses sudah selesai
 
         } catch (\Exception $e) {
-            Log::error('Failed to queue sync command: ' . $e->getMessage());
+            Log::error('Failed to run sync command directly: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal memulai proses sinkronisasi. Cek log untuk detail.'
+                'message' => 'Gagal menjalankan proses sinkronisasi.'
             ], 500);
         }
     }
