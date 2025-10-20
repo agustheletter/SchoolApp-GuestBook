@@ -10,6 +10,12 @@ use App\Http\Controllers\API\SyncController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\TahunAjaranController;
 
+// PUBLIC ROUTES - untuk input buku tamu
+Route::get('/guestbook/data', [BukuTamuController::class, 'getFormData']);
+Route::get('/get-pegawai/{jabatanId}', [BukuTamuController::class, 'getPegawai']);
+Route::get('/get-orangtua/{siswaId}', [BukuTamuController::class, 'getOrangtua']);
+Route::post('/guestbook/store', [BukuTamuController::class, 'storeUser']);
+
 // PUBLIC ROUTES
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/tahun-ajaran', [TahunAjaranController::class, 'index']);

@@ -3,246 +3,233 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\BukuTamu;
-use App\Models\OrtuModel;
-use App\Models\PegawaiModel;
 use App\Models\SiswaModel;
-use Carbon\Carbon;
+use App\Models\JabatanModel;
+use App\Models\PegawaiModel;
+use App\Models\OrtuModel;
+use App\Models\BukuTamu;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class BukuTamuController extends Controller
 {
     /**
-     * Menampilkan semua data buku tamu.
+     * Get data untuk form input buku tamu
      */
-    public function index(Request $request)
+    public function getFormData()
     {
-        $query = BukuTamu::with(['siswa', 'jabatan', 'pegawai']);
+        try {
+            $siswa = SiswaModel::select('idsiswa', 'namasiswa')->get();
+            $jabatan = JabatanModel::select('id', 'nama_jabatan')->get();
+            $pegawai = PegawaiModel::select('id', 'nama_pegawai', 'id_jabatan')->get();
 
-        // Logika pencarian server-side
-        if ($request->has('search') && $request->search != '') {
-            $searchTerm = $request->search;
-            $query->where(function($q) use ($searchTerm) {
-                $q->where('nama', 'like', "%{$searchTerm}%")
-                  ->orWhere('keperluan', 'like', "%{$searchTerm}%")
-                  ->orWhere('kontak', 'like', "%{$searchTerm}%")
-                  ->orWhereHas('siswa', function($q) use ($searchTerm) {
-                      $q->where('namasiswa', 'like', "%{$searchTerm}%");
-                  })
-                  ->orWhereHas('pegawai', function($q) use ($searchTerm) {
-                      $q->where('nama_pegawai', 'like', "%{$searchTerm}%");
-                  });
-            });
-        }
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'siswa' => $siswa,
+                    'jabatan' => $jabatan,
+                    'pegawai' => $pegawai
+                ]
+            ]);
 
-        $perPage = $request->get('rows_per_page', 10);
-        $bukutamu = $query->orderBy('created_at', 'desc')->paginate($perPage);
-
-        return response()->json($bukutamu);
-    }
-
-    /**
-     * Menyimpan data buku tamu baru.
-     */
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required|string|max:255',
-            'role' => 'required|in:ortu,umum',
-            'idsiswa' => 'required_if:role,ortu|nullable|exists:tbl_siswa,idsiswa',
-            'instansi' => 'required_if:role,umum|nullable|string|max:255',
-            'alamat' => 'required|string',
-            'kontak' => 'required|string|max:20',
-            'id_jabatan' => 'required|exists:tbl_jabatan,idjabatan',
-            'id_pegawai' => 'required|exists:tbl_pegawai,idpegawai',
-            'keperluan' => 'required|string',
-            'foto_tamu' => 'nullable|string', // Menerima base64 string
-        ], [
-            'idsiswa.required_if' => 'Nama siswa wajib dipilih jika role adalah Orang Tua.',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['success' => false, 'message' => 'Validasi gagal', 'errors' => $validator->errors()], 422);
-        }
-
-        $validatedData = $validator->validated();
-        $imageName = null;
-        $imageUrlForWa = null;
-
-        // Proses dan simpan foto dari base64
-        if ($request->has('foto_tamu') && !empty($request->foto_tamu)) {
-            try {
-                $image = $request->input('foto_tamu');
-                $image = str_replace('data:image/jpeg;base64,', '', $image);
-                $image = str_replace(' ', '+', $image);
-                $imageData = base64_decode($image);
-                $imageName = 'tamu_' . time() . '.jpg';
-
-                // Simpan ke storage/app/public/foto_tamu
-                Storage::disk('public')->put('foto_tamu/' . $imageName, $imageData);
-                $validatedData['foto_tamu'] = $imageName;
-
-                // URL publik untuk dikirim via WA
-                $imageUrlForWa = Storage::url('foto_tamu/' . $imageName);
-
-            } catch (\Exception $e) {
-                Log::error('Gagal menyimpan foto: ' . $e->getMessage());
-                return response()->json(['success' => false, 'message' => 'Gagal memproses foto.'], 500);
-            }
-        }
-
-        $bukuTamu = BukuTamu::create($validatedData);
-        $bukuTamu->load(['siswa', 'jabatan', 'pegawai']);
-
-        // Kirim notifikasi WhatsApp
-        $this->kirimNotifikasiWhatsApp($bukuTamu, $imageUrlForWa);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Data buku tamu berhasil ditambahkan',
-            'data' => $bukuTamu
-        ], 201);
-    }
-
-    /**
-     * Menampilkan detail satu data buku tamu.
-     */
-    public function show($id)
-    {
-        $tamu = BukuTamu::with(['siswa', 'jabatan', 'pegawai'])->find($id);
-
-        if (!$tamu) {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Data buku tamu tidak ditemukan'
-            ], 404);
+                'message' => 'Gagal mengambil data form'
+            ], 500);
         }
-
-        return response()->json([
-            'success' => true,
-            'data' => $tamu
-        ]);
     }
 
     /**
-     * Menghapus data buku tamu.
+     * Get pegawai berdasarkan jabatan
      */
-    public function destroy($id)
+    public function getPegawai($jabatanId)
     {
-        $bukutamu = BukuTamu::find($id);
+        try {
+            $pegawai = PegawaiModel::where('id_jabatan', $jabatanId)->get();
 
-        if (!$bukutamu) {
-            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan'], 404);
+            return response()->json([
+                'success' => true,
+                'data' => $pegawai
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengambil data pegawai'
+            ], 500);
         }
+    }
 
-        // Hapus file foto jika ada
-        if ($bukutamu->foto_tamu) {
-            Storage::disk('public')->delete('foto_tamu/' . $bukutamu->foto_tamu);
+    /**
+     * Get data orangtua berdasarkan siswa
+     */
+    public function getOrangtua($siswaId)
+    {
+        try {
+            $orangtua = OrtuModel::where('idsiswa', $siswaId)->first();
+
+            if ($orangtua) {
+                return response()->json([
+                    'success' => true,
+                    'data' => [
+                        'nama_ortu' => $orangtua->nama_ortu,
+                        'kontak' => $orangtua->kontak,
+                        'alamat' => $orangtua->alamat
+                    ]
+                ]);
+            } else {
+                return response()->json([
+                    'success' => true,
+                    'data' => [
+                        'nama_ortu' => '',
+                        'kontak' => '',
+                        'alamat' => ''
+                    ]
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengambil data orangtua'
+            ], 500);
         }
-
-        $bukutamu->delete();
-
-        return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
     }
 
     /**
-     * Mengambil data pegawai berdasarkan jabatan.
+     * Store data buku tamu dari React
      */
-    public function getPegawaiByJabatan($jabatanId)
+    public function storeUser(Request $request)
     {
-        $pegawai = PegawaiModel::where('id_jabatan', $jabatanId)->select('idpegawai', 'nama_pegawai')->get();
-        return response()->json($pegawai);
-    }
+        try {
+            $request->validate([
+                'nama' => 'required|string|max:255',
+                'role' => 'required|in:ortu,umum',
+                'idsiswa' => 'nullable|exists:tbl_siswa,idsiswa',
+                'instansi' => 'nullable|string|max:255',
+                'alamat' => 'required|string',
+                'kontak' => 'required|string|max:255',
+                'id_jabatan' => 'required|exists:tbl_jabatan,id',
+                'id_pegawai' => 'required|exists:tbl_pegawai,id',
+                'keperluan' => 'required|string',
+                'foto_tamu' => 'nullable|string',
+            ]);
 
-    /**
-     * Mengambil data orang tua berdasarkan siswa.
-     */
-    public function getOrangtuaBySiswa($siswaId)
-    {
-        $orangtua = OrtuModel::where('idsiswa', $siswaId)->first();
-        if ($orangtua) {
-            return response()->json($orangtua);
+            // Proses foto
+            $imageName = null;
+            $fotoTamuPath = null;
+
+            if (!empty($request->foto_tamu)) {
+                $image = str_replace('data:image/jpeg;base64,', '', $request->foto_tamu);
+                $image = str_replace(' ', '+', $image);
+                $imageData = base64_decode($image);
+
+                $folder = 'uploads/foto_tamu';
+                if (!file_exists($folder)) {
+                    mkdir($folder, 0777, true);
+                }
+
+                $imageName = 'tamu_' . time() . '.jpg';
+                $fotoTamuPath = public_path($folder . '/' . $imageName);
+                file_put_contents($fotoTamuPath, $imageData);
+            }
+
+            // Simpan data
+            $bukuTamu = BukuTamu::create([
+                'nama' => $request->nama,
+                'role' => $request->role,
+                'idsiswa' => $request->idsiswa,
+                'instansi' => $request->instansi,
+                'alamat' => $request->alamat,
+                'kontak' => $request->kontak,
+                'id_jabatan' => $request->id_jabatan,
+                'id_pegawai' => $request->id_pegawai,
+                'keperluan' => $request->keperluan,
+                'foto_tamu' => $imageName,
+            ]);
+
+            // Kirim WhatsApp notification (sama seperti di Laravel)
+            $this->sendWhatsAppNotification($bukuTamu, $fotoTamuPath);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data buku tamu berhasil disimpan!'
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Store guestbook error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menyimpan data: ' . $e->getMessage()
+            ], 500);
         }
-        return response()->json(null, 200);
     }
 
     /**
-     * Menyediakan data untuk grafik.
+     * Send WhatsApp notification
      */
-    public function getGrafikData(Request $request)
-    {
-        // Logika dari controller lama dipindahkan ke sini
-        $filter = $request->get('filter', 'hari');
-        // ... (seluruh logika grafikData dari controller lama bisa diletakkan di sini)
-        // Contoh sederhana untuk filter hari ini
-        $data = BukuTamu::select(DB::raw("HOUR(created_at) as jam"), DB::raw("count(*) as jumlah"))
-            ->whereDate('created_at', Carbon::today())
-            ->groupBy('jam')
-            ->get();
-
-        return response()->json(['success' => true, 'filter' => $filter, 'data' => $data]);
-    }
-
-    /**
-     * Logika untuk mengirim notifikasi WhatsApp.
-     */
-    private function kirimNotifikasiWhatsApp(BukuTamu $bukuTamu, $imageUrl = null)
+    private function sendWhatsAppNotification($bukuTamu, $fotoTamuPath)
     {
         $apiKey = env('FONNTE_API_KEY');
-        if (!$apiKey) {
-            Log::warning('FONNTE_API_KEY tidak disetel.');
-            return;
-        }
+        $pegawai = PegawaiModel::find($bukuTamu->id_pegawai);
 
-        $pegawai = $bukuTamu->pegawai;
-        if (!$pegawai || empty($pegawai->kontak)) {
-            Log::warning("Pegawai dengan ID {$bukuTamu->id_pegawai} tidak ditemukan atau tidak punya kontak.");
-            return;
-        }
+        if ($pegawai && !empty($pegawai->kontak)) {
+            $nomor = ltrim($pegawai->kontak, '0');
+            if (!str_starts_with($nomor, '62')) {
+                $nomor = '62' . $nomor;
+            }
 
-        $nomor = ltrim($pegawai->kontak, '0');
-        if (!str_starts_with($nomor, '62')) {
-            $nomor = '62' . $nomor;
-        }
+            // Kirim foto jika ada
+            if ($fotoTamuPath && file_exists($fotoTamuPath)) {
+                $imageUrl = env('APP_URL') . "/uploads/foto_tamu/{$bukuTamu->foto_tamu}";
 
-        // Kirim foto jika ada
-        if ($imageUrl) {
+                Http::withHeaders(['Authorization' => $apiKey])
+                    ->post('https://api.fonnte.com/send', [
+                        'target' => $nomor,
+                        'url' => $imageUrl,
+                        'message' => "Assalamualaikum Bapak/Ibu {$pegawai->nama_pegawai}, ini adalah foto tamu Anda.",
+                    ]);
+            }
+
+            // Kirim pesan detail
+            $pesanTeks = $this->formatWhatsAppMessage($bukuTamu, $pegawai);
+
             Http::withHeaders(['Authorization' => $apiKey])
                 ->post('https://api.fonnte.com/send', [
                     'target' => $nomor,
-                    'url' => url($imageUrl), // Pastikan URL dapat diakses publik
-                    'message' => "Assalamualaikum Bapak/Ibu {$pegawai->nama_pegawai}, ini adalah foto tamu Anda. Informasi lengkapnya akan menyusul.",
+                    'message' => $pesanTeks,
                 ]);
         }
+    }
 
-        // Kirim pesan teks
-        $pesanTeks = "Assalamualaikum Bapak/Ibu {$pegawai->nama_pegawai},\n\n"
-            . "Ada tamu yang ingin bertemu dengan Anda sedang menunggu di Resepsionis.\n\n";
+    /**
+     * Format WhatsApp message
+     */
+    private function formatWhatsAppMessage($bukuTamu, $pegawai)
+    {
+        $pesan = "Assalamualaikum Bapak/Ibu {$pegawai->nama_pegawai},\n\n"
+               . "Ini adalah nomor layanan Hotline SMK Negeri 1 Cimahi.\n"
+               . "Saat ini ada tamu yang ingin bertemu dengan Anda sedang menunggu di Ruang Resepsionis.\n\n";
 
         if ($bukuTamu->role == 'ortu') {
-            $pesanTeks .= "Nama Tamu: *{$bukuTamu->nama}*.\n"
-                . "Orang tua dari siswa: *{$bukuTamu->siswa->namasiswa}*.\n";
+            $siswa = SiswaModel::find($bukuTamu->idsiswa);
+            $pesan .= "Nama Tamu: {$bukuTamu->nama}.\n"
+                   . "Orang tua dari siswa: {$siswa->namasiswa}.\n"
+                   . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
         } else {
-            $pesanTeks .= "Nama Tamu: *{$bukuTamu->nama}*.\n"
-                . "Asal Instansi: *{$bukuTamu->instansi}*.\n";
+            $pesan .= "Nama Tamu: {$bukuTamu->nama}.\n"
+                   . "Asal Instansi: {$bukuTamu->instansi}.\n"
+                   . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
         }
 
-        $pesanTeks .= "Kontak Tamu: *{$bukuTamu->kontak}*.\n\n"
-            . "Keperluan: {$bukuTamu->keperluan}\n"
-            . "Waktu: " . $bukuTamu->created_at->format('d F Y, H:i') . " WIB\n\n"
-            . "Terima kasih.";
+        $pesan .= "\nKeperluan: {$bukuTamu->keperluan}\n"
+               . "Waktu: " . now()->format('d F Y, H:i') . " WIB\n\n"
+               . "Untuk konfirmasi atau informasi lebih lanjut, silakan hubungi kontak nomor Whatsapp tamu tersebut.\n";
 
-        $response = Http::withHeaders(['Authorization' => $apiKey])
-            ->post('https://api.fonnte.com/send', [
-                'target' => $nomor,
-                'message' => $pesanTeks,
-            ]);
-
-        Log::info('Fonnte Message Response: ' . $response->body());
+        return $pesan;
     }
 }
