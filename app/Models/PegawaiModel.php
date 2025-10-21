@@ -100,4 +100,23 @@ class PegawaiModel extends Model
     {
         return $this->hasMany(KeluargaPegawaiModel::class, 'idpegawai', 'idpegawai');
     }
+
+    // Relasi Many-to-Many dengan Jabatan melalui tabel pivot
+    public function jabatanPegawai()
+    {
+        return $this->hasMany(JabatanPegawaiModel::class, 'idpegawai', 'idpegawai');
+    }
+
+    // Relasi ke jabatan melalui pivot
+    public function jabatan()
+    {
+        return $this->belongsToMany(
+            JabatanModel::class,
+            'tbl_jabatanpegawai', // tabel pivot
+            'idpegawai',          // foreign key di pivot yang merujuk ke pegawai
+            'idjabatan',          // foreign key di pivot yang merujuk ke jabatan
+            'idpegawai',          // local key di tabel pegawai
+            'idjabatan'           // local key di tabel jabatan (primary key)
+        );
+    }
 }

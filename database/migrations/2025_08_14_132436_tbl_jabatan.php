@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_jabatan', function (Blueprint $table) {
-            $table->increments('idjabatan');
+            // $table->increments('idjabatan');
+            $table->unsignedInteger('idjabatan')->primary(); // <-- PENTING!
             $table->string('jabatan');
             $table->timestamps();
             $table->softDeletes();
