@@ -18,7 +18,10 @@ class BukuTamu extends Model
 
     protected $fillable = [
         'nama', 'role', 'idsiswa', 'instansi',
-        'alamat', 'kontak', 'idjabatan', 'idpegawai', 'keperluan', 'foto_tamu'
+        'alamat', 'kontak',
+        // 'idjabatan',
+        'idpegawai', 'keperluan', 'foto_tamu',
+        'idthnajaran',
     ];
 
     // public function agama()
@@ -31,13 +34,19 @@ class BukuTamu extends Model
         return $this->belongsTo(SiswaModel::class, 'idsiswa', 'idsiswa');
     }
 
-    public function jabatan()
-    {
-        return $this->belongsTo(JabatanModel::class, 'idjabatan', 'idjabatan');
-    }
+    // public function jabatan()
+    // {
+    //     return $this->belongsTo(JabatanModel::class, 'idjabatan', 'idjabatan');
+    // }
 
     public function pegawai()
     {
         return $this->belongsTo(PegawaiModel::class, 'idpegawai', 'idpegawai');
+    }
+
+    // POIN 8: Relasi tahun ajaran
+    public function tahunAjaran()
+    {
+        return $this->belongsTo(TahunAjaranModel::class, 'id_tahun_ajaran', 'idthnajaran');
     }
 }

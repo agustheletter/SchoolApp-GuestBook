@@ -13,8 +13,14 @@ class TahunAjaranSeeder extends Seeder
      */
     public function run(): void
     {
+        // Nonaktifkan foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         // Hapus semua data lama
         DB::table('tbl_thnajaran')->truncate();
+
+        // Aktifkan kembali foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // insert data ke dtabase
         DB::table('tbl_thnajaran')->insert([

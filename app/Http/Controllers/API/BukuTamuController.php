@@ -9,6 +9,9 @@ use App\Models\PegawaiModel;
 use App\Models\JabatanPegawaiModel;
 use App\Models\OrtuModel;
 use App\Models\BukuTamu;
+use App\Models\TahunAjaranModel;
+use App\Models\KelasDetailModel;
+use App\Models\SiswaKelasModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
@@ -24,7 +27,12 @@ class BukuTamuController extends Controller
      */
     public function index(Request $request)
     {
-        $query = BukuTamu::with(['siswa', 'jabatan', 'pegawai']);
+        $query = BukuTamu::with(['siswa', 'pegawai', 'tahunAjaran']);
+
+        // Filter berdasarkan tahun ajaran - POIN 8
+        if ($request->has('tahun_ajaran') && $request->tahun_ajaran != '') {
+            $query->where('idthnajaran', $request->tahun_ajaran);
+        }
 
         // Logika pencarian server-side
         if ($request->has('search') && $request->search != '') {
@@ -38,6 +46,9 @@ class BukuTamuController extends Controller
                   })
                   ->orWhereHas('pegawai', function($q) use ($searchTerm) {
                       $q->where('nama_pegawai', 'like', "%{$searchTerm}%");
+                  })
+                  ->orWhereHas('tahunAjaran', function($q) use ($searchTerm) {
+                      $q->where('thnajaran', 'like', "%{$searchTerm}%");
                   });
             });
         }
@@ -60,10 +71,9 @@ class BukuTamuController extends Controller
             'instansi' => 'required_if:role,umum|nullable|string|max:255',
             'alamat' => 'required|string',
             'kontak' => 'required|string|max:20',
-            'id_jabatan' => 'required|exists:tbl_jabatan,idjabatan',
             'id_pegawai' => 'required|exists:tbl_pegawai,idpegawai',
             'keperluan' => 'required|string',
-            'foto_tamu' => 'nullable|string', // Menerima base64 string
+            'foto_tamu' => 'nullable|string',
         ], [
             'idsiswa.required_if' => 'Nama siswa wajib dipilih jika role adalah Orang Tua.',
         ]);
@@ -76,6 +86,15 @@ class BukuTamuController extends Controller
         $imageName = null;
         $imageUrlForWa = null;
 
+        // POIN 6: Ambil tahun ajaran aktif
+        $tahunAjaranAktif = TahunAjaranModel::whereRaw('CURDATE() BETWEEN tglmulai AND tglakhir')
+            // ->where('statusaktif', 'Y')
+            ->first();
+
+        if (!$tahunAjaranAktif) {
+            return response()->json(['success' => false, 'message' => 'Tidak ada tahun ajaran aktif'], 422);
+        }
+
         // Proses dan simpan foto dari base64
         if ($request->has('foto_tamu') && !empty($request->foto_tamu)) {
             try {
@@ -85,11 +104,8 @@ class BukuTamuController extends Controller
                 $imageData = base64_decode($image);
                 $imageName = 'tamu_' . time() . '.jpg';
 
-                // Simpan ke storage/app/public/foto_tamu
                 Storage::disk('public')->put('foto_tamu/' . $imageName, $imageData);
                 $validatedData['foto_tamu'] = $imageName;
-
-                // URL publik untuk dikirim via WA
                 $imageUrlForWa = Storage::url('foto_tamu/' . $imageName);
 
             } catch (\Exception $e) {
@@ -98,8 +114,14 @@ class BukuTamuController extends Controller
             }
         }
 
+        // POIN 7: Hapus field jabatan dari data yang disimpan
+        unset($validatedData['id_jabatan']);
+
+        // POIN 6 & 8: Tambahkan idthnajaran
+        $validatedData['idthnajaran'] = $tahunAjaranAktif->idthnajaran;
+
         $bukuTamu = BukuTamu::create($validatedData);
-        $bukuTamu->load(['siswa', 'jabatan', 'pegawai']);
+        $bukuTamu->load(['siswa', 'pegawai', 'tahunAjaran']);
 
         // Kirim notifikasi WhatsApp
         // $this->kirimNotifikasiWhatsApp($bukuTamu, $imageUrlForWa);
@@ -116,7 +138,7 @@ class BukuTamuController extends Controller
      */
     public function show($id)
     {
-        $tamu = BukuTamu::with(['siswa', 'jabatan', 'pegawai'])->find($id);
+        $tamu = BukuTamu::with(['siswa', 'pegawai', 'tahunAjaran'])->find($id);
 
         if (!$tamu) {
             return response()->json([
@@ -142,7 +164,6 @@ class BukuTamuController extends Controller
             return response()->json(['success' => false, 'message' => 'Data tidak ditemukan'], 404);
         }
 
-        // Hapus file foto jika ada
         if ($bukutamu->foto_tamu) {
             Storage::disk('public')->delete('foto_tamu/' . $bukutamu->foto_tamu);
         }
@@ -151,37 +172,65 @@ class BukuTamuController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
     }
+
     /**
-     * Get data untuk form input buku tamu - PAKAI QUERY MANUAL
+     * Get data untuk form input buku tamu - DENGAN DATA KELAS BERDASARKAN TAHUN AJARAN AKTIF
      */
     public function getFormData()
     {
         try {
-            Log::info('Loading form data dengan VALIDASI DATA...');
+            Log::info('Loading form data dengan KELAS BERDASARKAN TAHUN AJARAN AKTIF...');
 
-            // Ambil data siswa
-            $siswa = SiswaModel::select('idsiswa', 'namasiswa')->get();
+            // POIN 6: Ambil tahun ajaran aktif
+            $tahunAjaranAktif = TahunAjaranModel::whereRaw('CURDATE() BETWEEN tglmulai AND tglakhir')
+                // ->where('statusaktif', 'Y')
+                ->first();
 
-            // Ambil data jabatan - PASTIKAN FIELD NAME KONSISTEN
-            $jabatan = JabatanModel::select('idjabatan as id', 'jabatan as nama_jabatan')->get();
+            if (!$tahunAjaranAktif) {
+                Log::warning('Tidak ada tahun ajaran aktif');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tidak ada tahun ajaran aktif'
+                ], 422);
+            }
 
-            // Data pegawai
-            $pegawai = DB::table('tbl_pegawai as p')
-                ->join('tbl_jabatanpegawai as jp', 'p.idpegawai', '=', 'jp.idpegawai')
-                ->join('tbl_jabatan as j', 'jp.idjabatan', '=', 'j.idjabatan')
-                ->select(
-                    'p.idpegawai as id',
-                    'p.namapegawai as nama_pegawai',
-                    'p.hppegawai as kontak',
-                    'j.jabatan as jabatan',
-                    'j.idjabatan as id_jabatan'
+            Log::info('Tahun ajaran aktif: ' . $tahunAjaranAktif->thnajaran);
+
+            // Ambil data siswa dengan kelas berdasarkan tahun ajaran aktif - POIN 6
+            $siswa = SiswaModel::select(
+                    'tbl_siswa.idsiswa',
+                    'tbl_siswa.namasiswa',
+                    'tbl_siswa.nis',
+                    'tbl_siswa.nisn',
+                    'k.namakelas as kelas' // POIN 5 & 6: Ambil kelas dari tabel kelas
+                )
+                ->leftJoin('tbl_siswakelas as sk', function($join) use ($tahunAjaranAktif) {
+                    $join->on('tbl_siswa.idsiswa', '=', 'sk.idsiswa');
+                })
+                ->leftJoin('tbl_kelasdetail as kd', 'sk.idkelasdetail', '=', 'kd.idkelasdetail')
+                ->leftJoin('tbl_kelas as k', 'kd.idkelas', '=', 'k.idkelas')
+                ->where('kd.idthnajaran', $tahunAjaranAktif->idthnajaran)
+                ->get()
+                ->map(function($item) {
+                    return [
+                        'value' => $item->idsiswa,
+                        'label' => $item->namasiswa,
+                        'nis' => $item->nis,
+                        'nisn' => $item->nisn,
+                        'kelas' => $item->kelas ?: '-' // POIN 5: Default value '-'
+                    ];
+                });
+
+            // Data pegawai (tanpa jabatan) - POIN 7
+            $pegawai = PegawaiModel::select(
+                    'idpegawai as id',
+                    'namapegawai as nama_pegawai'
                 )
                 ->get();
 
-            Log::info('Data loaded dengan validasi', [
+            Log::info('Data loaded dengan tahun ajaran aktif', [
+                'tahun_ajaran' => $tahunAjaranAktif->thnajaran,
                 'siswa_count' => $siswa->count(),
-                'jabatan_count' => $jabatan->count(),
-                'jabatan_sample' => $jabatan->first(), // DEBUG
                 'pegawai_count' => $pegawai->count()
             ]);
 
@@ -189,8 +238,11 @@ class BukuTamuController extends Controller
                 'success' => true,
                 'data' => [
                     'siswa' => $siswa,
-                    'jabatan' => $jabatan,
-                    'pegawai' => $pegawai
+                    'pegawai' => $pegawai,
+                    'tahun_ajaran_aktif' => [
+                        'idthnajaran' => $tahunAjaranAktif->idthnajaran,
+                        'thnajaran' => $tahunAjaranAktif->thnajaran
+                    ]
                 ]
             ]);
 
@@ -204,45 +256,7 @@ class BukuTamuController extends Controller
     }
 
     /**
-     * Get pegawai berdasarkan jabatan - PAKAI QUERY MANUAL JUGA
-     */
-    public function getPegawai($jabatanId)
-    {
-        try {
-            Log::info('Getting pegawai for jabatan dengan QUERY MANUAL: ' . $jabatanId);
-
-            // PAKAI QUERY MANUAL
-            $pegawaiData = DB::table('tbl_pegawai as p')
-                ->join('tbl_jabatanpegawai as jp', 'p.idpegawai', '=', 'jp.idpegawai')
-                ->join('tbl_jabatan as j', 'jp.idjabatan', '=', 'j.idjabatan')
-                ->where('j.idjabatan', $jabatanId)
-                ->select(
-                    'p.idpegawai as id',
-                    'p.namapegawai as nama_pegawai',
-                    'p.hppegawai as kontak',
-                    'j.jabatan as jabatan'
-                )
-                ->get();
-
-            Log::info('Pegawai data found dengan QUERY MANUAL: ' . $pegawaiData->count() . ' records');
-
-            return response()->json([
-                'success' => true,
-                'data' => $pegawaiData
-            ]);
-
-        } catch (\Exception $e) {
-            Log::error('Error in getPegawai: ' . $e->getMessage());
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Gagal mengambil data pegawai: ' . $e->getMessage()
-            ], 500);
-        }
-    }
-
-    /**
-     * Get data orangtua berdasarkan siswa - TETAP PAKAI ELOQUENT (karena simple)
+     * Get data orangtua berdasarkan siswa - DENGAN RESET KONTAK & ALAMAT
      */
     public function getOrangtua($siswaId)
     {
@@ -251,13 +265,14 @@ class BukuTamuController extends Controller
 
             $orangtua = OrtuModel::where('idsiswa', $siswaId)->first();
 
+            // POIN 1: Selalu return dengan kontak dan alamat kosong
             if ($orangtua) {
                 return response()->json([
                     'success' => true,
                     'data' => [
                         'nama_ortu' => $orangtua->nama_ayah,
-                        'kontak' => $orangtua->hp_ayah,
-                        'alamat' => $orangtua->alamat_ayah
+                        'kontak' => '', // POIN 1: Selalu dikosongkan
+                        'alamat' => ''  // POIN 1: Selalu dikosongkan
                     ]
                 ]);
             } else {
@@ -265,8 +280,8 @@ class BukuTamuController extends Controller
                     'success' => true,
                     'data' => [
                         'nama_ortu' => '',
-                        'kontak' => '',
-                        'alamat' => ''
+                        'kontak' => '', // POIN 1: Selalu dikosongkan
+                        'alamat' => ''  // POIN 1: Selalu dikosongkan
                     ]
                 ]);
             }
@@ -282,7 +297,7 @@ class BukuTamuController extends Controller
     }
 
     /**
-     * Store data buku tamu dari React - DENGAN FIELD MAPPING
+     * Store data buku tamu dari React - DENGAN PERBAIKAN UNTUK POIN 7
      */
     public function storeUser(Request $request)
     {
@@ -294,17 +309,27 @@ class BukuTamuController extends Controller
                 'instansi' => 'nullable|string|max:255',
                 'alamat' => 'required|string',
                 'kontak' => 'required|string|max:255',
-                'id_jabatan' => 'required|exists:tbl_jabatan,idjabatan', // Tetap validasi dengan id_jabatan
-                'id_pegawai' => 'required|exists:tbl_pegawai,idpegawai', // Tetap validasi dengan id_pegawai
+                'id_pegawai' => 'required|exists:tbl_pegawai,idpegawai',
                 'keperluan' => 'required|string',
                 'foto_tamu' => 'nullable|string',
             ]);
 
             Log::info('Storing guestbook data', [
                 'pegawai_id' => $request->id_pegawai,
-                'jabatan_id' => $request->id_jabatan,
-                'all_data' => $request->all() // DEBUG
+                'all_data' => $request->all()
             ]);
+
+            // POIN 6: Ambil tahun ajaran aktif
+            $tahunAjaranAktif = TahunAjaranModel::whereRaw('CURDATE() BETWEEN tglmulai AND tglakhir')
+                // ->where('statusaktif', 'Y')
+                ->first();
+
+            if (!$tahunAjaranAktif) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tidak ada tahun ajaran aktif'
+                ], 422);
+            }
 
             // Proses foto
             $imageName = null;
@@ -325,7 +350,7 @@ class BukuTamuController extends Controller
                 file_put_contents($fotoTamuPath, $imageData);
             }
 
-            // **PERBAIKAN: Mapping field name untuk match dengan database**
+            // POIN 7: Hapus field jabatan, tambah tahun ajaran
             $bukuTamu = BukuTamu::create([
                 'nama' => $request->nama,
                 'role' => $request->role,
@@ -333,10 +358,10 @@ class BukuTamuController extends Controller
                 'instansi' => $request->instansi,
                 'alamat' => $request->alamat,
                 'kontak' => $request->kontak,
-                'idjabatan' => $request->id_jabatan, // Mapping: id_jabatan → idjabatan
-                'idpegawai' => $request->id_pegawai, // Mapping: id_pegawai → idpegawai
+                'idpegawai' => $request->id_pegawai,
                 'keperluan' => $request->keperluan,
                 'foto_tamu' => $imageName,
+                'idthnajaran' => $tahunAjaranAktif->idthnajaran, // POIN 6 & 8
             ]);
 
             Log::info('Guestbook data saved successfully: ' . $bukuTamu->id);
@@ -361,14 +386,37 @@ class BukuTamuController extends Controller
     }
 
     /**
+     * Get data tahun ajaran untuk filter admin - POIN 8
+     */
+    public function getTahunAjaranOptions()
+    {
+        try {
+            $tahunAjaran = TahunAjaranModel::select('idthnajaran as id', 'thnajaran as tahun_ajaran')
+                ->orderBy('tglmulai', 'asc')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => $tahunAjaran
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error getting tahun ajaran options: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengambil data tahun ajaran'
+            ], 500);
+        }
+    }
+
+    /**
      * Send WhatsApp notification
      */
     private function sendWhatsAppNotification($bukuTamu, $fotoTamuPath)
     {
         $apiKey = env('FONNTE_API_KEY');
 
-        // Ambil data pegawai
-        $pegawai = PegawaiModel::find($bukuTamu->id_pegawai);
+        $pegawai = PegawaiModel::find($bukuTamu->idpegawai);
 
         if ($pegawai && !empty($pegawai->hppegawai)) {
             $nomor = ltrim($pegawai->hppegawai, '0');
@@ -378,7 +426,6 @@ class BukuTamuController extends Controller
 
             Log::info('Sending WhatsApp to: ' . $nomor);
 
-            // Kirim foto jika ada
             if ($fotoTamuPath && file_exists($fotoTamuPath)) {
                 $imageUrl = env('APP_URL') . "/uploads/foto_tamu/{$bukuTamu->foto_tamu}";
 
@@ -392,7 +439,6 @@ class BukuTamuController extends Controller
                 Log::info('Foto WhatsApp sent: ' . $response->successful());
             }
 
-            // Kirim pesan detail
             $pesanTeks = $this->formatWhatsAppMessage($bukuTamu, $pegawai);
 
             $response = Http::withHeaders(['Authorization' => $apiKey])
@@ -404,7 +450,7 @@ class BukuTamuController extends Controller
             Log::info('Pesan WhatsApp sent: ' . $response->successful());
 
         } else {
-            Log::warning('Pegawai not found or no contact number for ID: ' . $bukuTamu->id_pegawai);
+            Log::warning('Pegawai not found or no contact number for ID: ' . $bukuTamu->idpegawai);
         }
     }
 

@@ -20,12 +20,16 @@ return new class extends Migration {
             $table->string('kontak');
 
             // FK ke jabatan (tbl_jabatan.idjabatan)
-            $table->integer('idjabatan')->unsigned(); // BUKAN id_jabatan
-            $table->foreign('idjabatan')->references('idjabatan')->on('tbl_jabatan')->onDelete('cascade');
+            // $table->integer('idjabatan')->unsigned(); // BUKAN id_jabatan
+            // $table->foreign('idjabatan')->references('idjabatan')->on('tbl_jabatan')->onDelete('cascade');
 
             // FK ke pegawai (tbl_pegawai.idpegawai)
             $table->integer('idpegawai')->unsigned();
             $table->foreign('idpegawai')->references('idpegawai')->on('tbl_pegawai')->onDelete('cascade');
+
+            // FK ke pegawai (tbl_thnajaran.idthnajaran)
+            $table->integer('idthnajaran')->unsigned();
+            $table->foreign('idthnajaran')->references('idthnajaran')->on('tbl_thnajaran')->onDelete('cascade');
 
             $table->text('keperluan');
             $table->longText('foto_tamu')->nullable();
