@@ -47,6 +47,6 @@ class BukuTamu extends Model
     // POIN 8: Relasi tahun ajaran
     public function tahunAjaran()
     {
-        return $this->belongsTo(TahunAjaranModel::class, 'id_tahun_ajaran', 'idthnajaran');
+        return $this->belongsTo(TahunAjaranModel::class, 'idthnajaran', 'idthnajaran');
     }
 }
