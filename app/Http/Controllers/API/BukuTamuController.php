@@ -88,7 +88,6 @@ class BukuTamuController extends Controller
 
         // POIN 6: Ambil tahun ajaran aktif
         $tahunAjaranAktif = TahunAjaranModel::whereRaw('CURDATE() BETWEEN tglmulai AND tglakhir')
-            // ->where('statusaktif', 'Y')
             ->first();
 
         if (!$tahunAjaranAktif) {
@@ -183,7 +182,6 @@ class BukuTamuController extends Controller
 
             // POIN 6: Ambil tahun ajaran aktif
             $tahunAjaranAktif = TahunAjaranModel::whereRaw('CURDATE() BETWEEN tglmulai AND tglakhir')
-                // ->where('statusaktif', 'Y')
                 ->first();
 
             if (!$tahunAjaranAktif) {
@@ -321,7 +319,6 @@ class BukuTamuController extends Controller
 
             // POIN 6: Ambil tahun ajaran aktif
             $tahunAjaranAktif = TahunAjaranModel::whereRaw('CURDATE() BETWEEN tglmulai AND tglakhir')
-                // ->where('statusaktif', 'Y')
                 ->first();
 
             if (!$tahunAjaranAktif) {
