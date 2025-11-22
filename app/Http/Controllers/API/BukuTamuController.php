@@ -105,6 +105,7 @@ class BukuTamuController extends Controller
 
                 Storage::disk('public')->put('foto_tamu/' . $imageName, $imageData);
                 $validatedData['foto_tamu'] = $imageName;
+
                 $imageUrlForWa = Storage::url('foto_tamu/' . $imageName);
 
             } catch (\Exception $e) {
@@ -333,19 +334,40 @@ class BukuTamuController extends Controller
             $fotoTamuPath = null;
 
             if (!empty($request->foto_tamu)) {
-                $image = str_replace('data:image/jpeg;base64,', '', $request->foto_tamu);
-                $image = str_replace(' ', '+', $image);
-                $imageData = base64_decode($image);
+                try {
+                    $image = $request->input('foto_tamu');
+                    $image = str_replace('data:image/jpeg;base64,', '', $image);
+                    $image = str_replace(' ', '+', $image);
+                    $imageData = base64_decode($image);
 
-                $folder = 'uploads/foto_tamu';
-                if (!file_exists($folder)) {
-                    mkdir($folder, 0777, true);
+                    $imageName = 'tamu_' . time() . '.jpg';
+
+                    // SIMPAN PAKAI STORAGE - INI YANG BENAR!
+                    Storage::disk('public')->put('foto_tamu/' . $imageName, $imageData);
+
+                    Log::info('Foto berhasil disimpan: ' . $imageName);
+
+                } catch (\Exception $e) {
+                    Log::error('Gagal menyimpan foto: ' . $e->getMessage());
+                    $imageName = null; // Biar data tetap tersimpan tanpa foto
                 }
-
-                $imageName = 'tamu_' . time() . '.jpg';
-                $fotoTamuPath = public_path($folder . '/' . $imageName);
-                file_put_contents($fotoTamuPath, $imageData);
             }
+
+            // if (!empty($request->foto_tamu)) {
+            //     $image = $request->input('foto_tamu');
+            //     $image = str_replace('data:image/jpeg;base64,', '', $image);
+            //     $image = str_replace(' ', '+', $image);
+            //     $imageData = base64_decode($image);
+
+            //     $folder = 'uploads/foto_tamu';
+            //     if (!file_exists($folder)) {
+            //         mkdir($folder, 0777, true);
+            //     }
+
+            //     $imageName = 'tamu_' . time() . '.jpg';
+            //     $fotoTamuPath = public_path($folder . '/' . $imageName);
+            //     file_put_contents($fotoTamuPath, $imageData);
+            // }
 
             // POIN 7: Hapus field jabatan, tambah tahun ajaran
             $bukuTamu = BukuTamu::create([
@@ -423,8 +445,24 @@ class BukuTamuController extends Controller
 
             Log::info('Sending WhatsApp to: ' . $nomor);
 
-            if ($fotoTamuPath && file_exists($fotoTamuPath)) {
-                $imageUrl = env('APP_URL') . "/uploads/foto_tamu/{$bukuTamu->foto_tamu}";
+            // if ($fotoTamuPath && file_exists($fotoTamuPath)) {
+            //     $imageUrl = env('APP_URL') . "/storage/foto_tamu/{$bukuTamu->foto_tamu}";
+
+            //     $response = Http::withHeaders(['Authorization' => $apiKey])
+            //         ->post('https://api.fonnte.com/send', [
+            //             'target' => $nomor,
+            //             'url' => $imageUrl,
+            //             'message' => "Assalamualaikum Bapak/Ibu {$pegawai->namapegawai}, ini adalah foto tamu Anda.",
+            //         ]);
+
+            //     Log::info('Foto WhatsApp sent: ' . $response->successful());
+            // }
+
+            // PERBAIKI BAGIAN INI - GUNAKAN STORAGE URL
+            if ($bukuTamu->foto_tamu) {
+                $imageUrl = url('storage/foto_tamu/' . $bukuTamu->foto_tamu);
+
+                Log::info('Attempting to send photo via WhatsApp: ' . $imageUrl);
 
                 $response = Http::withHeaders(['Authorization' => $apiKey])
                     ->post('https://api.fonnte.com/send', [
@@ -434,6 +472,9 @@ class BukuTamuController extends Controller
                     ]);
 
                 Log::info('Foto WhatsApp sent: ' . $response->successful());
+                if (!$response->successful()) {
+                    Log::error('WhatsApp photo error: ' . $response->body());
+                }
             }
 
             $pesanTeks = $this->formatWhatsAppMessage($bukuTamu, $pegawai);
