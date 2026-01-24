@@ -12,6 +12,7 @@ use App\Models\BukuTamu;
 use App\Models\TahunAjaranModel;
 use App\Models\KelasDetailModel;
 use App\Models\SiswaKelasModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
@@ -386,7 +387,7 @@ class BukuTamuController extends Controller
             Log::info('Guestbook data saved successfully: ' . $bukuTamu->id);
 
             // Kirim WhatsApp notification
-            // $this->sendWhatsAppNotification($bukuTamu, $fotoTamuPath);
+            $this->sendWhatsAppNotification($bukuTamu);
 
             return response()->json([
                 'success' => true,
@@ -429,93 +430,315 @@ class BukuTamuController extends Controller
     }
 
     /**
-     * Send WhatsApp notification
+     * Send WhatsApp notification - FIXED VERSION
      */
-    private function sendWhatsAppNotification($bukuTamu, $fotoTamuPath)
+    private function sendWhatsAppNotification($bukuTamu)
     {
-        $apiKey = env('FONNTE_API_KEY');
+        try {
+            Log::info('🔔 === WHATSAPP NOTIFICATION START ===');
+            Log::info('📋 BukuTamu ID: ' . $bukuTamu->id);
+            Log::info('👤 Pegawai ID dari BukuTamu: ' . $bukuTamu->idpegawai);
 
-        $pegawai = PegawaiModel::find($bukuTamu->idpegawai);
+            $apiKey = env('FONNTE_API_KEY');
+            Log::info('🔑 API Key: ' . ($apiKey ? 'ADA' : 'TIDAK ADA'));
 
-        if ($pegawai && !empty($pegawai->hppegawai)) {
-            $nomor = ltrim($pegawai->hppegawai, '0');
-            if (!str_starts_with($nomor, '62')) {
-                $nomor = '62' . $nomor;
+            if (!$apiKey) {
+                Log::error('❌ FONNTE_API_KEY not found in .env');
+                return;
             }
 
-            Log::info('Sending WhatsApp to: ' . $nomor);
+            $pegawai = PegawaiModel::find($bukuTamu->idpegawai);
 
-            // if ($fotoTamuPath && file_exists($fotoTamuPath)) {
-            //     $imageUrl = env('APP_URL') . "/storage/foto_tamu/{$bukuTamu->foto_tamu}";
+            if (!$pegawai) {
+                Log::error('❌ Pegawai not found for ID: ' . $bukuTamu->idpegawai);
 
-            //     $response = Http::withHeaders(['Authorization' => $apiKey])
-            //         ->post('https://api.fonnte.com/send', [
-            //             'target' => $nomor,
-            //             'url' => $imageUrl,
-            //             'message' => "Assalamualaikum Bapak/Ibu {$pegawai->namapegawai}, ini adalah foto tamu Anda.",
-            //         ]);
+                // Coba log semua pegawai untuk debug
+                $allPegawai = PegawaiModel::select('idpegawai', 'namapegawai')->get();
+                Log::info('📝 All Pegawai IDs: ' . $allPegawai->pluck('idpegawai')->implode(', '));
+                return;
+            }
 
-            //     Log::info('Foto WhatsApp sent: ' . $response->successful());
-            // }
+            Log::info('✅ Pegawai found: ' . $pegawai->namapegawai);
+            Log::info('📞 Raw HP Pegawai: "' . ($pegawai->hppegawai ?: 'NULL') . '"');
 
-            // PERBAIKI BAGIAN INI - GUNAKAN STORAGE URL
+            if (empty($pegawai->hppegawai)) {
+                Log::warning('❌ No contact number for pegawai: ' . $pegawai->namapegawai);
+                return;
+            }
+
+            $nomor = $this->formatPhoneNumber($pegawai->hppegawai);
+            Log::info('🔢 Formatted number: ' . $nomor);
+
+            if (!$nomor) {
+                Log::error('❌ Invalid phone number after formatting: ' . $pegawai->hppegawai);
+                return;
+            }
+
+            Log::info('🚀 Sending WhatsApp to: ' . $nomor);
+
+            // Kirim foto jika ada
+            if ($bukuTamu->foto_tamu) {
+                Log::info('🖼️ Photo exists, sending photo message');
+                $this->sendPhotoMessage($apiKey, $nomor, $pegawai, $bukuTamu);
+            } else {
+                Log::info('📷 No photo, skipping photo message');
+            }
+
+            // Kirim pesan teks
+            Log::info('💬 Sending text message');
+            $this->sendTextMessage($apiKey, $nomor, $pegawai, $bukuTamu);
+
+            Log::info('✅ === WHATSAPP NOTIFICATION END ===');
+
+        } catch (\Exception $e) {
+            Log::error('💥 WhatsApp notification error: ' . $e->getMessage());
+            Log::error('📋 Stack trace: ' . $e->getTraceAsString());
+        }
+    }
+
+    /**
+     * Format phone number untuk WhatsApp
+     */
+    private function formatPhoneNumber($phone)
+    {
+        // Hapus karakter non-digit
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+
+        // Hapus leading zero
+        $phone = ltrim($phone, '0');
+
+        // Tambahkan 62 jika belum ada
+        if (!str_starts_with($phone, '62')) {
+            $phone = '62' . $phone;
+        }
+
+        // Validasi panjang nomor
+        if (strlen($phone) < 10 || strlen($phone) > 15) {
+            return null;
+        }
+
+        return $phone;
+    }
+
+    /**
+     * Send photo message via WhatsApp
+     */
+    private function sendPhotoMessage($apiKey, $nomor, $pegawai, $bukuTamu)
+    {
+        try {
+            $imageUrl = url('storage/foto_tamu/' . $bukuTamu->foto_tamu);
+
+            Log::info('Sending photo via WhatsApp: ' . $imageUrl);
+
+            $response = Http::withHeaders([
+                'Authorization' => $apiKey
+            ])->timeout(30)->post('https://api.fonnte.com/send', [
+                'target' => $nomor,
+                'url' => $imageUrl,
+                'message' => "Assalamualaikum Bapak/Ibu {$pegawai->namapegawai}, ini adalah foto tamu Anda.",
+                'delay' => 2 // Delay 2 detik sebelum kirim
+            ]);
+
+            if ($response->successful()) {
+                Log::info('Photo WhatsApp sent successfully');
+            } else {
+                Log::error('Photo WhatsApp failed: ' . $response->body());
+            }
+
+        } catch (\Exception $e) {
+            Log::error('Photo WhatsApp error: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Send text message via WhatsApp - DENGAN LINK FOTO
+     */
+    private function sendTextMessage($apiKey, $nomor, $pegawai, $bukuTamu)
+    {
+        try {
+            // PAKAI FORMAT PERSIS SEPERTI YANG DULU BERHASIL + LINK FOTO
+            $pesanTeks = "Assalamualaikum Bapak/Ibu {$pegawai->namapegawai},\n\n"
+                    . "Ini adalah nomor layanan Hotline SMK Negeri 1 Cimahi.\n"
+                    . "Saat ini ada tamu yang ingin bertemu dengan Anda sedang menunggu di Ruang Resepsionis.\n\n";
+
+            if ($bukuTamu->role == 'ortu') {
+                $siswa = SiswaModel::find($bukuTamu->idsiswa);
+                $pesanTeks .= "Nama Tamu: {$bukuTamu->nama}.\n"
+                        . "Orang tua dari siswa: {$siswa->namasiswa}.\n"
+                        . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
+            } else {
+                $pesanTeks .= "Nama Tamu: {$bukuTamu->nama}.\n"
+                        . "Asal Instansi: {$bukuTamu->instansi}.\n"
+                        . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
+            }
+
+            // TAMBAHKAN LINK FOTO JIKA ADA
             if ($bukuTamu->foto_tamu) {
                 $imageUrl = url('storage/foto_tamu/' . $bukuTamu->foto_tamu);
-
-                Log::info('Attempting to send photo via WhatsApp: ' . $imageUrl);
-
-                $response = Http::withHeaders(['Authorization' => $apiKey])
-                    ->post('https://api.fonnte.com/send', [
-                        'target' => $nomor,
-                        'url' => $imageUrl,
-                        'message' => "Assalamualaikum Bapak/Ibu {$pegawai->namapegawai}, ini adalah foto tamu Anda.",
-                    ]);
-
-                Log::info('Foto WhatsApp sent: ' . $response->successful());
-                if (!$response->successful()) {
-                    Log::error('WhatsApp photo error: ' . $response->body());
-                }
+                $pesanTeks .= "Photo: {$imageUrl} .\n";
             }
 
-            $pesanTeks = $this->formatWhatsAppMessage($bukuTamu, $pegawai);
+            $pesanTeks .= "\nKeperluan: {$bukuTamu->keperluan}\n"
+                    . "Waktu: " . now()->format('d F Y, H:i') . " WIB\n\n"
+                    . "Untuk konfirmasi atau informasi lebih lanjut, silakan hubungi kontak nomor Whatsapp tamu tersebut.\n";
 
-            $response = Http::withHeaders(['Authorization' => $apiKey])
-                ->post('https://api.fonnte.com/send', [
-                    'target' => $nomor,
-                    'message' => $pesanTeks,
-                ]);
+            Log::info('💬 Sending WhatsApp message WITH PHOTO LINK', [
+                'target' => $nomor,
+                'message_length' => strlen($pesanTeks),
+                'has_photo_link' => !empty($bukuTamu->foto_tamu),
+                'photo_url' => $bukuTamu->foto_tamu ? url('storage/foto_tamu/' . $bukuTamu->foto_tamu) : 'none'
+            ]);
 
-            Log::info('Pesan WhatsApp sent: ' . $response->successful());
+            $response = Http::withHeaders([
+                'Authorization' => $apiKey
+            ])->timeout(30)->post('https://api.fonnte.com/send', [
+                'target' => $nomor,
+                'message' => $pesanTeks,
+            ]);
 
-        } else {
-            Log::warning('Pegawai not found or no contact number for ID: ' . $bukuTamu->idpegawai);
+            $result = json_decode($response->body(), true);
+
+            Log::info('📡 WhatsApp API Response:', [
+                'status' => $result['status'] ?? 'unknown',
+                'reason' => $result['reason'] ?? 'none'
+            ]);
+
+            if ($result['status'] === true) {
+                Log::info('✅ WhatsApp sent successfully with photo link');
+                return true;
+            } else {
+                Log::error('❌ WhatsApp failed: ' . $response->body());
+                return false;
+            }
+
+        } catch (\Exception $e) {
+            Log::error('💥 WhatsApp error: ' . $e->getMessage());
+            return false;
         }
     }
 
     /**
      * Format WhatsApp message
      */
-    private function formatWhatsAppMessage($bukuTamu, $pegawai)
+    // private function formatWhatsAppMessage($bukuTamu, $pegawai)
+    // {
+    //     $pesan = "Assalamualaikum Bapak/Ibu {$pegawai->namapegawai},\n\n"
+    //            . "Ini adalah nomor layanan Hotline SMK Negeri 1 Cimahi.\n"
+    //            . "Saat ini ada tamu yang ingin bertemu dengan Anda sedang menunggu di Ruang Resepsionis.\n\n";
+
+    //     if ($bukuTamu->role == 'ortu') {
+    //         $siswa = SiswaModel::find($bukuTamu->idsiswa);
+    //         $pesan .= "Nama Tamu: {$bukuTamu->nama}.\n"
+    //                . "Orang tua dari siswa: {$siswa->namasiswa}.\n"
+    //                . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
+    //     } else {
+    //         $pesan .= "Nama Tamu: {$bukuTamu->nama}.\n"
+    //                . "Asal Instansi: {$bukuTamu->instansi}.\n"
+    //                . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
+    //     }
+
+    //     $pesan .= "\nKeperluan: {$bukuTamu->keperluan}\n"
+    //            . "Waktu: " . now()->format('d F Y, H:i') . " WIB\n\n"
+    //            . "Untuk konfirmasi atau informasi lebih lanjut, silakan hubungi kontak nomor Whatsapp tamu tersebut.\n";
+
+    //     return $pesan;
+    // }
+
+    /**
+     * AMBIL DATA GRAFIK (DIADAPTASI DARI KODE PRIBADI)
+     * Digunakan untuk Dashboard Sekolah
+     */
+    public function getGrafikData(Request $request)
     {
-        $pesan = "Assalamualaikum Bapak/Ibu {$pegawai->namapegawai},\n\n"
-               . "Ini adalah nomor layanan Hotline SMK Negeri 1 Cimahi.\n"
-               . "Saat ini ada tamu yang ingin bertemu dengan Anda sedang menunggu di Ruang Resepsionis.\n\n";
+        try {
+            $filterType = $request->get('filter_type', 'harian');
+            $year = $request->get('year', Carbon::now()->year);
+            $month = $request->get('month') !== null ? (int)$request->get('month') + 1 : Carbon::now()->month;
+            $week = $request->get('week');
 
-        if ($bukuTamu->role == 'ortu') {
-            $siswa = SiswaModel::find($bukuTamu->idsiswa);
-            $pesan .= "Nama Tamu: {$bukuTamu->nama}.\n"
-                   . "Orang tua dari siswa: {$siswa->namasiswa}.\n"
-                   . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
-        } else {
-            $pesan .= "Nama Tamu: {$bukuTamu->nama}.\n"
-                   . "Asal Instansi: {$bukuTamu->instansi}.\n"
-                   . "Dengan Nomor WA: {$bukuTamu->kontak}.\n";
+            $labels = [];
+            $data = [];
+
+            if ($filterType === 'harian') {
+                $date = $request->get('date', Carbon::today()->toDateString());
+                $labels = ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
+                $data = array_fill(0, count($labels), 0);
+
+                $visits = BukuTamu::whereDate('created_at', $date)
+                    ->selectRaw('HOUR(created_at) as hour, COUNT(*) as count')
+                    ->groupBy('hour')->get();
+
+                foreach ($visits as $visit) {
+                    $hourStr = str_pad($visit->hour, 2, '0', STR_PAD_LEFT) . ':00';
+                    $index = array_search($hourStr, $labels);
+                    if ($index !== false) $data[$index] = (int)$visit->count;
+                }
+            }
+            elseif ($filterType === 'mingguan') {
+                $labels = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                $data = array_fill(0, 7, 0);
+
+                // Ambil tanggal 1 di bulan & tahun terpilih
+                $startOfSelectedMonth = Carbon::create($year, $month, 1)->startOfDay();
+
+                // Cari awal minggu (Senin) berdasarkan nomor minggu yang dipilih
+                // Minggu 1 dimulai dari tanggal 1 bulan tersebut
+                $startOfDate = $startOfSelectedMonth->copy()->addWeeks($week - 1)->startOfWeek(Carbon::MONDAY);
+                $endOfDate = $startOfDate->copy()->endOfWeek(Carbon::SUNDAY);
+
+                $visits = BukuTamu::whereBetween('created_at', [$startOfDate, $endOfDate])
+                    ->selectRaw('DAYOFWEEK(created_at) as day, COUNT(*) as count')
+                    ->groupBy('day')->get();
+
+                // MySQL DAYOFWEEK: 1=Minggu, 2=Senin, ... 7=Sabtu
+                $map = [2 => 0, 3 => 1, 4 => 2, 5 => 3, 6 => 4, 7 => 5, 1 => 6];
+                foreach ($visits as $v) {
+                    if (isset($map[$v->day])) $data[$map[$v->day]] = (int)$v->count;
+                }
+            }
+            elseif ($filterType === 'bulanan') {
+                $daysInMonth = Carbon::create($year, $month)->daysInMonth;
+                $labels = range(1, $daysInMonth);
+                $data = array_fill(0, $daysInMonth, 0);
+
+                $visits = BukuTamu::whereYear('created_at', $year)
+                    ->whereMonth('created_at', $month)
+                    ->selectRaw('DAY(created_at) as day, COUNT(*) as count')
+                    ->groupBy('day')->get();
+
+                foreach ($visits as $v) {
+                    if (isset($data[$v->day - 1])) $data[$v->day - 1] = (int)$v->count;
+                }
+            }
+            else { // Tahunan
+                $labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                $data = array_fill(0, 12, 0);
+
+                $visits = BukuTamu::whereYear('created_at', $year)
+                    ->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                    ->groupBy('month')->get();
+
+                foreach ($visits as $v) {
+                    if (isset($data[$v->month - 1])) $data[$v->month - 1] = (int)$v->count;
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'labels' => $labels,
+                    'datasets' => [[
+                        'label' => 'Jumlah Tamu',
+                        'data' => $data,
+                        'borderColor' => '#3b82f6',
+                        'backgroundColor' => 'rgba(59, 130, 246, 0.1)',
+                        'fill' => true,
+                        'tension' => 0.4
+                    ]]
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
-
-        $pesan .= "\nKeperluan: {$bukuTamu->keperluan}\n"
-               . "Waktu: " . now()->format('d F Y, H:i') . " WIB\n\n"
-               . "Untuk konfirmasi atau informasi lebih lanjut, silakan hubungi kontak nomor Whatsapp tamu tersebut.\n";
-
-        return $pesan;
     }
 }
