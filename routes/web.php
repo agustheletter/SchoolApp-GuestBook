@@ -19,12 +19,33 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SiswaKelasController;
 use App\Http\Controllers\SppController;
 use App\Http\Controllers\TahunAjaranController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Event\TestRunner\WarningTriggered;
 
 Route::get('/', function () {
     return view('users.landing');
 })->name('landing');
+
+// Route::get('/test-fonnte', function() {
+//     $apiKey = env('FONNTE_API_KEY');
+
+//     if (!$apiKey) {
+//         return "FONNTE_API_KEY not found in .env";
+//     }
+
+//     $response = Http::withHeaders([
+//         'Authorization' => $apiKey
+//     ])->post('https://api.fonnte.com/send', [
+//         'target' => '6288222134661', // Ganti dengan nomor test lo
+//         'message' => '🔔 TEST: Notifikasi Buku Tamu SMKN 1 Cimahi berhasil!',
+//     ]);
+
+//     return [
+//         'status' => $response->successful() ? 'Success' : 'Failed',
+//         'response' => $response->body()
+//     ];
+// });
 
 // 404 Route
 Route::fallback(function () {
